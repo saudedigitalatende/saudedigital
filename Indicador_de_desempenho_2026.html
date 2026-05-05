@@ -369,9 +369,9 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
         <div class="exec-card" style="margin-bottom:0;border-radius:var(--rl);grid-column:1/-1">
           <div class="exec-eyebrow">Resumo executivo — jan–abr 2026</div>
           <div class="exec-grid" style="grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px">
-            <div class="exec-stat"><div class="exec-val ev-blue">4.977</div><div class="exec-label">total de chamados</div></div>
-            <div class="exec-stat"><div class="exec-val ev-green">4032</div><div class="exec-label">encerrados · 81.0%</div></div>
-            <div class="exec-stat"><div class="exec-val ev-amber">945</div><div class="exec-label">em aberto · 19.0%</div></div>
+            <div class="exec-stat"><div class="exec-val ev-blue" id="ev-total">4.977</div><div class="exec-label">total de chamados</div></div>
+            <div class="exec-stat"><div class="exec-val ev-green" id="ev-enc">4032</div><div class="exec-label" id="el-enc">encerrados · 81.0%</div></div>
+            <div class="exec-stat"><div class="exec-val ev-amber" id="ev-ab">945</div><div class="exec-label" id="el-ab">em aberto · 19.0%</div></div>
             <div class="exec-stat"><div class="exec-val ev-teal">90,5%</div><div class="exec-label">CSAT atendimento</div></div>
           </div>
           <div class="exec-note"><strong>Destaque positivo:</strong> Canal #saudedigitalatende registrou 90,5% de aprovação nas 21 pesquisas de 2026 — <strong>81% avaliaram como Excelente</strong>. Contraste crítico: Infraestrutura em colapso (51,8% SLA) contra Sistemas com 77,4%. Meta institucional de 85% SLA não atingida em nenhum grupo. DS3 é o melhor distrito (76,1%).</div>
@@ -429,12 +429,12 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;margin-bottom:8px">
             <div style="background:rgba(255,255,255,.07);border-radius:7px;padding:7px 10px;text-align:center">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:300;color:#90caf9;line-height:1">472</div>
-              <div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px">encerrados · 70,2%</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:300;color:#90caf9;line-height:1" id="infra-enc-val">472</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px" id="infra-enc-lbl">encerrados · 70,2%</div>
             </div>
             <div style="background:rgba(255,255,255,.07);border-radius:7px;padding:7px 10px;text-align:center">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:300;color:#ef9a9a;line-height:1">200</div>
-              <div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px">em aberto · 29,8%</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:300;color:#ef9a9a;line-height:1" id="infra-ab-val">200</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px" id="infra-ab-lbl">em aberto · 29,8%</div>
             </div>
           </div>
           <div class="estrutura-trend">
@@ -470,12 +470,12 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;margin-bottom:8px">
             <div style="background:rgba(255,255,255,.07);border-radius:7px;padding:7px 10px;text-align:center">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:300;color:#a5d6a7;line-height:1">821</div>
-              <div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px">encerrados · 95,0%</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:300;color:#a5d6a7;line-height:1" id="sist-enc-val">821</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px" id="sist-enc-lbl">encerrados · 95,0%</div>
             </div>
             <div style="background:rgba(255,255,255,.07);border-radius:7px;padding:7px 10px;text-align:center">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:300;color:#ffcc80;line-height:1">37</div>
-              <div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px">em aberto · 4,3%</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:300;color:#ffcc80;line-height:1" id="sist-ab-val">37</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px" id="sist-ab-lbl">em aberto · 4,3%</div>
             </div>
           </div>
           <div class="estrutura-trend">
@@ -699,7 +699,7 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
         <span style="font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Mês:</span>
         <div style="display:flex;gap:5px">
-          <button onclick="filtrarMes('todos')" id="btn-todos-sla" class="mes-btn active" style="font-size:10px;padding:3px 10px">Jan–Mar</button>
+          <button onclick="filtrarMes('todos')" id="btn-todos-sla" class="mes-btn active" style="font-size:10px;padding:3px 10px">Jan–Abr</button>
           <button onclick="filtrarMes('jan')" id="btn-jan-sla" class="mes-btn" style="font-size:10px;padding:3px 10px">Jan</button>
           <button onclick="filtrarMes('fev')" id="btn-fev-sla" class="mes-btn" style="font-size:10px;padding:3px 10px">Fev</button>
           <button onclick="filtrarMes('mar')" id="btn-mar-sla" class="mes-btn" style="font-size:10px;padding:3px 10px">Mar</button>
@@ -767,11 +767,11 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
         <span style="font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Mês:</span>
         <div style="display:flex;gap:5px">
-          <button onclick="filtrarMes('todos')" id="btn-todos-backlog" class="mes-btn active" style="font-size:10px;padding:3px 10px">Jan–Mar</button>
-          <button onclick="filtrarMes('jan')" id="btn-jan-backlog" class="mes-btn" style="font-size:10px;padding:3px 10px">Jan</button>
-          <button onclick="filtrarMes('fev')" id="btn-fev-backlog" class="mes-btn" style="font-size:10px;padding:3px 10px">Fev</button>
-          <button onclick="filtrarMes('mar')" id="btn-mar-backlog" class="mes-btn" style="font-size:10px;padding:3px 10px">Mar</button>
-          <button onclick="filtrarMes('abr')" id="btn-abr-backlog" class="mes-btn" style="font-size:10px;padding:3px 10px">Abr</button>
+          <button onclick="filtrarMes('todos')" id="btn-todos-bk" class="mes-btn active" style="font-size:10px;padding:3px 10px">Jan–Abr</button>
+          <button onclick="filtrarMes('jan')" id="btn-jan-bk" class="mes-btn" style="font-size:10px;padding:3px 10px">Jan</button>
+          <button onclick="filtrarMes('fev')" id="btn-fev-bk" class="mes-btn" style="font-size:10px;padding:3px 10px">Fev</button>
+          <button onclick="filtrarMes('mar')" id="btn-mar-bk" class="mes-btn" style="font-size:10px;padding:3px 10px">Mar</button>
+          <button onclick="filtrarMes('abr')" id="btn-abr-bk" class="mes-btn" style="font-size:10px;padding:3px 10px">Abr</button>
         </div>
       </div>
       <div class="section-hd" style="margin-top:0"><div class="section-title">Backlog & Concentração de risco</div></div>
@@ -820,7 +820,7 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
         <span style="font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Mês:</span>
         <div style="display:flex;gap:5px">
-          <button onclick="filtrarMes('todos')" id="btn-todos-concentracao" class="mes-btn active" style="font-size:10px;padding:3px 10px">Jan–Mar</button>
+          <button onclick="filtrarMes('todos')" id="btn-todos-concentracao" class="mes-btn active" style="font-size:10px;padding:3px 10px">Jan–Abr</button>
           <button onclick="filtrarMes('jan')" id="btn-jan-concentracao" class="mes-btn" style="font-size:10px;padding:3px 10px">Jan</button>
           <button onclick="filtrarMes('fev')" id="btn-fev-concentracao" class="mes-btn" style="font-size:10px;padding:3px 10px">Fev</button>
           <button onclick="filtrarMes('mar')" id="btn-mar-concentracao" class="mes-btn" style="font-size:10px;padding:3px 10px">Mar</button>
@@ -880,7 +880,7 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
         <span style="font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Mês:</span>
         <div style="display:flex;gap:5px">
-          <button onclick="filtrarMes('todos')" id="btn-todos-distritos" class="mes-btn active" style="font-size:10px;padding:3px 10px">Jan–Mar</button>
+          <button onclick="filtrarMes('todos')" id="btn-todos-distritos" class="mes-btn active" style="font-size:10px;padding:3px 10px">Jan–Abr</button>
           <button onclick="filtrarMes('jan')" id="btn-jan-distritos" class="mes-btn" style="font-size:10px;padding:3px 10px">Jan</button>
           <button onclick="filtrarMes('fev')" id="btn-fev-distritos" class="mes-btn" style="font-size:10px;padding:3px 10px">Fev</button>
           <button onclick="filtrarMes('mar')" id="btn-mar-distritos" class="mes-btn" style="font-size:10px;padding:3px 10px">Mar</button>
@@ -1113,19 +1113,26 @@ function fmt(v){ return v.toLocaleString('pt-BR'); }
 function filtrarMes(mes) {
   // Botões
   document.querySelectorAll('.mes-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('btn-'+mes).classList.add('active');
+  // Activate the right button (visao or backlog tab)
+  const btnMain = document.getElementById('btn-'+mes);
+  const btnBk   = document.getElementById('btn-'+mes+'-bk');
+  if(btnMain) btnMain.classList.add('active');
+  if(btnBk)   btnBk.classList.add('active');
   document.getElementById('mes-label').textContent = 'Exibindo: '+MESES_LABEL[mes];
 
   const d = DADOS[mes];
 
   // ── Resumo Executivo ──
-  const execVals = document.querySelectorAll('.exec-val');
-  execVals[0].textContent = fmt(d.total);
-  execVals[1].textContent = fmt(d.enc);
-  execVals[2].textContent = fmt(d.ab);
-  const execLabels = document.querySelectorAll('.exec-label');
-  execLabels[1].textContent = 'encerrados · '+Math.round(d.enc/d.total*100)+'%';
-  execLabels[2].textContent = 'em aberto · '+Math.round(d.ab/d.total*100)+'%';
+  const evTotal = document.getElementById('ev-total');
+  const evEnc   = document.getElementById('ev-enc');
+  const evAb    = document.getElementById('ev-ab');
+  const elEnc   = document.getElementById('el-enc');
+  const elAb    = document.getElementById('el-ab');
+  if(evTotal) evTotal.textContent = fmt(d.total);
+  if(evEnc)   evEnc.textContent   = fmt(d.enc);
+  if(evAb)    evAb.textContent    = fmt(d.ab);
+  if(elEnc)   elEnc.textContent   = 'encerrados · '+Math.round(d.enc/d.total*100)+'%';
+  if(elAb)    elAb.textContent    = 'em aberto · '+Math.round(d.ab/d.total*100)+'%';
 
   // ── Card Infraestrutura ──
   const infraCard = document.querySelector('.estrutura-card.infra');
@@ -1133,6 +1140,15 @@ function filtrarMes(mes) {
     infraCard.querySelector('.estrutura-sla').textContent = d.infra.sla+'%';
     infraCard.querySelector('.estrutura-total').textContent = fmt(d.infra.total)+' chamados · '+fmt(d.infra.fp)+' fora do prazo';
     infraCard.querySelector('.estrutura-bar-fill').style.width = d.infra.sla+'%';
+    // enc/ab values
+    const infraEncVal = document.getElementById('infra-enc-val');
+    const infraEncLbl = document.getElementById('infra-enc-lbl');
+    const infraAbVal  = document.getElementById('infra-ab-val');
+    const infraAbLbl  = document.getElementById('infra-ab-lbl');
+    if(infraEncVal) infraEncVal.textContent = fmt(d.infra.enc);
+    if(infraEncLbl) infraEncLbl.textContent = 'encerrados · '+Math.round(d.infra.enc/d.infra.total*100).toFixed(1)+'%';
+    if(infraAbVal)  infraAbVal.textContent  = fmt(d.infra.ab);
+    if(infraAbLbl)  infraAbLbl.textContent  = 'em aberto · '+Math.round(d.infra.ab/d.infra.total*100).toFixed(1)+'%';
     const equipes = infraCard.querySelectorAll('.estrutura-equipe');
     INFRA_GRUPOS.forEach((g,i) => {
       const gd = d.grupos[g]||{sla:0};
@@ -1149,6 +1165,15 @@ function filtrarMes(mes) {
     const bar = sistCard.querySelector('.estrutura-bar-fill');
     bar.style.width = d.sistemas.sla+'%';
     bar.style.background = d.sistemas.sla>=85?'linear-gradient(90deg,#81c784,#66bb6a)':'linear-gradient(90deg,#f57c00,#ffa726)';
+    // enc/ab values
+    const sistEncVal = document.getElementById('sist-enc-val');
+    const sistEncLbl = document.getElementById('sist-enc-lbl');
+    const sistAbVal  = document.getElementById('sist-ab-val');
+    const sistAbLbl  = document.getElementById('sist-ab-lbl');
+    if(sistEncVal) sistEncVal.textContent = fmt(d.sistemas.enc);
+    if(sistEncLbl) sistEncLbl.textContent = 'encerrados · '+(d.sistemas.enc/d.sistemas.total*100).toFixed(1)+'%';
+    if(sistAbVal)  sistAbVal.textContent  = fmt(d.sistemas.ab);
+    if(sistAbLbl)  sistAbLbl.textContent  = 'em aberto · '+(d.sistemas.ab/d.sistemas.total*100).toFixed(1)+'%';
     const equipes = sistCard.querySelectorAll('.estrutura-equipe');
     SIST_GRUPOS.forEach((g,i) => {
       const gd = d.grupos[g]||{sla:0};
