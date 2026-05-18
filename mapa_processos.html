@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mapa de Processos de TI — GTIC · Saúde Digital Recife</title>
+<title>Mapas de Processos — GTIC · Saúde Digital Recife</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <style>
+
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
@@ -17,19 +18,14 @@
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.7}
 /* HERO */
-.hero{background:var(--ink);color:#fff;padding:80px 60px 60px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(200,169,74,.08) 0%,transparent 70%)}
-.hero-inner{position:relative;max-width:1100px;margin:0 auto}
-.hero-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(200,169,74,.35);padding:5px 14px;border-radius:100px;margin-bottom:28px}
-.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,60px);line-height:1.1;color:#fff;margin-bottom:16px;max-width:700px}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1280px;margin:0 auto}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
 .hero h1 em{color:var(--accent);font-style:normal}
-.hero-sub{font-size:17px;color:rgba(255,255,255,.65);max-width:580px;margin-bottom:48px;line-height:1.6}
-.hero-meta{display:flex;gap:32px;flex-wrap:wrap;padding-top:32px;border-top:1px solid rgba(255,255,255,.1)}
-.hero-meta-item{display:flex;flex-direction:column;gap:3px}
-.hero-meta-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4)}
-.hero-meta-value{font-size:14px;font-weight:500;color:rgba(255,255,255,.85)}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
 /* INTRO */
-.intro-strip{background:var(--blue);color:#fff;padding:48px 60px}
+.intro-strip{background:var(--blue);color:#fff;padding:12px 60px}
 .intro-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px}
 .intro-block-num{font-family:'DM Serif Display',serif;font-size:36px;color:var(--accent);line-height:1;margin-bottom:8px}
 .intro-block-title{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px}
@@ -49,13 +45,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 /* MAIN */
 .main{max-width:1100px;margin:0 auto;padding:0 60px}
 /* LAYER HEADER */
-.layer-header{padding:60px 0 32px;display:flex;align-items:flex-start;gap:24px}
-.layer-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;margin-top:4px}
+.layer-header{padding:24px 0 16px;display:flex;align-items:flex-start;gap:14px}
+.layer-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:2px}
 .layer-icon.e{background:var(--blue-lt)}
 .layer-icon.o{background:var(--green-lt)}
-.layer-title-group h2{font-family:'DM Serif Display',serif;font-size:clamp(28px,3vw,38px);color:var(--ink);line-height:1.15;margin-bottom:8px}
-.layer-desc{font-size:15px;color:var(--ink3);max-width:680px;line-height:1.65}
-.layer-badge{display:inline-flex;padding:4px 14px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:.05em;margin-top:12px}
+.layer-title-group h2{font-family:'DM Serif Display',serif;font-size:clamp(20px,2.5vw,26px);color:var(--ink);line-height:1.15;margin-bottom:4px}
+.layer-desc{font-size:13px;color:var(--ink3);max-width:680px;line-height:1.55}
+.layer-badge{display:inline-flex;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.05em;margin-top:8px}
 .layer-badge.e{background:var(--blue-lt);color:var(--blue-mid)}
 .layer-badge.o{background:var(--green-lt);color:var(--green-mid)}
 .layer-divider{height:1px;background:linear-gradient(to right,var(--rule),transparent)}
@@ -83,17 +79,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .items-table td:last-child{color:var(--ink3)}
 .items-table tr:hover td{background:var(--paper2)}
 /* FOOTER */
-.page-footer{margin-top:80px;padding:40px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:13px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
 .footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
-.footer-meta{display:flex;gap:32px;flex-wrap:wrap}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
 .footer-meta span{display:flex;flex-direction:column;gap:2px}
 .footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
 /* BACK TOP */
 .back-top{position:fixed;bottom:28px;right:28px;width:42px;height:42px;border-radius:50%;background:var(--ink);color:#fff;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;transition:opacity .2s;pointer-events:none;z-index:999}
 .back-top.visible{opacity:1;pointer-events:auto}
 /* LAYER SWITCHER */
-.layer-switcher{display:flex;gap:12px;margin-bottom:36px}
-.layer-btn{display:flex;align-items:center;gap:10px;padding:14px 28px;border-radius:10px;border:2px solid var(--rule);background:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--ink3);transition:all .2s;text-align:left}
+.layer-switcher{display:flex;gap:8px;margin-bottom:36px}
+.layer-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;border:1.5px solid var(--rule);background:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink3);transition:all .2s;text-decoration:none}
 .layer-btn:hover{border-color:var(--blue-mid);color:var(--blue)}
 .layer-btn.active-e{border-color:var(--blue-mid);background:var(--blue-lt);color:var(--blue)}
 .layer-btn.active-o{border-color:var(--green-mid);background:var(--green-lt);color:var(--green)}
@@ -102,7 +98,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .layer-btn.active-e .layer-btn-icon.e{background:rgba(45,111,189,.15)}
 .layer-btn-icon.o{background:var(--green-lt)}
 .layer-btn.active-o .layer-btn-icon.o{background:rgba(26,102,68,.15)}
+.layer-btn-icon{display:none}
 .layer-btn-text{display:flex;flex-direction:column;gap:1px}
+.layer-btn-text span{display:none}
 .layer-btn-text span{font-size:11px;font-weight:400;color:var(--ink3);letter-spacing:.04em;text-transform:uppercase}
 .layer-btn.active-e .layer-btn-text span,.layer-btn.active-o .layer-btn-text span{color:inherit;opacity:.7}
 /* hidden camadas */
@@ -148,24 +146,36 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   .items-table td:first-child{width:100%}
   .hero-meta{gap:20px}
 }
+
+
+.map-nav-bar{display:flex;align-items:flex-start;gap:32px;margin-bottom:20px}
+.map-nav-item{display:flex;flex-direction:column;gap:3px}
+.map-nav-title{display:inline-flex;align-items:center;gap:7px;padding:6px 16px;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;text-decoration:none;border:1.5px solid var(--rule);color:var(--ink3);background:#fff;transition:all .18s}
+.map-nav-title:hover{border-color:var(--blue-mid);color:var(--blue);background:var(--blue-lt)}
+.map-nav-title.active-ti{background:var(--blue-lt);border-color:var(--blue-mid);color:var(--blue)}
+.map-nav-title.active-adm{background:var(--green-lt);border-color:var(--green-mid);color:var(--green)}
+.map-nav-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.map-nav-dot.ti{background:var(--blue-mid)}
+.map-nav-dot.adm{background:var(--green-mid)}
+.map-nav-sub{display:flex;flex-direction:column;gap:1px;padding-left:16px;margin-top:4px}
+.map-nav-sub a{font-size:11px;color:var(--ink3);text-decoration:none;padding:2px 4px;transition:color .15s;line-height:1.6;cursor:pointer}
+.map-nav-sub a:hover{color:var(--blue)}
+.map-nav-sub a::before{content:'↳ ';opacity:.4;font-size:10px}
+.section-divider{height:4px;margin:60px 0 0;background:linear-gradient(90deg,var(--blue),var(--green))}
+.section-banner{padding:16px 60px;background:var(--ink);color:rgba(255,255,255,.55);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.section-banner em{color:var(--accent);font-family:'DM Serif Display',serif;font-size:16px;font-weight:400;letter-spacing:0;text-transform:none;font-style:normal}
+
 </style>
 </head>
 <body>
 
+<span id="mapa-ti" style="display:block;height:0"></span>
 <header class="hero">
   <div class="hero-inner">
-    <div class="hero-label">⬡ GTIC · Secretaria de Saúde do Recife</div>
-    <h1>Mapa de Processos<br>de <em>TI</em></h1>
-    <p class="hero-sub">Modelo de Governança e Gestão de Processos de TI — Saúde Digital. Esta versão contempla as camadas Estratégica e Operacional.</p>
-    <div class="hero-meta">
-      <div class="hero-meta-item"><span class="hero-meta-label">Organização</span><span class="hero-meta-value">Secretaria de Saúde do Recife</span></div>
-      <div class="hero-meta-item"><span class="hero-meta-label">Gerência</span><span class="hero-meta-value">GTIC — Tecnologia da Informação</span></div>
-      <div class="hero-meta-item"><span class="hero-meta-label">Versão</span><span class="hero-meta-value">1.0 · Abril/2026</span></div>
-      <div class="hero-meta-item"><span class="hero-meta-label">Camadas</span><span class="hero-meta-value">Estratégica · Operacional</span></div>
-    </div>
+    <h1>Mapa de <em>Processos</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
   </div>
 </header>
-
 <section class="intro-strip">
   <div class="intro-inner">
     <div class="intro-block">
@@ -185,23 +195,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </div>
   </div>
 </section>
-
-
 <section class="toc-section">
   <div class="toc-inner">
-    <div class="layer-switcher">
-      <button class="layer-btn active-e" id="btn-e" onclick="showCamada('e')">
-        <div class="layer-btn-icon e">🏛️</div>
-        <div class="layer-btn-text">Camada Estratégica<span>Governança · Políticas · Critérios</span></div>
-      </button>
-      <button class="layer-btn" id="btn-o" onclick="showCamada('o')">
-        <div class="layer-btn-icon o">⚙️</div>
-        <div class="layer-btn-text">Camada Operacional<span>Execução · Registros · Evidências</span></div>
-      </button>
-    </div>
+    <div class="map-nav-bar">
+      <div class="map-nav-item">
+        <a href="#mapa-ti" class="map-nav-title active-ti"><span class="map-nav-dot ti"></span>Mapa de TI</a>
+        <div class="map-nav-sub">
+          <a onclick="showCamada_ti('e');return false;">Camada Estratégica</a>
+          <a onclick="showCamada_ti('o');return false;">Camada Operacional</a>
+        </div>
+      </div>
+      <div class="map-nav-item">
+        <a href="#mapa-adm" class="map-nav-title"><span class="map-nav-dot adm"></span>Mapa Administrativo</a>
+        <div class="map-nav-sub">
+          <a onclick="showCamada_adm('e');return false;">Camada Estratégica</a>
+          <a onclick="showCamada_adm('o');return false;">Camada Operacional</a>
+        </div>
+      </div>
+    </div></div>
 
     <!-- Índice Estratégica -->
-    <div id="toc-e">
+    <div id="ti-toc-e">
       <div class="section-label">Índice — Camada Estratégica</div>
       <div class="toc-grid">
         <a href="#e1" class="toc-item"><span class="toc-item-num">1</span>Direcionadores Estratégicos<span class="toc-layer e">E</span></a>
@@ -219,7 +233,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </div>
 
     <!-- Índice Operacional -->
-    <div id="toc-o" style="display:none">
+    <div id="ti-toc-o" style="display:none">
       <div class="section-label">Índice — Camada Operacional</div>
       <div class="toc-grid">
         <a href="#o1" class="toc-item"><span class="toc-item-num">1</span>Direcionadores Estratégicos<span class="toc-layer o">O</span></a>
@@ -238,9 +252,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
   </div>
 </section>
-
 <div class="main">
-<div id="camada-e" class="camada-block visible">
+<div id="ti-camada-e" class="camada-block visible">
   <div class="layer-header">
     <div class="layer-icon e">🏛️</div>
     <div class="layer-title-group">
@@ -397,7 +410,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 </div><!-- /camada-e -->
 
-<div id="camada-o" class="camada-block">
+<div id="ti-camada-o" class="camada-block">
   <div class="layer-header" style="padding-top:80px">
     <div class="layer-icon o">⚙️</div>
     <div class="layer-title-group">
@@ -722,6 +735,484 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </div><!-- /camada-o -->
 </div><!-- /main -->
 
+<div class="section-divider"></div>
+<div class="section-banner"><em>Mapa de Processos Administrativos</em> &nbsp;·&nbsp; GTIC · Secretaria de Saúde do Recife</div>
+<span id="mapa-adm" style="display:block;height:0"></span>
+<header class="hero" style="background:#0f2236">
+  <div class="hero-inner">
+    <h1>Mapa de <em>Processos</em> Administrativos</h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+<section class="intro-strip">
+  <div class="intro-inner">
+    <div class="intro-block">
+      <div class="intro-block-num">01</div>
+      <div class="intro-block-title">Camada Estratégica</div>
+      <p>Define direcionadores, políticas, critérios, governança e alinhamento institucional para os processos administrativos da GTIC.</p>
+    </div>
+    <div class="intro-block">
+      <div class="intro-block-num">02</div>
+      <div class="intro-block-title">Camada Operacional</div>
+      <p>Descreve a execução do dia a dia: rotinas, registros, monitoramentos, controles e evidências produzidas pelas equipes administrativas.</p>
+    </div>
+    <div class="intro-block">
+      <div class="intro-block-num" style="color:rgba(200,169,74,.35)">—</div>
+      <div class="intro-block-title" style="color:rgba(255,255,255,.3)">Camada Tática</div>
+      <p style="color:rgba(255,255,255,.4)">Representação simplificada nesta versão. Maior detalhamento concentrado nas camadas estratégica e operacional.</p>
+    </div>
+  </div>
+</section>
+<section class="toc-section">
+  <div class="toc-inner">
+    <div class="map-nav-bar">
+      <div class="map-nav-item">
+        <a href="#mapa-ti" class="map-nav-title"><span class="map-nav-dot ti"></span>Mapa de TI</a>
+        <div class="map-nav-sub">
+          <a onclick="showCamada_ti('e');return false;">Camada Estratégica</a>
+          <a onclick="showCamada_ti('o');return false;">Camada Operacional</a>
+        </div>
+      </div>
+      <div class="map-nav-item">
+        <a href="#mapa-adm" class="map-nav-title active-adm"><span class="map-nav-dot adm"></span>Mapa Administrativo</a>
+        <div class="map-nav-sub">
+          <a onclick="showCamada_adm('e');return false;">Camada Estratégica</a>
+          <a onclick="showCamada_adm('o');return false;">Camada Operacional</a>
+        </div>
+      </div>
+    </div>
+</a>
+      </div>
+
+    <div id="adm-toc-e">
+      <div class="section-label">Índice — Camada Estratégica</div>
+      <div class="toc-grid">
+        <a href="#e1" class="toc-item"><span class="toc-item-num">1</span>Logística<span class="toc-layer e">E</span></a>
+        <a href="#e2" class="toc-item"><span class="toc-item-num">2</span>Gestão Orçamentária<span class="toc-layer e">E</span></a>
+        <a href="#e3" class="toc-item"><span class="toc-item-num">3</span>Compras e Patrimônio<span class="toc-layer e">E</span></a>
+        <a href="#e4" class="toc-item"><span class="toc-item-num">4</span>Gestão de Fornecedores<span class="toc-layer e">E</span></a>
+        <a href="#e5" class="toc-item"><span class="toc-item-num">5</span>Contratos<span class="toc-layer e">E</span></a>
+        <a href="#e6" class="toc-item"><span class="toc-item-num">6</span>Almoxarifado e Estoques<span class="toc-layer e">E</span></a>
+        <a href="#e7" class="toc-item"><span class="toc-item-num">7</span>Licitação<span class="toc-layer e">E</span></a>
+        <a href="#e8" class="toc-item"><span class="toc-item-num">8</span>Controle, Conformidade e Riscos<span class="toc-layer e">E</span></a>
+      </div>
+    </div>
+
+    <div id="adm-toc-o" style="display:none">
+      <div class="section-label">Índice — Camada Operacional</div>
+      <div class="toc-grid">
+        <a href="#o1" class="toc-item"><span class="toc-item-num">1</span>Logística<span class="toc-layer o">O</span></a>
+        <a href="#o2" class="toc-item"><span class="toc-item-num">2</span>Execução Orçamentária<span class="toc-layer o">O</span></a>
+        <a href="#o3" class="toc-item"><span class="toc-item-num">3</span>Execução de Compras e Patrimônio<span class="toc-layer o">O</span></a>
+        <a href="#o4" class="toc-item"><span class="toc-item-num">4</span>Gestão de Fornecedores<span class="toc-layer o">O</span></a>
+        <a href="#o5" class="toc-item"><span class="toc-item-num">5</span>Execução de Contratos<span class="toc-layer o">O</span></a>
+        <a href="#o6" class="toc-item"><span class="toc-item-num">6</span>Controle de Estoque<span class="toc-layer o">O</span></a>
+        <a href="#o7" class="toc-item"><span class="toc-item-num">7</span>Execução das Licitações<span class="toc-layer o">O</span></a>
+        <a href="#o8" class="toc-item"><span class="toc-item-num">8</span>Controle Operacional e Conformidade<span class="toc-layer o">O</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="main">
+
+<!-- ═══ CAMADA ESTRATÉGICA ═══ -->
+<div id="adm-camada-e" class="camada-block visible">
+  <div class="layer-header">
+    <div class="layer-icon e">🏛️</div>
+    <div class="layer-title-group">
+      <h2>Camada Estratégica</h2>
+      <p class="layer-desc">Define direcionadores, políticas, critérios, governança e alinhamento institucional. Cada macrobloco estabelece as bases formais que orientam a atuação da camada operacional.</p>
+      <span class="layer-badge e">Governança · Políticas · Critérios · Alinhamento</span>
+    </div>
+  </div>
+  <div class="layer-divider"></div>
+
+  <div class="macro" id="e1">
+    <div class="macro-header"><div class="macro-num">1</div><div><div class="macro-title">Logística</div><div class="macro-subtitle">Camada Estratégica · Governança</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot e"></span><div><div class="sub-name">Governança da Gestão Logística</div><div class="sub-purpose">Garantir o direcionamento estratégico e o controle da gestão logística de ativos, promovendo eficiência operacional, rastreabilidade, conformidade regulatória e alinhamento às diretrizes institucionais.</div></div></div>
+      <table class="items-table">
+        <tr><td>Definir diretrizes logísticas institucionais</td><td>Estabelece princípios e orientações estratégicas para padronizar a gestão logística em toda a organização.</td></tr>
+        <tr><td>Estabelecer normas e padrões de movimentação de ativos</td><td>Define regras para transporte, armazenamento e distribuição, garantindo controle e padronização.</td></tr>
+        <tr><td>Definir política de distribuição e alocação de ativos</td><td>Determina critérios estratégicos para entrega e posicionamento dos recursos conforme necessidade institucional.</td></tr>
+        <tr><td>Planejar fluxos logísticos</td><td>Estrutura o fluxo de entrada, movimentação interna e saída de ativos com foco em eficiência e rastreabilidade.</td></tr>
+        <tr><td>Garantir conformidade com normas legais e regulatórias</td><td>Assegura que todos os processos logísticos estejam aderentes à legislação e auditorias.</td></tr>
+        <tr><td>Monitorar a execução dos processos logísticos</td><td>Acompanha o desempenho das operações para garantir alinhamento com as diretrizes estratégicas.</td></tr>
+        <tr><td>Estabelecer indicadores de desempenho logístico</td><td>Define KPIs para avaliar eficiência, tempo de entrega, custo e qualidade da logística.</td></tr>
+        <tr><td>Avaliar e revisar continuamente os processos logísticos</td><td>Promove melhoria contínua com base em análise de desempenho e necessidades institucionais.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="e2">
+    <div class="macro-header"><div class="macro-num">2</div><div><div class="macro-title">Gestão Orçamentária de Ativos</div><div class="macro-subtitle">Camada Estratégica · Governança</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot e"></span><div><div class="sub-name">Governança Orçamentária de Ativos de TI</div><div class="sub-purpose">Garantir o planejamento estratégico e o controle orçamentário dos ativos de TI, assegurando a alocação eficiente de recursos, a sustentabilidade financeira dos serviços e o alinhamento aos objetivos institucionais.</div></div></div>
+      <table class="items-table">
+        <tr><td>Definir política institucional de planejamento orçamentário</td><td>Estabelece diretrizes e critérios para elaboração e gestão do orçamento de ativos de TI.</td></tr>
+        <tr><td>Planejar orçamento de ativos e serviços de TI</td><td>Estrutura a previsão financeira necessária para aquisição, manutenção e evolução dos ativos e serviços.</td></tr>
+        <tr><td>Priorizar investimentos em tecnologia</td><td>Define quais iniciativas devem receber recursos com base em impacto estratégico e necessidades institucionais.</td></tr>
+        <tr><td>Definir critérios de CAPEX e OPEX</td><td>Estabelece parâmetros para classificação e gestão dos investimentos e despesas operacionais.</td></tr>
+        <tr><td>Definir modelo de priorização estratégica de investimentos</td><td>Cria metodologia para tomada de decisão sobre alocação de recursos financeiros.</td></tr>
+        <tr><td>Monitorar execução orçamentária</td><td>Acompanha a utilização dos recursos para garantir aderência ao planejamento definido.</td></tr>
+        <tr><td>Controlar desvios e revisar orçamento</td><td>Identifica variações e promove ajustes para manter o equilíbrio financeiro.</td></tr>
+        <tr><td>Alinhar com planejamento institucional (PPA, LOA, LDO)</td><td>Garante que o orçamento esteja em conformidade com os instrumentos legais e estratégicos.</td></tr>
+        <tr><td>Definir indicadores estratégicos de investimento</td><td>Estabelece métricas para avaliar eficiência, retorno e desempenho dos investimentos realizados.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="e3">
+    <div class="macro-header"><div class="macro-num">3</div><div><div class="macro-title">Compras e Patrimônio</div><div class="macro-subtitle">Camada Estratégica · Governança</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot e"></span><div><div class="sub-name">Gestão de Compras e Patrimônio</div><div class="sub-purpose">Garantir a gestão estratégica das aquisições e do patrimônio institucional, assegurando eficiência nos processos de compra, controle dos ativos, conformidade legal e alinhamento às diretrizes organizacionais.</div></div></div>
+      <table class="items-table">
+        <tr><td>Definir diretrizes e políticas de compras</td><td>Estabelece normas e orientações estratégicas para padronizar os processos de aquisição.</td></tr>
+        <tr><td>Planejar aquisições com base em demanda e orçamento</td><td>Organiza as compras conforme necessidades institucionais e disponibilidade financeira.</td></tr>
+        <tr><td>Estabelecer critérios de padronização de itens</td><td>Define padrões para aquisição de bens, garantindo qualidade, compatibilidade e economicidade.</td></tr>
+        <tr><td>Gerenciar fornecedores homologados</td><td>Controla e avalia fornecedores aptos, assegurando qualidade e conformidade nas contratações.</td></tr>
+        <tr><td>Estabelecer critérios de incorporação e baixa de ativos</td><td>Define regras para entrada e retirada de bens do patrimônio institucional.</td></tr>
+        <tr><td>Garantir conformidade legal, fiscal e contábil</td><td>Assegura que os processos estejam aderentes às legislações e normas vigentes.</td></tr>
+        <tr><td>Controlar inventário patrimonial</td><td>Mantém o registro atualizado dos ativos, garantindo rastreabilidade e controle.</td></tr>
+        <tr><td>Definir indicadores estratégicos (KPIs)</td><td>Estabelece métricas para avaliar desempenho das compras e gestão patrimonial.</td></tr>
+        <tr><td>Alinhar com planejamento institucional</td><td>Garante que as aquisições e gestão patrimonial estejam integradas aos objetivos organizacionais.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="e4">
+    <div class="macro-header"><div class="macro-num">4</div><div><div class="macro-title">Gestão de Fornecedores</div><div class="macro-subtitle">Camada Estratégica · Governança</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot e"></span><div><div class="sub-name">Governança de Fornecedores e Parcerias</div><div class="sub-purpose">Garantir a gestão estratégica dos fornecedores e parcerias, assegurando qualidade na prestação de serviços, conformidade contratual, mitigação de riscos e alinhamento aos objetivos institucionais.</div></div></div>
+      <table class="items-table">
+        <tr><td>Definir modelo de gestão de fornecedores</td><td>Estabelece a estrutura e as diretrizes para relacionamento, contratação e acompanhamento de fornecedores.</td></tr>
+        <tr><td>Definir critérios de contratação</td><td>Define parâmetros técnicos, legais e financeiros para seleção de fornecedores.</td></tr>
+        <tr><td>Avaliar desempenho de fornecedores</td><td>Monitora a qualidade, prazos e entregas, garantindo aderência aos contratos.</td></tr>
+        <tr><td>Estabelecer SLAs e OLAs</td><td>Define níveis de serviço e acordos operacionais para garantir qualidade e previsibilidade.</td></tr>
+        <tr><td>Gerenciar contratos operacionais</td><td>Controla vigência, escopo e cumprimento das obrigações contratuais.</td></tr>
+        <tr><td>Monitorar riscos associados a fornecedores</td><td>Identifica e acompanha riscos que possam impactar serviços e operações.</td></tr>
+        <tr><td>Garantir continuidade dos serviços</td><td>Assegura que fornecedores mantenham a operação sem interrupções críticas.</td></tr>
+        <tr><td>Alinhar fornecedores à estratégia institucional</td><td>Garante que as entregas estejam aderentes aos objetivos e prioridades organizacionais.</td></tr>
+      </table>
+    </div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot e"></span><div><div class="sub-name">Registro Patrimonial</div><div class="sub-purpose">Garantir registro e controle dos ativos adquiridos.</div></div></div>
+      <table class="items-table">
+        <tr><td>Cadastrar ativos no sistema</td><td>Formaliza entrada patrimonial.</td></tr>
+        <tr><td>Etiquetar bens</td><td>Permite identificação e rastreabilidade.</td></tr>
+        <tr><td>Atualizar dados cadastrais</td><td>Mantém base de dados consistente.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="e5">
+    <div class="macro-header"><div class="macro-num">5</div><div><div class="macro-title">Contratos</div><div class="macro-subtitle">Camada Estratégica · Governança</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot e"></span><div><div class="sub-name">Governança e Diretrizes Contratuais</div><div class="sub-purpose">Garantir controle, conformidade e eficiência na gestão dos contratos.</div></div></div>
+      <table class="items-table">
+        <tr><td>Definir diretrizes para gestão contratual</td><td>Estabelece normas e orientações para padronizar os processos contratuais.</td></tr>
+        <tr><td>Estabelecer critérios de prorrogação e renovação</td><td>Define parâmetros para continuidade e renovação dos contratos vigentes.</td></tr>
+        <tr><td>Garantir aderência às normas legais</td><td>Assegura que todos os contratos estejam em conformidade com a legislação.</td></tr>
+        <tr><td>Monitorar execução contratual</td><td>Acompanha o cumprimento das obrigações e entregas previstas.</td></tr>
+        <tr><td>Validar entregas e medições</td><td>Confirma que os serviços e produtos entregues atendem ao contratado.</td></tr>
+        <tr><td>Definir indicadores de desempenho contratual</td><td>Estabelece métricas para avaliar eficiência e qualidade da gestão contratual.</td></tr>
+        <tr><td>Gerenciar riscos contratuais</td><td>Identifica e trata riscos que possam comprometer prazos, legalidade ou resultados.</td></tr>
+        <tr><td>Aplicar penalidades quando necessário</td><td>Garante o cumprimento contratual por meio de sanções previstas em contrato.</td></tr>
+        <tr><td>Articular com jurídico e controle interno</td><td>Promove integração entre áreas para garantir consistência e viabilidade das contratações.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="e6">
+    <div class="macro-header"><div class="macro-num">6</div><div><div class="macro-title">Almoxarifado e Estoques</div><div class="macro-subtitle">Camada Estratégica · Governança</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot e"></span><div><div class="sub-name">Gestão de Estoques e Almoxarifado</div><div class="sub-purpose">Garantir a gestão estratégica dos estoques e do almoxarifado, assegurando o abastecimento contínuo de materiais, o controle eficiente dos níveis de estoque, a rastreabilidade dos itens e a conformidade com as diretrizes institucionais.</div></div></div>
+      <table class="items-table">
+        <tr><td>Definir políticas de estoque (mínimo, máximo e reposição)</td><td>Estabelece diretrizes para controle dos níveis de estoque, evitando faltas ou excessos.</td></tr>
+        <tr><td>Controlar entrada e saída de materiais</td><td>Garante o registro e acompanhamento das movimentações de estoque.</td></tr>
+        <tr><td>Planejar reposição conforme consumo</td><td>Define estratégias de reabastecimento com base no histórico e demanda.</td></tr>
+        <tr><td>Realizar inventários periódicos</td><td>Assegura a conferência física dos itens para manter a acuracidade do estoque.</td></tr>
+        <tr><td>Controlar validade e obsolescência</td><td>Monitora prazos e condições dos materiais, evitando perdas e desperdícios.</td></tr>
+        <tr><td>Garantir rastreabilidade dos materiais</td><td>Permite identificar origem, localização e movimentação dos itens.</td></tr>
+        <tr><td>Definir indicadores de desempenho (ruptura, giro, cobertura)</td><td>Estabelece métricas para avaliar eficiência, disponibilidade e gestão dos estoques.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="e7">
+    <div class="macro-header"><div class="macro-num">7</div><div><div class="macro-title">Licitação</div><div class="macro-subtitle">Camada Estratégica · Governança</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot e"></span><div><div class="sub-name">Governança de Licitações</div><div class="sub-purpose">Garantir o planejamento estratégico e a condução eficiente dos processos licitatórios, assegurando conformidade com a legislação vigente, transparência, economicidade e alinhamento às necessidades institucionais.</div></div></div>
+      <table class="items-table">
+        <tr><td>Definir planejamento anual de licitações</td><td>Estabelece a programação estratégica das contratações ao longo do período.</td></tr>
+        <tr><td>Consolidar demandas das áreas</td><td>Centraliza as necessidades das unidades para otimizar aquisições e evitar retrabalho.</td></tr>
+        <tr><td>Priorizar processos conforme criticidade</td><td>Define a ordem de execução com base em impacto, urgência e relevância institucional.</td></tr>
+        <tr><td>Definir cronograma licitatório</td><td>Organiza prazos e etapas para garantir previsibilidade e cumprimento dos processos.</td></tr>
+        <tr><td>Definir modelos de contratação</td><td>Estabelece as modalidades e estratégias mais adequadas para cada tipo de contratação.</td></tr>
+        <tr><td>Garantir conformidade com legislação vigente</td><td>Assegura aderência às normas legais e regulatórias aplicáveis às licitações.</td></tr>
+        <tr><td>Gerenciar riscos do processo licitatório</td><td>Identifica e trata riscos que possam comprometer prazos, legalidade ou resultados.</td></tr>
+        <tr><td>Articular com orçamento, compras e jurídico</td><td>Promove integração entre áreas para garantir consistência e viabilidade das contratações.</td></tr>
+        <tr><td>Definir indicadores de desempenho</td><td>Estabelece métricas para avaliar eficiência, tempo, economia e qualidade dos processos licitatórios.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="e8">
+    <div class="macro-header"><div class="macro-num">8</div><div><div class="macro-title">Controle, Conformidade e Riscos</div><div class="macro-subtitle">Camada Estratégica · Governança</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot e"></span><div><div class="sub-name">Governança de Controle e Conformidade</div><div class="sub-purpose">Garantir o controle institucional, a conformidade com normas legais e regulatórias e a gestão estratégica de riscos, assegurando transparência, integridade dos processos e mitigação de impactos operacionais e institucionais.</div></div></div>
+      <table class="items-table">
+        <tr><td>Definir políticas de controle interno</td><td>Estabelece diretrizes para garantir integridade, confiabilidade e segurança dos processos institucionais.</td></tr>
+        <tr><td>Definir diretrizes de conformidade e auditoria</td><td>Define padrões para assegurar aderência às normas legais, regulatórias e institucionais.</td></tr>
+        <tr><td>Estabelecer modelo de gestão de riscos operacionais</td><td>Estrutura a identificação, análise e tratamento dos riscos que impactam a organização.</td></tr>
+        <tr><td>Definir critérios de auditoria interna e externa</td><td>Estabelece parâmetros para avaliação independente dos processos e controles.</td></tr>
+        <tr><td>Definir padrões de evidências e registros</td><td>Garante a documentação adequada das atividades para fins de controle e auditoria.</td></tr>
+        <tr><td>Estabelecer indicadores de conformidade e risco (KPIs)</td><td>Define métricas para monitorar aderência às normas e nível de exposição a riscos.</td></tr>
+        <tr><td>Definir diretrizes para tratamento de não conformidades</td><td>Estabelece ações para correção, mitigação e prevenção de desvios.</td></tr>
+        <tr><td>Alinhar controle e conformidade às normas legais e institucionais</td><td>Garante que os processos estejam aderentes às legislações e diretrizes organizacionais.</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CAMADA OPERACIONAL ═══ -->
+<div id="adm-camada-o" class="camada-block">
+  <div class="layer-header">
+    <div class="layer-icon o">⚙️</div>
+    <div class="layer-title-group">
+      <h2>Camada Operacional</h2>
+      <p class="layer-desc">Descreve a execução do dia a dia: rotinas, registros, monitoramentos, acompanhamentos e evidências produzidas pelas equipes administrativas.</p>
+      <span class="layer-badge o">Execução · Registros · Controles · Evidências</span>
+    </div>
+  </div>
+  <div class="layer-divider"></div>
+
+  <div class="macro" id="o1">
+    <div class="macro-header"><div class="macro-num">1</div><div><div class="macro-title">Logística</div><div class="macro-subtitle">Camada Operacional · Execução</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Operação Logística de Ativos</div><div class="sub-purpose">Garantir a execução eficiente das atividades logísticas de recebimento, armazenamento, controle e distribuição de ativos, assegurando rastreabilidade, organização e atendimento às demandas institucionais.</div></div></div>
+      <table class="items-table">
+        <tr><td>Receber materiais e ativos</td><td>Realiza o recebimento físico dos itens conforme planejamento e demandas institucionais.</td></tr>
+        <tr><td>Conferir notas fiscais, pedidos e contratos</td><td>Garante a conformidade entre o material recebido e a documentação associada.</td></tr>
+        <tr><td>Registrar entrada no sistema</td><td>Assegura o controle e rastreabilidade dos ativos por meio de registro formal.</td></tr>
+        <tr><td>Armazenar conforme padrão definido</td><td>Organiza os itens seguindo critérios técnicos e normas de armazenamento.</td></tr>
+        <tr><td>Separar e distribuir materiais para unidades</td><td>Atende às solicitações internas garantindo disponibilidade e agilidade.</td></tr>
+        <tr><td>Controlar movimentação de ativos</td><td>Monitora transferências e uso dos ativos dentro da organização.</td></tr>
+        <tr><td>Registrar transferências internas</td><td>Formaliza movimentações para manter rastreabilidade e controle patrimonial.</td></tr>
+        <tr><td>Atualizar localização dos ativos</td><td>Mantém o sistema atualizado quanto à posição dos itens.</td></tr>
+        <tr><td>Apoiar inventários logísticos</td><td>Contribui com a conferência e validação dos estoques.</td></tr>
+        <tr><td>Identificar inconsistências logísticas</td><td>Detecta divergências e falhas nos processos ou registros.</td></tr>
+        <tr><td>Registrar ocorrências operacionais</td><td>Documenta problemas e desvios para análise e melhoria contínua.</td></tr>
+      </table>
+    </div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Execução de Logística Reversa</div><div class="sub-purpose">Garantir o tratamento adequado dos ativos devolvidos, assegurando reaproveitamento, descarte correto, rastreabilidade e conformidade com normas institucionais e ambientais.</div></div></div>
+      <table class="items-table">
+        <tr><td>Receber ativos devolvidos</td><td>Realiza o recebimento de itens retornados pelas unidades.</td></tr>
+        <tr><td>Realizar triagem e avaliação</td><td>Analisa as condições dos ativos para definir destinação adequada.</td></tr>
+        <tr><td>Classificar para reaproveitamento, manutenção ou descarte</td><td>Define o destino dos ativos conforme estado e viabilidade.</td></tr>
+        <tr><td>Encaminhar para destino adequado</td><td>Direciona os itens para estoque, manutenção ou descarte.</td></tr>
+        <tr><td>Registrar movimentações e baixas</td><td>Garante controle e atualização dos registros patrimoniais.</td></tr>
+        <tr><td>Atualizar status do ativo</td><td>Mantém informações atualizadas no sistema de gestão.</td></tr>
+        <tr><td>Controlar prazos de devolução</td><td>Monitora tempos e cumprimento de processos logísticos reversos.</td></tr>
+        <tr><td>Arquivar documentação do processo</td><td>Assegura evidências para auditoria e controle.</td></tr>
+        <tr><td>Garantir conformidade ambiental e normativa</td><td>Garante descarte e tratamento conforme legislação vigente.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="o2">
+    <div class="macro-header"><div class="macro-num">2</div><div><div class="macro-title">Execução Orçamentária de Ativos</div><div class="macro-subtitle">Camada Operacional · Execução</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Execução do Orçamento</div><div class="sub-purpose">Garantir a execução orçamentária dos recursos de forma controlada e eficiente, assegurando o acompanhamento das despesas, a conformidade financeira e o suporte à tomada de decisão.</div></div></div>
+      <table class="items-table">
+        <tr><td>Registrar execução orçamentária</td><td>Formaliza a utilização dos recursos conforme planejamento aprovado.</td></tr>
+        <tr><td>Controlar utilização dos recursos</td><td>Monitora a aplicação financeira para evitar desperdícios e desvios.</td></tr>
+        <tr><td>Validar despesas realizadas</td><td>Garante que os gastos estejam corretos e em conformidade com as normas.</td></tr>
+        <tr><td>Atualizar sistemas financeiros</td><td>Mantém os registros atualizados para controle e transparência.</td></tr>
+        <tr><td>Monitorar saldo orçamentário</td><td>Acompanha a disponibilidade financeira para suporte à gestão.</td></tr>
+        <tr><td>Identificar desvios</td><td>Detecta variações entre o planejado e o executado.</td></tr>
+        <tr><td>Apoiar ajustes orçamentários</td><td>Contribui para correções e realinhamentos financeiros.</td></tr>
+        <tr><td>Registrar evidências de execução</td><td>Documenta comprovações para auditoria e controle.</td></tr>
+      </table>
+    </div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Solicitação e Encaminhamento de Recursos</div><div class="sub-purpose">Garantir a formalização e tramitação adequada das demandas por recursos financeiros, assegurando controle, rastreabilidade e conformidade no processo de solicitação.</div></div></div>
+      <table class="items-table">
+        <tr><td>Preparar solicitações formais</td><td>Estrutura pedidos de recursos conforme padrões institucionais.</td></tr>
+        <tr><td>Encaminhar para setor financeiro</td><td>Direciona solicitações para análise e aprovação competente.</td></tr>
+        <tr><td>Acompanhar tramitação</td><td>Monitora o andamento das solicitações até sua conclusão.</td></tr>
+        <tr><td>Controlar prazos de aprovação</td><td>Garante cumprimento dos tempos definidos no processo.</td></tr>
+        <tr><td>Registrar aprovações e rejeições</td><td>Mantém histórico das decisões para controle e transparência.</td></tr>
+        <tr><td>Atualizar status das solicitações</td><td>Assegura visibilidade do andamento das demandas.</td></tr>
+        <tr><td>Manter histórico das demandas</td><td>Preserva registros para análise, auditoria e melhoria contínua.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="o3">
+    <div class="macro-header"><div class="macro-num">3</div><div><div class="macro-title">Execução de Compras e Patrimônio</div><div class="macro-subtitle">Camada Operacional · Execução</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Execução de Compras</div><div class="sub-purpose">Garantir a execução eficiente dos processos de aquisição, assegurando conformidade com os requisitos legais, contratuais e institucionais.</div></div></div>
+      <table class="items-table">
+        <tr><td>Abrir requisições</td><td>Formaliza demandas de compra conforme necessidade das áreas.</td></tr>
+        <tr><td>Instruir processos de aquisição/licitação</td><td>Organiza documentação necessária para andamento das contratações.</td></tr>
+        <tr><td>Executar pedidos de compra</td><td>Realiza a efetivação das aquisições aprovadas.</td></tr>
+        <tr><td>Acompanhar entregas</td><td>Monitora prazos e conformidade dos itens recebidos.</td></tr>
+        <tr><td>Receber material</td><td>Garante recebimento físico conforme especificação.</td></tr>
+        <tr><td>Registrar divergências</td><td>Identifica inconsistências entre pedido e entrega.</td></tr>
+        <tr><td>Validar conformidade com contrato</td><td>Assegura que o fornecimento atende às condições contratuais.</td></tr>
+      </table>
+    </div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Registro Patrimonial</div><div class="sub-purpose">Garantir o registro e controle dos bens institucionais, assegurando rastreabilidade, identificação e integridade patrimonial.</div></div></div>
+      <table class="items-table">
+        <tr><td>Cadastrar ativos no sistema</td><td>Formaliza inclusão dos bens no controle patrimonial.</td></tr>
+        <tr><td>Etiquetar bens</td><td>Garante identificação física dos ativos.</td></tr>
+        <tr><td>Atualizar dados cadastrais</td><td>Mantém informações patrimoniais corretas e atualizadas.</td></tr>
+        <tr><td>Vincular responsáveis</td><td>Define responsáveis pelos ativos.</td></tr>
+        <tr><td>Classificar ativos por criticidade</td><td>Categoriza bens conforme relevância e impacto.</td></tr>
+        <tr><td>Garantir rastreabilidade</td><td>Assegura controle da localização e histórico dos ativos.</td></tr>
+      </table>
+    </div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Controle e Movimentação</div><div class="sub-purpose">Garantir o controle e a rastreabilidade das movimentações patrimoniais, assegurando atualização contínua e integridade dos registros.</div></div></div>
+      <table class="items-table">
+        <tr><td>Registrar transferências</td><td>Formaliza movimentações entre unidades ou responsáveis.</td></tr>
+        <tr><td>Atualizar localização</td><td>Mantém o sistema atualizado quanto à posição dos ativos.</td></tr>
+        <tr><td>Controlar baixas e descartes</td><td>Garante registro adequado de retirada de bens.</td></tr>
+        <tr><td>Controlar movimentações internas</td><td>Monitora deslocamentos dentro da organização.</td></tr>
+        <tr><td>Monitorar inconsistências</td><td>Identifica falhas e divergências nos registros.</td></tr>
+      </table>
+    </div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Inventário Físico</div><div class="sub-purpose">Garantir a acuracidade dos registros patrimoniais por meio da conferência periódica dos ativos.</div></div></div>
+      <table class="items-table">
+        <tr><td>Realizar inventário periódico</td><td>Executa conferência física dos bens.</td></tr>
+        <tr><td>Conferir ativos in loco</td><td>Valida existência e condições dos itens.</td></tr>
+        <tr><td>Identificar divergências</td><td>Detecta inconsistências entre físico e sistema.</td></tr>
+        <tr><td>Corrigir inconsistências</td><td>Ajusta registros conforme apuração realizada.</td></tr>
+        <tr><td>Registrar evidências</td><td>Documenta resultados para controle e auditoria.</td></tr>
+      </table>
+    </div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Apoio Fiscal e Documental</div><div class="sub-purpose">Garantir o controle documental e fiscal dos processos de compras e patrimônio, assegurando conformidade e rastreabilidade.</div></div></div>
+      <table class="items-table">
+        <tr><td>Registrar notas fiscais</td><td>Formaliza entrada de documentos fiscais no sistema.</td></tr>
+        <tr><td>Arquivar documentação</td><td>Garante organização e guarda de documentos.</td></tr>
+        <tr><td>Apoiar prestação de contas</td><td>Fornece informações para controle e auditoria.</td></tr>
+        <tr><td>Garantir conformidade fiscal</td><td>Assegura aderência às normas fiscais e legais.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="o4">
+    <div class="macro-header"><div class="macro-num">4</div><div><div class="macro-title">Gestão de Fornecedores</div><div class="macro-subtitle">Camada Operacional · Execução</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Execução da Gestão de Fornecedores</div><div class="sub-purpose">Garantir o acompanhamento e controle dos fornecedores, assegurando qualidade na prestação dos serviços, cumprimento de SLAs e suporte às áreas demandantes.</div></div></div>
+      <table class="items-table">
+        <tr><td>Cadastrar fornecedores</td><td>Formaliza o registro dos fornecedores aptos no sistema institucional.</td></tr>
+        <tr><td>Atualizar dados cadastrais</td><td>Mantém informações dos fornecedores atualizadas e confiáveis.</td></tr>
+        <tr><td>Monitorar desempenho de fornecedores</td><td>Avalia qualidade, prazos e nível de serviço prestado.</td></tr>
+        <tr><td>Registrar ocorrências com fornecedores</td><td>Documenta falhas, desvios e problemas na prestação de serviços.</td></tr>
+        <tr><td>Apoiar gestão de contratos vinculados</td><td>Dá suporte ao acompanhamento dos contratos associados aos fornecedores.</td></tr>
+        <tr><td>Acompanhar cumprimento de SLAs</td><td>Monitora os níveis de serviço acordados contratualmente.</td></tr>
+        <tr><td>Comunicar áreas sobre desempenho</td><td>Compartilha informações relevantes para tomada de decisão.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="o5">
+    <div class="macro-header"><div class="macro-num">5</div><div><div class="macro-title">Execução Operacional de Contratos</div><div class="macro-subtitle">Camada Operacional · Execução</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Execução de Contratos</div><div class="sub-purpose">Garantir a execução eficiente dos contratos vigentes, assegurando controle das entregas, cumprimento de prazos, tratamento de não conformidades e manutenção da conformidade contratual.</div></div></div>
+      <table class="items-table">
+        <tr><td>Acompanhar execução dos contratos vigentes</td><td>Monitora o cumprimento das obrigações contratuais.</td></tr>
+        <tr><td>Monitorar prazos e vigência</td><td>Controla datas críticas e períodos contratuais.</td></tr>
+        <tr><td>Registrar ocorrências, aditivos e ajustes</td><td>Documenta alterações e eventos relevantes do contrato.</td></tr>
+        <tr><td>Tratar não conformidades contratuais</td><td>Atua na correção de desvios e falhas identificadas.</td></tr>
+        <tr><td>Validar entregas dos fornecedores</td><td>Garante que os serviços ou produtos atendam ao contratado.</td></tr>
+        <tr><td>Manter histórico contratual atualizado</td><td>Assegura registro contínuo das informações contratuais.</td></tr>
+        <tr><td>Apoiar interação com áreas demandantes</td><td>Facilita comunicação entre fornecedor e áreas internas.</td></tr>
+        <tr><td>Controlar SLAs e entregas</td><td>Monitora níveis de serviço e cumprimento das metas.</td></tr>
+        <tr><td>Alimentar sistemas de controle</td><td>Mantém registros atualizados nos sistemas institucionais.</td></tr>
+        <tr><td>Registrar evidências contratuais</td><td>Documenta comprovações para auditoria e controle.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="o6">
+    <div class="macro-header"><div class="macro-num">6</div><div><div class="macro-title">Execução de Controle de Estoque</div><div class="macro-subtitle">Camada Operacional · Execução</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Execução de Movimentação de Materiais</div><div class="sub-purpose">Garantir o controle eficiente da entrada e saída de materiais, assegurando rastreabilidade, conferência adequada e manutenção dos níveis de estoque.</div></div></div>
+      <table class="items-table">
+        <tr><td>Registrar entrada de materiais</td><td>Formaliza o recebimento dos itens no sistema de controle.</td></tr>
+        <tr><td>Registrar saída conforme solicitação</td><td>Garante que a distribuição ocorra conforme demandas autorizadas.</td></tr>
+        <tr><td>Conferir materiais recebidos</td><td>Valida a conformidade entre o material físico e a documentação.</td></tr>
+        <tr><td>Validar quantidades</td><td>Assegura precisão nas quantidades registradas.</td></tr>
+        <tr><td>Controlar níveis de estoque</td><td>Monitora disponibilidade para evitar faltas ou excessos.</td></tr>
+        <tr><td>Identificar rupturas</td><td>Detecta indisponibilidade de itens críticos para reposição.</td></tr>
+      </table>
+    </div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Inventário Físico</div><div class="sub-purpose">Garantir a acuracidade dos estoques por meio da conferência periódica dos materiais, assegurando consistência entre o físico e o sistema.</div></div></div>
+      <table class="items-table">
+        <tr><td>Realizar contagem de materiais</td><td>Executa conferência física dos itens armazenados.</td></tr>
+        <tr><td>Identificar divergências</td><td>Detecta diferenças entre estoque físico e registrado.</td></tr>
+        <tr><td>Ajustar estoque</td><td>Corrige registros com base nas inconsistências encontradas.</td></tr>
+        <tr><td>Registrar resultados</td><td>Documenta os achados do inventário para controle.</td></tr>
+        <tr><td>Validar consistência dos dados</td><td>Garante confiabilidade das informações após ajustes.</td></tr>
+      </table>
+    </div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Atualização de Registros</div><div class="sub-purpose">Garantir a integridade e atualização contínua dos dados de estoque, assegurando rastreabilidade e suporte à tomada de decisão.</div></div></div>
+      <table class="items-table">
+        <tr><td>Atualizar registros de estoque</td><td>Mantém informações atualizadas no sistema de controle.</td></tr>
+        <tr><td>Manter histórico de movimentações</td><td>Preserva rastreabilidade das entradas e saídas.</td></tr>
+        <tr><td>Alimentar sistemas de controle</td><td>Garante que os dados estejam disponíveis para gestão.</td></tr>
+        <tr><td>Garantir integridade dos dados</td><td>Assegura consistência e confiabilidade das informações.</td></tr>
+        <tr><td>Monitorar inconsistências</td><td>Identifica e trata falhas nos registros.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="o7">
+    <div class="macro-header"><div class="macro-num">7</div><div><div class="macro-title">Execução das Licitações</div><div class="macro-subtitle">Camada Operacional · Execução</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Execução Operacional das Licitações</div><div class="sub-purpose">Garantir a execução adequada dos processos licitatórios, assegurando conformidade com a legislação vigente, controle dos prazos, organização documental e suporte às etapas de contratação.</div></div></div>
+      <table class="items-table">
+        <tr><td>Receber demandas formalizadas</td><td>Garante o recebimento estruturado das necessidades das áreas demandantes.</td></tr>
+        <tr><td>Registrar processos licitatórios</td><td>Formaliza a abertura dos processos no sistema institucional.</td></tr>
+        <tr><td>Elaborar documentos operacionais</td><td>Prepara termos, editais e demais documentos necessários.</td></tr>
+        <tr><td>Atualizar sistemas</td><td>Mantém registros atualizados ao longo das etapas do processo.</td></tr>
+        <tr><td>Apoiar sessões/licitações</td><td>Dá suporte à realização de pregões e demais modalidades.</td></tr>
+        <tr><td>Controlar prazos do processo</td><td>Monitora cronogramas para garantir cumprimento legal.</td></tr>
+        <tr><td>Realizar tramitações administrativas</td><td>Executa encaminhamentos internos necessários ao andamento do processo.</td></tr>
+        <tr><td>Registrar resultados</td><td>Documenta decisões e resultados das licitações.</td></tr>
+        <tr><td>Organizar documentação</td><td>Mantém arquivos estruturados para controle e auditoria.</td></tr>
+        <tr><td>Apoiar auditorias</td><td>Fornece evidências e suporte para processos de controle e fiscalização.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="macro" id="o8">
+    <div class="macro-header"><div class="macro-num">8</div><div><div class="macro-title">Controle Operacional e Conformidade</div><div class="macro-subtitle">Camada Operacional · Execução</div></div></div>
+    <div class="sub-block">
+      <div class="sub-header"><span class="sub-dot o"></span><div><div class="sub-name">Controle e Conformidade Operacional</div><div class="sub-purpose">Garantir o monitoramento contínuo da conformidade dos processos operacionais, assegurando aderência às normas institucionais, identificação de desvios e suporte à mitigação de riscos.</div></div></div>
+      <table class="items-table">
+        <tr><td>Monitorar aderência a normas e processos</td><td>Acompanha o cumprimento das diretrizes e procedimentos institucionais.</td></tr>
+        <tr><td>Registrar não conformidades</td><td>Documenta desvios identificados nos processos operacionais.</td></tr>
+        <tr><td>Apoiar auditorias internas e externas</td><td>Fornece suporte e evidências para processos de auditoria.</td></tr>
+        <tr><td>Organizar evidências operacionais</td><td>Mantém registros estruturados para controle e fiscalização.</td></tr>
+        <tr><td>Controlar riscos operacionais</td><td>Monitora e acompanha riscos que impactam os processos.</td></tr>
+        <tr><td>Apoiar planos de ação corretiva</td><td>Contribui para correção de desvios e melhoria dos processos.</td></tr>
+        <tr><td>Validar execução dos processos</td><td>Verifica se as atividades estão sendo realizadas conforme padrão definido.</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
 
 <footer class="page-footer">
   <div class="footer-brand">GTIC · Saúde Digital</div>
@@ -731,26 +1222,34 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <span><strong>Uso</strong>Interno · Documento Institucional</span>
   </div>
 </footer>
+<button class="back-top" id="bt" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
 
-<button class="back-top" id="bt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
-window.addEventListener('scroll',()=>{document.getElementById('bt').classList.toggle('visible',window.scrollY>400)});
+window.addEventListener('scroll',function(){document.getElementById('bt').classList.toggle('visible',window.scrollY>400)});
 
-function showCamada(layer) {
-  document.getElementById('camada-e').classList.toggle('visible', layer === 'e');
-  document.getElementById('camada-o').classList.toggle('visible', layer === 'o');
-  document.getElementById('toc-e').style.display = layer === 'e' ? '' : 'none';
-  document.getElementById('toc-o').style.display = layer === 'o' ? '' : 'none';
-  var btnE = document.getElementById('btn-e');
-  var btnO = document.getElementById('btn-o');
-  btnE.className = 'layer-btn' + (layer === 'e' ? ' active-e' : '');
-  btnO.className = 'layer-btn' + (layer === 'o' ? ' active-o' : '');
+function showCamada_ti(layer) {
+  document.getElementById('ti-camada-e').classList.toggle('visible', layer==='e');
+  document.getElementById('ti-camada-o').classList.toggle('visible', layer==='o');
+  document.getElementById('ti-toc-e').style.display = layer==='e' ? '' : 'none';
+  document.getElementById('ti-toc-o').style.display = layer==='o' ? '' : 'none';
+  document.getElementById('ti-btn-e').className = 'layer-btn'+(layer==='e'?' active-e':'');
+  document.getElementById('ti-btn-o').className = 'layer-btn'+(layer==='o'?' active-o':'');
   setTimeout(function(){
-    var target = document.getElementById(layer === 'e' ? 'camada-e' : 'camada-o');
-    if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
-  }, 50);
+    document.getElementById(layer==='e'?'ti-camada-e':'ti-camada-o').scrollIntoView({behavior:'smooth',block:'start'});
+  },60);
+}
+
+function showCamada_adm(layer) {
+  document.getElementById('adm-camada-e').classList.toggle('visible', layer==='e');
+  document.getElementById('adm-camada-o').classList.toggle('visible', layer==='o');
+  document.getElementById('adm-toc-e').style.display = layer==='e' ? '' : 'none';
+  document.getElementById('adm-toc-o').style.display = layer==='o' ? '' : 'none';
+  document.getElementById('adm-btn-e').className = 'layer-btn'+(layer==='e'?' active-e':'');
+  document.getElementById('adm-btn-o').className = 'layer-btn'+(layer==='o'?' active-o':'');
+  setTimeout(function(){
+    document.getElementById(layer==='e'?'adm-camada-e':'adm-camada-o').scrollIntoView({behavior:'smooth',block:'start'});
+  },60);
 }
 </script>
-
 </body>
 </html>
