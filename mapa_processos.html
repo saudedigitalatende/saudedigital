@@ -85,6 +85,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .footer-meta span{display:flex;flex-direction:column;gap:2px}
 .footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
 /* BACK TOP */
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px;flex-shrink:0}
 .back-top{position:fixed;bottom:28px;right:28px;width:42px;height:42px;border-radius:50%;background:var(--ink);color:#fff;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;transition:opacity .2s;pointer-events:none;z-index:999}
 .back-top.visible{opacity:1;pointer-events:auto}
 /* LAYER SWITCHER */
@@ -1221,6 +1224,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <span><strong>Versão</strong>1.0 · Abril/2026</span>
     <span><strong>Uso</strong>Interno · Documento Institucional</span>
   </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar ao Portal
+  </a>
 </footer>
 <button class="back-top" id="bt" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
 
