@@ -69,13 +69,13 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
 
 /* ══ MAIN ══ */
 .main{margin-left:var(--sb);min-height:100vh}
-.topbar{position:sticky;top:0;background:rgba(244,246,251,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:9px 24px;display:flex;align-items:center;justify-content:space-between;z-index:50}
-.topbar-l h1{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.02em;display:none}
-.topbar-l p{font-size:20px;font-weight:700;color:var(--text);margin-top:0;letter-spacing:-.02em}
-.topbar-r{display:flex;gap:6px;align-items:center}
-.tb-tag{font-size:10px;padding:3px 10px;border-radius:20px;font-weight:600}
-.tb-tag.blue{background:var(--azul-claro);color:var(--azul)}
-.tb-tag.green{background:var(--verde-claro);color:var(--verde)}
+/* HERO */
+.hero{background:#0d1a2e;color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(22px,3vw,36px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:#c8a94a;font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
 .content{padding:18px 24px}
 
 /* ══ BLOCO INFRA + SISTEMAS ══ */
@@ -323,16 +323,12 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
 
 <!-- ══════════════════════ MAIN ══════════════════════ -->
 <main class="main">
-  <div class="topbar">
-    <div class="topbar-l">
-      <h1 id="page-title">Visão geral</h1>
-      <p>Indicador 2026 Saúde Digital Atende · jan–abr 2026</p>
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>Indicador de <em>Desempenho</em></h1>
+      <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
     </div>
-    <div class="topbar-r">
-      <span class="tb-tag blue">jan–abr 2026</span>
-      <span class="tb-tag green">CSAT 90,5%</span>
-    </div>
-  </div>
+  </header>
 
   <div class="content">
 
@@ -384,12 +380,12 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
           <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:linear-gradient(90deg,#0d1b2a,#1a3a6b);border-bottom:1px solid rgba(255,255,255,.1)">
             <div style="display:flex;align-items:center;gap:16px">
               <span style="font-size:10px;font-weight:700;color:#6a8dad;text-transform:uppercase;letter-spacing:.1em">SLA Global</span>
-              <span style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:300;color:#ef9a9a">66,2%</span>
-              <span style="font-size:10px;color:#ef9a9a">↓ queda contínua jan→mar</span>
+              <span id="sla-global-val" style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:300;color:#ef9a9a">66,2%</span>
+              <span id="sla-global-trend" style="font-size:10px;color:#ef9a9a">↓ queda contínua jan→mar</span>
             </div>
             <div style="display:flex;align-items:center;gap:16px">
               <span style="font-size:10px;color:#6a8dad">Meta: <strong style="color:#a5d6a7">85%</strong></span>
-              <span style="font-size:10px;color:#6a8dad">3768 no prazo · 1209 fora</span>
+              <span id="sla-global-stats" style="font-size:10px;color:#6a8dad">3768 no prazo · 1209 fora</span>
               <span style="width:1px;height:16px;background:rgba(255,255,255,.1);display:inline-block"></span>
               <span style="display:flex;align-items:center;gap:10px">
                 <span style="display:flex;align-items:center;gap:4px;font-size:9px;color:#6a8dad"><span style="width:8px;height:8px;border-radius:2px;background:#c62828;display:inline-block"></span>Crítico &lt;60%</span>
@@ -1121,6 +1117,31 @@ function filtrarMes(mes) {
   document.getElementById('mes-label').textContent = 'Exibindo: '+MESES_LABEL[mes];
 
   const d = DADOS[mes];
+
+  // ── SLA Global Header ──
+  const slaGlobalVal   = document.getElementById('sla-global-val');
+  const slaGlobalTrend = document.getElementById('sla-global-trend');
+  const slaGlobalStats = document.getElementById('sla-global-stats');
+  if(slaGlobalVal){
+    const slaNum = d.sla;
+    const slaFormatted = String(slaNum.toFixed(1)).replace('.',',') + '%';
+    slaGlobalVal.textContent  = slaFormatted;
+    slaGlobalVal.style.color  = slaNum >= 85 ? '#a5d6a7' : slaNum >= 60 ? '#ffcc80' : '#ef9a9a';
+  }
+  if(slaGlobalStats){
+    slaGlobalStats.textContent = fmt(d.np) + ' no prazo · ' + fmt(d.fp) + ' fora';
+  }
+  if(slaGlobalTrend){
+    const trends = {
+      todos: '↓ queda contínua jan→mar',
+      jan:   'jan 2026',
+      fev:   'fev 2026',
+      mar:   '↓ pior mês do trimestre',
+      abr:   'abr 2026'
+    };
+    slaGlobalTrend.textContent = trends[mes] || '';
+    slaGlobalTrend.style.color = d.sla >= 85 ? '#a5d6a7' : d.sla >= 60 ? '#ffcc80' : '#ef9a9a';
+  }
 
   // ── Resumo Executivo ──
   const evTotal = document.getElementById('ev-total');
