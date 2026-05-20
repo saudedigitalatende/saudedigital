@@ -220,22 +220,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <div class="gov-section">
     <div class="section-label">Governança da Saúde Digital Atende</div>
     <div class="gov-grid">
-      <a href="https://saudedigitalatende.github.io/saudedigital/catalogo_sistemas.html" target="_blank" class="gov-btn">
+      <div class="gov-btn" onclick="openPage('catalogo','Catálogo de Serviços')" style="cursor:pointer">
         <div class="gov-icon">📋</div>
         <div class="gov-info">
           <div class="gov-title">Catálogo de Serviços</div>
           <div class="gov-desc">Sistemas, Infraestrutura e Administrativo</div>
         </div>
         <span class="gov-arrow">→</span>
-      </a>
-      <a href="https://saudedigitalatende.github.io/saudedigital/portfolio.html" target="_blank" class="gov-btn">
+      </div>
+      <div class="gov-btn" onclick="openPage('portfolio','Portfólio de Serviços')" style="cursor:pointer">
         <div class="gov-icon">📦</div>
         <div class="gov-info">
           <div class="gov-title">Portfólio de Serviços</div>
           <div class="gov-desc">Catálogo completo de serviços disponíveis</div>
         </div>
         <span class="gov-arrow">→</span>
-      </a>
+      </div>
       <a href="script_atendimento.html" target="_blank" class="gov-btn">
         <div class="gov-icon">💬</div>
         <div class="gov-info">
@@ -356,8 +356,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 <script>
 const PAGES = {
-  mapa: 'https://saudedigitalatende.github.io/saudedigital/mapa_processos.html',
-  ind:  'https://saudedigitalatende.github.io/saudedigital/Indicador_de_desempenho_2026.html'
+  mapa:      'https://saudedigitalatende.github.io/saudedigital/mapa_processos.html',
+  ind:       'https://saudedigitalatende.github.io/saudedigital/Indicador_de_desempenho_2026.html',
+  portfolio: 'https://saudedigitalatende.github.io/saudedigital/portfolio.html',
+  catalogo:  'https://saudedigitalatende.github.io/saudedigital/catalogo_sistemas.html'
 };
 
 function openPage(key, title) {
