@@ -143,14 +143,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   
 }
 
-.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:space-between;align-items:center;position:relative}
 .footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
-.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center;flex:1;justify-content:center}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center;position:absolute;left:50%;transform:translateX(-50%)}
 .footer-meta span{display:flex;flex-direction:column;gap:2px}
 .footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
 @media(max-width:768px){.page-footer{padding-left:24px;padding-right:24px}}
 
-.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center;flex:1;justify-content:center}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center;position:absolute;left:50%;transform:translateX(-50%)}
 .footer-meta span{display:flex;flex-direction:column;gap:2px}
 .footer-meta strong{color:rgba(255,255,255,.8);font-weight:500;display:block}
 </style>
