@@ -16,9 +16,9 @@
   --orange:#b85a1a;--orange-lt:#fdeee6;
 }
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--ink);font-size:15px;line-height:1.7;display:flex;flex-direction:column;min-height:100vh}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.7}
 
-.hero{background:var(--ink);flex-shrink:0;color:#fff;padding:40px 60px 32px;position:relative;overflow:hidden}
+.hero{background:var(--ink);color:#fff;padding:40px 60px 32px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
 .hero-inner{position:relative;max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px}
 .hero-left{flex:1}
@@ -39,7 +39,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--ink);fon
 .btn-phone{background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.12);font-size:12px}
 .btn-phone:hover{background:rgba(255,255,255,.14);color:#fff}
 
-.main{max-width:1100px;margin:0 auto;padding:0 60px;flex:1;background:var(--paper)}
+.main{max-width:1100px;margin:0 auto;padding:0 60px}
 .section-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .section-label::after{content:'';flex:1;height:1px;background:var(--rule)}
 
@@ -91,8 +91,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--ink);fon
 .viewer-frame{flex:1;border:none;width:100%;height:100%}
 
 /* FOOTER */
-.page-footer{margin-top:48px;padding:0 60px;background:var(--ink);position:relative}
-.footer-top{max-width:1100px;margin:0 auto;padding:26px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.08)}
+.page-footer{margin-top:0;padding:0 60px;background:var(--ink)}
+.footer-top{max-width:1100px;margin:0 auto;padding:20px 0 0;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .footer-brand{font-family:'DM Serif Display',serif;font-size:17px;color:#fff}
 .footer-contacts{display:flex;gap:24px;flex-wrap:wrap}
 .footer-contact-item{display:flex;flex-direction:column;gap:2px}
@@ -100,7 +100,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--ink);fon
 .footer-contact-value{font-size:12px;color:rgba(255,255,255,.65)}
 .footer-contact-value a{color:rgba(255,255,255,.65);text-decoration:none}
 .footer-contact-value a:hover{color:#fff}
-.footer-bottom{max-width:1100px;margin:0 auto;padding:10px 0;display:flex;align-items:center;justify-content:flex-start}
+.footer-bottom{max-width:1100px;margin:0 auto;padding:8px 0 16px;display:flex;align-items:center;justify-content:flex-start}
 .footer-logo{height:40px;object-fit:contain;object-position:left}
 .footer-copy{font-size:11px;color:rgba(255,255,255,.25)}
 
