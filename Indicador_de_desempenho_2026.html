@@ -265,23 +265,23 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
 .mes-btn.active{background:var(--azul);color:#fff;border-color:var(--azul)}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#c5d5e8;border-radius:3px}
 
-.page-footer{background:var(--ink,#0d1a2e);padding:22px 60px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px}
-.footer-brand{font-family:'DM Serif Display',serif;font-size:17px;color:#fff;white-space:nowrap}
-.footer-meta{display:flex;gap:28px;flex-wrap:wrap;flex:1;justify-content:center}
-.footer-meta span{font-size:12px;color:rgba(255,255,255,.5);display:flex;flex-direction:column;gap:2px}
-.footer-meta strong{color:rgba(255,255,255,.85);font-size:11px;letter-spacing:.06em;text-transform:uppercase;display:block}
-.back-portal{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);font-size:13px;font-weight:600;text-decoration:none;transition:all .15s;white-space:nowrap}
-.back-portal:hover{background:rgba(255,255,255,.18);color:#fff}
-.back-portal svg{width:14px;height:14px}
-@media(max-width:768px){.page-footer{padding:20px;flex-direction:column;align-items:flex-start}.footer-meta{flex-direction:column;gap:10px}}
+@media(max-width:768px){}
 
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px;flex-shrink:0}
+@media(max-width:768px){.page-footer{padding-left:24px;padding-right:24px}}
 </style>
 </head>
 <body>
 
 <!-- ══════════════════════ SIDEBAR ══════════════════════ -->
 <nav class="sidebar">
-
 
   <div class="sb-nav" style="flex:1;overflow-y:auto;padding:8px 9px">
       <div class="nav-group">
@@ -1266,7 +1266,6 @@ function filtrarMes(mes) {
   });
 }
 </script>
-
 
 <footer class="page-footer">
   <div class="footer-brand">GTIC · Saúde Digital</div>
