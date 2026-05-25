@@ -85,17 +85,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .gov-btn-disabled{opacity:.55;pointer-events:none;cursor:default}
 
 /* FOOTER */
-.page-footer{margin-top:48px;padding:0 60px;background:var(--ink)}
-.footer-top{max-width:1100px;margin:0 auto;padding:26px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.08)}
-.footer-brand{font-family:'DM Serif Display',serif;font-size:17px;color:#fff}
-.footer-contacts{display:flex;gap:24px;flex-wrap:wrap}
-.footer-contact-item{display:flex;flex-direction:column;gap:2px}
-.footer-contact-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3)}
-.footer-contact-value{font-size:12px;color:rgba(255,255,255,.65)}
-.footer-contact-value a{color:rgba(255,255,255,.65);text-decoration:none}
-.footer-contact-value a:hover{color:#fff}
-.footer-bottom{max-width:1100px;margin:0 auto;padding:16px 0;display:flex;align-items:center;justify-content:space-between}
-.footer-copy{font-size:11px;color:rgba(255,255,255,.25)}
+
+
+
+
+
+
+
+
+
+
+
 
 /* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(13,26,46,.75);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
@@ -135,13 +135,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .back-top.visible{opacity:1;pointer-events:auto}
 
 @media(max-width:768px){
-  .hero,.main,.page-footer{padding-left:20px;padding-right:20px}
+  .hero,.main,
   .hero-inner{flex-direction:column;gap:16px;align-items:flex-start}
   .hero-right{flex-direction:row;flex-wrap:wrap}
   .featured-grid,.gov-grid{grid-template-columns:1fr}
   .hero-meta{gap:14px}
-  .footer-top{flex-direction:column;align-items:flex-start}
+  
 }
+
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+@media(max-width:768px){.page-footer{padding-left:24px;padding-right:24px}}
 </style>
 </head>
 <body>
@@ -269,25 +276,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </div>
 
 <footer class="page-footer">
-  <div class="footer-top">
-    <div class="footer-brand">Saúde Digital Atende</div>
-    <div class="footer-contacts">
-      <div class="footer-contact-item">
-        <span class="footer-contact-label">Gerência</span>
-        <span class="footer-contact-value">GTIC — Gerência de Tecnologia da Informação e Comunicação</span>
-      </div>
-      <div class="footer-contact-item">
-        <span class="footer-contact-label">E-mail</span>
-        <span class="footer-contact-value"><a href="mailto:saudedigitalatende@recife.pe.gov.br">saudedigitalatende@recife.pe.gov.br</a></span>
-      </div>
-      <div class="footer-contact-item">
-        <span class="footer-contact-label">Telefone</span>
-        <span class="footer-contact-value"><a href="tel:+558133557325">(81) 3355-7325</a></span>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">Secretaria de Saúde do Recife · 2026</span>
+  <div class="footer-brand">Saúde Digital Atende</div>
+  <div class="footer-meta">
+    <span><strong>Gerência</strong>GTIC — Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>E-mail</strong>saudedigitalatende@recife.pe.gov.br</span>
+    <span><strong>Telefone</strong>(81) 3355-7325</span>
+    <span><strong>Secretaria de Saúde do Recife</strong>2026</span>
   </div>
 </footer>
 
