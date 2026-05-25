@@ -63,6 +63,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   .hero,.main,.page-footer{padding-left:16px;padding-right:16px}
   .portfolio-grid{grid-template-columns:1fr}
 }
+
+.page-footer{background:var(--ink,#0d1a2e);padding:22px 60px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:17px;color:#fff;white-space:nowrap}
+.footer-meta{display:flex;gap:28px;flex-wrap:wrap;flex:1;justify-content:center}
+.footer-meta span{font-size:12px;color:rgba(255,255,255,.5);display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.85);font-size:11px;letter-spacing:.06em;text-transform:uppercase;display:block}
+.back-portal{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);font-size:13px;font-weight:600;text-decoration:none;transition:all .15s;white-space:nowrap}
+.back-portal:hover{background:rgba(255,255,255,.18);color:#fff}
+.back-portal svg{width:14px;height:14px}
+@media(max-width:768px){.page-footer{padding:20px;flex-direction:column;align-items:flex-start}.footer-meta{flex-direction:column;gap:10px}}
+
 </style>
 </head>
 <body>
@@ -93,26 +104,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </div>
 
 <footer class="page-footer">
-  <div class="footer-top">
-    <div class="footer-brand">GTIC · <em>Saúde Digital</em></div>
-    <div class="footer-col">
-      <span class="footer-col-label">Secretaria</span>
-      <span class="footer-col-val">Secretaria de Saúde do Recife</span>
-      <span class="footer-col-val" style="color:rgba(255,255,255,.35)">Gerência de Tecnologia da Informação e Comunicação</span>
-    </div>
-    <div class="footer-col">
-      <span class="footer-col-label">Versão</span>
-      <span class="footer-col-val">1.0 · Abril/2026</span>
-    </div>
-    <div class="footer-col">
-      <span class="footer-col-label">Uso</span>
-      <span class="footer-col-val">Interno · Documento Institucional</span>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px">
-      <a href="https://saudedigitalatende.github.io/saudedigital/" class="footer-back">← Voltar ao Portal</a>
-      <button class="footer-scroll" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">↑</button>
-    </div>
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>1.0 · Abril/2026</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
   </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar ao Portal
+  </a>
 </footer>
 
 <script>
