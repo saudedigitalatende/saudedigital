@@ -47,33 +47,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .pc-link:hover{background:#d0e4f7}
 .pc-no-link{font-size:11px;color:var(--ink3);font-style:italic}
 
-.page-footer{padding:0 60px;background:var(--ink)}
-.footer-top{max-width:1280px;margin:0 auto;padding:20px 0;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.footer-brand{font-family:'DM Serif Display',serif;font-size:16px;font-weight:700;color:#fff;white-space:nowrap}
-.footer-brand em{color:var(--amber-mid);font-style:normal}
-.footer-col{display:flex;flex-direction:column;gap:3px}
-.footer-col-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.06em}
-.footer-col-val{font-size:11.5px;color:rgba(255,255,255,.55)}
-.footer-back{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:8px 18px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;white-space:nowrap}
-.footer-back:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
-.footer-scroll{background:rgba(255,255,255,.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.footer-scroll:hover{background:rgba(255,255,255,.2)}
-
 @media(max-width:900px){
-  .hero,.main,.page-footer{padding-left:16px;padding-right:16px}
+  .hero,.main,
   .portfolio-grid{grid-template-columns:1fr}
 }
 
-.page-footer{background:var(--ink,#0d1a2e);padding:22px 60px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px}
-.footer-brand{font-family:'DM Serif Display',serif;font-size:17px;color:#fff;white-space:nowrap}
-.footer-meta{display:flex;gap:28px;flex-wrap:wrap;flex:1;justify-content:center}
-.footer-meta span{font-size:12px;color:rgba(255,255,255,.5);display:flex;flex-direction:column;gap:2px}
-.footer-meta strong{color:rgba(255,255,255,.85);font-size:11px;letter-spacing:.06em;text-transform:uppercase;display:block}
-.back-portal{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);font-size:13px;font-weight:600;text-decoration:none;transition:all .15s;white-space:nowrap}
-.back-portal:hover{background:rgba(255,255,255,.18);color:#fff}
-.back-portal svg{width:14px;height:14px}
-@media(max-width:768px){.page-footer{padding:20px;flex-direction:column;align-items:flex-start}.footer-meta{flex-direction:column;gap:10px}}
+@media(max-width:768px){}
 
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px;flex-shrink:0}
+@media(max-width:768px){.page-footer{padding-left:24px;padding-right:24px}}
 </style>
 </head>
 <body>
