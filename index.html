@@ -18,6 +18,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.7}
 
+/* HERO */
 .hero{background:var(--ink);color:#fff;padding:40px 60px 32px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
 .hero-inner{position:relative;max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px}
@@ -39,6 +40,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .btn-phone{background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.12);font-size:12px}
 .btn-phone:hover{background:rgba(255,255,255,.14);color:#fff}
 
+/* MAIN */
 .main{max-width:1100px;margin:0 auto;padding:0 60px}
 .section-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .section-label::after{content:'';flex:1;height:1px;background:var(--rule)}
@@ -46,7 +48,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 /* FEATURED */
 .featured{padding:32px 0 0}
 .featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.featured-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--ink);transition:all .2s;cursor:pointer}
+.featured-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--ink);transition:all .2s}
 .featured-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.09);transform:translateY(-2px)}
 .fc-bar{height:4px}
 .fc-bar.blue{background:linear-gradient(to right,var(--blue),var(--blue-mid))}
@@ -70,7 +72,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 /* GOV GRID */
 .gov-section{padding:28px 0 0}
 .gov-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.gov-btn{display:flex;align-items:center;gap:14px;padding:16px 20px;background:#fff;border:1px solid var(--rule);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .2s;position:relative;overflow:hidden;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left}
+.gov-btn{display:flex;align-items:center;gap:14px;padding:16px 20px;background:#fff;border:1px solid var(--rule);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .2s;position:relative;overflow:hidden}
 .gov-btn::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;background:transparent;transition:background .2s}
 .gov-btn:hover{border-color:var(--blue-mid);box-shadow:0 3px 14px rgba(26,79,138,.1);transform:translateX(2px)}
 .gov-btn:hover::before{background:var(--blue-mid)}
@@ -80,19 +82,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .gov-desc{font-size:11.5px;color:var(--ink3);line-height:1.4}
 .gov-arrow{color:var(--ink3);font-size:15px;flex-shrink:0;transition:transform .15s,color .15s}
 .gov-btn:hover .gov-arrow{transform:translateX(3px);color:var(--blue-mid)}
-
-/* PAGE VIEWER */
-.page-viewer{display:none;position:fixed;inset:0;z-index:500;background:var(--paper);flex-direction:column}
-.page-viewer.open{display:flex}
-.viewer-bar{background:var(--ink);padding:12px 24px;display:flex;align-items:center;gap:16px;flex-shrink:0}
-.viewer-title{font-family:'DM Serif Display',serif;font-size:16px;color:#fff;flex:1}
-.viewer-close{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:7px 16px;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:background .15s}
-.viewer-close:hover{background:rgba(255,255,255,.22)}
-.viewer-frame{flex:1;border:none;width:100%;height:100%}
+.gov-btn-disabled{opacity:.55;pointer-events:none;cursor:default}
 
 /* FOOTER */
-.page-footer{margin-top:0;padding:0 60px;background:var(--ink)}
-.footer-top{max-width:1100px;margin:0 auto;padding:20px 0 0;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.page-footer{margin-top:48px;padding:0 60px;background:var(--ink)}
+.footer-top{max-width:1100px;margin:0 auto;padding:26px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.08)}
 .footer-brand{font-family:'DM Serif Display',serif;font-size:17px;color:#fff}
 .footer-contacts{display:flex;gap:24px;flex-wrap:wrap}
 .footer-contact-item{display:flex;flex-direction:column;gap:2px}
@@ -100,8 +94,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .footer-contact-value{font-size:12px;color:rgba(255,255,255,.65)}
 .footer-contact-value a{color:rgba(255,255,255,.65);text-decoration:none}
 .footer-contact-value a:hover{color:#fff}
-.footer-bottom{max-width:1100px;margin:0 auto;padding:8px 0 16px;display:flex;align-items:center;justify-content:flex-start}
-.footer-logo{height:40px;object-fit:contain;object-position:left}
+.footer-bottom{max-width:1100px;margin:0 auto;padding:16px 0;display:flex;align-items:center;justify-content:space-between}
 .footer-copy{font-size:11px;color:rgba(255,255,255,.25)}
 
 /* MODALS */
@@ -183,10 +176,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 <div class="main">
 
+  <!-- DOCUMENTOS INSTITUCIONAIS -->
   <div class="featured">
     <div class="section-label">Documentos Institucionais</div>
     <div class="featured-grid">
-      <a href="mapa_processos.html" class="featured-card blue">
+
+      <a class="featured-card blue" href="https://saudedigitalatende.github.io/saudedigital/mapa_processos.html" target="_blank">
         <div class="fc-bar blue"></div>
         <div class="fc-body">
           <div class="fc-icon fci-blue">🗺️</div>
@@ -200,7 +195,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <span class="fc-arrow">→</span>
         </div>
       </a>
-      <a href="Indicador_de_desempenho_2026.html" class="featured-card amber">
+
+      <a class="featured-card amber" href="https://saudedigitalatende.github.io/saudedigital/Indicador_de_desempenho_2026.html" target="_blank">
         <div class="fc-bar amber"></div>
         <div class="fc-body">
           <div class="fc-icon fci-amber">📊</div>
@@ -214,13 +210,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <span class="fc-arrow">→</span>
         </div>
       </a>
+
     </div>
   </div>
 
+  <!-- GOVERNANÇA -->
   <div class="gov-section">
     <div class="section-label">Governança da Saúde Digital Atende</div>
     <div class="gov-grid">
-      <a href="catalogo_sistemas.html" class="gov-btn">
+
+      <a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/catalogo_sistemas.html" target="_blank">
         <div class="gov-icon">📋</div>
         <div class="gov-info">
           <div class="gov-title">Catálogo de Serviços</div>
@@ -228,7 +227,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         </div>
         <span class="gov-arrow">→</span>
       </a>
-      <a href="portfolio.html" class="gov-btn">
+
+      <a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/portfolio.html" target="_blank">
         <div class="gov-icon">📦</div>
         <div class="gov-info">
           <div class="gov-title">Portfólio de Serviços</div>
@@ -236,7 +236,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         </div>
         <span class="gov-arrow">→</span>
       </a>
-      <a href="script_atendimento.html" class="gov-btn">
+
+      <a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/script_atendimento.html" target="_blank">
         <div class="gov-icon">💬</div>
         <div class="gov-info">
           <div class="gov-title">Script de Atendimento</div>
@@ -244,7 +245,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         </div>
         <span class="gov-arrow">→</span>
       </a>
-      <a href="fluxo_atendimento.html" class="gov-btn">
+
+      <a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/fluxo_atendimento.html" target="_blank">
         <div class="gov-icon">🔄</div>
         <div class="gov-info">
           <div class="gov-title">Fluxo de Atendimento</div>
@@ -252,13 +254,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         </div>
         <span class="gov-arrow">→</span>
       </a>
-      <div class="gov-btn" style="opacity:.55;cursor:default;pointer-events:none">
+
+      <div class="gov-btn gov-btn-disabled">
         <div class="gov-icon" style="background:#f0f0f0">📁</div>
         <div class="gov-info">
           <div class="gov-title">Documentações</div>
           <div class="gov-desc" style="color:#c8a94a;font-weight:600">🚧 Em construção</div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -283,11 +287,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </div>
   </div>
   <div class="footer-bottom">
-    
     <span class="footer-copy">Secretaria de Saúde do Recife · 2026</span>
   </div>
 </footer>
-
 
 <!-- WA MODAL -->
 <div class="modal-overlay" id="modal-wa" onclick="closeModalOutside(event,'wa')">
@@ -347,11 +349,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 <button class="back-top" id="bt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
-function openModal(id) { document.getElementById('modal-'+id).classList.add('open'); }
-function closeModal(id) { document.getElementById('modal-'+id).classList.remove('open'); }
-function closeModalOutside(e,id) { if(e.target===document.getElementById('modal-'+id)) closeModal(id); }
-window.addEventListener('scroll',()=>{document.getElementById('bt').classList.toggle('visible',window.scrollY>300)});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal('wa');closeModal('email');}});
+function openModal(id){document.getElementById('modal-'+id).classList.add('open')}
+function closeModal(id){document.getElementById('modal-'+id).classList.remove('open')}
+function closeModalOutside(e,id){if(e.target===document.getElementById('modal-'+id))closeModal(id)}
+window.addEventListener('scroll',()=>{document.getElementById('bt').classList.toggle('visible',window.scrollY>300)})
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal('wa');closeModal('email')}})
 </script>
 </body>
 </html>
