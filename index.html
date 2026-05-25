@@ -15,8 +15,8 @@
   --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
   --orange:#b85a1a;--orange-lt:#fdeee6;
 }
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.7}
+html,body{height:100%}html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.7;display:flex;flex-direction:column;min-height:100vh}
 
 .hero{background:var(--ink);color:#fff;padding:40px 60px 32px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
@@ -91,7 +91,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .viewer-frame{flex:1;border:none;width:100%;height:100%}
 
 /* FOOTER */
-.page-footer{margin-top:48px;padding:0 60px;background:var(--ink)}
+.page-footer{margin-top:auto;padding:0 60px;background:var(--ink)}
 .footer-top{max-width:1100px;margin:0 auto;padding:26px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.08)}
 .footer-brand{font-family:'DM Serif Display',serif;font-size:17px;color:#fff}
 .footer-contacts{display:flex;gap:24px;flex-wrap:wrap}
