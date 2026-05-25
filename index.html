@@ -150,13 +150,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   
 }
 
-.page-footer{margin-top:auto;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
-.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;white-space:nowrap}
-.footer-meta{display:flex;gap:32px;flex-wrap:wrap;align-items:center;flex:1;justify-content:center}
+
+
+
+
+
+
+@media(max-width:768px){}
+
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
 .footer-meta span{display:flex;flex-direction:column;gap:2px}
-.footer-meta strong{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600}
-.footer-copy{font-size:11px;color:rgba(255,255,255,.3);white-space:nowrap}
-@media(max-width:768px){.page-footer{padding-left:20px;padding-right:20px;flex-direction:column;align-items:flex-start}.footer-meta{justify-content:flex-start;gap:16px}}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px;flex-shrink:0}
+.page-footer{padding-left:24px;padding-right:24px}
 </style>
 </head>
 <body>
@@ -275,11 +285,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 <footer class="page-footer">
   <div class="footer-brand">Saúde Digital Atende</div>
   <div class="footer-meta">
-    <span><strong>Gerência</strong>GTIC — Gerência de Tecnologia da Informação e Comunicação</span>
-    <span><strong>E-mail</strong><a href="mailto:saudedigitalatende@recife.pe.gov.br" style="color:inherit">saudedigitalatende@recife.pe.gov.br</a></span>
-    <span><strong>Telefone</strong><a href="tel:+558133557325" style="color:inherit">(81) 3355-7325</a></span>
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>E-mail</strong>saudedigitalatende@recife.pe.gov.br</span>
+    <span><strong>Telefone</strong>(81) 3355-7325</span>
+    <span><strong>Secretaria de Saúde do Recife · 2026</strong></span>
   </div>
-  <span class="footer-copy">Secretaria de Saúde do Recife · 2026</span>
 </footer>
 
 
