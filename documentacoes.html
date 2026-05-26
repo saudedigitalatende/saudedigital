@@ -67,6 +67,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
 .back-portal svg{width:14px;height:14px;flex-shrink:0}
 @media(max-width:768px){.folders-grid{grid-template-columns:1fr}.hero,.main,.page-footer{padding-left:24px;padding-right:24px}}
+
+.folder-docs{padding:8px 12px 12px;display:flex;flex-direction:column;gap:6px}
+.doc-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--paper);border-radius:10px;border:1px solid var(--rule);text-decoration:none;color:inherit;transition:all .15s}
+.doc-item:hover{background:var(--green-lt);border-color:var(--green-mid)}
+.doc-icon{font-size:18px;flex-shrink:0}
+.doc-info{flex:1}
+.doc-title{font-size:13px;font-weight:600;color:var(--ink)}
+.doc-meta{font-size:11px;color:var(--ink3)}
+.doc-arrow{font-size:14px;color:var(--ink3)}
 </style>
 </head>
 <body>
@@ -105,7 +114,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </a>
 
-    <a class="folder-card" href="#">
+    <div class="folder-card">
       <div class="folder-bar bar-green"></div>
       <div class="folder-header">
         <div class="folder-icon fi-green">📖</div>
@@ -114,11 +123,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <div class="folder-desc">Manuais e guias de uso dos sistemas</div>
         </div>
       </div>
-      <div class="folder-footer">
-        <span class="folder-count fc-green">📂 Em breve</span>
-        <span class="folder-arrow">→</span>
+      <div class="folder-docs">
+        <a class="doc-item" href="documentações/Manual/manual_cadsus_web.html" target="_blank">
+          <span class="doc-icon">📄</span>
+          <div class="doc-info"><div class="doc-title">Manual CADSUS WEB</div><div class="doc-meta">Versão 1.0 · 2025</div></div>
+          <span class="doc-arrow">→</span>
+        </a>
+        <a class="doc-item" href="documentações/Manual/manual_sgop.html" target="_blank">
+          <span class="doc-icon">📄</span>
+          <div class="doc-info"><div class="doc-title">Manual SGOP</div><div class="doc-meta">Versão 3.0 · 2025</div></div>
+          <span class="doc-arrow">→</span>
+        </a>
       </div>
-    </a>
+    </div>
 
     <a class="folder-card" href="#">
       <div class="folder-bar bar-orange"></div>
