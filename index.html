@@ -113,23 +113,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .email-tip{font-size:11.5px;color:var(--ink3);margin-top:4px}
 .back-top{position:fixed;bottom:24px;right:24px;width:38px;height:38px;border-radius:50%;background:var(--ink);color:#fff;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;transition:opacity .2s;pointer-events:none;z-index:200}
 .back-top.visible{opacity:1;pointer-events:auto}
-/* FOOTER — padrão do catálogo de serviços */
-.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
-.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
-.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
-.footer-meta span{display:flex;flex-direction:column;gap:2px}
-.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500;display:block}
-.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
-.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
-.back-portal svg{width:14px;height:14px;flex-shrink:0}
+/* FOOTER */
+.page-footer{margin-top:40px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px}
+.footer-top{padding:22px 60px;display:flex;align-items:center;gap:40px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;font-weight:700;flex-shrink:0}
+.footer-cols{display:flex;gap:48px;flex:1;justify-content:center}
+.footer-col{display:flex;flex-direction:column;gap:3px}
+.footer-col-label{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600}
+.footer-col-value{font-size:13px;color:rgba(255,255,255,.8);font-weight:400}
+.footer-bottom{padding:10px 60px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:11.5px;color:rgba(255,255,255,.3)}
 @media(max-width:768px){
 .hero,.main,
 .hero-inner{flex-direction:column;gap:16px;align-items:flex-start}
 .hero-right{flex-direction:row;flex-wrap:wrap}
 .featured-grid,.gov-grid{grid-template-columns:1fr}
 .hero-meta{gap:14px}
-.page-footer{padding-left:24px;padding-right:24px;gap:20px}
-.back-portal{margin-left:0}
+.footer-top{padding-left:24px;padding-right:24px;flex-direction:column;align-items:flex-start}
+.footer-cols{flex-direction:column;gap:16px}
+.footer-bottom{padding-left:24px;padding-right:24px}
 }
 </style>
 </head>
@@ -245,19 +247,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </div>
 </div>
 
-<!-- FOOTER — padrão do catálogo de serviços -->
 <footer class="page-footer">
-<div class="footer-brand">GTIC · Saúde Digital</div>
-<div class="footer-meta">
-<span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
-<span><strong>E-mail</strong>saudedigitalatende@recife.pe.gov.br</span>
-<span><strong>Telefone</strong>(81) 3355-7325</span>
-<span><strong>Uso</strong>Interno · Documento Institucional</span>
+<div class="footer-top">
+<div class="footer-brand">Saúde Digital Atende</div>
+<div class="footer-cols">
+<div class="footer-col">
+<span class="footer-col-label">Gerência</span>
+<span class="footer-col-value">GTIC — Gerência de Tecnologia da Informação e Comunicação</span>
 </div>
-<a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
-<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
-Início do Portal
-</a>
+<div class="footer-col">
+<span class="footer-col-label">E-mail</span>
+<span class="footer-col-value">saudedigitalatende@recife.pe.gov.br</span>
+</div>
+<div class="footer-col">
+<span class="footer-col-label">Telefone</span>
+<span class="footer-col-value">(81) 3355-7325</span>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<span class="footer-copy">Secretaria de Saúde do Recife · 2026</span>
+</div>
 </footer>
 
 <!-- WA MODAL -->
