@@ -114,14 +114,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .back-top{position:fixed;bottom:24px;right:24px;width:38px;height:38px;border-radius:50%;background:var(--ink);color:#fff;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;transition:opacity .2s;pointer-events:none;z-index:200}
 .back-top.visible{opacity:1;pointer-events:auto}
 /* FOOTER */
-.page-footer{margin-top:40px;background:var(--ink);font-size:12px}
-.footer-top{padding:20px 60px;display:flex;align-items:center;gap:0;border-bottom:1px solid rgba(255,255,255,.1)}
-.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;font-weight:700;min-width:300px}
-.footer-meta{display:flex;gap:48px;flex:1;align-items:flex-start}
-.footer-meta span{display:flex;flex-direction:column;gap:4px}
-.footer-meta strong{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600;display:block}
-.footer-meta-value{font-size:13px;color:rgba(255,255,255,.8);font-weight:400}
-.footer-bottom{padding:10px 60px;display:flex;align-items:center;justify-content:space-between}
+.page-footer{margin-top:40px;background:var(--ink);font-size:12px;padding:0}
+.footer-top{padding:20px 60px;display:grid;grid-template-columns:280px 1fr;align-items:center;border-bottom:1px solid rgba(255,255,255,.1);min-height:70px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;font-weight:700}
+.footer-meta{display:grid;grid-template-columns:repeat(3,auto);gap:48px;align-items:start;justify-content:start}
+.footer-meta-item{display:flex;flex-direction:column;gap:4px}
+.footer-meta-label{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600}
+.footer-meta-value{font-size:13px;color:rgba(255,255,255,.8)}
+.footer-bottom{padding:10px 60px}
 .footer-copy{font-size:11.5px;color:rgba(255,255,255,.3)}
 @media(max-width:768px){
 .hero,.main,
@@ -129,8 +129,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .hero-right{flex-direction:row;flex-wrap:wrap}
 .featured-grid,.gov-grid{grid-template-columns:1fr}
 .hero-meta{gap:14px}
-.footer-top{padding-left:24px;padding-right:24px;flex-direction:column;align-items:flex-start;gap:16px}
-.footer-meta{flex-direction:column;gap:12px}
+.footer-top{padding-left:24px;padding-right:24px;grid-template-columns:1fr;gap:16px}
+.footer-meta{grid-template-columns:1fr;gap:12px}
 .footer-bottom{padding-left:24px;padding-right:24px}
 }
 </style>
@@ -251,9 +251,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 <div class="footer-top">
 <div class="footer-brand">Saúde Digital Atende</div>
 <div class="footer-meta">
-<span><strong>Gerência</strong><span class="footer-meta-value">GTIC — Gerência de Tecnologia da Informação e Comunicação</span></span>
-<span><strong>E-mail</strong><span class="footer-meta-value">saudedigitalatende@recife.pe.gov.br</span></span>
-<span><strong>Telefone</strong><span class="footer-meta-value">(81) 3355-7325</span></span>
+<div class="footer-meta-item">
+<span class="footer-meta-label">Gerência</span>
+<span class="footer-meta-value">GTIC — Gerência de Tecnologia da Informação e Comunicação</span>
+</div>
+<div class="footer-meta-item">
+<span class="footer-meta-label">E-mail</span>
+<span class="footer-meta-value">saudedigitalatende@recife.pe.gov.br</span>
+</div>
+<div class="footer-meta-item">
+<span class="footer-meta-label">Telefone</span>
+<span class="footer-meta-value">(81) 3355-7325</span>
+</div>
 </div>
 </div>
 <div class="footer-bottom">
