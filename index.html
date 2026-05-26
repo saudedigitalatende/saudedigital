@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>GTIC · Saúde Digital — GTIC · Secretaria de Saúde do Recife</title>
+<title>Saúde Digital Atende — GTIC · Secretaria de Saúde do Recife</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
---ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
---paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
---blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
---green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
---amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
---orange:#b85a1a;--orange-lt:#fdeee6;
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;
 }
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.7}
+
 /* HERO */
 .hero{background:var(--ink);color:#fff;padding:40px 60px 32px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
@@ -30,6 +31,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .hero-meta-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3)}
 .hero-meta-value{font-size:12px;font-weight:500;color:rgba(255,255,255,.75)}
 .hero-right{flex-shrink:0;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+
 .contact-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .15s;white-space:nowrap}
 .btn-wa{background:#25d366;color:#fff}
 .btn-wa:hover{background:#1db954;transform:translateY(-1px)}
@@ -37,10 +39,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .btn-email:hover{background:rgba(255,255,255,.2)}
 .btn-phone{background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.12);font-size:12px}
 .btn-phone:hover{background:rgba(255,255,255,.14);color:#fff}
+
 /* MAIN */
-.main{max-width:1100px;margin:0 auto;padding:0 60px;flex:1}
+.main{max-width:1100px;margin:0 auto;padding:0 60px}
 .section-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .section-label::after{content:'';flex:1;height:1px;background:var(--rule)}
+
 /* FEATURED */
 .featured{padding:32px 0 0}
 .featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -64,6 +68,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .featured-card:hover .fc-arrow{transform:translateX(4px)}
 .featured-card.blue:hover .fc-arrow{color:var(--blue-mid)}
 .featured-card.amber:hover .fc-arrow{color:var(--amber-mid)}
+
 /* GOV GRID */
 .gov-section{padding:28px 0 0}
 .gov-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -78,6 +83,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .gov-arrow{color:var(--ink3);font-size:15px;flex-shrink:0;transition:transform .15s,color .15s}
 .gov-btn:hover .gov-arrow{transform:translateX(3px);color:var(--blue-mid)}
 .gov-btn-disabled{opacity:.55;pointer-events:none;cursor:default}
+
+/* FOOTER */
+.page-footer{margin-top:48px;padding:0 60px;background:var(--ink)}
+.footer-top{max-width:1100px;margin:0 auto;padding:26px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:17px;color:#fff}
+.footer-contacts{display:flex;gap:24px;flex-wrap:wrap}
+.footer-contact-item{display:flex;flex-direction:column;gap:2px}
+.footer-contact-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.footer-contact-value{font-size:12px;color:rgba(255,255,255,.65)}
+.footer-contact-value a{color:rgba(255,255,255,.65);text-decoration:none}
+.footer-contact-value a:hover{color:#fff}
+.footer-bottom{max-width:1100px;margin:0 auto;padding:16px 0;display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.25)}
+
 /* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(13,26,46,.75);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .modal-overlay.open{opacity:1;pointer-events:auto}
@@ -111,221 +130,224 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .email-info{background:var(--blue-lt);border-radius:10px;padding:16px 18px;margin-bottom:16px;text-align:center}
 .email-addr{font-size:15px;font-weight:700;color:var(--blue)}
 .email-tip{font-size:11.5px;color:var(--ink3);margin-top:4px}
+
 .back-top{position:fixed;bottom:24px;right:24px;width:38px;height:38px;border-radius:50%;background:var(--ink);color:#fff;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;transition:opacity .2s;pointer-events:none;z-index:200}
 .back-top.visible{opacity:1;pointer-events:auto}
-/* FOOTER */
-.page-footer{margin-top:40px;background:var(--ink);font-size:12px;padding:0}
-.footer-top{padding:20px 60px;display:grid;grid-template-columns:280px 1fr;align-items:center;border-bottom:1px solid rgba(255,255,255,.1);min-height:70px}
-.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;font-weight:700}
-.footer-meta{display:grid;grid-template-columns:repeat(3,auto);gap:48px;align-items:start;justify-content:start}
-.footer-meta-item{display:flex;flex-direction:column;gap:4px}
-.footer-meta-label{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600}
-.footer-meta-value{font-size:13px;color:rgba(255,255,255,.8)}
-.footer-bottom{padding:10px 60px}
-.footer-copy{font-size:11.5px;color:rgba(255,255,255,.3)}
+
 @media(max-width:768px){
-.hero,.main,
-.hero-inner{flex-direction:column;gap:16px;align-items:flex-start}
-.hero-right{flex-direction:row;flex-wrap:wrap}
-.featured-grid,.gov-grid{grid-template-columns:1fr}
-.hero-meta{gap:14px}
-.footer-top{padding-left:24px;padding-right:24px;grid-template-columns:1fr;gap:16px}
-.footer-meta{grid-template-columns:1fr;gap:12px}
-.footer-bottom{padding-left:24px;padding-right:24px}
+  .hero,.main,.page-footer{padding-left:20px;padding-right:20px}
+  .hero-inner{flex-direction:column;gap:16px;align-items:flex-start}
+  .hero-right{flex-direction:row;flex-wrap:wrap}
+  .featured-grid,.gov-grid{grid-template-columns:1fr}
+  .hero-meta{gap:14px}
+  .footer-top{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
 <body>
+
 <header class="hero">
-<div class="hero-inner">
-<div class="hero-left">
-<h1>Saúde Digital<br><em>Atende</em></h1>
-<p class="hero-sub">Portal de acesso aos recursos, documentos e serviços da Gerência de Tecnologia da Informação e Comunicação.</p>
-<div class="hero-meta">
-<div class="hero-meta-item">
-<span class="hero-meta-label">Organização</span>
-<span class="hero-meta-value">Secretaria de Saúde do Recife</span>
-</div>
-<div class="hero-meta-item">
-<span class="hero-meta-label">Gerência</span>
-<span class="hero-meta-value">GTIC — Gerência de Tecnologia da Informação e Comunicação</span>
-</div>
-<div class="hero-meta-item">
-<span class="hero-meta-label">SEI</span>
-<span class="hero-meta-value">SESAU / SECOGE / GGSD / GTIC / DSI / SUP</span>
-</div>
-</div>
-</div>
-<div class="hero-right">
-<button class="contact-btn btn-wa" onclick="openModal('wa')">💬 WhatsApp</button>
-<button class="contact-btn btn-email" onclick="openModal('email')">✉️ E-mail</button>
-<a href="tel:+558133557325" class="contact-btn btn-phone">📞 (81) 3355-7325</a>
-</div>
-</div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <h1>Saúde Digital<br><em>Atende</em></h1>
+      <p class="hero-sub">Portal de acesso aos recursos, documentos e serviços da Gerência de Tecnologia da Informação e Comunicação.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Organização</span>
+          <span class="hero-meta-value">Secretaria de Saúde do Recife</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Gerência</span>
+          <span class="hero-meta-value">GTIC — Gerência de Tecnologia da Informação e Comunicação</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">SEI</span>
+          <span class="hero-meta-value">SESAU / SECOGE / GGSD / GTIC / DSI / SUP</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <button class="contact-btn btn-wa" onclick="openModal('wa')">💬 WhatsApp</button>
+      <button class="contact-btn btn-email" onclick="openModal('email')">✉️ E-mail</button>
+      <a href="tel:+558133557325" class="contact-btn btn-phone">📞 (81) 3355-7325</a>
+    </div>
+  </div>
 </header>
 
 <div class="main">
-<!-- DOCUMENTOS INSTITUCIONAIS -->
-<div class="featured">
-<div class="section-label">Documentos Institucionais</div>
-<div class="featured-grid">
-<a class="featured-card blue" href="https://saudedigitalatende.github.io/saudedigital/mapa_processos.html" target="_blank">
-<div class="fc-bar blue"></div>
-<div class="fc-body">
-<div class="fc-icon fci-blue">🗺️</div>
-<div class="fc-text">
-<div class="fc-title">Mapa de Processos de TI</div>
-<p class="fc-desc">Modelo de Governança e Gestão — Camadas Estratégica e Operacional da GTIC.</p>
-</div>
-</div>
-<div class="fc-footer">
-<span class="fc-tag fct-blue">Governança · Processos</span>
-<span class="fc-arrow">→</span>
-</div>
-</a>
-<a class="featured-card amber" href="https://saudedigitalatende.github.io/saudedigital/Indicador_de_desempenho_2026.html" target="_blank">
-<div class="fc-bar amber"></div>
-<div class="fc-body">
-<div class="fc-icon fci-amber">📊</div>
-<div class="fc-text">
-<div class="fc-title">Indicadores de Desempenho 2026</div>
-<p class="fc-desc">Painel de indicadores e métricas de desempenho da GTIC para o ciclo 2026.</p>
-</div>
-</div>
-<div class="fc-footer">
-<span class="fc-tag fct-amber">Indicadores · 2026</span>
-<span class="fc-arrow">→</span>
-</div>
-</a>
-</div>
-</div>
 
-<!-- GOVERNANÇA -->
-<div class="gov-section">
-<div class="section-label">Governança da GTIC · Saúde Digital</div>
-<div class="gov-grid">
-<a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/catalogo_sistemas.html" target="_blank">
-<div class="gov-icon">📋</div>
-<div class="gov-info">
-<div class="gov-title">Catálogo de Serviços</div>
-<div class="gov-desc">Sistemas, Infraestrutura e Administrativo</div>
-</div>
-<span class="gov-arrow">→</span>
-</a>
-<a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/portfolio.html" target="_blank">
-<div class="gov-icon">📦</div>
-<div class="gov-info">
-<div class="gov-title">Portfólio de Serviços</div>
-<div class="gov-desc">Catálogo completo de serviços disponíveis</div>
-</div>
-<span class="gov-arrow">→</span>
-</a>
-<a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/script_atendimento.html" target="_blank">
-<div class="gov-icon">💬</div>
-<div class="gov-info">
-<div class="gov-title">Script de Atendimento</div>
-<div class="gov-desc">Roteiros padronizados para atendimento técnico</div>
-</div>
-<span class="gov-arrow">→</span>
-</a>
-<a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/fluxo_atendimento.html" target="_blank">
-<div class="gov-icon">🔄</div>
-<div class="gov-info">
-<div class="gov-title">Fluxo de Atendimento</div>
-<div class="gov-desc">Fluxogramas e processos de atendimento</div>
-</div>
-<span class="gov-arrow">→</span>
-</a>
-<div class="gov-btn gov-btn-disabled">
-<div class="gov-icon" style="background:#f0f0f0">📁</div>
-<div class="gov-info">
-<div class="gov-title">Documentações</div>
-<div class="gov-desc" style="color:#c8a94a;font-weight:600">🚧 Em construção</div>
-</div>
-</div>
-</div>
-</div>
+  <!-- DOCUMENTOS INSTITUCIONAIS -->
+  <div class="featured">
+    <div class="section-label">Documentos Institucionais</div>
+    <div class="featured-grid">
+
+      <a class="featured-card blue" href="https://saudedigitalatende.github.io/saudedigital/mapa_processos.html" target="_blank">
+        <div class="fc-bar blue"></div>
+        <div class="fc-body">
+          <div class="fc-icon fci-blue">🗺️</div>
+          <div class="fc-text">
+            <div class="fc-title">Mapa de Processos de TI</div>
+            <p class="fc-desc">Modelo de Governança e Gestão — Camadas Estratégica e Operacional da GTIC.</p>
+          </div>
+        </div>
+        <div class="fc-footer">
+          <span class="fc-tag fct-blue">Governança · Processos</span>
+          <span class="fc-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="featured-card amber" href="https://saudedigitalatende.github.io/saudedigital/Indicador_de_desempenho_2026.html" target="_blank">
+        <div class="fc-bar amber"></div>
+        <div class="fc-body">
+          <div class="fc-icon fci-amber">📊</div>
+          <div class="fc-text">
+            <div class="fc-title">Indicadores de Desempenho 2026</div>
+            <p class="fc-desc">Painel de indicadores e métricas de desempenho da GTIC para o ciclo 2026.</p>
+          </div>
+        </div>
+        <div class="fc-footer">
+          <span class="fc-tag fct-amber">Indicadores · 2026</span>
+          <span class="fc-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- GOVERNANÇA -->
+  <div class="gov-section">
+    <div class="section-label">Governança da Saúde Digital Atende</div>
+    <div class="gov-grid">
+
+      <a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/catalogo_sistemas.html" target="_blank">
+        <div class="gov-icon">📋</div>
+        <div class="gov-info">
+          <div class="gov-title">Catálogo de Serviços</div>
+          <div class="gov-desc">Sistemas, Infraestrutura e Administrativo</div>
+        </div>
+        <span class="gov-arrow">→</span>
+      </a>
+
+      <a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/portfolio.html" target="_blank">
+        <div class="gov-icon">📦</div>
+        <div class="gov-info">
+          <div class="gov-title">Portfólio de Serviços</div>
+          <div class="gov-desc">Catálogo completo de serviços disponíveis</div>
+        </div>
+        <span class="gov-arrow">→</span>
+      </a>
+
+      <a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/script_atendimento.html" target="_blank">
+        <div class="gov-icon">💬</div>
+        <div class="gov-info">
+          <div class="gov-title">Script de Atendimento</div>
+          <div class="gov-desc">Roteiros padronizados para atendimento técnico</div>
+        </div>
+        <span class="gov-arrow">→</span>
+      </a>
+
+      <a class="gov-btn" href="https://saudedigitalatende.github.io/saudedigital/fluxo_atendimento.html" target="_blank">
+        <div class="gov-icon">🔄</div>
+        <div class="gov-info">
+          <div class="gov-title">Fluxo de Atendimento</div>
+          <div class="gov-desc">Fluxogramas e processos de atendimento</div>
+        </div>
+        <span class="gov-arrow">→</span>
+      </a>
+
+      <div class="gov-btn gov-btn-disabled">
+        <div class="gov-icon" style="background:#f0f0f0">📁</div>
+        <div class="gov-info">
+          <div class="gov-title">Documentações</div>
+          <div class="gov-desc" style="color:#c8a94a;font-weight:600">🚧 Em construção</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
 <footer class="page-footer">
-<div class="footer-top">
-<div class="footer-brand">Saúde Digital Atende</div>
-<div class="footer-meta">
-<div class="footer-meta-item">
-<span class="footer-meta-label">Gerência</span>
-<span class="footer-meta-value">GTIC — Gerência de Tecnologia da Informação e Comunicação</span>
-</div>
-<div class="footer-meta-item">
-<span class="footer-meta-label">E-mail</span>
-<span class="footer-meta-value">saudedigitalatende@recife.pe.gov.br</span>
-</div>
-<div class="footer-meta-item">
-<span class="footer-meta-label">Telefone</span>
-<span class="footer-meta-value">(81) 3355-7325</span>
-</div>
-</div>
-</div>
-<div class="footer-bottom">
-<span class="footer-copy">Secretaria de Saúde do Recife · 2026</span>
-</div>
+  <div class="footer-top">
+    <div class="footer-brand">Saúde Digital Atende</div>
+    <div class="footer-contacts">
+      <div class="footer-contact-item">
+        <span class="footer-contact-label">Gerência</span>
+        <span class="footer-contact-value">GTIC — Gerência de Tecnologia da Informação e Comunicação</span>
+      </div>
+      <div class="footer-contact-item">
+        <span class="footer-contact-label">E-mail</span>
+        <span class="footer-contact-value"><a href="mailto:saudedigitalatende@recife.pe.gov.br">saudedigitalatende@recife.pe.gov.br</a></span>
+      </div>
+      <div class="footer-contact-item">
+        <span class="footer-contact-label">Telefone</span>
+        <span class="footer-contact-value"><a href="tel:+558133557325">(81) 3355-7325</a></span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">Secretaria de Saúde do Recife · 2026</span>
+  </div>
 </footer>
 
 <!-- WA MODAL -->
 <div class="modal-overlay" id="modal-wa" onclick="closeModalOutside(event,'wa')">
-<div class="modal">
-<div class="modal-header">
-<h3>💬 Atendimento via WhatsApp</h3>
-<button class="modal-close" onclick="closeModal('wa')">✕</button>
-</div>
-<div class="modal-body">
-<p class="modal-intro">Siga os passos abaixo para ser atendido pela equipe do <strong>GTIC · Saúde Digital</strong>:</p>
-<div class="modal-steps">
-<div class="modal-step"><div class="step-num">1</div><div class="step-text">Adicione o número da Prefeitura do Recife: <strong><span class="step-hl hl-wa">(81) 99117-1407</span></strong></div></div>
-<div class="modal-step"><div class="step-num">2</div><div class="step-text">Envie uma mensagem digitando <span class="step-hl hl-hash">#saudedigitalatende</span></div></div>
-<div class="modal-step"><div class="step-num">3</div><div class="step-text">Nas opções disponíveis, escolha <strong>ATENDIMENTO</strong></div></div>
-<div class="modal-step"><div class="step-num">4</div><div class="step-text">No Menu do <strong>Conecta Zap</strong>, digite <strong>8</strong> (Sou profissional de saúde) e depois <strong>2</strong> (Falar com suporte de TI)</div></div>
-<div class="modal-step"><div class="step-num">5</div><div class="step-text">Pronto! Iremos atendê-lo de forma rápida e prática 🎉</div></div>
-</div>
-<div class="modal-divider"></div>
-<p class="modal-contact">Ficou com dúvidas? Ligue para <strong>(81) 3355-7325</strong></p>
-<div class="modal-cta">
-<a href="https://wa.me/5581991171407?text=%23saudedigitalatende" target="_blank" class="modal-btn mbtn-wa">💬 Abrir WhatsApp</a>
-<button class="modal-btn mbtn-cancel" onclick="closeModal('wa')">Fechar</button>
-</div>
-</div>
-</div>
+  <div class="modal">
+    <div class="modal-header">
+      <h3>💬 Atendimento via WhatsApp</h3>
+      <button class="modal-close" onclick="closeModal('wa')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-intro">Siga os passos abaixo para ser atendido pela equipe do <strong>Saúde Digital Atende</strong>:</p>
+      <div class="modal-steps">
+        <div class="modal-step"><div class="step-num">1</div><div class="step-text">Adicione o número da Prefeitura do Recife: <strong><span class="step-hl hl-wa">(81) 99117-1407</span></strong></div></div>
+        <div class="modal-step"><div class="step-num">2</div><div class="step-text">Envie uma mensagem digitando <span class="step-hl hl-hash">#saudedigitalatende</span></div></div>
+        <div class="modal-step"><div class="step-num">3</div><div class="step-text">Nas opções disponíveis, escolha <strong>ATENDIMENTO</strong></div></div>
+        <div class="modal-step"><div class="step-num">4</div><div class="step-text">No Menu do <strong>Conecta Zap</strong>, digite <strong>8</strong> (Sou profissional de saúde) e depois <strong>2</strong> (Falar com suporte de TI)</div></div>
+        <div class="modal-step"><div class="step-num">5</div><div class="step-text">Pronto! Iremos atendê-lo de forma rápida e prática 🎉</div></div>
+      </div>
+      <div class="modal-divider"></div>
+      <p class="modal-contact">Ficou com dúvidas? Ligue para <strong>(81) 3355-7325</strong></p>
+      <div class="modal-cta">
+        <a href="https://wa.me/5581991171407?text=%23saudedigitalatende" target="_blank" class="modal-btn mbtn-wa">💬 Abrir WhatsApp</a>
+        <button class="modal-btn mbtn-cancel" onclick="closeModal('wa')">Fechar</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- EMAIL MODAL -->
 <div class="modal-overlay" id="modal-email" onclick="closeModalOutside(event,'email')">
-<div class="modal">
-<div class="modal-header">
-<h3>✉️ Contato por E-mail</h3>
-<button class="modal-close" onclick="closeModal('email')">✕</button>
-</div>
-<div class="modal-body">
-<p class="modal-intro">Envie sua solicitação diretamente para a equipe do <strong>GTIC · Saúde Digital</strong>:</p>
-<div class="email-info">
-<div class="email-addr">saudedigitalatende@recife.pe.gov.br</div>
-<div class="email-tip">Clique no botão abaixo para abrir seu cliente de e-mail</div>
-</div>
-<div class="modal-steps">
-<div class="modal-step"><div class="step-num">1</div><div class="step-text">No <strong>assunto</strong>, informe o sistema ou equipamento e o tipo de problema</div></div>
-<div class="modal-step"><div class="step-num">2</div><div class="step-text">No <strong>corpo</strong>, descreva detalhadamente a solicitação</div></div>
-<div class="modal-step"><div class="step-num">3</div><div class="step-text">Informe seu <strong>nome, unidade e telefone</strong> para retorno</div></div>
-<div class="modal-step"><div class="step-num">4</div><div class="step-text">Anexe <strong>prints ou arquivos</strong> que ajudem a identificar o problema</div></div>
-</div>
-<div class="modal-divider"></div>
-<p class="modal-contact">Horário: <strong>Segunda a Sexta, 08h às 17h</strong><br>Tel: <strong>(81) 3355-7325</strong></p>
-<div class="modal-cta">
-<a href="mailto:saudedigitalatende@recife.pe.gov.br?subject=Solicitação - GTIC · Saúde Digital" class="modal-btn mbtn-email">✉️ Abrir E-mail</a>
-<button class="modal-btn mbtn-cancel" onclick="closeModal('email')">Fechar</button>
-</div>
-</div>
-</div>
+  <div class="modal">
+    <div class="modal-header">
+      <h3>✉️ Contato por E-mail</h3>
+      <button class="modal-close" onclick="closeModal('email')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-intro">Envie sua solicitação diretamente para a equipe do <strong>Saúde Digital Atende</strong>:</p>
+      <div class="email-info">
+        <div class="email-addr">saudedigitalatende@recife.pe.gov.br</div>
+        <div class="email-tip">Clique no botão abaixo para abrir seu cliente de e-mail</div>
+      </div>
+      <div class="modal-steps">
+        <div class="modal-step"><div class="step-num">1</div><div class="step-text">No <strong>assunto</strong>, informe o sistema ou equipamento e o tipo de problema</div></div>
+        <div class="modal-step"><div class="step-num">2</div><div class="step-text">No <strong>corpo</strong>, descreva detalhadamente a solicitação</div></div>
+        <div class="modal-step"><div class="step-num">3</div><div class="step-text">Informe seu <strong>nome, unidade e telefone</strong> para retorno</div></div>
+        <div class="modal-step"><div class="step-num">4</div><div class="step-text">Anexe <strong>prints ou arquivos</strong> que ajudem a identificar o problema</div></div>
+      </div>
+      <div class="modal-divider"></div>
+      <p class="modal-contact">Horário: <strong>Segunda a Sexta, 08h às 17h</strong><br>Tel: <strong>(81) 3355-7325</strong></p>
+      <div class="modal-cta">
+        <a href="mailto:saudedigitalatende@recife.pe.gov.br?subject=Solicitação - Saúde Digital Atende" class="modal-btn mbtn-email">✉️ Abrir E-mail</a>
+        <button class="modal-btn mbtn-cancel" onclick="closeModal('email')">Fechar</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <button class="back-top" id="bt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <script>
 function openModal(id){document.getElementById('modal-'+id).classList.add('open')}
 function closeModal(id){document.getElementById('modal-'+id).classList.remove('open')}
