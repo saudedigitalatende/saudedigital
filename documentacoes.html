@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Documentações · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+--paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+--blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+--green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+--orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+--amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.6}
+
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+
+.main{max-width:1200px;margin:0 auto;padding:36px 60px 60px}
+
+.folders-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px}
+
+.folder-card{background:#fff;border:1px solid var(--rule);border-radius:16px;overflow:hidden;transition:box-shadow .2s}
+.folder-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+
+.folder-header{display:flex;align-items:center;gap:14px;padding:22px 24px;border-bottom:1px solid var(--rule)}
+.folder-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.fi-blue{background:var(--blue-lt)}
+.fi-green{background:var(--green-lt)}
+.folder-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink)}
+.folder-desc{font-size:12px;color:var(--ink3);margin-top:2px}
+
+.folder-body{padding:20px 24px}
+.folder-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:32px 0;color:var(--ink3)}
+.folder-empty span{font-size:32px}
+.folder-empty p{font-size:12.5px}
+
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px;flex-shrink:0}
+@media(max-width:768px){.folders-grid{grid-template-columns:1fr}.hero,.main,.page-footer{padding-left:24px;padding-right:24px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner" style="display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+      <a href="https://saudedigitalatende.github.io/saudedigital/"
+        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
+        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
+        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+        ← Voltar ao Portal
+      </a>
+    </div>
+    <h1><em>Documentações</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+
+<div class="main">
+  <div class="folders-grid">
+
+    <div class="folder-card">
+      <div class="folder-header">
+        <div class="folder-icon fi-blue">📋</div>
+        <div>
+          <div class="folder-title">POP</div>
+          <div class="folder-desc">Procedimentos Operacionais Padrão</div>
+        </div>
+      </div>
+      <div class="folder-body">
+        <div class="folder-empty">
+          <span>📂</span>
+          <p>Nenhum documento cadastrado ainda.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-card">
+      <div class="folder-header">
+        <div class="folder-icon fi-green">📖</div>
+        <div>
+          <div class="folder-title">Manual</div>
+          <div class="folder-desc">Manuais e guias de uso dos sistemas</div>
+        </div>
+      </div>
+      <div class="folder-body">
+        <div class="folder-empty">
+          <span>📂</span>
+          <p>Nenhum documento cadastrado ainda.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>1.0 · Abril/2026</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar ao Portal
+  </a>
+</footer>
+
+</body>
+</html>
