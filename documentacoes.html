@@ -8,13 +8,13 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
---ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
---paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
---blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
---green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
---orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
---amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
---purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
 }
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.6}
@@ -22,28 +22,44 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
 .hero-inner{position:relative;max-width:1200px;margin:0 auto}
+.hero-back{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;margin-bottom:14px;transition:all .2s}
+.hero-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}
 .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
 .hero h1 em{color:var(--amber-mid);font-style:normal}
 .hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
 
 .main{max-width:1200px;margin:0 auto;padding:36px 60px 60px}
-.section-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:20px}
 
-.folders-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+/* BREADCRUMB */
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink3);margin-bottom:20px}
+.breadcrumb a{color:var(--ink3);text-decoration:none;transition:color .15s}
+.breadcrumb a:hover{color:var(--blue-mid)}
+.breadcrumb span{color:var(--ink2);font-weight:600}
 
-.folder-card{background:#fff;border:1px solid var(--rule);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .2s;text-decoration:none;display:block;color:inherit}
+/* PASTAS - VISTA DE GRID */
+.view{display:none}
+.view.active{display:block}
+
+.section-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px}
+
+.folders-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.folder-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;text-decoration:none;display:block;color:inherit;position:relative}
 .folder-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.09);transform:translateY(-2px)}
-
-.folder-header{display:flex;align-items:center;gap:16px;padding:24px 26px 20px}
-.folder-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.folder-bar{height:4px}
+.bar-blue{background:linear-gradient(90deg,var(--blue-mid),#5a9fd4)}
+.bar-green{background:linear-gradient(90deg,var(--green-mid),#5abf8a)}
+.bar-orange{background:linear-gradient(90deg,var(--orange-mid),#e8a060)}
+.bar-purple{background:linear-gradient(90deg,var(--purple-mid),#a87fdf)}
+.folder-header{display:flex;align-items:center;gap:16px;padding:22px 24px 18px}
+.folder-icon{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 .fi-blue{background:var(--blue-lt)}
 .fi-green{background:var(--green-lt)}
 .fi-orange{background:var(--orange-lt)}
 .fi-purple{background:var(--purple-lt)}
-.folder-name{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);line-height:1.1}
-.folder-desc{font-size:12px;color:var(--ink3);margin-top:3px}
-
-.folder-footer{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;border-top:1px solid var(--rule)}
+.folder-name{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink)}
+.folder-desc{font-size:12px;color:var(--ink3);margin-top:2px}
+.folder-footer{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-top:1px solid var(--rule)}
 .folder-count{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px}
 .fc-blue{background:var(--blue-lt);color:var(--blue-mid)}
 .fc-green{background:var(--green-lt);color:var(--green-mid)}
@@ -52,11 +68,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .folder-arrow{font-size:16px;color:var(--ink3);transition:transform .2s}
 .folder-card:hover .folder-arrow{transform:translateX(4px)}
 
-.folder-bar{height:4px}
-.bar-blue{background:linear-gradient(90deg,var(--blue-mid),#5a9fd4)}
-.bar-green{background:linear-gradient(90deg,var(--green-mid),#5abf8a)}
-.bar-orange{background:linear-gradient(90deg,var(--orange-mid),#e8a060)}
-.bar-purple{background:linear-gradient(90deg,var(--purple-mid),#a87fdf)}
+/* VISTA INTERNA DA PASTA */
+.folder-view-header{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--rule);border-radius:14px;padding:20px 24px;margin-bottom:20px}
+.folder-view-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.folder-view-name{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink)}
+.folder-view-desc{font-size:12px;color:var(--ink3);margin-top:2px}
+
+.docs-list{display:flex;flex-direction:column;gap:10px}
+.doc-card{background:#fff;border:1px solid var(--rule);border-radius:12px;display:flex;align-items:center;gap:16px;padding:18px 22px;text-decoration:none;color:inherit;transition:all .2s}
+.doc-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:var(--blue-mid);transform:translateX(4px)}
+.doc-icon-wrap{width:44px;height:44px;border-radius:10px;background:var(--blue-lt);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.doc-title{font-size:14px;font-weight:700;color:var(--ink)}
+.doc-meta{font-size:11.5px;color:var(--ink3);margin-top:2px}
+.doc-arrow{margin-left:auto;font-size:18px;color:var(--ink3);transition:transform .2s}
+.doc-card:hover .doc-arrow{transform:translateX(4px);color:var(--blue-mid)}
+
+.empty-state{text-align:center;padding:48px 24px;color:var(--ink3)}
+.empty-state div{font-size:40px;margin-bottom:12px}
+.empty-state p{font-size:13px}
 
 .page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
 .footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
@@ -67,107 +96,172 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
 .back-portal svg{width:14px;height:14px;flex-shrink:0}
 @media(max-width:768px){.folders-grid{grid-template-columns:1fr}.hero,.main,.page-footer{padding-left:24px;padding-right:24px}}
-
-.folder-docs{padding:8px 12px 12px;display:flex;flex-direction:column;gap:6px}
-.doc-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--paper);border-radius:10px;border:1px solid var(--rule);text-decoration:none;color:inherit;transition:all .15s}
-.doc-item:hover{background:var(--green-lt);border-color:var(--green-mid)}
-.doc-icon{font-size:18px;flex-shrink:0}
-.doc-info{flex:1}
-.doc-title{font-size:13px;font-weight:600;color:var(--ink)}
-.doc-meta{font-size:11px;color:var(--ink3)}
-.doc-arrow{font-size:14px;color:var(--ink3)}
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <div class="hero-inner" style="display:flex;flex-direction:column">
-    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
-      <a href="https://saudedigitalatende.github.io/saudedigital/"
-        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
-        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
-        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
-        ← Voltar ao Portal
-      </a>
-    </div>
+  <div class="hero-inner">
+    <a href="https://saudedigitalatende.github.io/saudedigital/" class="hero-back">← Voltar ao Portal</a>
     <h1><em>Documentações</em></h1>
     <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
   </div>
 </header>
 
 <div class="main">
-  <div class="section-title">Categorias de documentos</div>
-  <div class="folders-grid">
 
-    <a class="folder-card" href="#">
-      <div class="folder-bar bar-blue"></div>
-      <div class="folder-header">
-        <div class="folder-icon fi-blue">📋</div>
-        <div>
-          <div class="folder-name">POP</div>
-          <div class="folder-desc">Procedimentos Operacionais Padrão</div>
+  <!-- VISTA: GRID DE PASTAS -->
+  <div class="view active" id="view-root">
+    <div class="breadcrumb"><span>Documentações</span></div>
+    <div class="section-label">Categorias de documentos</div>
+    <div class="folders-grid">
+
+      <div class="folder-card" onclick="openFolder('pop')">
+        <div class="folder-bar bar-blue"></div>
+        <div class="folder-header">
+          <div class="folder-icon fi-blue">📋</div>
+          <div>
+            <div class="folder-name">POP</div>
+            <div class="folder-desc">Procedimentos Operacionais Padrão</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count fc-blue">📂 0 documentos</span>
+          <span class="folder-arrow">→</span>
         </div>
       </div>
-      <div class="folder-footer">
-        <span class="folder-count fc-blue">📂 Em breve</span>
-        <span class="folder-arrow">→</span>
-      </div>
-    </a>
 
-    <div class="folder-card">
-      <div class="folder-bar bar-green"></div>
-      <div class="folder-header">
-        <div class="folder-icon fi-green">📖</div>
-        <div>
-          <div class="folder-name">Manual</div>
-          <div class="folder-desc">Manuais e guias de uso dos sistemas</div>
+      <div class="folder-card" onclick="openFolder('manual')">
+        <div class="folder-bar bar-green"></div>
+        <div class="folder-header">
+          <div class="folder-icon fi-green">📖</div>
+          <div>
+            <div class="folder-name">Manual</div>
+            <div class="folder-desc">Manuais e guias de uso dos sistemas</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count fc-green">📂 2 documentos</span>
+          <span class="folder-arrow">→</span>
         </div>
       </div>
-      <div class="folder-docs">
-        <a class="doc-item" href="documentações/Manual/manual_cadsus_web.html" target="_blank">
-          <span class="doc-icon">📄</span>
-          <div class="doc-info"><div class="doc-title">Manual CADSUS WEB</div><div class="doc-meta">Versão 1.0 · 2025</div></div>
-          <span class="doc-arrow">→</span>
-        </a>
-        <a class="doc-item" href="documentações/Manual/manual_sgop.html" target="_blank">
-          <span class="doc-icon">📄</span>
-          <div class="doc-info"><div class="doc-title">Manual SGOP</div><div class="doc-meta">Versão 3.0 · 2025</div></div>
-          <span class="doc-arrow">→</span>
-        </a>
+
+      <div class="folder-card" onclick="openFolder('processos')">
+        <div class="folder-bar bar-orange"></div>
+        <div class="folder-header">
+          <div class="folder-icon fi-orange">🗂️</div>
+          <div>
+            <div class="folder-name">Processos</div>
+            <div class="folder-desc">Documentação de processos internos da GTIC</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count fc-orange">📂 0 documentos</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('fluxos')">
+        <div class="folder-bar bar-purple"></div>
+        <div class="folder-header">
+          <div class="folder-icon fi-purple">🔄</div>
+          <div>
+            <div class="folder-name">Fluxos</div>
+            <div class="folder-desc">Fluxogramas e diagramas de atendimento</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count fc-purple">📂 0 documentos</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA POP -->
+  <div class="view" id="view-pop">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>POP</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon fi-blue">📋</div>
+      <div>
+        <div class="folder-view-name">POP</div>
+        <div class="folder-view-desc">Procedimentos Operacionais Padrão</div>
       </div>
     </div>
-
-    <a class="folder-card" href="#">
-      <div class="folder-bar bar-orange"></div>
-      <div class="folder-header">
-        <div class="folder-icon fi-orange">🗂️</div>
-        <div>
-          <div class="folder-name">Processos</div>
-          <div class="folder-desc">Documentação de processos internos da GTIC</div>
-        </div>
-      </div>
-      <div class="folder-footer">
-        <span class="folder-count fc-orange">📂 Em breve</span>
-        <span class="folder-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="folder-card" href="#">
-      <div class="folder-bar bar-purple"></div>
-      <div class="folder-header">
-        <div class="folder-icon fi-purple">🔄</div>
-        <div>
-          <div class="folder-name">Fluxos</div>
-          <div class="folder-desc">Fluxogramas e diagramas de atendimento</div>
-        </div>
-      </div>
-      <div class="folder-footer">
-        <span class="folder-count fc-purple">📂 Em breve</span>
-        <span class="folder-arrow">→</span>
-      </div>
-    </a>
-
+    <div class="docs-list">
+      <div class="empty-state"><div>📂</div><p>Nenhum documento cadastrado ainda.</p></div>
+    </div>
   </div>
+
+  <!-- VISTA: PASTA MANUAL -->
+  <div class="view" id="view-manual">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>Manual</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon fi-green">📖</div>
+      <div>
+        <div class="folder-view-name">Manual</div>
+        <div class="folder-view-desc">Manuais e guias de uso dos sistemas</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <a class="doc-card" href="documentações/Manual/manual_cadsus_web.html" target="_blank">
+        <div class="doc-icon-wrap">📄</div>
+        <div>
+          <div class="doc-title">Manual do Usuário — CADSUS WEB</div>
+          <div class="doc-meta">Versão 1.0 · Janeiro/2025 · Diana Castro</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/Manual/manual_sgop.html" target="_blank">
+        <div class="doc-icon-wrap">📄</div>
+        <div>
+          <div class="doc-title">Manual do Usuário — Sistema SGOP</div>
+          <div class="doc-meta">Versão 3.0 · Janeiro/2025 · Diana Castro</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA PROCESSOS -->
+  <div class="view" id="view-processos">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>Processos</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon fi-orange">🗂️</div>
+      <div>
+        <div class="folder-view-name">Processos</div>
+        <div class="folder-view-desc">Documentação de processos internos da GTIC</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <div class="empty-state"><div>📂</div><p>Nenhum documento cadastrado ainda.</p></div>
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA FLUXOS -->
+  <div class="view" id="view-fluxos">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>Fluxos</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon fi-purple">🔄</div>
+      <div>
+        <div class="folder-view-name">Fluxos</div>
+        <div class="folder-view-desc">Fluxogramas e diagramas de atendimento</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <div class="empty-state"><div>📂</div><p>Nenhum documento cadastrado ainda.</p></div>
+    </div>
+  </div>
+
 </div>
 
 <footer class="page-footer">
@@ -182,6 +276,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     Voltar ao Portal
   </a>
 </footer>
+
+<script>
+function openFolder(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function goRoot() {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-root').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  return false;
+}
+</script>
 
 </body>
 </html>
