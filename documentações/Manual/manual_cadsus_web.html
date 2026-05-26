@@ -1,58 +1,112 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Manual do Usuário — CADSUS WEB · GTIC</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;--paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;--blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;--green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;--orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;--amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+  --red:#c0390a;--red-lt:#fdeee6;
+}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.6}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+
+/* HERO */
 .hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
 .hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero-back{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;margin-bottom:14px;transition:all .2s}
+.hero-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-mid);background:rgba(200,169,74,.12);border:1px solid rgba(200,169,74,.25);padding:4px 12px;border-radius:100px;margin-bottom:10px}
 .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(24px,3.5vw,40px);color:#fff;line-height:1.1;margin-bottom:6px}
 .hero h1 em{color:var(--amber-mid);font-style:normal}
-.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
-.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.hero-meta{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px}
+.hero-meta span{font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:5px}
+.hero-meta strong{color:rgba(255,255,255,.7)}
+
+/* LAYOUT */
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:240px 1fr;gap:40px;align-items:start}
+
+/* SIDEBAR */
 .sidebar{position:sticky;top:24px}
 .sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
 .toc{list-style:none;display:flex;flex-direction:column;gap:2px}
-.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
-.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
-.section{margin-bottom:32px;scroll-margin-top:24px}
-.sec-h1{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--rule)}
-.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
-.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
-.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.toc a{display:block;font-size:12.5px;color:var(--ink3);text-decoration:none;padding:6px 12px;border-radius:8px;border-left:2px solid transparent;transition:all .15s;line-height:1.3}
+.toc a:hover{color:var(--ink);background:var(--paper2);border-left-color:var(--rule)}
+.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.toc .toc-sub{margin-left:10px}
+.toc .toc-sub a{font-size:11.5px}
+
+/* CONTENT */
+.content{}
+.ficha{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:24px 28px;margin-bottom:32px}
+.ficha-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px}
+.ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ficha-item{display:flex;flex-direction:column;gap:3px}
+.ficha-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+.ficha-value{font-size:13px;color:var(--ink2)}
+
+.section{margin-bottom:36px;scroll-margin-top:24px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule)}
+.section-title span{color:var(--blue-mid);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;margin-right:8px;background:var(--blue-lt);padding:2px 8px;border-radius:4px;vertical-align:middle}
+
+/* DSS CARD */
+.dss-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.dss-header{display:flex;align-items:center;gap:12px;padding:16px 22px;background:var(--ink);cursor:pointer;user-select:none}
+.dss-header:hover{background:#1a2b42}
+.dss-code{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.dss-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.dss-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dss-card.open .dss-chevron{transform:rotate(180deg)}
+.dss-body{display:none;padding:22px}
+.dss-card.open .dss-body{display:block}
+
+.dss-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.dss-meta-item{padding:12px 16px;background:var(--paper)}
+.dss-meta-item+.dss-meta-item{border-left:1px solid var(--rule)}
+.dss-meta-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:4px}
+.dss-meta-value{font-size:12px;color:var(--ink2);line-height:1.4}
+
+.dss-section{margin-bottom:18px}
+.dss-section-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.dss-section-title::after{content:'';flex:1;height:1px;background:var(--rule)}
+.dss-text{font-size:13px;color:var(--ink2);line-height:1.7}
+.dss-text strong{color:var(--ink);font-weight:600}
+
+.prereq-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.prereq-list li{font-size:12.5px;color:var(--ink2);padding:8px 12px;background:var(--paper);border-radius:8px;border-left:3px solid var(--blue-mid);line-height:1.5}
+.prereq-list li strong{color:var(--ink);display:block;margin-bottom:2px}
+
+.howto{background:var(--paper);border-radius:10px;padding:18px 20px}
+.howto-step{display:flex;gap:12px;margin-bottom:12px}
+.howto-step:last-child{margin-bottom:0}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--blue-mid);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.step-text strong{color:var(--ink)}
+
+.alert{border-radius:8px;padding:12px 16px;font-size:12.5px;margin:12px 0;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.alert-info{background:var(--blue-lt);border-left:3px solid var(--blue-mid);color:var(--blue)}
+.alert-warn{background:var(--amber-lt);border-left:3px solid var(--amber-mid);color:var(--amber)}
+.alert-end{background:var(--green-lt);border-left:3px solid var(--green-mid);color:var(--green)}
+
+/* FICHA TABLE */
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule)}
+.info-table th{background:var(--ink);color:#fff;padding:10px 14px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.04em}
+.info-table td{padding:10px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
 .info-table tr:last-child td{border-bottom:none}
 .info-table tr:nth-child(even) td{background:var(--paper)}
 .info-table a{color:var(--blue-mid);text-decoration:none}
-.dss-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:16px;scroll-margin-top:24px}
-.dss-header{display:flex;align-items:center;gap:12px;padding:16px 22px;background:var(--ink);cursor:pointer;user-select:none}
-.dss-header:hover{background:#1a2b42}
-.dss-code{font-family:monospace;font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
-.dss-name{font-size:13px;font-weight:600;color:#fff;flex:1}
-.dss-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.dss-card:not(.open) .dss-body{display:none}
-.dss-card.open .dss-chevron{transform:rotate(180deg)}
-.dss-body{padding:22px}
-.dss-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:18px}
-.dss-meta-item{padding:10px 14px;background:var(--paper);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.dss-meta-item:nth-child(even){border-right:none}
-.dss-meta-item:nth-last-child(-n+2){border-bottom:none}
-.dss-meta-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:4px}
-.dss-meta-value{font-size:12px;color:var(--ink2);line-height:1.4}
-.dss-section{margin-bottom:16px}
-.dss-section-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.dss-section-title::after{content:'';flex:1;height:1px;background:var(--rule)}
-.prereq-list{list-style:none;display:flex;flex-direction:column;gap:4px}
-.prereq-item{font-size:12.5px;color:var(--ink2);padding:7px 12px;background:var(--paper);border-radius:8px;border-left:3px solid var(--blue-mid);line-height:1.5}
-.howto{background:var(--paper);border-radius:10px;padding:16px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
-.howto-step{display:flex;gap:12px}
-.step-num{width:24px;height:24px;border-radius:50%;background:var(--blue-mid);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
-.step-text a{color:var(--blue-mid)}
-.doc-img{margin:12px 0;border-radius:10px;overflow:hidden;border:1px solid var(--rule);background:#fff;text-align:center}
-.doc-img img{max-width:100%;height:auto;display:block;margin:0 auto}
+.info-table a:hover{text-decoration:underline}
+
 .page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
 .footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
 .footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
@@ -60,164 +114,259 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
 .back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
 .back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
-.back-portal svg{width:14px;height:14px}
-@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
-</style></head><body>
-<header class="hero"><div class="hero-inner">
-<div style="display:flex;justify-content:flex-end;margin-bottom:10px">
-      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
-        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
-        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">← Documentações</a></div>
-<h1>Manual do Usuário<br><em>CADSUS WEB</em></h1>
-<p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
-</div></header>
+.back-portal svg{width:14px;height:14px;flex-shrink:0}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .dss-meta{grid-template-columns:1fr 1fr}
+  .ficha-grid{grid-template-columns:1fr}
+  .hero,.page-footer{padding-left:24px;padding-right:24px}
+  .layout{padding-left:24px;padding-right:24px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="hero-back">← Documentações</a>
+    <h1>Manual do Usuário<br><em>CADSUS WEB</em></h1>
+  </div>
+</header>
+
 <div class="layout">
-<aside class="sidebar"><div class="sidebar-title">Sumário</div><ul class="toc">
-<li><a href="#intro">Introdução</a></li>
-<li><a href="#historico">Histórico de Revisões</a></li>
-<li><a href="#links">Links Complementares</a></li>
-<li><a href="#informacoes">Informações</a></li>
-<li><a href="#acesso">1. Acessando o Sistema</a></li>
-<li><a href="#consulta">2. Consultar Cadastro</a></li>
-<li><a href="#resultado">3. Resultado da Pesquisa</a></li>
-<li><a href="#cadastro">4. Cadastro do Cidadão</a></li>
-</ul></aside>
-<main class="content">
-<div class="section" id="intro"><h2 class="sec-h1" style="margin-top:32px">INTRODUÇÃO</h2>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Este documento tem como objetivo auxiliar os profissionais da Prefeitura do Recife no uso do sistema CADSUS WEB. O CADSUS WEB é uma plataforma destinada ao gerenciamento e integração de informações de saúde, proporcionando uma maneira eficiente de registrar e acessar dados dos cidadãos e das unidades de saúde. Por meio deste sistema, os profissionais podem realizar diversos processos administrativos e operacionais, contribuindo para a melhoria da gestão e dos serviços prestados à população. Este guia foi desenvolvido para fornecer instruções claras e detalhadas, garantindo o correto manuseio e utilização eficaz do sistema, assegurando que todas as funcionalidades sejam aproveitadas de maneira otimizada.</p>
-<h3 style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink2);margin:22px 0 8px">HISTÓRICO DE REVISÕES</h3>
-<h3 style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink2);margin:22px 0 8px">LINKS COMPLEMENTARES</h3>
-<h3 style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink2);margin:22px 0 8px">INFORMAÇÕES</h3>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">1.2.1 Acessar o sistema CadSUS Web e realizar o login.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">1.3.1 Sistemas Utilizados</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Cadsus WEb: https://cadastro.saude.gov.br/segcartao</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">1.3.2 Unidade</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrada  no CNES.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">1.3.3 Máquina</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o módulo de segurança instalado no computador de trabalho.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">1.3.4  Colaborador</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Sistema SGOP</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrado no CNES da unidade;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter seu perfil cadastrado no sistema SGOP;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o nível de acesso: consultador, cadastrador; operador ou administrador</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Máquina cadastrada e liberada no sistema SGOP.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">1.3.5 Gestor</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Sistema SGOP</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrado no CNES da unidade;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter seu perfil cadastrado no sistema SGOP;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o nível de acesso: consultador, cadastrador; operador ou administrador</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Máquina cadastrada e liberada no sistema SGOP.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Consultar o registro cadastral do cidadão no sistema CADSUS WEB, com o objetivo de verificar e atualizar as informações conforme necessário.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">2.2.1 Sistemas Utilizados:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Cadsus WEb: https://cadastro.saude.gov.br/segcartao</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">2.2.2 Unidade:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrada  no CNES.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">2.2.3 Máquina</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o módulo de segurança instalado no computador de trabalho.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">2.2.4 Colaborador:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Sistema SGOP</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrado no CNES da unidade;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter seu perfil cadastrado no sistema SGOP;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o nível de acesso: consultador, cadastrador; operador ou administrador</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Máquina cadastrada e liberada no sistema SGOP.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">2.2.5 Gestor:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Sistema SGOP</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrado no CNES da unidade;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter seu perfil cadastrado no sistema SGOP;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o nível de acesso: consultador, cadastrador; operador ou administrador</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Máquina cadastrada e liberada no sistema SGOP.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">O funcionário deverá efetuar o login no sistema GOV.BR.  Para mais informações, consulte no documento o DSS-001.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Preencha pelo menos um campo disponíveis obrigatório mos filtros.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Opções de consulta: Veja as opções de consulta nos DSS abaixo.</p>
-<div class="doc-img"><img src="https://saudedigitalatende.github.io/saudedigital/documentações/Manual/imgs/cadsus_rId35.png" alt="" loading="lazy"></div>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Usar os recursos disponíveis na tabela registro do cidadão, caso necessário.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">3.2.1 Sistemas Utilizados:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Cadsus WEb: https://cadastro.saude.gov.br/segcartao</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">3.2.2 Unidade:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrada  no CNES.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">3.2.3 Máquina</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o módulo de segurança instalado no computador de trabalho.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">3.2.4 Colaborador:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Sistema SGOP</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrado no CNES da unidade;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter seu perfil cadastrado no sistema SGOP;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o nível de acesso: consultador, cadastrador; operador ou administrador</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Máquina cadastrada e liberada no sistema SGOP.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">3.2.5 Gestor:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Sistema SGOP</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrado no CNES da unidade;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter seu perfil cadastrado no sistema SGOP;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o nível de acesso: consultador, cadastrador; operador ou administrador</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Máquina cadastrada e liberada no sistema SGOP.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Após realizar uma pesquisa, o sistema exibirá o resultado correspondente, que pode incluir um ou mais registros.</p>
-<div class="doc-img"><img src="https://saudedigitalatende.github.io/saudedigital/documentações/Manual/imgs/cadsus_rId48.png" alt="" loading="lazy"></div>
-<div class="doc-img"><img src="https://saudedigitalatende.github.io/saudedigital/documentações/Manual/imgs/cadsus_rId40.png" alt="" loading="lazy"></div>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ícones e nomenclaturas  exibidos:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Cadastrar um cidadão na base de dados do sistema CADSUS WEB, garantindo a inclusão correta de suas informações.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">4.2.1 Sistemas Utilizados:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Cadsus WEb: https://cadastro.saude.gov.br/segcartao</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">4.2.2 Unidade:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrada  no CNES.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">4.2.3 Máquina</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o módulo de segurança instalado no computador de trabalho.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">4.2.4 Colaborador:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Sistema SGOP</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrado no CNES da unidade;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter seu perfil cadastrado no sistema SGOP;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o nível de acesso: cadastrador; operador ou administrador</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Máquina cadastrada e liberada no sistema SGOP.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">4.2.5 Gestor:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Sistema SGOP</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Estar cadastrado no CNES da unidade;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter seu perfil cadastrado no sistema SGOP;</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Ter o nível de acesso: consultador, cadastrador; operador ou administrador</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Máquina cadastrada e liberada no sistema SGOP.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Antes de cadastrar um novo registro, é obrigatório realizar uma consulta para verificar se o cadastro do cidadão já existe. Para mais detalhes de como fazer uma consulta, consulte o documento DSS-002.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Caso o registro não esteja na base de dados, aparecerá uma mensagem (pop-up) perguntando: “Este usuário não foi encontrado na base de dados! Deseja cadastra-lo?”</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Confirme que deseja iniciar um cadastro: Clique no botão "Sim" para iniciar o cadastro.</p>
-<div class="doc-img"><img src="https://saudedigitalatende.github.io/saudedigital/documentações/Manual/imgs/cadsus_rId84.png" alt="" loading="lazy"></div>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">4.5.1 Todos os campos obrigatórios têm uma faixa no canto lateral esquerdo vermelho.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Importante: O sistema não permitirá salvar o cadastro se esses campos não estiverem preenchidos.</p>
-<div class="doc-img"><img src="https://saudedigitalatende.github.io/saudedigital/documentações/Manual/imgs/cadsus_rId85.png" alt="" loading="lazy"></div>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">4.9.1 Passe o cursor do mouse sobre o título de cada campo para exibir as dicas de preenchimento.</p>
-<div class="doc-img"><img src="https://saudedigitalatende.github.io/saudedigital/documentações/Manual/imgs/cadsus_rId86.png" alt="" loading="lazy"></div>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">4.9.2  Outra opção é clicar no título do campo, exibirá um pop-up com explicação detalhada sobre como preenchê-lo.</p>
-<div class="doc-img"><img src="https://saudedigitalatende.github.io/saudedigital/documentações/Manual/imgs/cadsus_rId87.png" alt="" loading="lazy"></div>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Os campos Mãe e Pai tem opções especiais:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Campo "Mãe": Pode ficar em branco se você marcar a opção "Desconhecida".</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Campo "Pai": Também pode ser marcado como "Desconhecido" se o cidadão solicitar.</p>
-<div class="doc-img"><img src="https://saudedigitalatende.github.io/saudedigital/documentações/Manual/imgs/cadsus_rId88.png" alt="" loading="lazy"></div>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">O cadastro é dividido em quatro partes:</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Dados Pessoais: Informações básicas como nome, data de nascimento, etc.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Contatos: Telefone, e-mail, endereço, entre outros.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Documentos: RG, CPF, e outros documentos oficiais.</p>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Dados Biométricos: Impressões digitais, foto, ou outros dados biométricos.</p>
-<div class="doc-img"><img src="https://saudedigitalatende.github.io/saudedigital/documentações/Manual/imgs/cadsus_rId89.png" alt="" loading="lazy"></div>
-<p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px">Saber utilizar outros recursos disponibilizados no sistema.</p>
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="toc">
+      <li><a href="#ficha">Ficha Técnica</a></li>
+      <li><a href="#intro">Introdução</a></li>
+      <li><a href="#historico">Histórico de Revisões</a></li>
+      <li><a href="#links">Links Complementares</a></li>
+      <li><a href="#informacoes">Informações do Sistema</a></li>
+      <li><a href="#acesso">1. Acessando o Sistema</a></li>
+      <li class="toc-sub"><a href="#dss-001">DSS-001 — Acessando o CADSUS WEB</a></li>
+      <li><a href="#consulta">2. Consultar Cadastro</a></li>
+      <li class="toc-sub"><a href="#dss-002-cpf">DSS-002 — Consultar com CPF</a></li>
+      <li class="toc-sub"><a href="#dss-002-cns">DSS-002 — Consultar com CNS</a></li>
+      <li class="toc-sub"><a href="#dss-002-nome">DSS-002 — Consultar com Nome</a></li>
+      <li class="toc-sub"><a href="#dss-002-mae">DSS-002 — Consultar com Nome da Mãe</a></li>
+      <li class="toc-sub"><a href="#dss-002-inativo">DSS-002 — Consultar Inativo</a></li>
+      <li><a href="#resultado">3. Resultado da Pesquisa</a></li>
+      <li><a href="#cadastro">4. Cadastro do Cidadão</a></li>
+      <li><a href="#sistema">6. Sistema CADSUS</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+
+    <div class="ficha" id="ficha">
+      <div class="ficha-title">📋 Ficha Técnica</div>
+      <div class="ficha-grid">
+        <div class="ficha-item"><span class="ficha-label">Título</span><span class="ficha-value">Manual do Usuário — Sistema CADSUS WEB</span></div>
+        <div class="ficha-item"><span class="ficha-label">Autora</span><span class="ficha-value">Castro, Diana</span></div>
+        <div class="ficha-item"><span class="ficha-label">Revisão</span><span class="ficha-value">Celi, Regina</span></div>
+        <div class="ficha-item"><span class="ficha-label">Instituição</span><span class="ficha-value">Gerência Geral de Saúde Digital</span></div>
+        <div class="ficha-item"><span class="ficha-label">Ano</span><span class="ficha-value">2025</span></div>
+        <div class="ficha-item"><span class="ficha-label">Tipo</span><span class="ficha-value">Manual</span></div>
+        <div class="ficha-item"><span class="ficha-label">Público-Alvo</span><span class="ficha-value">Colaboradores da Prefeitura do Recife que utilizam o CadSUS Web</span></div>
+        <div class="ficha-item"><span class="ficha-label">Palavras-chave</span><span class="ficha-value">Cadsus Web, Manual, Cartão SUS</span></div>
+      </div>
+    </div>
+
+    <div class="section" id="intro">
+      <div class="section-title">Introdução</div>
+      <p class="dss-text">Este documento tem como objetivo auxiliar os profissionais da Prefeitura do Recife no uso do sistema <strong>CADSUS WEB</strong>. O CADSUS WEB é uma plataforma destinada ao gerenciamento e integração de informações de saúde, proporcionando uma maneira eficiente de registrar e acessar dados dos cidadãos e das unidades de saúde. Por meio deste sistema, os profissionais podem realizar diversos processos administrativos e operacionais, contribuindo para a melhoria da gestão e dos serviços prestados à população.</p>
+    </div>
+
+    <div class="section" id="historico">
+      <div class="section-title">Histórico de Revisões</div>
+      <table class="info-table">
+        <thead><tr><th>Versão</th><th>Última Atualização</th><th>Autor</th></tr></thead>
+        <tbody><tr><td>1.0</td><td>13/01/2025</td><td>Diana Castro</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="section" id="links">
+      <div class="section-title">Links Complementares</div>
+      <table class="info-table">
+        <thead><tr><th>Nome</th><th>Link</th></tr></thead>
+        <tbody>
+          <tr><td>Manual SGOP — Sistema de Gestão dos Operadores</td><td><a href="https://docs.google.com/document/d/1qZMMIOdXqWuS0ALvLlbLAhS1LdtsSHodCoqqciovn0o/edit?usp=sharing" target="_blank">Acessar →</a></td></tr>
+          <tr><td>Requisitos de uso do SGOP — Vídeos tutoriais</td><td><a href="https://datasus.saude.gov.br/faq-sgop/" target="_blank">Acessar →</a></td></tr>
+          <tr><td>Manual de apoio ao CadSUS Web</td><td><a href="https://docs.google.com/document/d/1DwfotY89mMIbUQDPPdCJy-cITHmH9J6ECDEiW_UENrk/edit?usp=sharing" target="_blank">Acessar →</a></td></tr>
+          <tr><td>Sistema CADSUS Operador</td><td><a href="https://cadastro.saude.gov.br/operador/" target="_blank">Acessar →</a></td></tr>
+          <tr><td>Sistema Cadsus WEB</td><td><a href="https://cadastro.saude.gov.br/segcartao/" target="_blank">Acessar →</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section" id="informacoes">
+      <div class="section-title">Informações do Sistema</div>
+      <table class="info-table">
+        <thead><tr><th>Acesso</th><th>Hospedagem</th><th>Fornecedor</th></tr></thead>
+        <tbody><tr><td><a href="https://cadastro.saude.gov.br/segcartao/" target="_blank">cadastro.saude.gov.br/segcartao</a></td><td>DATASUS</td><td>DATASUS</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="section" id="acesso">
+      <div class="section-title"><span>01</span> Acessando o Sistema</div>
+      <p class="dss-text" style="margin-bottom:16px"><strong>Objetivo:</strong> Acessar o sistema CadSUS Web e realizar o login.</p>
+
+      <div class="dss-card open" id="dss-001">
+        <div class="dss-header">
+          <span class="dss-code">DSS-001</span>
+          <span class="dss-name">Acessando o CADSUS WEB</span>
+          <span class="dss-chevron">▾</span>
+        </div>
+        <div class="dss-body">
+          <div class="dss-section">
+            <div class="dss-section-title">Pré-Requisitos</div>
+            <ul class="prereq-list">
+              <li><strong>Sistema</strong> Cadsus WEB: <a href="https://cadastro.saude.gov.br/novocartao/" target="_blank">cadastro.saude.gov.br/novocartao</a></li>
+              <li><strong>Unidade</strong> Estar cadastrada no CNES</li>
+              <li><strong>Máquina</strong> Ter o módulo de segurança instalado no computador</li>
+              <li><strong>Colaborador / Gestor (SGOP)</strong> Estar cadastrado no CNES; ter perfil no SGOP com nível consultador, cadastrador, operador ou administrador; máquina cadastrada e liberada no SGOP</li>
+            </ul>
+          </div>
+          <div class="dss-section">
+            <div class="dss-section-title">Como Fazer</div>
+            <div class="howto">
+              <div class="howto-step"><div class="step-num">1</div><div class="step-text">Acesse <a href="https://cadastro.saude.gov.br/novocartao/" target="_blank">https://cadastro.saude.gov.br/novocartao/</a>. Uma janela pop-up será exibida — clique em <strong>"Fechar"</strong>.</div></div>
+              <div class="howto-step"><div class="step-num">2</div><div class="step-text">Na tela inicial, clique no botão de login pelo <strong>GOV.BR</strong>.</div></div>
+              <div class="howto-step"><div class="step-num">3</div><div class="step-text">Digite seu <strong>CPF</strong> e clique em <strong>"Continuar"</strong>. Em seguida, insira sua senha e clique em <strong>"Entrar"</strong>.</div></div>
+              <div class="howto-step"><div class="step-num">4</div><div class="step-text">Insira o <strong>código do estabelecimento (CNES)</strong> e clique em <strong>"Acessar"</strong>.</div></div>
+            </div>
+            <div class="alert alert-info">💡 <div><strong>Como visualizar o CNES:</strong> Acesse <a href="https://cnes.datasus.gov.br/" target="_blank">cnes.datasus.gov.br</a>, pesquise por "Consulta Profissional" com seu CPF, clique em "DETALHES" e localize o campo CNES.</div></div>
+            <div class="alert alert-warn">⚠️ <div>Se ocorrer um erro na página, pressione <strong>F5</strong> para recarregar e clique em "Continuar".</div></div>
+            <div class="alert alert-end">✅ <strong>Fim da tarefa:</strong> Você acessou o sistema e visualiza a tela inicial de consulta.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="consulta">
+      <div class="section-title"><span>02</span> Consultar Cadastro de um Cidadão</div>
+      <p class="dss-text" style="margin-bottom:8px"><strong>Objetivo:</strong> Consultar o registro cadastral do cidadão no sistema CADSUS WEB.</p>
+      <div class="alert alert-info" style="margin-bottom:16px">📌 A <strong>data de nascimento</strong>, o <strong>município de nascimento</strong> e o <strong>nome do pai</strong> só podem ser usados em combinação com outro dado. Se o <strong>CNS</strong> for preenchido, ele será usado como critério principal.</div>
+
+      <div class="dss-card" id="dss-002-cpf">
+        <div class="dss-header"><span class="dss-code">DSS-002</span><span class="dss-name">Consultar com CPF</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">Na página "Filtro de Pesquisa", clique em <strong>"Tipo de Documento"</strong> e selecione <strong>"CPF"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Insira o número do CPF do cidadão.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Escolha o tipo de busca: <strong>"Procurar Usuário Idêntico"</strong> (registros exatos) ou <strong>"Procurar Usuário Similar"</strong> (registros parecidos).</div></div>
+            <div class="howto-step"><div class="step-num">4</div><div class="step-text">Clique em pesquisar. O registro do cidadão será exibido.</div></div>
+          </div>
+          <div class="alert alert-end">✅ Consulta realizada no cadastro do cidadão utilizando o CPF.</div>
+        </div>
+      </div>
+
+      <div class="dss-card" id="dss-002-cns">
+        <div class="dss-header"><span class="dss-code">DSS-002</span><span class="dss-name">Consultar com CNS</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">No campo <strong>"Número do CNS"</strong>, insira o número do CNS do cidadão.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Escolha o tipo de busca: Idêntico ou Similar. Clique em pesquisar.</div></div>
+          </div>
+          <div class="alert alert-end">✅ Consulta realizada utilizando o CNS.</div>
+        </div>
+      </div>
+
+      <div class="dss-card" id="dss-002-nome">
+        <div class="dss-header"><span class="dss-code">DSS-002</span><span class="dss-name">Consultar com Nome do Cidadão</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">Clique no campo <strong>"Nome"</strong> ou <strong>"Nome Social"</strong> e insira o nome do cidadão.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Escolha o tipo de busca e clique em pesquisar.</div></div>
+          </div>
+          <div class="alert alert-end">✅ Consulta realizada utilizando o nome ou nome social.</div>
+        </div>
+      </div>
+
+      <div class="dss-card" id="dss-002-mae">
+        <div class="dss-header"><span class="dss-code">DSS-002</span><span class="dss-name">Consultar com Nome da Mãe</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">No campo correspondente ao <strong>Nome da Mãe</strong>, insira o nome. Combine com outro dado para refinar.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Escolha o tipo de busca e pesquise.</div></div>
+          </div>
+          <div class="alert alert-end">✅ Consulta realizada utilizando o nome da mãe.</div>
+        </div>
+      </div>
+
+      <div class="dss-card" id="dss-002-inativo">
+        <div class="dss-header"><span class="dss-code">DSS-002</span><span class="dss-name">Consultar Cadastro Inativo</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="alert alert-warn" style="margin-bottom:16px">⚠️ <div>Apenas usuários com <strong>perfil administrador</strong> no SGOP têm permissão para realizar esse tipo de pesquisa.</div></div>
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">Na caixa de seleção <strong>"Situação"</strong>, selecione a opção <strong>"INATIVO"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Insira os demais dados nos campos disponíveis para refinar a pesquisa (consulte DSS-002.5 a DSS-002.8).</div></div>
+          </div>
+          <div class="alert alert-end">✅ Opção "Situação: INATIVO" selecionada. Complete os dados para realizar a consulta.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="resultado">
+      <div class="section-title"><span>03</span> Resultado da Pesquisa</div>
+      <p class="dss-text">Após a consulta, o resultado exibe os registros encontrados. Utilize as funcionalidades da tabela para: visualizar grau de qualidade, ver dados completos, gerar impressão do Cartão Nacional de Saúde e editar cadastros. Para detalhes de cada ação, consulte os documentos DSS-003.5 a DSS-003.8.</p>
+    </div>
+
+    <div class="section" id="cadastro">
+      <div class="section-title"><span>04</span> Cadastro do Cidadão</div>
+      <p class="dss-text">Esta seção cobre os processos de cadastro, incluindo: unificação de cadastros duplicados, inclusão com nome inapropriado, e preenchimento das páginas de Dados Pessoais, Contato, Documentos, Dados Biométricos, Administração e Data de Óbito. Consulte os documentos DSS-004.8 a DSS-004.15 para detalhes de cada procedimento.</p>
+    </div>
+
+    <div class="section" id="sistema">
+      <div class="section-title"><span>06</span> Sistema CADSUS — Suporte</div>
+      <table class="info-table">
+        <thead><tr><th>Canal</th><th>Referência</th></tr></thead>
+        <tbody>
+          <tr><td>Central de Atendimento DATASUS</td><td>DSS-006.1</td></tr>
+          <tr><td>Saúde Digital Atende — <a href="https://linktr.ee/saudedigitalatende" target="_blank">linktr.ee/saudedigitalatende</a></td><td>DSS-006.2</td></tr>
+          <tr><td>Sair do Sistema</td><td>DSS-006.3</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
 </div>
-</main></div>
+
 <footer class="page-footer">
-<div class="footer-brand">GTIC · Saúde Digital</div>
-<div class="footer-meta">
-<span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
-<span><strong>Versão</strong>1.0 · Janeiro/2025</span>
-<span><strong>Uso</strong>Interno · Documento Institucional</span>
-</div>
-<a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
-<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>Voltar às Documentações</a>
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>1.0 · Janeiro/2025</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar às Documentações
+  </a>
 </footer>
+
 <script>
+// Toggle DSS cards
 document.querySelectorAll('.dss-header').forEach(h=>{
-  h.addEventListener('click',()=>h.closest('.dss-card').classList.toggle('open'));
+  h.addEventListener('click',()=>{
+    h.closest('.dss-card').classList.toggle('open');
+  });
 });
+
+// TOC active on scroll
+const sections = document.querySelectorAll('.section[id]');
+const tocLinks = document.querySelectorAll('.toc a');
 const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
-      document.querySelectorAll('.toc a').forEach(a=>a.classList.remove('active'));
-      const a=document.querySelector('.toc a[href="#'+e.target.id+'"]');
-      if(a)a.classList.add('active');
+      tocLinks.forEach(a=>a.classList.remove('active'));
+      const link = document.querySelector('.toc a[href="#'+e.target.id+'"]');
+      if(link) link.classList.add('active');
     }
   });
 },{rootMargin:'-20% 0px -70% 0px'});
-document.querySelectorAll('[id]').forEach(s=>obs.observe(s));
-</script></body></html>
+sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
