@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Manual do Usuário — SGOP · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+  --red:#c0390a;--red-lt:#fdeee6;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+
+/* HERO */
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero-back{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;margin-bottom:14px;transition:all .2s}
+.hero-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-mid);background:rgba(200,169,74,.12);border:1px solid rgba(200,169,74,.25);padding:4px 12px;border-radius:100px;margin-bottom:10px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(24px,3.5vw,40px);color:#fff;line-height:1.1;margin-bottom:6px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero-meta{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px}
+.hero-meta span{font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:5px}
+.hero-meta strong{color:rgba(255,255,255,.7)}
+
+/* LAYOUT */
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:240px 1fr;gap:40px;align-items:start}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;font-size:12.5px;color:var(--ink3);text-decoration:none;padding:6px 12px;border-radius:8px;border-left:2px solid transparent;transition:all .15s;line-height:1.3}
+.toc a:hover{color:var(--ink);background:var(--paper2);border-left-color:var(--rule)}
+.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.toc .toc-sub{margin-left:10px}
+.toc .toc-sub a{font-size:11.5px}
+
+/* CONTENT */
+.content{}
+.ficha{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:24px 28px;margin-bottom:32px}
+.ficha-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px}
+.ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ficha-item{display:flex;flex-direction:column;gap:3px}
+.ficha-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+.ficha-value{font-size:13px;color:var(--ink2)}
+
+.section{margin-bottom:36px;scroll-margin-top:24px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule)}
+.section-title span{color:var(--blue-mid);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;margin-right:8px;background:var(--blue-lt);padding:2px 8px;border-radius:4px;vertical-align:middle}
+
+/* DSS CARD */
+.dss-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.dss-header{display:flex;align-items:center;gap:12px;padding:16px 22px;background:var(--ink);cursor:pointer;user-select:none}
+.dss-header:hover{background:#1a2b42}
+.dss-code{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.dss-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.dss-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dss-card.open .dss-chevron{transform:rotate(180deg)}
+.dss-body{display:none;padding:22px}
+.dss-card.open .dss-body{display:block}
+
+.dss-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.dss-meta-item{padding:12px 16px;background:var(--paper)}
+.dss-meta-item+.dss-meta-item{border-left:1px solid var(--rule)}
+.dss-meta-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:4px}
+.dss-meta-value{font-size:12px;color:var(--ink2);line-height:1.4}
+
+.dss-section{margin-bottom:18px}
+.dss-section-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.dss-section-title::after{content:'';flex:1;height:1px;background:var(--rule)}
+.dss-text{font-size:13px;color:var(--ink2);line-height:1.7}
+.dss-text strong{color:var(--ink);font-weight:600}
+
+.prereq-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.prereq-list li{font-size:12.5px;color:var(--ink2);padding:8px 12px;background:var(--paper);border-radius:8px;border-left:3px solid var(--blue-mid);line-height:1.5}
+.prereq-list li strong{color:var(--ink);display:block;margin-bottom:2px}
+
+.howto{background:var(--paper);border-radius:10px;padding:18px 20px}
+.howto-step{display:flex;gap:12px;margin-bottom:12px}
+.howto-step:last-child{margin-bottom:0}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--blue-mid);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.step-text strong{color:var(--ink)}
+
+.alert{border-radius:8px;padding:12px 16px;font-size:12.5px;margin:12px 0;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.alert-info{background:var(--blue-lt);border-left:3px solid var(--blue-mid);color:var(--blue)}
+.alert-warn{background:var(--amber-lt);border-left:3px solid var(--amber-mid);color:var(--amber)}
+.alert-end{background:var(--green-lt);border-left:3px solid var(--green-mid);color:var(--green)}
+
+/* FICHA TABLE */
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule)}
+.info-table th{background:var(--ink);color:#fff;padding:10px 14px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.04em}
+.info-table td{padding:10px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even) td{background:var(--paper)}
+.info-table a{color:var(--blue-mid);text-decoration:none}
+.info-table a:hover{text-decoration:underline}
+
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px;flex-shrink:0}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .dss-meta{grid-template-columns:1fr 1fr}
+  .ficha-grid{grid-template-columns:1fr}
+  .hero,.page-footer{padding-left:24px;padding-right:24px}
+  .layout{padding-left:24px;padding-right:24px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="hero-back">← Documentações</a>
+    <div class="hero-badge">📖 Manual · Versão 3.0</div>
+    <h1>Manual do Usuário<br><em>Sistema SGOP</em></h1>
+    <div class="hero-meta">
+      <span><strong>Autora:</strong> Diana Castro &amp; Edileuza Santos</span>
+      <span><strong>Última atualização:</strong> 13/01/2025</span>
+      <span><strong>Instituição:</strong> GTIC / Secretaria de Saúde do Recife</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="toc">
+      <li><a href="#intro">Introdução</a></li>
+      <li><a href="#historico">Histórico de Revisões</a></li>
+      <li><a href="#links">Links Complementares</a></li>
+      <li><a href="#informacoes">Informações</a></li>
+      <li><a href="#dss-001">DSS-001 — Módulo de Segurança</a></li>
+      <li><a href="#dss-002">DSS-002 — Atualização Cadastral</a></li>
+      <li><a href="#dss-003">DSS-003 — Cadastro de Usuário</a></li>
+      <li><a href="#dss-004">DSS-004 — Associar Perfil à Unidade</a></li>
+      <li><a href="#dss-005">DSS-005 — Perfil de Nível de Acesso</a></li>
+      <li><a href="#dss-006">DSS-006 — Liberação de Máquina</a></li>
+      <li><a href="#dss-007">DSS-007 — Aprovar / Recusar Solicitações</a></li>
+      <li><a href="#dss-008">DSS-008 — Alteração de Perfil</a></li>
+      <li><a href="#dss-009">DSS-009 — Ativar / Desativar Perfis</a></li>
+      <li><a href="#dss-013">DSS-013 — Treinamento</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+
+    <div class="section" id="intro">
+      <div class="section-title">Introdução</div>
+      <p class="dss-text">O <strong>SGOP</strong> é uma aplicação web acessória ao CadSus Web que permite o cadastro dos operadores, solicitação e aprovação de acesso a um estabelecimento e nível de acesso do usuário. O <strong>CADSUS</strong> (Cadastro Nacional de Usuários do SUS) é um sistema que registra e gerencia informações dos usuários do Sistema Único de Saúde no Brasil.</p>
+    </div>
+
+    <div class="section" id="historico">
+      <div class="section-title">Histórico de Revisões</div>
+      <table class="info-table">
+        <thead><tr><th>Versão</th><th>Última Atualização</th><th>Autor</th></tr></thead>
+        <tbody>
+          <tr><td>1.0</td><td>19/08/2024</td><td>Diana Castro, Edileuza Santos</td></tr>
+          <tr><td>2.0</td><td>27/12/2023</td><td>Diana Castro</td></tr>
+          <tr><td>3.0</td><td>13/01/2025</td><td>Diana Castro</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section" id="links">
+      <div class="section-title">Links Complementares</div>
+      <table class="info-table">
+        <thead><tr><th>Nome</th><th>Link</th></tr></thead>
+        <tbody>
+          <tr><td>Manual SGOP</td><td><a href="https://docs.google.com/document/d/1qZMMIOdXqWuS0ALvLlbLAhS1LdtsSHodCoqqciovn0o/edit?usp=sharing" target="_blank">Acessar →</a></td></tr>
+          <tr><td>Requisitos de uso do SGOP — Vídeos tutoriais</td><td><a href="https://datasus.saude.gov.br/faq-sgop/" target="_blank">Acessar →</a></td></tr>
+          <tr><td>Manual de apoio ao CadSUS Web</td><td><a href="https://docs.google.com/document/d/1DwfotY89mMIbUQDPPdCJy-cITHmH9J6ECDEiW_UENrk/edit?usp=sharing" target="_blank">Acessar →</a></td></tr>
+          <tr><td>Sistema CADSUS Operador</td><td><a href="https://cadastro.saude.gov.br/operador/" target="_blank">Acessar →</a></td></tr>
+          <tr><td>Sistema Cadsus WEB</td><td><a href="https://cadastro.saude.gov.br/segcartao/" target="_blank">Acessar →</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section" id="informacoes">
+      <div class="section-title">Informações do Sistema</div>
+      <table class="info-table">
+        <thead><tr><th>Acesso</th><th>Hospedagem</th><th>Fornecedor</th></tr></thead>
+        <tbody><tr><td><a href="http://cadastro.saude.gov.br/operador/" target="_blank">cadastro.saude.gov.br/operador</a></td><td>Ministério da Saúde</td><td>Ministério da Saúde</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="section" id="dss-001">
+      <div class="section-title"><span>DSS-001</span> Instalação do Módulo de Segurança</div>
+      <div class="dss-card open">
+        <div class="dss-header"><span class="dss-code">DSS-001</span><span class="dss-name">Instalação do Módulo de Segurança</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="dss-meta">
+            <div class="dss-meta-item"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-value">Sem o módulo, o funcionário não acessa SGOP e CADSUS Web</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Quem pode solicitar?</div><div class="dss-meta-value">Qualquer pessoa</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-value">Saúde Digital Atende</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Origem</div><div class="dss-meta-value">Canal da Prefeitura com #saudedigitalatende</div></div>
+          </div>
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">Acesse <a href="https://cadastro.saude.gov.br/operador/" target="_blank">cadastro.saude.gov.br/operador</a>. Se o módulo não estiver instalado, um alerta será exibido.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Acesse o canal de atendimento da Prefeitura do Recife com a hashtag <strong>#SaudeDigitalAtende</strong>. Selecione opção <strong>1 - Sistemas</strong> → <strong>2 - Saúde Digital</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Preencha os dados solicitados e informe o <strong>número de tombamento</strong> do aparelho. Aguarde o técnico.</div></div>
+            <div class="howto-step"><div class="step-num">4</div><div class="step-text">O técnico realizará acesso remoto. O <strong>funcionário deve estar presente</strong> na unidade para liberar o acesso.</div></div>
+          </div>
+          <div class="alert alert-end">✅ Após a instalação, o módulo de segurança estará ativo no computador.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss-002">
+      <div class="section-title"><span>DSS-002</span> Atualização de Dados Cadastrais</div>
+      <div class="dss-card">
+        <div class="dss-header"><span class="dss-code">DSS-002</span><span class="dss-name">Atualizar E-mail no CADSUS WEB</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="dss-meta">
+            <div class="dss-meta-item"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-value">O SGOP usa o e-mail do CADSUS para autenticar e criar perfis</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-value">Qualquer usuário</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-value">Gestor da unidade</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Pré-requisito</div><div class="dss-meta-value">Perfil administrador no Cadsus Web</div></div>
+          </div>
+          <div class="alert alert-info" style="margin-bottom:16px">📌 O gestor deve <strong>atualizar os dados no Cadsus Web antes</strong> de criar o perfil no SGOP.</div>
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">Acesse <a href="https://cadastro.saude.gov.br/segcartao/" target="_blank">cadastro.saude.gov.br/segcartao</a> e faça login com GOV.BR.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Na pesquisa, selecione <strong>CPF</strong>, insira o CPF do colaborador e clique em <strong>"Editar Cadastro"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Na página de contato, insira o <strong>e-mail principal</strong> e confirme. Clique em <strong>"Gravar"</strong> → <strong>"Sim"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">4</div><div class="step-text">Um e-mail de confirmação será enviado. O link é válido por <strong>5 minutos</strong>.</div></div>
+          </div>
+          <div class="alert alert-end">✅ E-mail atualizado. O perfil no SGOP pode ser criado.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss-003">
+      <div class="section-title"><span>DSS-003</span> Cadastro de Novo Usuário</div>
+      <div class="dss-card">
+        <div class="dss-header"><span class="dss-code">DSS-003</span><span class="dss-name">Criar Perfil no SGOP</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="dss-meta">
+            <div class="dss-meta-item"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-value">Para cadastrar, consultar e atualizar perfis no CADSUS WEB</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-value">Qualquer usuário</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-value">Gestor da unidade</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Pré-requisito</div><div class="dss-meta-value">E-mail atualizado no CADSUS WEB (DSS-002)</div></div>
+          </div>
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">Acesse <a href="https://cadastro.saude.gov.br/operador/" target="_blank">cadastro.saude.gov.br/operador</a>.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Em <strong>"Cadastro de Usuário"</strong>, insira o <strong>CNS</strong> e o <strong>CPF</strong> do colaborador. O sistema enviará um código ao e-mail cadastrado.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Insira o código recebido, revise os dados pessoais e clique em <strong>"Cadastrar Novo Operador"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">4</div><div class="step-text">Leia o Termo de Uso, role até o final e clique em <strong>"Concordo"</strong>.</div></div>
+          </div>
+          <div class="alert alert-end">✅ Funcionário cadastrado no sistema SGOP.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss-004">
+      <div class="section-title"><span>DSS-004</span> Associar Perfil à Unidade de Trabalho</div>
+      <div class="dss-card">
+        <div class="dss-header"><span class="dss-code">DSS-004</span><span class="dss-name">Vincular Perfil à Unidade Cadastrada no CNES</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="alert alert-warn" style="margin-bottom:16px">⚠️ <div>Se a solicitação for feita <strong>sem um administrador ativo</strong>, as solicitações não aparecerão para o novo gestor. O novo gestor deve abrir chamado no DATASUS para reset das pendências.</div></div>
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">O funcionário faz login no SGOP (GOV.BR).</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Solicite acesso à unidade de saúde onde está cadastrado no CNES.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Na coluna "Ação", clique no ícone de <strong>Casa</strong>. Confirme clicando em <strong>"Sim"</strong>.</div></div>
+          </div>
+          <div class="alert alert-info">ℹ️ A aprovação ocorre automaticamente pois o sistema consulta o CNES diretamente.</div>
+          <div class="alert alert-end">✅ Perfil vinculado à unidade. Siga para DSS-005 para continuar o cadastro.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss-005">
+      <div class="section-title"><span>DSS-005</span> Perfil de Nível de Acesso</div>
+      <div class="dss-card">
+        <div class="dss-header"><span class="dss-code">DSS-005</span><span class="dss-name">Solicitar Perfil de Acesso</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="dss-section">
+            <div class="dss-section-title">Tipos de Perfil</div>
+            <ul class="prereq-list">
+              <li><strong>Administrador</strong> Gerencia o sistema, cadastra e supervisiona operadores dentro do estabelecimento</li>
+              <li><strong>Operador</strong> Consulta, cadastra, edita e imprime o Cartão Nacional de Saúde</li>
+              <li><strong>Consultador</strong> Acesso restrito à consulta — sem permissão para alterações</li>
+              <li><strong>Cadastrador</strong> Foca no registro de novos usuários no sistema</li>
+            </ul>
+          </div>
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">Faça login no SGOP e acesse <strong>"Solicitar Novo Acesso"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Em "Seus Estabelecimentos de Saúde", clique em <strong>"Solicitar Acesso ao Perfil"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Selecione o perfil desejado e clique em <strong>"+ Adicionar"</strong>. A solicitação ficará pendente até aprovação do gestor.</div></div>
+          </div>
+          <div class="alert alert-info">ℹ️ Quando o próprio gestor solicita, a aprovação é automática (via CNES).</div>
+          <div class="alert alert-end">✅ Solicitação de nível de acesso concluída.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss-006">
+      <div class="section-title"><span>DSS-006</span> Liberação de Máquina</div>
+      <div class="dss-card">
+        <div class="dss-header"><span class="dss-code">DSS-006</span><span class="dss-name">Solicitar Liberação de Máquina</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">Faça login no SGOP e acesse <strong>"Solicitar Novo Acesso"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Em "Seus Estabelecimentos de Saúde", clique em <strong>"Solicitar Acesso de computadores"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Preencha o <strong>Nome do Computador</strong> (número de tombamento da etiqueta) e o <strong>Local</strong> (setor/departamento).</div></div>
+            <div class="howto-step"><div class="step-num">4</div><div class="step-text">Aguarde a aprovação do gestor administrador do SGOP.</div></div>
+          </div>
+          <div class="alert alert-end">✅ Solicitação de cadastro de máquina enviada.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss-007">
+      <div class="section-title"><span>DSS-007</span> Aprovar ou Recusar Solicitações</div>
+      <div class="dss-card">
+        <div class="dss-header"><span class="dss-code">DSS-007</span><span class="dss-name">Aprovar / Recusar Perfis ou Máquinas</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">O gestor faz login no SGOP e acessa <strong>"Gerir Estabelecimento"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Vá para a seção <strong>"Aprovações Pendentes"</strong> — exibe solicitações de perfil e máquina.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Verifique CNS, CPF, nome e tipo de solicitação. Para <strong>perfis</strong>, confirme o nível de acesso adequado à função.</div></div>
+            <div class="howto-step"><div class="step-num">4</div><div class="step-text">Na coluna "Ação", clique em ✅ para <strong>aprovar</strong> ou ❌ para <strong>reprovar</strong>. Confirme na caixa de diálogo.</div></div>
+          </div>
+          <div class="alert alert-end">✅ Solicitação processada. Máquinas aprovadas permitem acesso apenas naquele computador.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss-008">
+      <div class="section-title"><span>DSS-008</span> Alteração de Perfil de Nível de Acesso</div>
+      <div class="dss-card">
+        <div class="dss-header"><span class="dss-code">DSS-008</span><span class="dss-name">Alterar Nível de Acesso do Usuário</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">O gestor faz login no SGOP e acessa <strong>"Gerir Estabelecimento"</strong> → <strong>"Gerir Operadores - Acesso"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Insira o <strong>CPF</strong> do colaborador e clique em <strong>"Pesquisar"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Na seção <strong>"Alterando perfil de acesso"</strong>, selecione o sistema, o novo nível de perfil e insira uma justificativa.</div></div>
+            <div class="howto-step"><div class="step-num">4</div><div class="step-text">Clique em <strong>"Salvar Alteração"</strong>. O histórico é registrado em "Status dos Perfis de Acesso".</div></div>
+          </div>
+          <div class="alert alert-end">✅ Nível de acesso alterado com sucesso.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss-009">
+      <div class="section-title"><span>DSS-009</span> Ativar ou Desativar Perfis</div>
+      <div class="dss-card">
+        <div class="dss-header"><span class="dss-code">DSS-009</span><span class="dss-name">Ativar / Desativar Perfil do Usuário</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">O gestor faz login no SGOP e acessa <strong>"Gerir Estabelecimento"</strong> → <strong>"Gerir Operadores - Acesso"</strong>.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Insira o <strong>CPF</strong> e pesquise o colaborador.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Na seção <strong>"Exclusão lógica do operador"</strong>, selecione <strong>"Ativar"</strong> ou <strong>"Inativar"</strong> e clique em <strong>"Aplicar"</strong>.</div></div>
+          </div>
+          <div class="alert alert-end">✅ Perfil ativado ou inativado para a unidade selecionada.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss-013">
+      <div class="section-title"><span>DSS-013</span> Treinamento</div>
+      <div class="dss-card">
+        <div class="dss-header"><span class="dss-code">DSS-013</span><span class="dss-name">Solicitar Treinamento CADSUS / SGOP</span><span class="dss-chevron">▾</span></div>
+        <div class="dss-body">
+          <div class="dss-meta">
+            <div class="dss-meta-item"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-value">Gestor da unidade de saúde</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-value">Saúde Digital Atende</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Canal</div><div class="dss-meta-value">#saudedigitalatende</div></div>
+            <div class="dss-meta-item"><div class="dss-meta-label">Pré-requisito</div><div class="dss-meta-value">Apenas gestores de unidades ou distritos</div></div>
+          </div>
+          <div class="howto">
+            <div class="howto-step"><div class="step-num">1</div><div class="step-text">Envie solicitação via <strong>SEI RECIFE</strong> para <em>SESAU/SECOGE/GGSD/GTIC/DSI/SUP</em> com: dois dias/horários disponíveis e nome/cargo de todos os participantes.</div></div>
+            <div class="howto-step"><div class="step-num">2</div><div class="step-text">Receba o plano de treinamento. Leia, confirme os dados e envie um despacho assinado aprovando a data.</div></div>
+            <div class="howto-step"><div class="step-num">3</div><div class="step-text">Aguarde a confirmação da Saúde Digital Atende com dia e horário do treinamento.</div></div>
+          </div>
+          <div class="alert alert-info">ℹ️ Para o SEI Recife: <a href="https://drive.google.com/file/d/1FG0AbIKogBVNSIlPc2YQpVIsRADXlnSq/view" target="_blank">Jornada de Treinamento SEI_3.pdf</a></div>
+          <div class="alert alert-end">✅ Solicitação enviada. Aguarde confirmação e agendamento.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>3.0 · Janeiro/2025</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar às Documentações
+  </a>
+</footer>
+
+<script>
+// Toggle DSS cards
+document.querySelectorAll('.dss-header').forEach(h=>{
+  h.addEventListener('click',()=>{
+    h.closest('.dss-card').classList.toggle('open');
+  });
+});
+
+// TOC active on scroll
+const sections = document.querySelectorAll('.section[id]');
+const tocLinks = document.querySelectorAll('.toc a');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tocLinks.forEach(a=>a.classList.remove('active'));
+      const link = document.querySelector('.toc a[href="#'+e.target.id+'"]');
+      if(link) link.classList.add('active');
+    }
+  });
+},{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
