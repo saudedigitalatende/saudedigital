@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Script de Atendimento · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+  --red:#c0390a;--red-lt:#fdeee6;
+  --slate:#3a5068;--slate-lt:#eaf0f6;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.6}
+
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+
+/* TABS */
+.tabs{background:#fff;border-bottom:1px solid var(--rule);padding:0 60px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.tabs-inner{max-width:1200px;margin:0 auto;display:flex}
+.tab{padding:14px 24px;font-size:13px;font-weight:600;color:var(--ink3);cursor:pointer;border:none;background:transparent;font-family:'DM Sans',sans-serif;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue-mid)}
+
+.panel{display:none}
+.panel.active{display:block}
+.main{max-width:1200px;margin:0 auto;padding:28px 60px 60px}
+
+/* SEARCH */
+.toolbar{display:flex;gap:12px;align-items:center;margin-bottom:24px}
+.search-wrap{position:relative;flex:1}
+.search-wrap input{width:100%;padding:10px 16px 10px 38px;border:1.5px solid var(--rule);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:#fff;outline:none;transition:border-color .15s}
+.search-wrap input:focus{border-color:var(--blue-mid)}
+.search-wrap::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none}
+.count{font-size:11px;color:var(--ink3);white-space:nowrap}
+
+/* SCRIPT CARDS */
+.scripts-grid{display:flex;flex-direction:column;gap:12px}
+.script-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;transition:all .2s}
+.script-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.07)}
+.sc-header{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;user-select:none}
+.sc-header:hover{background:var(--paper)}
+.sc-badge{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sc-num{font-size:11px;font-weight:700;color:var(--ink3);min-width:24px}
+.sc-title{flex:1;font-size:14px;font-weight:700;color:var(--ink);line-height:1.3}
+.sc-type-tag{font-size:10px;font-weight:700;letter-spacing:.05em;padding:3px 10px;border-radius:100px;flex-shrink:0;text-transform:uppercase}
+.sc-chevron{font-size:11px;color:var(--ink3);transition:transform .2s;flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--paper2);display:flex;align-items:center;justify-content:center}
+.script-card.open .sc-chevron{transform:rotate(180deg)}
+
+.sc-body{display:none;border-top:1px solid var(--rule)}
+.script-card.open .sc-body{display:block}
+.sc-sections{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--rule)}
+.sc-section{padding:18px 22px}
+.sc-section+.sc-section{border-left:1px solid var(--rule)}
+.sc-section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.sc-section-text{font-size:13px;color:var(--ink2);line-height:1.6}
+
+/* SCRIPT BOX */
+.sc-script-wrap{padding:18px 22px}
+.sc-script-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sc-script-box{background:var(--ink);color:#e8f0fa;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.7;padding:20px 22px;border-radius:10px;white-space:pre-wrap;word-break:break-word;position:relative}
+.copy-btn{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.copy-btn:hover{background:rgba(255,255,255,.2);color:#fff}
+.copy-btn.copied{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* ORIENTAÇÕES CARDS */
+.orient-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.orient-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.oc-header{padding:16px 20px;background:var(--blue-lt);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.oc-title{font-size:13px;font-weight:700;color:var(--blue)}
+.oc-desc{font-size:12px;color:var(--ink3);padding:14px 20px;line-height:1.55;border-bottom:1px solid var(--rule)}
+.oc-script{background:var(--ink);color:#e8f0fa;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.65;padding:16px 20px;white-space:pre-wrap;word-break:break-word;position:relative;margin:0}
+.oc-copy{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:4px 10px;border-radius:5px;font-size:10px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap}
+.oc-copy:hover{background:rgba(255,255,255,.2);color:#fff}
+.oc-copy.copied{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* COLOR VARIANTS */
+.c-blue .sc-badge{background:var(--blue-mid)}
+.c-blue .sc-type-tag{background:var(--blue-lt);color:var(--blue-mid)}
+.c-green .sc-badge{background:var(--green-mid)}
+.c-green .sc-type-tag{background:var(--green-lt);color:var(--green-mid)}
+.c-orange .sc-badge{background:var(--orange-mid)}
+.c-orange .sc-type-tag{background:var(--orange-lt);color:var(--orange-mid)}
+.c-purple .sc-badge{background:var(--purple-mid)}
+.c-purple .sc-type-tag{background:var(--purple-lt);color:var(--purple-mid)}
+.c-red .sc-badge{background:var(--red)}
+.c-red .sc-type-tag{background:var(--red-lt);color:var(--red)}
+.c-slate .sc-badge{background:var(--slate)}
+.c-slate .sc-type-tag{background:var(--slate-lt);color:var(--slate)}
+
+@media(max-width:900px){
+  .hero,.tabs,.main,
+  .sc-sections{grid-template-columns:1fr}
+  .orient-grid{grid-template-columns:1fr}
+  .sc-section+.sc-section{border-left:none;border-top:1px solid var(--rule)}
+}
+
+@media(max-width:768px){}
+
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px;flex-shrink:0}
+@media(max-width:768px){.page-footer{padding-left:24px;padding-right:24px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner" style="display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+      <a href="https://saudedigitalatende.github.io/saudedigital/"
+         style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
+         onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
+         onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+        ← Voltar ao Portal
+      </a>
+    </div>
+    <h1>Script de <em>Atendimento</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab active" onclick="switchTab('scripts',this)">📋 Roteiros de Atendimento</button>
+    <button class="tab" onclick="switchTab('orientacoes',this)">📌 Orientações e Atalhos</button>
+  </div>
+</div>
+
+<div class="panel active" id="panel-scripts">
+  <div class="main">
+    <div class="toolbar">
+      <div class="search-wrap"><input type="text" id="search-scripts" placeholder="Buscar script por título, descrição ou ação..." oninput="filterScripts()"></div>
+      <span class="count" id="count-scripts"></span>
+    </div>
+    <div class="scripts-grid" id="list-scripts"></div>
+  </div>
+</div>
+
+<div class="panel" id="panel-orientacoes">
+  <div class="main">
+    <div class="toolbar">
+      <div class="search-wrap"><input type="text" id="search-orient" placeholder="Buscar orientação ou atalho..." oninput="filterOrient()"></div>
+      <span class="count" id="count-orient"></span>
+    </div>
+    <div class="orient-grid" id="list-orient"></div>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>1.0 · Abril/2026</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar ao Portal
+  </a>
+</footer>
+
+<script>
+const SCRIPTS = [{"titulo": "Script automático de INÍCIO", "desc": "Mensagem automática enviada ao usuário com objetivo de adquirir  os dados suficientes para abertura do chamado.", "acao": "Nenhuma ação é feita.", "script": "⏰ Nosso horário de atendimento é de segunda a sexta-feira, em dias úteis, das 8h às 12h e das 13h às 17h.\n\nVocê será atendido em breve! Enquanto isso, por favor, preencha as informações abaixo para iniciarmos seu atendimento:\n\nNome:\nUnidade de Saúde:\nSetor:\nE-mail:\nTelefone:\nDescreva sua solicitação:\n\nCaso deseje sair do atendimento, basta digitar !sair"}, {"titulo": "Script de INÍCIO de atendimento pelo técnico", "desc": "O script de início de atendimento pelo técnico deve estabelecer uma comunicação clara, acolhedora e profissional. Seu objetivo é criar uma boa primeira impressão, demonstrar empatia e alinhar as expectativas do cliente", "acao": "A ação do técnico no início do atendimento estabelece contato com o usuário, apresentar-se de forma clara e profissional e coleta informações adicionais necessárias para o atendimento.", "script": "Olá me chamo [nome do técnico] e darei continuidade ao seu atendimento.  Por favor, aguarde um momento enquanto realizo a abertura do seu chamado."}, {"titulo": "Chamado ABERTO e será executado de IMEDIATO pelo técnico que atendeu ao chamado", "desc": "Mensagem enviada para informar a conclusão da abertura do chamado, porém o chamado ainda não foi executado.", "acao": "A ação para um chamado recém-aberto com todos os dados corretos para execução é informar ao usuário o número do chamado e dar continuidade ao chamado.", "script": "Seu chamado foi registrado com sucesso e iremos dar continuidade.\nChamado N°:"}, {"titulo": "Chamado ABERTO mas será executado depois", "desc": "Mensagem enviada para informar a conclusão da abertura do chamado, porém o chamado ainda não foi executado.", "acao": "A ação para um chamado recém-aberto com todos os dados corretos para execução é informar ao usuário o número do chamado e garantir que a solicitação será atendida em breve, transmitindo confiança e organização.", "script": "Seu chamado foi registrado com sucesso e está na nossa fila de atendimento. Em breve, um dos nossos técnicos entrará em contato para dar continuidade à solicitação.\n\nNúmero do protocolo de atendimento: [número do protocolo]\n\n\nA Saúde Digital Atende agradece o seu contato e está à disposição para ajudá-lo(a)!"}, {"titulo": "Atendimento ABANDONADO pelo usuário \n(inativo por 4 horas)", "desc": "O atendimento será encerrado nas seguintes situações:\n• Quando o usuário iniciar o processo, mas não fornecer as informações suficientes para abrir o chamado; ou\n• Quando o usuário interromper a interação antes da conclusão do atendimento.\n\nApós 4 horas de inatividade, o chamado será automaticamente encerrado.", "acao": "A ação em caso de atendimento abandonado pelo usuário (inativo por 4 horas) é encerrar o chamado automaticamente, atualizar o status no sistema, e enviar uma notificação ao usuário informando sobre o encerramento devido à inatividade.\n\nObs.: Caso o usuário retorne dentro do prazo de 4 horas, se o atendimento for interrompido novamente sem conclusão, o chamado será encerrado devido o tempo limite excedido", "script": "(Enquanto espera o retorno do usuário)\nOlá, estamos tentando coletar as informações necessárias para abrir o chamado. \nCaso não obtenhamos resposta em até 4 horas, o atendimento será encerrado. \n\nPrecisamos das seguintes informações:\n\n(Após conluir a espera das 4horas)\nPrezado, devido a falta de comunicação informo que seu atendimento foi finalizado.\n\nA Saúde Digital Atende agradece o seu contato e está à disposição para ajudá-lo(a)!"}, {"titulo": "Chamado ABERTO / informações ADICIONAIS", "desc": "Quando um chamado é aberto, mas há necessidade de informações complementares para prosseguir com a execução, é necessário entrar em contato com o usuário final para coletar os dados necessários. O atendimento será aguardado até o fornecimento das informações solicitadas.\"", "acao": "A ação do técnico é entrar em contato com o usuário para solicitar as informações necessárias e garantir que o atendimento prossiga adequadamente.", "script": "Olá, estamos acompanhando o seu chamado [Nº].\n\nDurante a análise inicial, identificamos a necessidade de informações adicionais para darmos continuidade ao atendimento. Por favor, forneça os seguintes dados:\n[Especificar claramente quais informações são necessárias]"}, {"titulo": "Chamado ABERTO / informações ADICIONAIS ABANDONADO pelo usuário final\n(3 tentativas)", "desc": "Se faz necessário entrar em contato com o usuário final para solicitar informações adicionais indispensáveis à execução do chamado já registrado. Caso o usuário não responda após três (3 tentativas) de contato sem retorno, o chamado será encerrado.", "acao": "Envio de mensagem padrão para dar continuidade o fechamento do chamado. O envio de cada mensagem deve possuir um intervalo de  4h", "script": "Olá, estamos tentando contatar você para obter mais informações sobre o chamado [Nº]. \nCaso não obtenhamos resposta, o seu chamado será encerrado. Se precisar de mais assistência, entre em contato novamente. \n\nA Saúde Digital Atende agradece o seu contato e está à disposição para ajudá-lo(a)!"}, {"titulo": "Chamado ABERTO / DÚVIDAS E ORIENTAÇÕES (PORTFÓLIO)", "desc": "Esse tipo de chamado é voltado para atender demandas que não envolvem necessariamente problemas técnicos, mas sim a necessidade de suporte informativo e educacional.", "acao": "Orientar o usuário a acessar o portfólio de serviços para obter informações ou esclarecimentos sobre o que está disponível ou como proceder.\nhttps://docs.google.com/spreadsheets/d/1YoRaHc6TRha_VqbD0U86WqGtX9YVQ4Hn/edit?gid=1620811556#gid=1620811556", "script": "Para obter mais informações, verifique se o sistema solicitado consta em nosso portfólio. Lá, você encontrará os meios de contato disponibilizados pelo suporte responsável pelo sistema.\n\nApós acessar o link a seguir, selecione a opção portifólio de serviços.\nhttps://linktr.ee/saudedigitalatende\n\nPosso ajudar em algo mais?"}, {"titulo": "Chamado ABERTO / DÚVIDAS E ORIENTAÇÕES (CATÁLOGO DE SERVIÇOS)", "desc": "Esse tipo de chamado é voltado para atender demandas que não envolvem necessariamente problemas técnicos, mas sim a necessidade de suporte informativo e educacional.", "acao": "Fornecer informações claras e direcionar o usuário para o recurso adequado, enquanto mantém o acompanhamento do chamado até a resolução completa.", "script": "Caso precise de mais alguma solicitação, estamos à disposição. Ah, e gostaríamos muito de saber a sua opinião ao fim do atendimento! Por favor, participe da nossa pesquisa de satisfação.\n\nA Saúde Digital Atende agradece o seu contato e está à disposição para ajudá-lo(a)!"}, {"titulo": "Chamado ABERTO/\nESPECIALISTAS", "desc": "Utilizado quando a solicitação do usuário for passada para equipe de especialista (N3). Esses casos devem ser Atribuídos para a equipe de sistemas nível 3 no GPLI.", "acao": "A ação do técnico ao informar o usuário sobre o direcionamento do chamado é comunicar de forma clara e empática que a solicitação foi encaminhada para um especialista, garantindo que o usuário se sinta informado e acompanhado durante o processo.", "script": "Sua solicitação foi encaminhada para nossa equipe de especialistas, que está avaliando o seu caso. Em breve, entraremos em contato com as devidas atualizações.\n\nEste chat será encerrado, mas seu chamado permanecerá aberto até que haja uma nova informação.\n\nCaso precise de mais assistência, você pode iniciar um novo atendimento seguindo estas etapas:\n\nSelecione a opção 8 - \"Sou um profissional de saúde\".\nEscolha a opção 2 - \"Falar com o suporte de TI\".\nSelecione a opção 2 - \"Suporte de sistemas\" e, em seguida, escolha o sistema correspondente.\n\nA Saúde Digital Atende agradece o seu contato e está à disposição para ajudá-lo(a)!"}, {"titulo": "Chamado Aberto/ Andamento do Chamado", "desc": "Este comunicado tem como objetivo informar ao usuário o progresso do seu chamado, destacando que a situação está sendo tratada com atenção. A intenção é tranquilizar o usuário, demonstrando que estamos empenhados em resolver o problema de forma eficiente.", "acao": "O usuário deve ser informado sobre o status atual do chamado, incluindo detalhes sobre como está sendo tratado e quais atualizações foram realizadas até o momento. O objetivo é garantir transparência e manter o usuário ciente de que o problema está sendo resolvido de forma contínua e eficaz.", "script": "Olá, [Nome do Usuário]! 👋\n\nEstamos acompanhando o andamento do seu chamado [número do chamado] e gostaríamos de mantê-lo(a) informado(a).\n\n➡ Atualizações:\n[Inserir as atualizações, caso existam. Se não houver atualizações, essa linha pode ser removida.]\n\nContinuamos trabalhando para resolver a situação e, em breve, entraremos em contato para informá-lo(a) sobre o status ou para confirmar a finalização do chamado.\n\nCaso precise de mais assistência, você pode iniciar um novo atendimento seguindo estas etapas:\n\nSelecione a opção 8 - \"Sou um profissional de saúde\".\nEscolha a opção 2 - \"Falar com o suporte de TI\".\nSelecione a opção 2 - \"Suporte de sistemas\" e, em seguida, escolha o sistema correspondente.\n\nAgradecemos pela paciência e estamos à disposição para qualquer dúvida!\n\nA Saúde Digital Atende agradece o seu contato e está à disposição para ajudá-lo(a)!"}, {"titulo": "Chamado FECHADO", "desc": "Utilizado para confirmar se o chamado foi executado com sucesso e obter o feedback do usuário.\n\nFaremos três contatos para acompanhar a situação, e após esse período, encerraremos o chamado.", "acao": "validar atendimento com o usuário para encerrar o chamado", "script": "Informamos que o chamado [N°] foi encerrado com sucesso. Agradecemos pela sua colaboração e gostaríamos de convidá-lo(a) a participar de nossa pesquisa de satisfação. Sua opinião é muito importante para continuarmos aprimorando nossos serviços.\n\nPara encerrar o atendimento, basta digitar: !sair\n\nA Saúde Digital Atende agradece o seu contato e está à disposição para ajudá-lo(a)!"}, {"titulo": "Usuário entrou no CANAL DE ATENDIMENTO ERRADO", "desc": "Utilizado quando o usuário entra no atendimento de Sistemas e deseja falar com a Infraestutura", "acao": "Realizar a transferência do atendimento pela hop chat para o canal de Infraestrutura.", "script": "Aguarde um momento que iremos realizar a transferência do atendimento para a equipe de Infraestrutura.\n\nA Saúde Digital Atende agradece o seu contato e está à disposição para ajudá-lo(a)!"}];
+const ORIENT  = [{"atalho": "Mobilidade", "desc": "Utilizado para direcionar usuários que necessitam suporte da SEGTES", "script": "Informamos que este sistema não é gerido pela equipe de suporte de sistemas da GTIC. Para assistência, entre em contato com a SEGTES. Você pode entrar em contato com eles através dos telefones: 81 3355-1724 e 81 3355-1700, eles estão disponíveis de segunda a sexta das 8h às 12h  e das 13h às 17h ou ser atendido presencialmente:\n\nManhã -  Segunda, Quarta e Sexta;\nTarde -  Terça e Quinta.\n\nVocê também consegue entrar em contato com eles através do canal da prefeitura do recife  por esse número +55 81 9117-1407, basta digitar : #mobilidadesesau"}, {"atalho": "EMPREL Atende", "desc": "Utilizado para diercionar o usuário para a equipe responsável", "script": "Informamos que este sistema não é gerido pela equipe da Saúde Digital Atende. Para assistência, entre em contato a Emprel Atende pelo telefone 3355-7156 ou pelo e-mail emprelatende@recife.pe.gov.br.\n\nHorário de funcionamento:\nAtendimento Geral: de segunda a sexta, das 07h às 19h.\nApós esse horário, até às 21h, o atendimento é realizado apenas no prédio da PCR (Gabinetes)."}, {"atalho": "Instabilidade E-SUS", "desc": "Utilizado para informar o usuário a respeito da instabilidade no sistema", "script": "Estamos cientes do corrido e a equipe responsável já está trabalhando para a solução do incidente."}, {"atalho": "Check list HOPCHAT", "desc": "Utilizado para entender melhor a solicitação do usuário", "script": "Algumas situações dessas ocorreram durante seu acesso?\n\nPERFIL:\n\n    - Seu perfil estava online e disponível?\n\nDispositivo:\n\n   - Qual o dispositivo utilizado?\n   - Sua tela escureceu?\n   - saiu da página/ tela ?\n   - Ocorreu alguma queda de internet?\n   \nSe SIM, refez um novo login ?\n\nPassou mais de 10 minutos no sistema?"}, {"atalho": "Orientações HOPCHAT", "desc": "Utilizado para informar a forma correta de utilizar o sistema para o usuário", "script": "[Nome do usuário], informamos que para que suas horas sejam corretamente computadas, é necessário que:\n\n      - O perfil esteja disponível e ativo ;\n\n      - A tela do dispositivo permaneça ligada durante o uso;\n\n      - A página não seja deixada em segundo plano, evitando recarregamentos automáticos.\n\nEm caso de interrupção da conexão ou atualização da página, será necessário realizar um novo login.\n\n🔔 Importante: o tempo mínimo para iniciar a contabilização das horas é de 10 minutos."}, {"atalho": "Inconsistências HOPCHAT", "desc": "Utilizado para informar a inconsistência no HOPCHAT e direcionar o usuário.", "script": "Prezado (a), estamos passando por um problema de inconsistência no sistema.\n\nSerá necessário que o gestor da sua unidade seja informado para que tome as medidas até que o sistema seja normalizado."}, {"atalho": "Lisnet", "desc": "Utilizado para diercionar o usuário para a equipe responsável", "script": "Informamos que este sistema não é gerido pela equipe da Saúde Digital Atende. Para assistência, entre em contato a equipe responsável através do contato: 11 9401 - 25997"}, {"atalho": "Recuperação de senha SEI", "desc": "Utilizado para auxiliar o usuário no processo de recuperação de senha no portal SEI Recife", "script": "*Para recuperar sua senha, acesse o link a seguir:*\n\n https://login.recife.pe.gov.br/auth/realms/prefeitura/protocol/openid-connect/auth?response_type=code&redirect_uri=https%3A%2F%2Frecuperarsenhasei.recife.pe.gov.br%2Flogin_check&client_id=portalsei&nonce=274efccfd4882a3d2285f54c3b452864&state=d40758bd59170bc241e088f87f2e3817&scope=openid\n\nSeu nome de usuário:\n\n Você receberá um e-mail com instruções para redefinir sua senha.\n\n*Regras para criação de senha:*\n\n- 8 caracteres (mínimo);\n- Letras (Maiúsculas e minúsculas);\n- Números;\n- Caracteres especiais (! @ # $ e etc...)"}, {"atalho": "Direcionamento SEI", "desc": "Utilizado para direcionar usuários que necessitam de atendimento em demandas tratadas no SEI", "script": "Para darmos andamento à sua solicitação, solicitamos que seja encaminhado um processo SEI, devidamente assinado pelo GESTOR, RH ou ADM SETORIAL.\n\nO processo via SEI deve conter as seguintes informações:\n\nNome completo\nCPF\nE-mail institucional\nMatrícula\nSigla (se já possuir)\nCaixinha (para correta alocação no setor)\nCargo (para assinatura)\n\nEnvie o processo para o seguinte endereço SEI: SESAU/SECOGE/GGSD/GTIC/DSI/SUP - SUPORTE DE SISTEMAS."}, {"atalho": "CONFIRMAÇÃO DE TREINAMENTO CADSUS/SIGOP", "desc": "Utilizado para direcionar usuários que solicitam o treinamento.\n\nUtilizado após validação de data e local.", "script": "Para darmos andamento a sua solicitação se faz necessário que você acesse o link a seguir e selecione a opção \"Plano de treinamento\"  e em seguida selecionar o arquivo \" Plano de treinamento CADSUS/SGOP \".\n\nLink: https://linktr.ee/saudedigitalatende\n\nLeia o documento com atenção.\n \nApós leitura, se faz necessário o envio do número do chamado informado durante a solicitação do treinamento, juntamente com o \" Formulário de participantes do treinamento \" e o \" Termo de Capacitação e Responsabilidade Técnica\" para o endereço SEI : SESAU/SECOGE/GGSD/GTIC/DSI/SUP"}];
+
+const COLOR_MAP = {
+  'automático': 'purple', 'automati': 'purple',
+  'fechado': 'green',
+  'abandonado': 'red',
+  'especialista': 'orange',
+  'início': 'blue', 'inicio': 'blue',
+};
+
+function getColor(titulo) {
+  const t = titulo.toLowerCase();
+  for (const [k,v] of Object.entries(COLOR_MAP)) {
+    if (t.includes(k)) return v;
+  }
+  return 'slate';
+}
+
+function getTypeLabel(titulo) {
+  const t = titulo.toLowerCase();
+  if (t.includes('automático')||t.includes('automati')) return '🤖 Automático';
+  if (t.includes('fechado')) return '✅ Encerramento';
+  if (t.includes('abandonado')) return '⚠️ Abandono';
+  if (t.includes('especialista')) return '🔧 Especialista';
+  if (t.includes('início')||t.includes('inicio')) return '🚀 Início';
+  if (t.includes('adicionais')) return '📎 Info Adicional';
+  if (t.includes('portfólio')||t.includes('catalogo')||t.includes('catálogo')) return '📦 Orientação';
+  if (t.includes('andamento')) return '🔄 Andamento';
+  if (t.includes('errado')) return '↩️ Transferência';
+  return '📋 Atendimento';
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function buildScripts() {
+  let html = '';
+  SCRIPTS.forEach((s, idx) => {
+    const color = getColor(s.titulo);
+    const label = getTypeLabel(s.titulo);
+    const titulo = s.titulo.replace(/\n/g,' ').trim();
+    html += `<div class="script-card c-${color}" data-search="${(titulo+' '+s.desc+' '+s.acao+' '+s.script).toLowerCase()}">
+      <div class="sc-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="sc-badge"></span>
+        <span class="sc-num">${String(idx+1).padStart(2,'0')}</span>
+        <span class="sc-title">${titulo}</span>
+        <span class="sc-type-tag">${label}</span>
+        <span class="sc-chevron">▾</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-sections">
+          <div class="sc-section">
+            <div class="sc-section-label">📖 Descrição</div>
+            <div class="sc-section-text">${escHtml(s.desc).replace(/\n/g,'<br>')||'—'}</div>
+          </div>
+          <div class="sc-section">
+            <div class="sc-section-label">⚡ Ação do Técnico</div>
+            <div class="sc-section-text">${escHtml(s.acao).replace(/\n/g,'<br>')||'—'}</div>
+          </div>
+        </div>
+        <div class="sc-script-wrap">
+          <div class="sc-script-label">💬 Script <span style="font-size:10px;color:var(--ink3);font-weight:400;text-transform:none">— clique em copiar para usar</span></div>
+          <div class="sc-script-box">${escHtml(s.script).replace(/\n/g,'<br>')||'—'}<button class="copy-btn" onclick="copyScript(this, event)"">📋 Copiar</button></div>
+        </div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('list-scripts').innerHTML = html;
+  document.getElementById('count-scripts').textContent = SCRIPTS.length+' script(s)';
+}
+
+function buildOrient() {
+  let html = '';
+  ORIENT.forEach(o => {
+    html += `<div class="orient-card" data-search="${(o.atalho+' '+o.desc+' '+o.script).toLowerCase()}">
+      <div class="oc-header">
+        <div class="oc-title">📌 ${o.atalho}</div>
+        <button class="oc-copy" onclick="copyText(this,'${encodeURIComponent(o.script)}')">📋 Copiar</button>
+      </div>
+      <div class="oc-desc">${escHtml(o.desc).replace(/\n/g,'<br>')||'—'}</div>
+      <pre class="oc-script">${escHtml(o.script).replace(/\n/g,'<br>')}</pre>
+    </div>`;
+  });
+  document.getElementById('list-orient').innerHTML = html;
+  document.getElementById('count-orient').textContent = ORIENT.length+' atalho(s)';
+}
+
+function copyScript(btn, e) {
+  e.stopPropagation();
+  const box = btn.parentElement;
+  const text = box.innerText.replace('📋 Copiar','').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✅ Copiado!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copiar';btn.classList.remove('copied');}, 2000);
+  });
+}
+
+function copyText(btn, encoded) {
+  const text = decodeURIComponent(encoded);
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✅ Copiado!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copiar';btn.classList.remove('copied');}, 2000);
+  });
+}
+
+function filterScripts() {
+  const q = document.getElementById('search-scripts').value.toLowerCase().trim();
+  let count = 0;
+  document.querySelectorAll('#list-scripts .script-card').forEach(card => {
+    const show = !q || card.dataset.search.includes(q);
+    card.style.display = show ? '' : 'none';
+    if (show) count++;
+    if (show && q) card.classList.add('open');
+  });
+  document.getElementById('count-scripts').textContent = count+' script(s)';
+}
+
+function filterOrient() {
+  const q = document.getElementById('search-orient').value.toLowerCase().trim();
+  let count = 0;
+  document.querySelectorAll('#list-orient .orient-card').forEach(card => {
+    const show = !q || card.dataset.search.includes(q);
+    card.style.display = show ? '' : 'none';
+    if (show) count++;
+  });
+  document.getElementById('count-orient').textContent = count+' atalho(s)';
+}
+
+function switchTab(id, el) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+buildScripts();
+buildOrient();
+</script>
+</body>
+</html>
