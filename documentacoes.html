@@ -94,6 +94,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
 .back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
 .back-portal svg{width:14px;height:14px;flex-shrink:0}
+/* BARRA DE PESQUISA */
+.search-wrap{position:relative;margin-bottom:28px}
+.search-input{width:100%;padding:13px 48px 13px 18px;font-family:'DM Sans',sans-serif;font-size:14px;border:1.5px solid var(--rule);border-radius:12px;background:#fff;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.search-input:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(45,111,189,.12)}
+.search-input::placeholder{color:var(--ink3)}
+.search-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none;opacity:.5}
+.search-clear{position:absolute;right:44px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--ink3);display:none;padding:2px 6px;border-radius:4px}
+.search-clear:hover{color:var(--ink)}
+
+/* RESULTADOS DE PESQUISA */
+#view-search{display:none}
+#view-search.active{display:block}
+.search-results-header{font-size:12px;color:var(--ink3);margin-bottom:16px;padding:8px 0;border-bottom:1px solid var(--rule)}
+.search-results-header strong{color:var(--ink2)}
+.result-folder-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:16px 0 8px;display:flex;align-items:center;gap:8px}
+.result-folder-label::before{content:'';display:block;width:3px;height:14px;border-radius:2px;background:var(--blue-mid)}
+.no-results{text-align:center;padding:48px 24px;color:var(--ink3)}
+.no-results div{font-size:40px;margin-bottom:12px}
+.no-results p{font-size:13px}
+
 @media(max-width:768px){.folders-grid{grid-template-columns:1fr}.hero,.main,.page-footer{padding-left:24px;padding-right:24px}}
 </style>
 </head>
@@ -115,6 +135,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </header>
 
 <div class="main">
+
+  <!-- BARRA DE PESQUISA -->
+  <div class="search-wrap">
+    <input class="search-input" id="searchInput" type="text" placeholder="🔍  Pesquisar documentos em todas as pastas..." oninput="doSearch(this.value)" autocomplete="off">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+    <span class="search-icon">⌕</span>
+  </div>
+
+  <!-- VISTA: RESULTADOS DE PESQUISA -->
+  <div class="view" id="view-search">
+    <div class="breadcrumb">
+      <a href="#" onclick="clearSearch()">Documentações</a> › <span>Pesquisa</span>
+    </div>
+    <div id="searchResultsContainer"></div>
+  </div>
+
 
   <!-- VISTA: GRID DE PASTAS -->
   <div class="view active" id="view-root">
@@ -338,16 +374,120 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </footer>
 
 <script>
+// Índice de todos os documentos
+const docs = [
+  {
+    folder: 'Manual', folderIcon: '📖', color: 'fi-green',
+    items: [
+      { title: 'Manual do Usuário - CADSUS WEB', meta: 'Versão 1.0 · Janeiro/2025', icon: '📄', href: 'documentações/Manual/manual_cadsus_web.html' },
+      { title: 'Manual do Usuário - SGOP', meta: 'Versão 3.0 · Janeiro/2025', icon: '📄', href: 'documentações/Manual/manual_sgop.html' }
+    ]
+  },
+  {
+    folder: 'Script', folderIcon: '💬', color: '',
+    items: [
+      { title: 'Script de Atendimento', meta: 'Roteiros padronizados para atendimento técnico', icon: '📄', href: 'https://saudedigitalatende.github.io/saudedigital/script_atendimento.html' }
+    ]
+  },
+  {
+    folder: 'Fluxos', folderIcon: '🔄', color: 'fi-purple',
+    items: [
+      { title: 'Fluxo de Atendimento', meta: 'Fluxograma de atendimento técnico', icon: '🔄', href: 'documentações/Fluxos/fluxo_atendimento.html' },
+      { title: 'Fluxo de Abertura de Chamado de Implantação (PEC MAC e PEC e-SUS)', meta: 'Fluxograma de abertura de chamado para implantação PEC MAC e PEC e-SUS', icon: '🔄', href: 'documentações/Fluxos/fluxo_implantacao_pec.html' }
+    ]
+  }
+];
+
 function openFolder(id) {
+  clearSearchInput();
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + id).classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
+
 function goRoot() {
+  clearSearchInput();
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-root').classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
   return false;
+}
+
+function clearSearchInput() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchClear').style.display = 'none';
+}
+
+function clearSearch() {
+  clearSearchInput();
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-root').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  return false;
+}
+
+function doSearch(q) {
+  const clear = document.getElementById('searchClear');
+  clear.style.display = q.trim() ? 'block' : 'none';
+
+  if (!q.trim()) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-root').classList.add('active');
+    return;
+  }
+
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-search').classList.add('active');
+
+  const term = q.toLowerCase().trim();
+  const container = document.getElementById('searchResultsContainer');
+  let totalFound = 0;
+  let html = '';
+
+  docs.forEach(folder => {
+    const matches = folder.items.filter(doc =>
+      doc.title.toLowerCase().includes(term) ||
+      doc.meta.toLowerCase().includes(term) ||
+      folder.folder.toLowerCase().includes(term)
+    );
+    if (matches.length > 0) {
+      totalFound += matches.length;
+      html += `<div class="result-folder-label">${folder.folderIcon} ${folder.folder}</div>`;
+      matches.forEach(doc => {
+        html += `
+          <a class="doc-card" href="${doc.href}" target="_blank">
+            <div class="doc-icon-wrap">${doc.icon}</div>
+            <div>
+              <div class="doc-title">${highlight(doc.title, term)}</div>
+              <div class="doc-meta">${highlight(doc.meta, term)}</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>`;
+      });
+    }
+  });
+
+  const header = `<div class="search-results-header">
+    ${totalFound > 0
+      ? `Encontrado(s) <strong>${totalFound} resultado(s)</strong> para "<strong>${escHtml(q)}</strong>"`
+      : `Nenhum resultado para "<strong>${escHtml(q)}</strong>"`}
+  </div>`;
+
+  if (totalFound === 0) {
+    html = `<div class="no-results"><div>🔍</div><p>Nenhum documento encontrado para "<strong>${escHtml(q)}</strong>".<br>Tente outro termo.</p></div>`;
+  }
+
+  container.innerHTML = header + html;
+}
+
+function highlight(text, term) {
+  if (!term) return escHtml(text);
+  const re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return escHtml(text).replace(re, '<mark style="background:#fdf3dc;color:#b07d1a;border-radius:2px;padding:0 2px">$1</mark>');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 </script>
 
