@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">ATIVIDADE 2</span>
-          <span class="activity-name">Abertura do Chamado — Central de Serviços</span>
+          <span class="activity-name">Abertura e Registro — Central de Serviços</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
@@ -175,19 +175,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Registrar chamado no sistema <strong>GLPI</strong></div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Coletar data e horário sugeridos pelo usuário</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Descrever a necessidade de treinamento</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Encaminhar chamado para <strong>N2 Remoto</strong></div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="activity-card open">
-        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">ATIVIDADE 3</span>
-          <span class="activity-name">Registro e Controle — Sistemas N2 Remoto</span>
-          <span class="activity-chevron">▾</span>
-        </div>
-        <div class="activity-body">
-          <div class="step-list">
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Registrar solicitação na <a href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit" target="_blank" style="color:var(--blue-mid)">planilha de controle de treinamentos</a></div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Atualizar informações do chamado</div></div>
           </div>
@@ -196,14 +183,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">ATIVIDADE 4</span>
-          <span class="activity-name">Validação de Disponibilidade — N2 Remoto / N3</span>
+          <span class="activity-num">ATIVIDADE 3</span>
+          <span class="activity-name">Validação de Disponibilidade — Central de Serviços / N3</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
           <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">N2 Remoto contata o <strong>N3</strong> para verificar disponibilidade</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Verificar disponibilidade de técnico</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Central de Serviços contata o <strong>N3</strong> para verificar disponibilidade</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Verificar disponibilidade do técnico de Sistemas N2 Campo</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Validar data e horário propostos</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se NÃO disponível:</strong> ajustar nova data com o usuário, atualizar planilha e chamado, e retornar para validação</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se DISPONÍVEL:</strong> prosseguir com o fluxo</div></div>
@@ -213,13 +200,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">ATIVIDADE 5</span>
-          <span class="activity-name">Encaminhamento para Execução — N2 Campo</span>
+          <span class="activity-num">ATIVIDADE 4</span>
+          <span class="activity-name">Encaminhamento para Execução — Central de Serviços</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
           <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Direcionar chamado para <strong>N2 Campo</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Direcionar chamado para <strong>Sistemas N2 Campo</strong></div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Informar o técnico responsável pela execução</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Informar o número do chamado ao técnico</div></div>
           </div>
@@ -228,12 +215,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">ATIVIDADE 6</span>
+          <span class="activity-num">ATIVIDADE 5</span>
           <span class="activity-name">Execução do Treinamento — Sistemas N2 Campo</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
           <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Recebe o encaminhamento do chamado da Central de Serviços</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Realizar treinamento no local</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Apoiar e orientar os usuários</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Esclarecer dúvidas sobre o sistema</div></div>
@@ -243,7 +231,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">ATIVIDADE 7</span>
+          <span class="activity-num">ATIVIDADE 6</span>
           <span class="activity-name">Registro e Encerramento — Sistemas N2 Campo</span>
           <span class="activity-chevron">▾</span>
         </div>
