@@ -83,6 +83,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .gov-arrow{color:var(--ink3);font-size:15px;flex-shrink:0;transition:transform .15s,color .15s}
 .gov-btn:hover .gov-arrow{transform:translateX(3px);color:var(--blue-mid)}
 .gov-btn-disabled{opacity:.55;pointer-events:none;cursor:default}
+/* BARRA DE PESQUISA INDEX */
+.index-search-wrap{position:relative;padding:28px 0 0}
+.index-search-input{width:100%;padding:14px 52px 14px 44px;font-family:'DM Sans',sans-serif;font-size:14px;border:1.5px solid var(--rule);border-radius:14px;background:#fff;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.index-search-input:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(45,111,189,.1)}
+.index-search-input::placeholder{color:var(--ink3)}
+.index-search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.45;pointer-events:none;margin-top:14px}
+.index-search-clear{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:13px;color:var(--ink3);display:none;padding:4px 8px;border-radius:6px;margin-top:14px;transition:color .15s}
+.index-search-clear:hover{color:var(--ink)}
+.index-search-results{display:none;margin-top:16px;background:#fff;border:1.5px solid var(--rule);border-radius:14px;overflow:hidden}
+.index-search-results.open{display:block}
+.isr-header{font-size:11.5px;color:var(--ink3);padding:12px 18px;border-bottom:1px solid var(--rule);background:var(--paper2)}
+.isr-header strong{color:var(--ink2)}
+.isr-folder-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding:12px 18px 6px;display:flex;align-items:center;gap:8px}
+.isr-folder-label::before{content:'';display:block;width:3px;height:12px;border-radius:2px;background:var(--blue-mid)}
+.isr-item{display:flex;align-items:center;gap:12px;padding:11px 18px;text-decoration:none;color:var(--ink);border-top:1px solid var(--rule);transition:background .15s}
+.isr-item:hover{background:var(--paper2)}
+.isr-item-icon{font-size:18px;flex-shrink:0}
+.isr-item-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:1px}
+.isr-item-meta{font-size:11px;color:var(--ink3)}
+.isr-item-arrow{margin-left:auto;font-size:14px;color:var(--ink3);flex-shrink:0}
+.isr-empty{text-align:center;padding:36px 24px;color:var(--ink3);font-size:13px}
+.isr-empty div{font-size:32px;margin-bottom:8px}
+
 
 /* FOOTER */
 .page-footer{margin-top:48px;padding:0 60px;background:var(--ink)}
@@ -175,6 +198,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </header>
 
 <div class="main">
+
+  <!-- BARRA DE PESQUISA -->
+  <div class="index-search-wrap">
+    <span class="index-search-icon">🔍</span>
+    <input class="index-search-input" id="indexSearchInput" type="text" placeholder="Pesquisar documentos, manuais, fluxos..." oninput="indexSearch(this.value)" autocomplete="off">
+    <button class="index-search-clear" id="indexSearchClear" onclick="indexClearSearch()">✕</button>
+  </div>
+  <div class="index-search-results" id="indexSearchResults"></div>
+
 
   <!-- DOCUMENTOS INSTITUCIONAIS -->
   <div class="featured">
@@ -340,5 +372,77 @@ function closeModalOutside(e,id){if(e.target===document.getElementById('modal-'+
 window.addEventListener('scroll',()=>{document.getElementById('bt').classList.toggle('visible',window.scrollY>300)})
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal('wa');closeModal('email')}})
 </script>
+
+<script>
+const indexDocs = [
+  { folder: 'Manual', icon: '📖', items: [
+    { title: 'Manual do Usuário – CADSUS WEB', meta: 'Versão 1.0 · Janeiro/2025', icon: '📄', href: 'https://saudedigitalatende.github.io/saudedigital/documentações/Manual/manual_cadsus_web.html' },
+    { title: 'Manual do Usuário – SGOP', meta: 'Versão 3.0 · Janeiro/2025', icon: '📄', href: 'https://saudedigitalatende.github.io/saudedigital/documentações/Manual/manual_sgop.html' },
+    { title: 'Manual Operacional – Notificação de E-mail Abertura e Encerramento de Chamado', meta: 'Notificações automáticas · Versão 1.0 · 2026', icon: '📄', href: 'https://saudedigitalatende.github.io/saudedigital/documentações/Manual/manual_glpi_notificacoes.html' },
+    { title: 'Manual Operacional – Abertura e Gestão de Chamados GLPI', meta: 'Abertura, categorização e responsabilidades · Versão 1.0 · 2026', icon: '📄', href: 'https://saudedigitalatende.github.io/saudedigital/documentações/Manual/manual_abertura_chamados_glpi.html' }
+  ]},
+  { folder: 'Fluxos', icon: '🔄', items: [
+    { title: 'Fluxo de Atendimento Saúde Digital Atende', meta: 'Fluxograma de atendimento técnico', icon: '🔄', href: 'https://saudedigitalatende.github.io/saudedigital/documentações/Fluxos/fluxo_atendimento.html' },
+    { title: 'Fluxo de Abertura de Chamado de Implantação (PEC MAC e PEC e-SUS)', meta: 'Fluxograma de abertura de chamado para implantação', icon: '🔄', href: 'https://saudedigitalatende.github.io/saudedigital/documentações/Fluxos/fluxo_implantacao_pec.html' },
+    { title: 'Fluxo de Abertura de Chamado de Acompanhamento (PEC MAC e PEC e-SUS)', meta: 'Fluxograma de abertura de chamado de acompanhamento', icon: '🔄', href: 'https://saudedigitalatende.github.io/saudedigital/documentações/Fluxos/fluxo_acompanhamento_pec.html' },
+    { title: 'Fluxo de Solicitação de Treinamento (PEC MAC e PEC e-SUS)', meta: 'Fluxograma de solicitação, planejamento e execução de treinamentos', icon: '🔄', href: 'https://saudedigitalatende.github.io/saudedigital/documentações/Fluxos/fluxo_treinamento_pec.html' }
+  ]},
+  { folder: 'Script', icon: '💬', items: [
+    { title: 'Script de Atendimento', meta: 'Roteiros padronizados para atendimento técnico', icon: '📄', href: 'https://saudedigitalatende.github.io/saudedigital/script_atendimento.html' }
+  ]}
+];
+
+function indexSearch(q) {
+  const clear = document.getElementById('indexSearchClear');
+  const results = document.getElementById('indexSearchResults');
+  clear.style.display = q.trim() ? 'block' : 'none';
+  if (!q.trim()) { results.classList.remove('open'); return; }
+
+  const term = q.toLowerCase().trim();
+  let totalFound = 0;
+  let html = '';
+
+  indexDocs.forEach(folder => {
+    const matches = folder.items.filter(d =>
+      d.title.toLowerCase().includes(term) ||
+      d.meta.toLowerCase().includes(term) ||
+      folder.folder.toLowerCase().includes(term)
+    );
+    if (matches.length > 0) {
+      totalFound += matches.length;
+      html += `<div class="isr-folder-label">${folder.icon} ${folder.folder}</div>`;
+      matches.forEach(d => {
+        html += `<a class="isr-item" href="${d.href}" target="_blank">
+          <span class="isr-item-icon">${d.icon}</span>
+          <div>
+            <div class="isr-item-title">${hlIdx(d.title, term)}</div>
+            <div class="isr-item-meta">${hlIdx(d.meta, term)}</div>
+          </div>
+          <span class="isr-item-arrow">→</span>
+        </a>`;
+      });
+    }
+  });
+
+  const header = `<div class="isr-header">${totalFound > 0 ? `<strong>${totalFound} resultado(s)</strong> para "<strong>${escIdx(q)}</strong>"` : `Nenhum resultado para "<strong>${escIdx(q)}</strong>"`}</div>`;
+  results.innerHTML = header + (totalFound === 0 ? `<div class="isr-empty"><div>🔍</div>Nenhum documento encontrado.</div>` : html);
+  results.classList.add('open');
+}
+
+function indexClearSearch() {
+  document.getElementById('indexSearchInput').value = '';
+  document.getElementById('indexSearchClear').style.display = 'none';
+  document.getElementById('indexSearchResults').classList.remove('open');
+}
+
+function hlIdx(text, term) {
+  const re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return escIdx(text).replace(re, '<mark style="background:#fdf3dc;color:#b07d1a;border-radius:2px;padding:0 2px">$1</mark>');
+}
+function escIdx(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+
 </body>
 </html>
