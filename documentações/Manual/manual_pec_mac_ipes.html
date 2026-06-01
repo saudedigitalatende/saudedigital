@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Manual do Usuário – PEC MAC IPES Hospitalar · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
+.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.content .section{margin-bottom:36px;scroll-margin-top:24px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
+.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px}
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
+.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even) td{background:var(--paper)}
+.rules-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.rules-list li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid);line-height:1.5}
+.activity-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:12px}
+.activity-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--ink);cursor:pointer;user-select:none}
+.activity-header:hover{background:#1a2b42}
+.activity-num{font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.activity-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.activity-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.activity-card:not(.open) .activity-body{display:none}
+.activity-card.open .activity-chevron{transform:rotate(180deg)}
+.activity-body{padding:20px}
+.step-list{display:flex;flex-direction:column;gap:8px}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-mid);flex-shrink:0;margin-top:6px}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.sub-item{font-size:12.5px;color:var(--ink3);padding:4px 12px;border-left:2px solid var(--rule);margin:4px 0 4px 20px}
+.fluxo-img{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-align:center;padding:24px}
+.fluxo-img img{max-width:100%;height:auto;border-radius:8px}
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.success{background:#e6f4ee;border-color:#2a8a5a;color:#1a5a3a}
+.alert-box.success strong{color:#1a5a3a}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.module-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+.module-label::before{content:'';display:block;width:3px;height:12px;border-radius:2px;background:var(--blue-mid)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html"
+        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
+        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
+        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+        ← Voltar às Documentações
+      </a>
+    </div>
+    <h1>Manual do Usuário<br><em>PEC MAC IPES Hospitalar</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="toc">
+      <li><a href="#historico">01. Histórico de Revisões</a></li>
+      <li><a href="#links">02. Links Complementares</a></li>
+      <li><a href="#info">03. Informações</a></li>
+      <li><a href="#acesso">04. Acesso ao Sistema</a></li>
+      <li><a href="#recurso-agenda">05. Recurso Agenda</a></li>
+      <li><a href="#agenda-cadastro">06. Agenda Cadastro</a></li>
+      <li><a href="#agendamento">07. Agendamento Ambulatorial</a></li>
+      <li><a href="#checkin">08. Agendamento Check-in</a></li>
+      <li><a href="#demanda">09. Demanda Espontânea</a></li>
+      <li><a href="#pesquisar">10. Pesquisar Paciente</a></li>
+      <li><a href="#prontuario">11. Prontuário Eletrônico</a></li>
+      <li><a href="#enfermagem">12. Enfermagem</a></li>
+      <li><a href="#faturamento">13. Faturamento</a></li>
+      <li><a href="#internacao">14. Internação e Leitos</a></li>
+      <li><a href="#classificacao">15. Classificação de Risco</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+
+    <div class="section" id="historico">
+      <div class="section-title"><span>01</span> Histórico de Revisões</div>
+      <table class="info-table">
+        <thead><tr><th>Versão</th><th>Data</th><th>Autor</th></tr></thead>
+        <tbody><tr><td>1.0</td><td>10/10/2024</td><td>GTIC</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="section" id="links">
+      <div class="section-title"><span>02</span> Links Complementares</div>
+      <table class="info-table">
+        <thead><tr><th>Nome</th><th>Link</th></tr></thead>
+        <tbody>
+          <tr><td>Links para as unidades</td><td><a href="https://ggtidev.github.io/links_pecmac/index.html" target="_blank" style="color:var(--blue-mid)">ggtidev.github.io/links_pecmac</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section" id="info">
+      <div class="section-title"><span>03</span> Informações</div>
+      <table class="info-table">
+        <thead><tr><th>Acesso</th><th>Hospedagem</th><th>Fornecedor</th></tr></thead>
+        <tbody><tr><td><a href="https://conectasaude.recife.pe.gov.br/" target="_blank" style="color:var(--blue-mid)">conectasaude.recife.pe.gov.br</a></td><td>EMPREL</td><td>IPES</td></tr></tbody>
+      </table>
+      <div class="alert-box info"><strong>📌 Pré-requisitos para todas as funcionalidades:</strong> Navegador Google Chrome · Cadastro no sistema PEC MAC IPES</div>
+    </div>
+
+    <div class="section" id="acesso">
+      <div class="section-title"><span>04</span> Acesso ao Sistema</div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Como acessar o sistema</span>
+          <span class="activity-name">Login e seleção de parâmetros</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <a href="https://conectasaude.recife.pe.gov.br/" target="_blank" style="color:var(--blue-mid)">conectasaude.recife.pe.gov.br</a> e faça login com seu CPF e senha</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Pesquise <strong>"PEC MAC IPES"</strong> e clique em <strong>"Acessar"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a unidade em que está</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Insira usuário e senha e clique em <strong>"Entrar"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione os parâmetros: <strong>Estabelecimento</strong>, <strong>Unidade Operacional</strong> e <strong>Seção (sala)</strong></div></div>
+          </div>
+          <div class="alert-box"><strong>💡 Dica:</strong> Ao marcar "lembrar configuração", a tela de parâmetros não aparecerá no próximo login. Para alterar, acesse via lista de programas.</div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Como trocar a sala (parâmetro)</span>
+          <span class="activity-name">Alterar seção de trabalho</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Na lista de programas, clique no ícone de opções</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Parâmetros de acesso"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione os parâmetros desejados e clique em <strong>Salvar</strong></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Como sair do sistema corretamente</span>
+          <span class="activity-name">Evitar acesso não autorizado</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Opção 1:</strong> Feche diretamente o navegador (X)</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Opção 2:</strong> Na lista de programas, clique no ícone de opções → <strong>"Sair"</strong></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="recurso-agenda">
+      <div class="section-title"><span>05</span> Recurso Agenda</div>
+      <p class="doc-p">Tela utilizada para criar, editar ou excluir um tipo de agenda (recurso/serviço) e gerenciar permissões.</p>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Localizar um recurso existente</span>
+          <span class="activity-name">Pesquisa de tipos de agenda</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>Recurso Agenda</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique na barra de pesquisa e digite o nome do recurso</div></div>
+          </div>
+          <div class="alert-box info"><strong>💡 Dica:</strong> Digite <code>%%</code> para listar todos os recursos disponíveis.</div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Criar um novo recurso (tipo de agenda)</span>
+          <span class="activity-name">Antes de criar agenda é necessário criar o tipo</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Recurso Agenda</strong> e verifique se o recurso já existe</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Escolha o tipo de agenda e insira o nome do recurso</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Mantenha as três opções como <strong>"Sim"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>Salvar</strong> — o ID será exibido ao finalizar</div></div>
+          </div>
+          <div class="alert-box danger"><strong>⚠️ Atenção:</strong> O fluxo selecionado deve ser o mesmo da seção (sala). Recurso com fluxo errado impede o check-in.</div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Adicionar / remover permissões em um tipo de agenda</span>
+          <span class="activity-name">Controle de acesso por perfil</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Recurso Agenda</strong> e selecione o tipo de agenda</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Para administrativos: adicionar permissões de <strong>geração</strong> e <strong>marcação</strong> de agenda</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Para profissionais de saúde: adicionar apenas <strong>"permitir execução"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Para remover: clique no ícone de exclusão ao lado do usuário</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="agenda-cadastro">
+      <div class="section-title"><span>06</span> Agenda Cadastro</div>
+      <p class="doc-p">Tela para criar e gerenciar agendas dos profissionais. A marcação de pacientes é feita na tela <em>Agendamento Ambulatorial</em>.</p>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Criar agenda para um dia</span>
+          <span class="activity-name">Passo a passo completo</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Agenda - Cadastro</strong> e clique na data desejada</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione: <strong>Serviço</strong> → <strong>Seção (sala pai)</strong> → <strong>Especialidade</strong> → <strong>Profissional</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha: horário inicial/final e duração do atendimento</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Salve → Feche → Salve novamente para deixar a agenda pronta (azul)</div></div>
+          </div>
+          <div class="alert-box info"><strong>🎨 Cores das agendas:</strong> Amarelo = não salva · Azul = com vagas · Verde = cheia · Vermelho = todas vagas canceladas</div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Criar agenda para múltiplos dias</span>
+          <span class="activity-name">Diária consecutiva ou semanal</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Siga o processo de criação de agenda normal até a tela de parâmetros</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Diária consecutiva:</strong> preencha o intervalo de dias seguidos</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Semanal:</strong> mude o tipo para <strong>"Semanal"</strong> e selecione os dias da semana</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Salve novamente para consolidar (deixar azul)</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Copiar agendas de um mês para outro</span>
+          <span class="activity-name">Replicar agenda mensal</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Pesquise as agendas com o filtro desejado</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Copiar Agendas"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione mês atual → mês seguinte → <strong>Salvar</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Salve no disquete para consolidar</div></div>
+          </div>
+          <div class="alert-box"><strong>📌 Atenção:</strong> O processo deve ser repetido para cada tipo de agenda (recurso).</div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Importar agendas do SISREG</span>
+          <span class="activity-name">Importação de arquivo TXT/CSV</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">No SISREG: aba <strong>"Consulta AMB"</strong> → <strong>"Arquivo Agendamento (TXT)"</strong> → formato CSV → <strong>Exportar</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">No PEC MAC IPES, acesse <strong>Importação de Agenda</strong> → clique em importar → selecione o arquivo</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Importar Arquivo"</strong> e verifique se as informações estão corretas (serviço, seção, especialidade)</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Edite o que for necessário em <strong>"Edit"</strong> e clique em <strong>Update</strong> após cada edição</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Consistir"</strong> para finalizar</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="agendamento">
+      <div class="section-title"><span>07</span> Agendamento Ambulatorial</div>
+      <p class="doc-p">Tela para marcar e desmarcar pacientes nas agendas criadas.</p>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Agendar um paciente</span>
+          <span class="activity-name">Marcar paciente na agenda</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a especialidade, profissional e data</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Marque a vaga desejada e clique em <strong>"Agendar"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Pesquise o paciente por nome, CNS ou CPF</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Confirme os dados do paciente (nome, sexo, nascimento, mãe)</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha os campos cadastrais se necessário (telefone obrigatório)</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Finalizar"</strong> — o paciente só está agendado após esse clique</div></div>
+          </div>
+          <div class="alert-box danger"><strong>⚠️ Atenção:</strong> Não use acentuação nos nomes cadastrados. Dê prioridade ao preenchimento de CPF e CNS para evitar prontuários duplicados.</div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Desmarcar um paciente</span>
+          <span class="activity-name">Remover da agenda</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione especialidade, profissional e data</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Desmarcar"</strong> na vaga do paciente</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="checkin">
+      <div class="section-title"><span>08</span> Agendamento Check-in</div>
+      <p class="doc-p">Tela para realizar ou cancelar o check-in e acolher pacientes não agendados.</p>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Realizar check-in do paciente</span>
+          <span class="activity-name">Confirmar chegada e encaminhar</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Certifique-se de estar no parâmetro de <strong>recepção</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Localize o paciente na lista (use filtro SELECIONE-SELECIONE para ver todos)</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no <strong>"V" verde</strong> para abrir a tela de check-in</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha: tipo de consulta (1ª vez / retorno) e encaminhamento</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Marque se o paciente é preferencial e clique em <strong>"Check-in"</strong></div></div>
+          </div>
+          <div class="alert-box info"><strong>💡 Dica:</strong> Sempre volte o filtro para SELECIONE-SELECIONE entre um check-in e outro.</div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Acolher paciente na agenda (encaixe)</span>
+          <span class="activity-name">Inserir paciente sem agendamento prévio</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Agendamento Check-in</strong> e selecione a seção da agenda desejada</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Acolher Paciente"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Pesquise e selecione o paciente (ou crie novo registro)</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Escolha a agenda e clique em <strong>"Utilizar"</strong> ou <strong>"Utilizar Extra"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Realize o check-in normalmente</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="demanda">
+      <div class="section-title"><span>09</span> Demanda Espontânea</div>
+      <p class="doc-p">Tela para acolher e encaminhar pacientes para serviços sem agendamento prévio (equivalente ao Boletim de Emergência em hospitais).</p>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Acolher paciente em demanda espontânea</span>
+          <span class="activity-name">Encaminhar sem agendamento</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Certifique-se de estar no parâmetro de <strong>recepção</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Pesquise o paciente pelo nome antes de criar novo cadastro</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no paciente encontrado ou em <strong>"Novo Registro"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha os campos obrigatórios: nome, sexo, nascimento, raça/cor, naturalidade, nome da mãe, CEP, endereço e origem</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>Salvar</strong> → selecione a seção de destino → clique em <strong>"Encaminhar"</strong></div></div>
+          </div>
+          <div class="alert-box danger"><strong>⚠️ Atenção:</strong> Sempre pesquise antes de criar novo cadastro para evitar prontuários duplicados.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="pesquisar">
+      <div class="section-title"><span>10</span> Pesquisar Paciente</div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Verificar dados e histórico do paciente</span>
+          <span class="activity-name">Consulta de cadastro e atendimentos</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Pesquisar Paciente</strong> e clique na lupa</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Pesquise por: nome, CPF, CNS, boletim ou data de nascimento</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no paciente desejado para ver dados, histórico e atendimentos</div></div>
+          </div>
+          <div class="alert-box info"><strong>💡 Pré-cadastro x Cadastro completo:</strong> Pacientes com número de prontuário têm cadastro completo. Pré-cadastros não aparecem nessa tela — use Agendamento Ambulatorial para localizá-los.</div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Editar dados do paciente</span>
+          <span class="activity-name">Corrigir informações cadastrais</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Via Pesquisar Paciente:</strong> localize → aba "dados do paciente" → edite → salve</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Via Agendamento Ambulatorial:</strong> útil para pré-cadastros sem prontuário (edite durante o agendamento e desfaça depois)</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Via Check-in:</strong> localize o paciente → clique nele para abrir a tela de cadastro → edite → salve</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="prontuario">
+      <div class="section-title"><span>11</span> Prontuário Eletrônico</div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Iniciar e finalizar atendimento</span>
+          <span class="activity-name">Fluxo completo de consulta</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Prontuário Eletrônico</strong> → verifique parâmetro → clique em <strong>"Atendimentos Pendentes"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Chame o paciente (balão azul) → clique em <strong>"Iniciar Atendimento"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha a anamnese (mínimo 20 caracteres) e salve</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha CID, prescrições, formulários e procedimentos conforme necessário</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Na aba <strong>"Finalizar"</strong>: selecione conduta (alta médica ou encaminhar) → preencha motivo → clique em <strong>"Finalizar Atendimento"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Imprima o atendimento e retorne para atendimentos pendentes</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Preencher CID</span>
+          <span class="activity-name">Diagnóstico obrigatório</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique na aba <strong>CID</strong> durante o atendimento</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Digite o CID <strong>sem ponto</strong> (ex: O800) e <strong>clique no resultado</strong> que aparecer</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o tipo do CID e clique em <strong>Salvar</strong></div></div>
+          </div>
+          <div class="alert-box danger"><strong>⚠️ Obrigatório:</strong> Somente digitar não seleciona o CID. É necessário clicar na opção que aparecer.</div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Registrar prescrição (receituário)</span>
+          <span class="activity-name">Prescrição para consumo externo</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a aba <strong>Receituário</strong> durante o atendimento</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Digite a prescrição e clique em <strong>Gravar</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">A guia de impressão abrirá automaticamente</div></div>
+          </div>
+          <div class="alert-box info"><strong>💡 Dica:</strong> Ao colar texto de outro programa, use <strong>Ctrl+Shift+V</strong> (colar sem formatação) para evitar erros.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="enfermagem">
+      <div class="section-title"><span>12</span> Enfermagem</div>
+      <p class="doc-p">Tela para registro simplificado do atendimento com anotações, sinais vitais e procedimentos.</p>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Iniciar atendimento na tela Enfermagem</span>
+          <span class="activity-name">Selecionar paciente</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Enfermagem</strong> → clique em <strong>"Atendimentos Pendentes"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Chame o paciente (balão azul) ou clique no "V" verde se já estiver presente</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Iniciar Atendimento"</strong></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Registrar sinais vitais e procedimentos</span>
+          <span class="activity-name">Dados clínicos do paciente</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Sinais vitais:</strong> aba "Sinais Vitais" → preencha → Salvar</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Procedimentos:</strong> aba "Procedimentos Realizados" → pesquise e clique no procedimento → preencha a quantidade → Adicionar</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Anotações:</strong> aba "Anotação" → preencha → Salvar</div></div>
+          </div>
+          <div class="alert-box info"><strong>💡 Dica:</strong> Preencha os sinais vitais antes dos procedimentos, pois alguns procedimentos são registrados automaticamente ao salvar os sinais vitais.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="faturamento">
+      <div class="section-title"><span>13</span> Faturamento e Produtividade</div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Resolver críticas do faturamento (BPA Individualizado)</span>
+          <span class="activity-name">Corrigir inconsistências antes de exportar</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>BPA Individualizado</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione: Competência + Situação <strong>"Com Crítica"</strong> → clique em <strong>Atualizar</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no "x" para ver a crítica e no procedimento para corrigi-la</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Após cada correção, clique em <strong>"Consistir"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Para substituição em massa: <strong>Correções de Faturamento</strong> → selecione tipo de crítica → selecione profissional → substitua</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Gerar arquivo de faturamento (Exportar Dados SIA)</span>
+          <span class="activity-name">Exportar produtividade</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Exportar Dados SIA</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a competência e clique em <strong>Pesquisar</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>Exportar</strong> → depois em <strong>Baixar o Arquivo</strong></div></div>
+          </div>
+          <div class="alert-box danger"><strong>⚠️ Atenção:</strong> Resolva todas as críticas antes de exportar. Procedimentos com crítica também serão marcados como faturados.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="internacao">
+      <div class="section-title"><span>14</span> Internação e Gestão de Leitos</div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Associar paciente ao leito (Observação)</span>
+          <span class="activity-name">Registrar internação no sistema</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Observação</strong> e selecione o paciente (por pulseira, boletim, nome ou "Atendimentos Pendentes")</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a seção e clique em <strong>Pesquisar</strong> para ver os leitos</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no leito desejado → selecione a especialidade → clique em <strong>Gravar</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Imprima o termo de autorização e a identificação do leito se necessário</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Preencher AIH</span>
+          <span class="activity-name">Ficha de Internação</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>AIH</strong> → preencha pulseira ou boletim → clique em <strong>Pesquisar</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Novo Laudo"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha os campos obrigatórios: justificativa, número AIH, CID, procedimento, tipo de leito e solicitante</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no disquete para salvar e imprimir</div></div>
+          </div>
+          <div class="alert-box info"><strong>💡 Dica:</strong> Preencha primeiro o procedimento e depois o CID para evitar bloqueios no sistema.</div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Verificar leitos ocupados (Censo)</span>
+          <span class="activity-name">Monitoramento de leitos</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Censo</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione filtros (seção, especialidade) e clique em <strong>Pesquisar</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Visualize os pacientes por leito ou exporte para Excel</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="classificacao">
+      <div class="section-title"><span>15</span> Classificação de Risco</div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">Classificar o paciente</span>
+          <span class="activity-name">Triagem e encaminhamento</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <strong>Classificação de Risco</strong> → clique em <strong>"Fila de Espera"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Chame o paciente e clique em <strong>"Preencher Ficha"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha: alergias, sinais vitais, queixa principal, escore NEWS/MEOWS, Glasgow, escala de dor e protocolo aplicável</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o <strong>descritor</strong> → clique em <strong>"Avançar"</strong> → selecione a <strong>cor da classificação</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Salvar Classificação"</strong> → selecione a seção de destino → <strong>"Encaminhar"</strong></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>1.0 · 10/10/2024</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar às Documentações
+  </a>
+</footer>
+
+<script>
+document.querySelectorAll('.activity-header').forEach(h => {
+  h.addEventListener('click', () => h.closest('.activity-card').classList.toggle('open'));
+});
+const links = document.querySelectorAll('.toc a');
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+});
+</script>
+</body>
+</html>
