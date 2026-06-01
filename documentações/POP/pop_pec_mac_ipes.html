@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>POP – PEC MAC IPES · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
+.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.content .section{margin-bottom:36px;scroll-margin-top:24px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
+.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px}
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
+.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even) td{background:var(--paper)}
+.rules-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.rules-list li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid);line-height:1.5}
+.activity-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:12px}
+.activity-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--ink);cursor:pointer;user-select:none}
+.activity-header:hover{background:#1a2b42}
+.activity-num{font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.activity-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.activity-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.activity-card:not(.open) .activity-body{display:none}
+.activity-card.open .activity-chevron{transform:rotate(180deg)}
+.activity-body{padding:20px}
+.step-list{display:flex;flex-direction:column;gap:8px}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-mid);flex-shrink:0;margin-top:6px}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.sub-item{font-size:12.5px;color:var(--ink3);padding:4px 12px;border-left:2px solid var(--rule);margin:4px 0 4px 20px}
+.fluxo-img{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-align:center;padding:24px}
+.fluxo-img img{max-width:100%;height:auto;border-radius:8px}
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.processo-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--blue-lt);color:var(--blue-mid);font-size:11px;font-weight:700;flex-shrink:0}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.success{background:#e6f4ee;border-color:#2a8a5a;color:#1a5a3a}
+.alert-box.success strong{color:#1a5a3a}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.meta-item{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink2)}
+.meta-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html"
+        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
+        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
+        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+        ← Voltar às Documentações
+      </a>
+    </div>
+    <h1>Procedimento Operacional Padrão<br><em>PEC MAC IPES</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="toc">
+      <li><a href="#historico">01. Histórico de Revisões</a></li>
+      <li><a href="#links">02. Links Complementares</a></li>
+      <li><a href="#provedor">03. Provedor</a></li>
+      <li><a href="#contatos">04. Contatos</a></li>
+      <li><a href="#proc001">05. Solicitar Treinamentos</a></li>
+      <li><a href="#proc002">06. Lentidão e Correção de Erros</a></li>
+      <li><a href="#proc003">07. Dúvidas e Orientações</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+
+    <div class="section" id="historico">
+      <div class="section-title"><span>01</span> Histórico de Revisões</div>
+      <table class="info-table">
+        <thead><tr><th>Versão</th><th>Data</th><th>Autor</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td>1.0</td><td>10/09/2024</td><td>GTIC</td><td>Criação e revisão do texto, edição e inserção de imagens</td></tr>
+          <tr><td>1.1</td><td>08/10/2024</td><td>GTIC</td><td>Reformulação dos processos, revisão de texto</td></tr>
+          <tr><td>1.2</td><td>30/10/2024</td><td>GTIC</td><td>Revisão de texto, desenvolvimento do design e layout</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section" id="links">
+      <div class="section-title"><span>02</span> Links Complementares</div>
+      <table class="info-table">
+        <thead><tr><th>Nome</th><th>Link</th></tr></thead>
+        <tbody>
+          <tr><td>Links para as unidades</td><td><a href="https://ggtidev.github.io/links_pecmac/index.html" target="_blank" style="color:var(--blue-mid)">ggtidev.github.io/links_pecmac</a></td></tr>
+          <tr><td>Vídeos explicando o PEC MAC IPES</td><td><a href="https://drive.google.com/drive/folders/1EQ7qnshGe8iYJavxg4Yyfhl_vbgxseDG" target="_blank" style="color:var(--blue-mid)">Google Drive — Vídeos PEC MAC IPES</a></td></tr>
+          <tr><td>Ambiente de treinamento hospitalar</td><td><a href="https://hmlbarroslima.vitai.care/hmlbarroslima/pages/login.do" target="_blank" style="color:var(--blue-mid)">hmlbarroslima.vitai.care</a></td></tr>
+          <tr><td>Ambiente de treinamento ambulatorial</td><td><a href="https://pec.ipes.tech/hmlcmem/pages/login.do" target="_blank" style="color:var(--blue-mid)">pec.ipes.tech/hmlcmem</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section" id="provedor">
+      <div class="section-title"><span>03</span> Provedor</div>
+      <table class="info-table">
+        <thead><tr><th>Link</th><th>Localização</th><th>Fornecedor</th><th>Executiva</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="https://conectasaude.recife.pe.gov.br/" target="_blank" style="color:var(--blue-mid)">conectasaude.recife.pe.gov.br</a></td>
+            <td>EMPREL</td><td>EMPREL</td><td>IPES</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section" id="contatos">
+      <div class="section-title"><span>04</span> Contatos</div>
+      <table class="info-table">
+        <thead><tr><th>Unidade</th><th>Nome</th><th>Telefone</th><th>E-mail</th></tr></thead>
+        <tbody>
+          <tr><td>Saúde Digital Atende</td><td>#saudedigitalatende</td><td>(81) 3355-7325</td><td><a href="mailto:saudedigitalatende@recife.pe.gov.br" style="color:var(--blue-mid)">saudedigitalatende@recife.pe.gov.br</a></td></tr>
+          <tr><td>IPES</td><td>Suporte IPES</td><td>(81) 98123-9883</td><td><a href="mailto:negocio@ipes.tech" style="color:var(--blue-mid)">negocio@ipes.tech</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section" id="proc001">
+      <div class="section-title"><span>05</span> Solicitar Treinamentos para Profissionais</div>
+      <p class="doc-p">Os profissionais precisam estar capacitados para usar o PEC MAC IPES e prestar o serviço ao paciente.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Quem pode solicitar?</strong>Gestor da unidade</div>
+        <div class="meta-item"><strong>Quem executa?</strong>Suporte de Sistemas (Nível 2)</div>
+        <div class="meta-item"><strong>Origem</strong>Chat</div>
+        <div class="meta-item"><strong>Pré-requisitos</strong>Acesso ao GLPI</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Abertura e agendamento do treinamento</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Abrir chamado no GLPI com as informações padrão + <strong>nome completo</strong> e <strong>cargo/função</strong> do profissional a ser treinado</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Perguntar ao solicitante a <strong>data e hora</strong> desejadas para o treinamento</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Repassar para a <strong>analista responsável</strong> para confirmação e atribuição</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Caso o horário não seja aprovado, solicitar nova data/hora ao usuário e repetir o processo</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Após confirmação, responder ao usuário que o agendamento foi confirmado</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Manter chamado com status <strong>"Em atendimento (agendado)"</strong> até a data do treinamento</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Fechar o chamado somente após o treinamento ter sido <strong>realizado ou cancelado definitivamente</strong></div></div>
+          </div>
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Usuário treinado e apto para utilizar o sistema.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="proc002">
+      <div class="section-title"><span>06</span> Lentidão e Correção de Erros</div>
+      <p class="doc-p">Reportar e encaminhar incidentes não resolvidos pelo suporte da IPES para os analistas responsáveis.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Quem pode solicitar?</strong>Qualquer profissional da unidade</div>
+        <div class="meta-item"><strong>Quem executa?</strong>Suporte de Sistemas (Nível 3)</div>
+        <div class="meta-item"><strong>Origem</strong>Chat</div>
+        <div class="meta-item"><strong>Pré-requisitos</strong>Chamado aberto com suporte da IPES · Evidência do incidente</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Identificação e encaminhamento do incidente</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Abrir chamado no GLPI com informações padrão</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Solicitar <strong>captura de tela ou vídeo</strong> evidenciando o incidente</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Fazer <strong>acesso remoto</strong> para replicação e documentação do erro (se necessário)</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Solicitar o <strong>número do chamado</strong> aberto com o suporte IPES</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Se o usuário vier diretamente sem chamado na IPES, orientar a <strong>abrir chamado na IPES primeiro</strong> e retornar caso não seja resolvido</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Encaminhar o chamado para o <strong>Nível 3</strong> e informar ao analista responsável</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Informar ao usuário o status atual e prazo estimado para resolução</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Após resolução pelo Nível 3, contatar o usuário para confirmar se o erro foi corrigido</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">O <strong>encerramento do chamado</strong> é efetuado pelo Nível 2 após repasse do Nível 3</div></div>
+          </div>
+          <div class="alert-box info"><strong>💡 Problema persistente:</strong> Atualizar status do chamado e reencaminhar para o Nível 3, informando o analista responsável.</div>
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Incidente encaminhado ao Nível 3 e usuário informado sobre o andamento.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="proc003">
+      <div class="section-title"><span>07</span> Dúvidas e Orientações</div>
+      <p class="doc-p">Resolver dúvidas simples e complexas que não foram atendidas pelo suporte da IPES.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Quem pode solicitar?</strong>Qualquer usuário com acesso ao sistema</div>
+        <div class="meta-item"><strong>Quem executa?</strong>Suporte de Sistemas (Nível 2)</div>
+        <div class="meta-item"><strong>Origem</strong>Chat</div>
+        <div class="meta-item"><strong>Pré-requisitos</strong>Acesso ao PEC MAC IPES · GLPI</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Resolução de dúvidas</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Abrir chamado no GLPI com informações padrão</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Solicitar <strong>captura de tela ou vídeo</strong> se necessário para entender melhor a dúvida</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Fazer <strong>acesso remoto</strong> se necessário para entender a dúvida do usuário</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se a dúvida for simples:</strong> informar ao usuário o passo a passo para solucionar</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se for complexa:</strong> redirecionar para o suporte da IPES e informar ao usuário para retornar ao Saúde Digital Atende caso não seja resolvido, com o número do chamado da IPES</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Após resolução, <strong>finalizar o chamado</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Se houver repasse para a IPES, fechar o chamado. Se o usuário retornar, <strong>abrir novo chamado</strong></div></div>
+          </div>
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Dúvida resolvida e chamado encerrado.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>1.2 · 30/10/2024</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar às Documentações
+  </a>
+</footer>
+
+<script>
+document.querySelectorAll('.activity-header').forEach(h => {
+  h.addEventListener('click', () => h.closest('.activity-card').classList.toggle('open'));
+});
+const links = document.querySelectorAll('.toc a');
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+});
+</script>
+</body>
+</html>
