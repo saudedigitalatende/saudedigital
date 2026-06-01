@@ -233,6 +233,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         </div>
       </div>
 
+      <div class="folder-card" onclick="openFolder('treinamentos')">
+        <div class="folder-bar" style="background:linear-gradient(90deg,#b45309,#f59e0b)"></div>
+        <div class="folder-header">
+          <div class="folder-icon" style="background:#fef3c7">🎓</div>
+          <div>
+            <div class="folder-name">Treinamentos</div>
+            <div class="folder-desc">Materiais e conteúdos de capacitação</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count" style="background:#fef3c7;color:#b45309">📂 0 documentos</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -363,6 +378,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         </div>
         <span class="doc-arrow">→</span>
       </a>
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA TREINAMENTOS -->
+  <div class="view" id="view-treinamentos">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>Treinamentos</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon" style="background:#fef3c7">🎓</div>
+      <div>
+        <div class="folder-view-name">Treinamentos</div>
+        <div class="folder-view-desc">Materiais e conteúdos de capacitação</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <div class="empty-state"><div>📂</div><p>Nenhum documento cadastrado ainda.</p></div>
     </div>
   </div>
 
