@@ -290,7 +290,7 @@ body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-
         <div class="nav-group-label">Monitoramento</div>
         <div class="nav-item active" onclick="gotoTab('visao',this)">
           <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
-          Visão geral<span class="nav-count">4.977</span>
+          Visão geral<span class="nav-count">6.674</span>
         </div>
         <div class="nav-item" onclick="gotoTab('satisfacao',this)">
           <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M5.5 9.5s.7 1.5 2.5 1.5 2.5-1.5 2.5-1.5"/><circle cx="5.5" cy="7" r=".8" fill="currentColor"/><circle cx="10.5" cy="7" r=".8" fill="currentColor"/></svg>
@@ -302,7 +302,7 @@ body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-
         </div>
         <div class="nav-item" onclick="gotoTab('backlog',this)">
           <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h8M2 12h5"/></svg>
-          Backlog & Risco<span class="nav-count">945</span>
+          Backlog & Risco<span class="nav-count">276</span>
         </div>
         <div class="nav-item" onclick="gotoTab('concentracao',this)">
           <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 2.5A6 6 0 1 1 2.5 8"/><path d="M2 4l.5-1.5L4 3"/></svg>
@@ -383,9 +383,9 @@ body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-
         <div class="exec-card" style="margin-bottom:0;border-radius:var(--rl);grid-column:1/-1">
           <div class="exec-eyebrow">Resumo executivo — jan–abr 2026</div>
           <div class="exec-grid" style="grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px">
-            <div class="exec-stat"><div class="exec-val ev-blue" id="ev-total">4.977</div><div class="exec-label">total de chamados</div></div>
-            <div class="exec-stat"><div class="exec-val ev-green" id="ev-enc">4032</div><div class="exec-label" id="el-enc">encerrados · 81.0%</div></div>
-            <div class="exec-stat"><div class="exec-val ev-amber" id="ev-ab">945</div><div class="exec-label" id="el-ab">em aberto · 19.0%</div><div style="font-size:9px;color:var(--text3);margin-top:3px">atendimento · pendente · novo</div></div>
+            <div class="exec-stat"><div class="exec-val ev-blue" id="ev-total">6.674</div><div class="exec-label">total de chamados</div></div>
+            <div class="exec-stat"><div class="exec-val ev-green" id="ev-enc">5.495</div><div class="exec-label" id="el-enc">encerrados · 82.3%</div></div>
+            <div class="exec-stat"><div class="exec-val ev-amber" id="ev-ab">276</div><div class="exec-label" id="el-ab">em aberto · 4.1%</div><div style="font-size:9px;color:var(--text3);margin-top:3px">atendimento · pendente · novo</div></div>
           </div>
           <div class="exec-note"><strong>Destaque positivo:</strong> Canal #saudedigitalatende registrou 90,5% de aprovação nas 21 pesquisas de 2026 — <strong>81% avaliaram como Excelente</strong>. Contraste crítico: Infraestrutura em colapso (51,8% SLA) contra Sistemas com 77,4%. Meta institucional de 85% SLA não atingida em nenhum grupo. DS3 é o melhor distrito (76,1%).</div>
         </div>
@@ -708,7 +708,7 @@ body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-
       </div>
       <div class="section-hd" style="margin-top:0"><div class="section-title">Backlog & Concentração de risco</div></div>
       <div class="kpi-grid">
-        <div class="kpi warn"><div class="kpi-label">TOTAL EM ABERTO</div><div class="kpi-value warn">945</div><div class="kpi-meta"><span class="kpi-delta neg">15,4% do total</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:55%;background:#f57c00"></div></div></div>
+        <div class="kpi warn"><div class="kpi-label">TOTAL EM ABERTO</div><div class="kpi-value warn">276</div><div class="kpi-meta"><span class="kpi-delta neg">15,4% do total</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:55%;background:#f57c00"></div></div></div>
         <div class="kpi crit"><div class="kpi-label">EM ATENDIMENTO</div><div class="kpi-value crit">0</div><div class="kpi-meta"><span class="kpi-delta neg">sem conclusão</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:54%;background:var(--red)"></div></div></div>
         <div class="kpi warn"><div class="kpi-label">PENDENTE</div><div class="kpi-value warn">138</div><div class="kpi-meta"><span class="kpi-delta neg">aguardando ação</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:40%;background:#f57c00"></div></div></div>
         <div class="kpi crit"><div class="kpi-label">NOVOS SEM TRIAGEM</div><div class="kpi-value crit">109</div><div class="kpi-meta"><span class="kpi-delta neg">sem atribuição</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:7%;background:var(--red)"></div></div></div>
