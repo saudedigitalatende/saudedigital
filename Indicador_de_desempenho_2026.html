@@ -647,13 +647,13 @@ body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-
         </div>
       </div>
 
-      <div class="grid-2" style="margin-bottom:11px;align-items:start">
-        <div class="card">
+      <div class="grid-2" style="margin-bottom:11px;align-items:stretch">
+        <div class="card" style="display:flex;flex-direction:column">
           <div class="card-title">SLA — Infraestrutura vs Sistemas</div>
           <div class="card-sub">Evolução mensal por estrutura</div>
-          <div style="position:relative;height:260px"><canvas id="infraSistChart"></canvas></div>
+          <div style="position:relative;flex:1;min-height:260px"><canvas id="infraSistChart"></canvas></div>
         </div>
-        <div class="card">
+        <div class="card" style="display:flex;flex-direction:column">
           <div class="card-title">Backlog em aberto por Grupo Técnico</div>
           <div class="card-sub">945 chamados sem resolução</div>
           <div style="display:flex;gap:16px;margin-bottom:8px">
