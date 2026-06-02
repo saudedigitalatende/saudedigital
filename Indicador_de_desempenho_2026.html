@@ -294,7 +294,7 @@ body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-
         </div>
         <div class="nav-item" onclick="gotoTab('satisfacao',this)">
           <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M5.5 9.5s.7 1.5 2.5 1.5 2.5-1.5 2.5-1.5"/><circle cx="5.5" cy="7" r=".8" fill="currentColor"/><circle cx="10.5" cy="7" r=".8" fill="currentColor"/></svg>
-          Satisfação CSAT<span class="nav-count">707</span>
+          Satisfação<span class="nav-count">707</span>
         </div>
         <div class="nav-item" onclick="gotoTab('sla',this)">
           <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v3.5l2.5 1.5"/></svg>
@@ -1023,7 +1023,7 @@ function gotoTab(id, el) {
   document.getElementById('tab-' + id).classList.add('active');
   el.classList.add('active');
   const titles = {
-    visao:'Visão geral', satisfacao:'Satisfação CSAT', sla:'SLA & Grupo Técnico',
+    visao:'Visão geral', satisfacao:'Satisfação', sla:'SLA & Grupo Técnico',
     backlog:'Backlog & Risco', concentracao:'Concentração de Demanda', distritos:'Por distrito sanitário',
     acoes:'Plano de ação', roadmap:'Roadmap de KPIs'
   };
