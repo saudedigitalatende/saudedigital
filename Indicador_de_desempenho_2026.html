@@ -18,11 +18,13 @@
   --red:#c62828;--red-bg:#ffebee;
   --teal:#00695c;--teal-bg:#e0f2f1;
   --r:10px;--rl:14px;--sb:262px;
+
+  --ink:#0d1a2e;
 }
-body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
+body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-size:14px;min-height:100vh}
 
 /* ══ SIDEBAR ══ */
-.sidebar{position:fixed;top:0;left:0;width:var(--sb);height:100vh;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;overflow:hidden}
+.sidebar{position:fixed;top:0;left:0;width:var(--sb);height:100vh;background:var(--white);display:flex;flex-direction:column;z-index:100;overflow:hidden}
 .sb-brand{padding:14px 16px 12px;border-bottom:1px solid var(--border)}
 .sb-title{font-size:12px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:2px}
 .sb-sub{font-size:9px;color:var(--text3)}
@@ -61,21 +63,21 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
 .nav-item.active .nav-icon{opacity:1}
 .nav-count{margin-left:auto;font-size:9px;font-family:'JetBrains Mono',monospace;background:var(--surface);padding:2px 6px;border-radius:10px;color:var(--text3)}
 .nav-item.active .nav-count{background:rgba(21,101,192,.12);color:var(--azul)}
-.sb-footer{padding:8px 16px 12px;border-top:1px solid var(--border);font-size:9px;color:var(--text3);line-height:1.7}
+.sb-footer{padding:8px 16px 12px;border-top:none;font-size:9px;color:var(--text3);line-height:1.7}
 .sb-footer strong{color:var(--text2);font-size:10px;display:block;margin-bottom:1px}
 .sb-chips{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px}
 .sb-chip{font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface);color:var(--text2);font-weight:500}
 .sb-chip.ok{background:var(--verde-claro);color:var(--verde)}.sb-chip.bad{background:var(--red-bg);color:var(--red)}.sb-chip.blue{background:var(--azul-claro);color:var(--azul)}
 
 /* ══ MAIN ══ */
-.main{margin-left:var(--sb);min-height:100vh}
-.topbar{position:sticky;top:0;background:rgba(244,246,251,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:9px 24px;display:flex;align-items:center;justify-content:space-between;z-index:50}
-.topbar-l h1{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.02em;display:none}
-.topbar-l p{font-size:20px;font-weight:700;color:var(--text);margin-top:0;letter-spacing:-.02em}
-.topbar-r{display:flex;gap:6px;align-items:center}
-.tb-tag{font-size:10px;padding:3px 10px;border-radius:20px;font-weight:600}
-.tb-tag.blue{background:var(--azul-claro);color:var(--azul)}
-.tb-tag.green{background:var(--verde-claro);color:var(--verde)}
+.main{margin-left:var(--sb);min-height:100vh;display:flex;flex-direction:column}
+/* HERO */
+.hero{background:#0d1a2e;color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(22px,3vw,36px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:#c8a94a;font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
 .content{padding:18px 24px}
 
 /* ══ BLOCO INFRA + SISTEMAS ══ */
@@ -263,17 +265,25 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
 .mes-btn{font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--text2);cursor:pointer;transition:all .15s}
 .mes-btn:hover{background:var(--surface);color:var(--text)}
 .mes-btn.active{background:var(--azul);color:#fff;border-color:var(--azul)}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#c5d5e8;border-radius:3px}
+
+
+@media(max-width:768px){}
+
+.page-footer{margin-top:auto;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px;flex-shrink:0}
+@media(max-width:768px){.page-footer{padding-left:24px;padding-right:24px}}
 </style>
 </head>
 <body>
 
 <!-- ══════════════════════ SIDEBAR ══════════════════════ -->
 <nav class="sidebar">
-  <div class="sb-brand">
-    <div class="sb-title">Indicador 2026<br>Saúde Digital Atende</div>
-    <div class="sb-sub">jan–abr 2026 · 1.536 chamados</div>
-  </div>
 
   <div class="sb-nav" style="flex:1;overflow-y:auto;padding:8px 9px">
       <div class="nav-group">
@@ -317,22 +327,26 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
     </div>
 
   <div class="sb-footer">
-    <strong>Saúde Digital Atende · Recife</strong>
+    
   </div>
 </nav>
 
 <!-- ══════════════════════ MAIN ══════════════════════ -->
 <main class="main">
-  <div class="topbar">
-    <div class="topbar-l">
-      <h1 id="page-title">Visão geral</h1>
-      <p>Indicador 2026 Saúde Digital Atende · jan–abr 2026</p>
+  <header class="hero">
+    <div class="hero-inner" style="display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+        <a href="https://saudedigitalatende.github.io/saudedigital/"
+           style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
+           onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
+           onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+          ← Voltar ao Portal
+        </a>
+      </div>
+      <h1>Indicador de <em>Desempenho</em></h1>
+      <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
     </div>
-    <div class="topbar-r">
-      <span class="tb-tag blue">jan–abr 2026</span>
-      <span class="tb-tag green">CSAT 90,5%</span>
-    </div>
-  </div>
+  </header>
 
   <div class="content">
 
@@ -384,12 +398,12 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
           <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:linear-gradient(90deg,#0d1b2a,#1a3a6b);border-bottom:1px solid rgba(255,255,255,.1)">
             <div style="display:flex;align-items:center;gap:16px">
               <span style="font-size:10px;font-weight:700;color:#6a8dad;text-transform:uppercase;letter-spacing:.1em">SLA Global</span>
-              <span style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:300;color:#ef9a9a">66,2%</span>
-              <span style="font-size:10px;color:#ef9a9a">↓ queda contínua jan→mar</span>
+              <span id="sla-global-val" style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:300;color:#ef9a9a">66,2%</span>
+              <span id="sla-global-trend" style="font-size:10px;color:#ef9a9a">↓ queda contínua jan→mar</span>
             </div>
             <div style="display:flex;align-items:center;gap:16px">
               <span style="font-size:10px;color:#6a8dad">Meta: <strong style="color:#a5d6a7">85%</strong></span>
-              <span style="font-size:10px;color:#6a8dad">3768 no prazo · 1209 fora</span>
+              <span id="sla-global-stats" style="font-size:10px;color:#6a8dad">3768 no prazo · 1209 fora</span>
               <span style="width:1px;height:16px;background:rgba(255,255,255,.1);display:inline-block"></span>
               <span style="display:flex;align-items:center;gap:10px">
                 <span style="display:flex;align-items:center;gap:4px;font-size:9px;color:#6a8dad"><span style="width:8px;height:8px;border-radius:2px;background:#c62828;display:inline-block"></span>Crítico &lt;60%</span>
@@ -901,18 +915,18 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
       </div>
       <div class="card">
         <div class="card-title">Ranking detalhado por distrito</div>
-        <div class="card-sub">Ordenado por % SLA crescente</div>
+        <div class="card-sub">Ordenado por número do distrito</div>
         <table class="tbl">
           <thead><tr><th>Distrito</th><th>Total</th><th>No Prazo</th><th>Fora</th><th>% SLA</th><th>Distribuição</th><th>Status</th></tr></thead>
           <tbody>
-            <tr><td style="font-weight:600">DS6</td><td class="mono">79</td><td class="mono" style="color:var(--verde)">44</td><td class="mono" style="color:var(--red)">35</td><td><div class="mono" style="color:#e65100">55,7%</div><div class="dual-bar"><div class="dual-ok" style="width:56%"></div><div class="dual-bad" style="width:44%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">44% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
-            <tr><td style="font-weight:600">DS4</td><td class="mono">128</td><td class="mono" style="color:var(--verde)">74</td><td class="mono" style="color:var(--red)">54</td><td><div class="mono" style="color:#e65100">57,8%</div><div class="dual-bar"><div class="dual-ok" style="width:58%"></div><div class="dual-bad" style="width:42%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">42% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
-            <tr><td style="font-weight:600">DS7</td><td class="mono">129</td><td class="mono" style="color:var(--verde)">78</td><td class="mono" style="color:var(--red)">51</td><td><div class="mono" style="color:#e65100">60,5%</div><div class="dual-bar"><div class="dual-ok" style="width:60%"></div><div class="dual-bad" style="width:40%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">40% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
-            <tr><td style="font-weight:600">DS2</td><td class="mono">164</td><td class="mono" style="color:var(--verde)">100</td><td class="mono" style="color:var(--red)">64</td><td><div class="mono" style="color:#e65100">61,0%</div><div class="dual-bar"><div class="dual-ok" style="width:61%"></div><div class="dual-bad" style="width:39%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">39% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
-            <tr><td style="font-weight:600">DS8</td><td class="mono">100</td><td class="mono" style="color:var(--verde)">65</td><td class="mono" style="color:var(--red)">35</td><td><div class="mono" style="color:#e65100">65,0%</div><div class="dual-bar"><div class="dual-ok" style="width:65%"></div><div class="dual-bad" style="width:35%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">35% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
             <tr><td style="font-weight:600">DS1</td><td class="mono">440</td><td class="mono" style="color:var(--verde)">296</td><td class="mono" style="color:var(--red)">144</td><td><div class="mono" style="color:#e65100">67,3%</div><div class="dual-bar"><div class="dual-ok" style="width:67%"></div><div class="dual-bad" style="width:33%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">33% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
-            <tr><td style="font-weight:600">DS5</td><td class="mono">282</td><td class="mono" style="color:var(--verde)">201</td><td class="mono" style="color:var(--red)">81</td><td><div class="mono" style="color:#e65100">71,3%</div><div class="dual-bar"><div class="dual-ok" style="width:71%"></div><div class="dual-bad" style="width:29%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">29% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
+            <tr><td style="font-weight:600">DS2</td><td class="mono">164</td><td class="mono" style="color:var(--verde)">100</td><td class="mono" style="color:var(--red)">64</td><td><div class="mono" style="color:#e65100">61,0%</div><div class="dual-bar"><div class="dual-ok" style="width:61%"></div><div class="dual-bad" style="width:39%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">39% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
             <tr><td style="font-weight:600">DS3</td><td class="mono">180</td><td class="mono" style="color:var(--verde)">137</td><td class="mono" style="color:var(--red)">43</td><td><div class="mono" style="color:var(--verde)">76,1%</div><div class="dual-bar"><div class="dual-ok" style="width:76%"></div><div class="dual-bad" style="width:24%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">24% fora</td><td><span class="badge b-ok">referência</span></td></tr>
+            <tr><td style="font-weight:600">DS4</td><td class="mono">128</td><td class="mono" style="color:var(--verde)">74</td><td class="mono" style="color:var(--red)">54</td><td><div class="mono" style="color:#e65100">57,8%</div><div class="dual-bar"><div class="dual-ok" style="width:58%"></div><div class="dual-bad" style="width:42%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">42% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
+            <tr><td style="font-weight:600">DS5</td><td class="mono">282</td><td class="mono" style="color:var(--verde)">201</td><td class="mono" style="color:var(--red)">81</td><td><div class="mono" style="color:#e65100">71,3%</div><div class="dual-bar"><div class="dual-ok" style="width:71%"></div><div class="dual-bad" style="width:29%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">29% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
+            <tr><td style="font-weight:600">DS6</td><td class="mono">79</td><td class="mono" style="color:var(--verde)">44</td><td class="mono" style="color:var(--red)">35</td><td><div class="mono" style="color:#e65100">55,7%</div><div class="dual-bar"><div class="dual-ok" style="width:56%"></div><div class="dual-bad" style="width:44%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">44% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
+            <tr><td style="font-weight:600">DS7</td><td class="mono">129</td><td class="mono" style="color:var(--verde)">78</td><td class="mono" style="color:var(--red)">51</td><td><div class="mono" style="color:#e65100">60,5%</div><div class="dual-bar"><div class="dual-ok" style="width:60%"></div><div class="dual-bad" style="width:40%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">40% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
+            <tr><td style="font-weight:600">DS8</td><td class="mono">100</td><td class="mono" style="color:var(--verde)">65</td><td class="mono" style="color:var(--red)">35</td><td><div class="mono" style="color:#e65100">65,0%</div><div class="dual-bar"><div class="dual-ok" style="width:65%"></div><div class="dual-bad" style="width:35%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">35% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -987,6 +1001,19 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-s
     </div>
 
   </div><!-- /content -->
+
+<footer class="page-footer">
+  <div class="footer-meta">
+    <span><strong>GTIC · Saúde Digital</strong></span>
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>1.0 · Abril/2026</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar ao Portal
+  </a>
+</footer>
 </main>
 
 <script>
@@ -1121,6 +1148,31 @@ function filtrarMes(mes) {
   document.getElementById('mes-label').textContent = 'Exibindo: '+MESES_LABEL[mes];
 
   const d = DADOS[mes];
+
+  // ── SLA Global Header ──
+  const slaGlobalVal   = document.getElementById('sla-global-val');
+  const slaGlobalTrend = document.getElementById('sla-global-trend');
+  const slaGlobalStats = document.getElementById('sla-global-stats');
+  if(slaGlobalVal){
+    const slaNum = d.sla;
+    const slaFormatted = String(slaNum.toFixed(1)).replace('.',',') + '%';
+    slaGlobalVal.textContent  = slaFormatted;
+    slaGlobalVal.style.color  = slaNum >= 85 ? '#a5d6a7' : slaNum >= 60 ? '#ffcc80' : '#ef9a9a';
+  }
+  if(slaGlobalStats){
+    slaGlobalStats.textContent = fmt(d.np) + ' no prazo · ' + fmt(d.fp) + ' fora';
+  }
+  if(slaGlobalTrend){
+    const trends = {
+      todos: '↓ queda contínua jan→mar',
+      jan:   'jan 2026',
+      fev:   'fev 2026',
+      mar:   '↓ pior mês do trimestre',
+      abr:   'abr 2026'
+    };
+    slaGlobalTrend.textContent = trends[mes] || '';
+    slaGlobalTrend.style.color = d.sla >= 85 ? '#a5d6a7' : d.sla >= 60 ? '#ffcc80' : '#ef9a9a';
+  }
 
   // ── Resumo Executivo ──
   const evTotal = document.getElementById('ev-total');
