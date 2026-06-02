@@ -723,70 +723,11 @@ body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-
       <div class="section-hd" style="margin-top:0"><div class="section-title">SLA por Grupo Técnico <span class="badge-hot">CRÍTICO</span></div></div>
       <div class="card" style="margin-bottom:11px">
         <div class="card-title">Desempenho detalhado por Grupo Técnico</div>
-        <div class="card-sub">Ordenado por % de SLA · dados reais jan–abr 2026</div>
+        <div class="card-sub" id="sla-tbl-sub">Ordenado por % de SLA · dados reais jan–abr 2026</div>
         <table class="tbl">
           <thead><tr><th>Grupo Técnico</th><th>Estrutura</th><th>Total</th><th>No prazo</th><th>Fora</th><th>% SLA</th><th>Distribuição</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr style="background:var(--azul-claro);"><td colspan="8" style="padding:5px 10px;font-size:9px;font-weight:700;color:var(--azul);letter-spacing:.08em;text-transform:uppercase">&#128309; Infraestrutura</td></tr>
-            <tr><td style="font-weight:600">Garantia</td><td><span class="badge b-info">Infra</span></td><td class="mono">707</td><td class="mono" style="color:var(--verde)">625</td><td class="mono" style="color:var(--red)">82</td><td><div class="mono" style="color:var(--verde);margin-bottom:3px">88.4%</div><div class="dual-bar"><div class="dual-ok" style="width:88%"></div><div class="dual-bad" style="width:12%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">11.6% fora</td><td><span class="badge b-ok">ok</span></td></tr>
-            <tr><td style="font-weight:600">Rede e Conectividade</td><td><span class="badge b-info">Infra</span></td><td class="mono">584</td><td class="mono" style="color:var(--verde)">288</td><td class="mono" style="color:var(--red)">296</td><td><div class="mono" style="color:var(--red);margin-bottom:3px">49.3%</div><div class="dual-bar"><div class="dual-ok" style="width:49%"></div><div class="dual-bad" style="width:51%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">50.7% fora</td><td><span class="badge b-crit">crítico</span></td></tr>
-            <tr><td style="font-weight:600">Laboratório Técnico</td><td><span class="badge b-info">Infra</span></td><td class="mono">157</td><td class="mono" style="color:var(--verde)">82</td><td class="mono" style="color:var(--red)">75</td><td><div class="mono" style="color:var(--red);margin-bottom:3px">52.2%</div><div class="dual-bar"><div class="dual-ok" style="width:52%"></div><div class="dual-bad" style="width:48%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">47.8% fora</td><td><span class="badge b-crit">crítico</span></td></tr>
-            <tr><td style="font-weight:600">Suporte a Dispositivos</td><td><span class="badge b-info">Infra</span></td><td class="mono">123</td><td class="mono" style="color:var(--verde)">84</td><td class="mono" style="color:var(--red)">39</td><td><div class="mono" style="color:#e65100;margin-bottom:3px">68.3%</div><div class="dual-bar"><div class="dual-ok" style="width:68%"></div><div class="dual-bad" style="width:32%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">31.7% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
-            <tr><td style="font-weight:600">Saída de Equipamentos</td><td><span class="badge b-info">Infra</span></td><td class="mono">87</td><td class="mono" style="color:var(--verde)">15</td><td class="mono" style="color:var(--red)">72</td><td><div class="mono" style="color:var(--red);margin-bottom:3px">17.2%</div><div class="dual-bar"><div class="dual-ok" style="width:17%"></div><div class="dual-bad" style="width:83%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">82.8% fora</td><td><span class="badge b-crit">crítico</span></td></tr>
-            <tr><td style="font-weight:600">Patrimônio</td><td><span class="badge b-info">Infra</span></td><td class="mono">55</td><td class="mono" style="color:var(--verde)">26</td><td class="mono" style="color:var(--red)">29</td><td><div class="mono" style="color:var(--red);margin-bottom:3px">47.3%</div><div class="dual-bar"><div class="dual-ok" style="width:47%"></div><div class="dual-bad" style="width:53%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">52.7% fora</td><td><span class="badge b-crit">crítico</span></td></tr>
-            <tr><td style="font-weight:600">Sem grupo atribuído</td><td><span class="badge b-info">Infra</span></td><td class="mono">2094</td><td class="mono" style="color:var(--verde)">1759</td><td class="mono" style="color:var(--red)">335</td><td><div class="mono" style="color:#e65100;margin-bottom:3px">84.0%</div><div class="dual-bar"><div class="dual-ok" style="width:84%"></div><div class="dual-bad" style="width:16%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">16.0% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
-            <tr style="background:var(--verde-claro);"><td colspan="8" style="padding:5px 10px;font-size:9px;font-weight:700;color:var(--verde);letter-spacing:.08em;text-transform:uppercase">&#128994; Sistemas</td></tr>
-            <tr><td style="font-weight:600">Atendimento Remoto</td><td><span class="badge b-gray">Sistemas</span></td><td class="mono">905</td><td class="mono" style="color:var(--verde)">635</td><td class="mono" style="color:var(--red)">270</td><td><div class="mono" style="color:#e65100;margin-bottom:3px">70.2%</div><div class="dual-bar"><div class="dual-ok" style="width:70%"></div><div class="dual-bad" style="width:30%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">29.8% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
-            <tr><td style="font-weight:600">Atend. Especialista</td><td><span class="badge b-gray">Sistemas</span></td><td class="mono">15</td><td class="mono" style="color:var(--verde)">8</td><td class="mono" style="color:var(--red)">7</td><td><div class="mono" style="color:var(--red);margin-bottom:3px">53.3%</div><div class="dual-bar"><div class="dual-ok" style="width:53%"></div><div class="dual-bad" style="width:47%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">46.7% fora</td><td><span class="badge b-crit">crítico</span></td></tr>
-            <tr><td style="font-weight:600">Campo - Op. Assistida</td><td><span class="badge b-gray">Sistemas</span></td><td class="mono">33</td><td class="mono" style="color:var(--verde)">32</td><td class="mono" style="color:var(--red)">1</td><td><div class="mono" style="color:var(--verde);margin-bottom:3px">97.0%</div><div class="dual-bar"><div class="dual-ok" style="width:97%"></div><div class="dual-bad" style="width:3%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">3.0% fora</td><td><span class="badge b-ok">ok</span></td></tr>
-            <tr><td style="font-weight:600">Campo - Treinamento</td><td><span class="badge b-gray">Sistemas</span></td><td class="mono">19</td><td class="mono" style="color:var(--verde)">16</td><td class="mono" style="color:var(--red)">3</td><td><div class="mono" style="color:#e65100;margin-bottom:3px">84.2%</div><div class="dual-bar"><div class="dual-ok" style="width:84%"></div><div class="dual-bad" style="width:16%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">15.8% fora</td><td><span class="badge b-warn">atenção</span></td></tr>
-            <tr><td style="font-weight:600">Campo - Implantação</td><td><span class="badge b-gray">Sistemas</span></td><td class="mono">194</td><td class="mono" style="color:var(--verde)">194</td><td class="mono" style="color:var(--red)">0</td><td><div class="mono" style="color:var(--verde);margin-bottom:3px">100.0%</div><div class="dual-bar"><div class="dual-ok" style="width:100%"></div><div class="dual-bad" style="width:0%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">0.0% fora</td><td><span class="badge b-ok">ok</span></td></tr>
-            <tr><td style="font-weight:600">Central de Serviços</td><td><span class="badge b-gray">Sistemas</span></td><td class="mono">4</td><td class="mono" style="color:var(--verde)">4</td><td class="mono" style="color:var(--red)">0</td><td><div class="mono" style="color:var(--verde);margin-bottom:3px">100.0%</div><div class="dual-bar"><div class="dual-ok" style="width:100%"></div><div class="dual-bad" style="width:0%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">0.0% fora</td><td><span class="badge b-ok">ok</span></td></tr>
-          </tbody>
+          <tbody id="sla-tbody"></tbody>
         </table>
-      </div>
-      <div class="grid-2" style="margin-bottom:11px">
-        <div class="card">
-          <div class="card-title">SLA por executiva</div>
-          <div class="card-sub">% dentro do SLA · meta 85%</div>
-          <div class="hbar"><div class="hbar-label">SEGTES (23)</div><div class="hbar-track"><div class="hbar-fill" style="width:30%;background:var(--red)"></div></div><div class="hbar-val" style="color:var(--red)">30,4%</div><div class="hbar-badge"><span class="badge b-crit">crítico</span></div></div>
-          <div class="hbar"><div class="hbar-label">SESAU (6)</div><div class="hbar-track"><div class="hbar-fill" style="width:50%;background:var(--red)"></div></div><div class="hbar-val" style="color:var(--red)">50,0%</div><div class="hbar-badge"><span class="badge b-crit">crítico</span></div></div>
-          <div class="hbar"><div class="hbar-label">SEVS (22)</div><div class="hbar-track"><div class="hbar-fill" style="width:59%;background:var(--red)"></div></div><div class="hbar-val" style="color:var(--red)">59,1%</div><div class="hbar-badge"><span class="badge b-crit">crítico</span></div></div>
-          <div class="hbar"><div class="hbar-label">SECOGE (198)</div><div class="hbar-track"><div class="hbar-fill" style="width:63%;background:#f57c00"></div></div><div class="hbar-val" style="color:#e65100">63,1%</div><div class="hbar-badge"><span class="badge b-warn">atenção</span></div></div>
-          <div class="hbar"><div class="hbar-label">SERMARC (345)</div><div class="hbar-track"><div class="hbar-fill" style="width:67%;background:#f57c00"></div></div><div class="hbar-val" style="color:#e65100">67,2%</div><div class="hbar-badge"><span class="badge b-warn">atenção</span></div></div>
-          <div class="hbar"><div class="hbar-label">SEAB (896)</div><div class="hbar-track"><div class="hbar-fill" style="width:67%;background:#f57c00"></div></div><div class="hbar-val" style="color:#e65100">67,3%</div><div class="hbar-badge"><span class="badge b-warn">atenção</span></div></div>
-          <div class="hbar"><div class="hbar-label">SEAF (46)</div><div class="hbar-track"><div class="hbar-fill" style="width:74%;background:#f57c00"></div></div><div class="hbar-val" style="color:#e65100">73,9%</div><div class="hbar-badge"><span class="badge b-warn">atenção</span></div></div>
-        </div>
-        <div class="card">
-          <div class="card-title">SLA por categoria</div>
-          <div class="card-sub">% dentro do SLA por tipo de demanda</div>
-          <div class="hbar"><div class="hbar-label">Computadores</div><div class="hbar-track"><div class="hbar-fill" style="width:33%;background:var(--red)"></div></div><div class="hbar-val" style="color:var(--red)">32,8%</div><div class="hbar-badge"><span class="badge b-crit">crítico</span></div></div>
-          <div class="hbar"><div class="hbar-label">Monitores</div><div class="hbar-track"><div class="hbar-fill" style="width:36%;background:var(--red)"></div></div><div class="hbar-val" style="color:var(--red)">36,4%</div><div class="hbar-badge"><span class="badge b-crit">crítico</span></div></div>
-          <div class="hbar"><div class="hbar-label">Conectividade</div><div class="hbar-track"><div class="hbar-fill" style="width:49%;background:#f57c00"></div></div><div class="hbar-val" style="color:#e65100">49,1%</div><div class="hbar-badge"><span class="badge b-warn">atenção</span></div></div>
-          <div class="hbar"><div class="hbar-label">Softwares</div><div class="hbar-track"><div class="hbar-fill" style="width:60%;background:#f57c00"></div></div><div class="hbar-val" style="color:#e65100">60,0%</div><div class="hbar-badge"><span class="badge b-warn">atenção</span></div></div>
-          <div class="hbar"><div class="hbar-label">Sistemas</div><div class="hbar-track"><div class="hbar-fill" style="width:71%;background:#f57c00"></div></div><div class="hbar-val" style="color:#e65100">70,8%</div><div class="hbar-badge"><span class="badge b-warn">atenção</span></div></div>
-          <div class="hbar"><div class="hbar-label">Dispositivos</div><div class="hbar-track"><div class="hbar-fill" style="width:78%;background:var(--verde)"></div></div><div class="hbar-val" style="color:var(--verde)">77,8%</div><div class="hbar-badge"><span class="badge b-ok">ok</span></div></div>
-          <div class="hbar"><div class="hbar-label">Telefones</div><div class="hbar-track"><div class="hbar-fill" style="width:91%;background:var(--verde)"></div></div><div class="hbar-val" style="color:var(--verde)">90,8%</div><div class="hbar-badge"><span class="badge b-ok">referência</span></div></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">Backlog em aberto por Grupo Técnico</div>
-        <div class="card-sub">945 chamados sem resolução — Rede e Conectividade e Laboratório Técnico lideram o gargalo</div>
-        <div style="position:relative;height:290px"><canvas id="backlogGrupoSLA"></canvas></div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════ TAB: BACKLOG ═══════════════════════════ -->
-    <div class="tab-content" id="tab-backlog">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-        <span style="font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Mês:</span>
-        <div style="display:flex;gap:5px">
-          <button onclick="filtrarMes('jan')" id="btn-jan-bk" class="mes-btn" style="font-size:10px;padding:3px 10px">Jan</button>
-          <button onclick="filtrarMes('fev')" id="btn-fev-bk" class="mes-btn" style="font-size:10px;padding:3px 10px">Fev</button>
-          <button onclick="filtrarMes('mar')" id="btn-mar-bk" class="mes-btn" style="font-size:10px;padding:3px 10px">Mar</button>
-          <button onclick="filtrarMes('abr')" id="btn-abr-bk" class="mes-btn" style="font-size:10px;padding:3px 10px">Abr</button>
-          <button onclick="filtrarMes('mai')" id="btn-mai-bk" class="mes-btn" style="font-size:10px;padding:3px 10px">Mai</button>
-        </div>
       </div>
       <div class="section-hd" style="margin-top:0"><div class="section-title">Backlog & Concentração de risco</div></div>
       <div class="kpi-grid">
@@ -1137,6 +1078,31 @@ const SIST_GRUPOS  = ["Atendimento Remoto", "Atend. Especialista", "Campo - Op. 
 function slaColor(v){ return v>=85?'var(--verde)':v>=60?'#e65100':'var(--red)'; }
 function fmt(v){ return v.toLocaleString('pt-BR'); }
 
+
+function renderSlaTabela(d, mes) {
+  var el = document.getElementById('sla-tbl-sub');
+  if(el) el.textContent = 'Ordenado por % de SLA · dados: '+mes+' 2026';
+  var tbody = document.getElementById('sla-tbody');
+  if(!tbody) return;
+  var INFRA = ['Garantia','Rede e Conectividade','Laboratório Técnico','Suporte a Dispositivos','Saída de Equipamentos','Patrimônio','Sem grupo atribuído'];
+  var SIST  = ['Atendimento Remoto','Atend. Especialista','Campo - Op. Assistida','Campo - Treinamento','Campo - Implantação','Central de Serviços'];
+  function slaColor(v){ return v>=85?'var(--verde)':v>=60?'#ef6c00':'var(--red)'; }
+  function badge(v){ return v>=85?'<span class="badge b-ok">ok</span>':v>=60?'<span class="badge b-warn">atenção</span>':'<span class="badge b-crit">crítico</span>'; }
+  function row(g, tipo){
+    var gd = d.grupos[g]||{total:0,np:0,fp:0,sla:0};
+    var t=gd.total, n=gd.np, f=gd.fp, s=gd.sla;
+    var pOk=Math.round(s), pBad=100-pOk;
+    var fPct = t>0 ? (f/t*100).toFixed(1) : '0.0';
+    var bInfo = tipo==='Infra' ? '<span class="badge b-info">Infra</span>' : '<span class="badge b-sist">Sist</span>';
+    return '<tr><td style="font-weight:600">'+g+'</td><td>'+bInfo+'</td><td class="mono">'+t+'</td><td class="mono" style="color:var(--verde)">'+n+'</td><td class="mono" style="color:var(--red)">'+f+'</td><td><div class="mono" style="color:'+slaColor(s)+';margin-bottom:3px">'+s+'%</div><div class="dual-bar"><div class="dual-ok" style="width:'+pOk+'%"></div><div class="dual-bad" style="width:'+pBad+'%"></div></div></td><td class="mono" style="color:var(--text3);font-size:10px">'+fPct+'% fora</td><td>'+badge(s)+'</td></tr>';
+  }
+  var html = '<tr style="background:var(--azul-claro)"><td colspan="8" style="padding:5px 10px;font-size:9px;font-weight:700;color:var(--azul);letter-spacing:.08em;text-transform:uppercase">&#128309; Infraestrutura</td></tr>';
+  INFRA.forEach(function(g){ html += row(g,'Infra'); });
+  html += '<tr style="background:#e8f5e9"><td colspan="8" style="padding:5px 10px;font-size:9px;font-weight:700;color:var(--verde);letter-spacing:.08em;text-transform:uppercase">&#128994; Sistemas</td></tr>';
+  SIST.forEach(function(g){ html += row(g,'Sist'); });
+  tbody.innerHTML = html;
+}
+
 function filtrarMes(mes) {
   // Botões
   document.querySelectorAll('.mes-btn').forEach(b=>b.classList.remove('active'));
@@ -1148,6 +1114,10 @@ function filtrarMes(mes) {
   document.getElementById('mes-label').textContent = 'Exibindo: '+MESES_LABEL[mes];
 
   const d = DADOS[mes];
+
+  // ── Tabela SLA por grupo ──
+  var MESES_PT = {todos:'jan–mai',jan:'jan',fev:'fev',mar:'mar',abr:'abr',mai:'mai'};
+  renderSlaTabela(d, MESES_PT[mes]||mes);
 
   // ── SLA Global Header ──
   const slaGlobalVal   = document.getElementById('sla-global-val');
@@ -1293,6 +1263,8 @@ function filtrarMes(mes) {
     ch.update();
   });
 }
+// Inicializar tabela SLA
+renderSlaTabela(DADOS['todos'], 'jan–mai');
 </script>
 
 </body>
