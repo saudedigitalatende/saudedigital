@@ -958,27 +958,7 @@ new Chart(document.getElementById('tipoMes'), { type:'bar', data:{ labels:['jan.
 var statusDonutChart = new Chart(document.getElementById('statusDonut'), { type:'doughnut', data:{ labels:['Fechado','Solucionado','Em atendimento','Pendente','Novo'], datasets:[{ data:[5018,477,0,138,138], backgroundColor:['#2e7d32','#4caf50','#ef6c00','#e65100','#c62828'], borderWidth:0, hoverOffset:4 }] }, options:{ responsive:false, cutout:'65%', plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } } } });;
 
 // Top serviços — dados reais
-const servicosChart1 = new Chart(document.getElementById('servicosChart'), { type:'bar', data:{ labels:["Desktop", "Laser Multifuncional", "Sei", "Jato De Tinta", "Internet (Fibra)"], datasets:[{ data:[907, 770, 583, 471, 453], backgroundColor:'#1565c0', borderRadius:4 }] }, options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } }, animation:{ onComplete:function(){ var ctx=this.ctx; ctx.font='bold 10px sans-serif'; ctx.fillStyle='#0d1b2a'; ctx.textAlign='left'; ctx.textBaseline='middle'; var meta=this.getDatasetMeta(0); meta.data.forEach(function(bar,i){ var val=this.data.datasets[0].data[i]; ctx.fillText(val, bar.x+4, bar.y); }.bind(this)); } }, scales:{ x:{ ticks:{ color:'#8fa3b8', font:{size:10} }, grid:{ color:'rgba(0,0,0,0.05)' } }, y:{ ticks:{ color:'#3d5166', font:{size:9} }, grid:{ display:false } } } },
-  plugins:[{
-    afterDatasetsDraw: function(chart){
-      var ctx=chart.ctx;
-      chart.data.datasets.forEach(function(ds,i){
-        if(i===2) return; // pular meta
-        var meta=chart.getDatasetMeta(i);
-        meta.data.forEach(function(pt,j){
-          var val=ds.data[j];
-          if(val==null) return;
-          ctx.save();
-          ctx.font='bold 10px sans-serif';
-          ctx.fillStyle=ds.borderColor;
-          ctx.textAlign='center';
-          ctx.fillText(val+'%', pt.x, pt.y-10);
-          ctx.restore();
-        });
-      });
-    }
-  }]
-} });;
+const servicosChart1 = new Chart(document.getElementById('servicosChart'), { type:'bar', data:{ labels:["Desktop", "Laser Multifuncional", "Sei", "Jato De Tinta", "Internet (Fibra)"], datasets:[{ data:[907, 770, 583, 471, 453], backgroundColor:'#1565c0', borderRadius:4 }] }, options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } }, animation:{ onComplete:function(){ var ctx=this.ctx; ctx.font='bold 10px sans-serif'; ctx.fillStyle='#0d1b2a'; ctx.textAlign='left'; ctx.textBaseline='middle'; var meta=this.getDatasetMeta(0); meta.data.forEach(function(bar,i){ var val=this.data.datasets[0].data[i]; ctx.fillText(val, bar.x+4, bar.y); }.bind(this)); } }, scales:{ x:{ ticks:{ color:'#8fa3b8', font:{size:10} }, grid:{ color:'rgba(0,0,0,0.05)' } }, y:{ ticks:{ color:'#3d5166', font:{size:9} }, grid:{ display:false } } } } });;
 
 // Infra vs Sistemas mensal
 var infraSistRef = new Chart(document.getElementById('infraSistChart'), { type:'line', data:{ labels:['jan. 2026','fev. 2026','mar. 2026','abr. 2026','mai. 2026'], datasets:[ { label:'Infraestrutura', data:[80.3,80.7,74.6,68.6,69.7], borderColor:'#ef5350', backgroundColor:'rgba(239,83,80,.06)', borderWidth:2.5, pointBackgroundColor:'#ef5350', pointRadius:6, fill:true, tension:.3 }, { label:'Sistemas', data:[74.4,71.7,66.5,83.2,73.8], borderColor:'#2e7d32', backgroundColor:'rgba(46,125,50,.06)', borderWidth:2.5, pointBackgroundColor:'#2e7d32', pointRadius:6, fill:true, tension:.3 }, { label:'Meta 85%', data:[85,85,85,85,85], borderColor:'#90a4ae', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false } ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:true, position:'top', labels:{ color:'#3d5166', font:{size:9}, boxWidth:10, padding:8 } }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } }, scales:{ y:{ min:40,max:100, ticks:{ color:'#8fa3b8', font:{size:10}, callback:v=>v+'%' }, grid:{ color:'rgba(0,0,0,0.05)' } }, x:{ ticks:{ color:'#8fa3b8', font:{size:10}, autoSkip:false }, grid:{ display:false } } } } });;
@@ -1003,27 +983,7 @@ const backlogDonutChart = new Chart(document.getElementById('backlogGrupo2'), { 
 const backlogGrupoSLAChart = new Chart(document.getElementById('backlogGrupoSLA'), { type:'bar', data:{ labels:["Garantia", "Rede e Conectividade", "Laboratório Técnico", "Suporte a Dispositivos", "Saída de Equipamentos", "Patrimônio", "Sem grupo atribuído", "─── Sistemas ───", "Atendimento Remoto", "Atend. Especialista", "Campo - Op. Assistida", "Campo - Treinamento", "Campo - Implantação", "Central de Serviços"], datasets:[{ label:'Em aberto', data:[527, 67, 51, 54, 13, 5, 140, null, 73, 11, 1, 3, 0, 0], backgroundColor:["#1565c0", "#1e88e5", "#42a5f5", "#90caf9", "#bbdefb", "#e3f2fd", "#1a237e", "transparent", "#2e7d32", "#388e3c", "#66bb6a", "#81c784", "#a5d6a7", "#c8e6c9"], borderRadius:4, minBarLength:2 }] }, options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166', callbacks:{ label: ctx => ctx.raw === null ? '' : ' ' + ctx.raw + ' em aberto' } } }, scales:{ x:{ ticks:{ color:'#8fa3b8', font:{size:9} }, grid:{ color:'rgba(0,0,0,0.05)' } }, y:{ ticks:{ color:'#3d5166', font:{size:9} }, grid:{ display:false } } } } });;
 
 // Serviços chart2 (concentração de demanda tab)
-const servicosChart2_ = new Chart(document.getElementById('servicosChart2'), { type:'bar', data:{ labels:["Desktop", "Laser Multifuncional", "Sei", "Jato De Tinta", "Internet (Fibra)"], datasets:[{ data:[907, 770, 583, 471, 453], backgroundColor:'#1565c0', borderRadius:4 }] }, options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } }, scales:{ x:{ ticks:{ color:'#8fa3b8', font:{size:10} }, grid:{ color:'rgba(0,0,0,0.05)' } }, y:{ ticks:{ color:'#3d5166', font:{size:9} }, grid:{ display:false } } } },
-  plugins:[{
-    afterDatasetsDraw: function(chart){
-      var ctx=chart.ctx;
-      chart.data.datasets.forEach(function(ds,i){
-        if(i===2) return; // pular meta
-        var meta=chart.getDatasetMeta(i);
-        meta.data.forEach(function(pt,j){
-          var val=ds.data[j];
-          if(val==null) return;
-          ctx.save();
-          ctx.font='bold 10px sans-serif';
-          ctx.fillStyle=ds.borderColor;
-          ctx.textAlign='center';
-          ctx.fillText(val+'%', pt.x, pt.y-10);
-          ctx.restore();
-        });
-      });
-    }
-  }]
-} });;
+const servicosChart2_ = new Chart(document.getElementById('servicosChart2'), { type:'bar', data:{ labels:["Desktop", "Laser Multifuncional", "Sei", "Jato De Tinta", "Internet (Fibra)"], datasets:[{ data:[907, 770, 583, 471, 453], backgroundColor:'#1565c0', borderRadius:4 }] }, options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } }, scales:{ x:{ ticks:{ color:'#8fa3b8', font:{size:10} }, grid:{ color:'rgba(0,0,0,0.05)' } }, y:{ ticks:{ color:'#3d5166', font:{size:9} }, grid:{ display:false } } } } });;
 
 // Distritos
 const distritoChart2 = new Chart(document.getElementById('distritoChart'), { type:'bar', data:{ labels:["DS1\n(1359)", "DS2\n(600)", "DS3\n(674)", "DS4\n(412)", "DS5\n(799)", "DS6\n(359)", "DS7\n(464)", "DS8\n(310)"], datasets:[ { label:'No prazo', data:[1072, 452, 546, 284, 639, 252, 304, 219], backgroundColor:'#2e7d32', borderRadius:[0,0,4,4] }, { label:'Fora do prazo', data:[287, 148, 128, 128, 160, 107, 160, 91], backgroundColor:'#c62828', borderRadius:[4,4,0,0] } ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:true, position:'top', labels:{ color:'#3d5166', font:{size:10}, boxWidth:10, padding:10 } }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } }, scales:{ x:{ stacked:true, ticks:{ color:'#8fa3b8', font:{size:10}, autoSkip:false }, grid:{ display:false } }, y:{ stacked:true, ticks:{ color:'#8fa3b8', font:{size:10} }, grid:{ color:'rgba(0,0,0,0.05)' } } } } });;
