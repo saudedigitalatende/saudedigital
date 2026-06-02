@@ -605,7 +605,7 @@ body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-
         <div class="card" style="display:flex;flex-direction:column">
           <div class="card-title">Volume de chamados por dia da semana</div>
           <div class="card-sub">Distribuição semanal · jan–mai 2026</div>
-          <div style="position:relative;flex:1;min-height:200px"><canvas id="diaSemanaChart"></canvas></div>
+          <div style="position:relative;height:220px"><canvas id="diaSemanaChart"></canvas></div>
         </div>
         <div class="card">
           <div class="card-title">Volume por tipo e mês</div>
@@ -1229,6 +1229,12 @@ function filtrarMes(mes) {
     el=document.getElementById('st-novo');          if(el) el.textContent=fmt(st['Novo']);
   }
 
+  // ── Gráfico dia da semana ──
+  if(typeof diaSemanaChart !== 'undefined' && diaSemanaChart && typeof DIA_DADOS !== 'undefined') {
+    diaSemanaChart.data.datasets[0].data = DIA_DADOS[mes] || DIA_DADOS['todos'];
+    diaSemanaChart.update();
+  }
+
   // ── Gráficos serviços ──
   const srvKeys = Object.keys(d.servicos).slice(0,10);
   const srvVals = Object.values(d.servicos).slice(0,10);
@@ -1241,13 +1247,21 @@ function filtrarMes(mes) {
 }
 
 // Volume por dia da semana
+var DIA_DADOS = {
+  todos:[1547,1533,1417,1196,931,30,20],
+  jan:[318,319,291,227,192,4,5],
+  fev:[328,337,302,273,199,7,3],
+  mar:[392,394,337,289,202,8,4],
+  abr:[303,291,269,249,196,5,4],
+  mai:[206,192,218,158,142,6,4]
+};
 var diaSemanaChart = new Chart(document.getElementById('diaSemanaChart'), {
   type:'bar',
   data:{
     labels:['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
     datasets:[{
       label:'Chamados',
-      data:[1547,1533,1417,1196,931,30,20],
+      data:DIA_DADOS['todos'],
       backgroundColor:['#1565c0','#1565c0','#1565c0','#1565c0','#1565c0','#90a4ae','#90a4ae'],
       borderRadius:4
     }]
@@ -1256,22 +1270,32 @@ var diaSemanaChart = new Chart(document.getElementById('diaSemanaChart'), {
     responsive:true, maintainAspectRatio:false,
     plugins:{
       legend:{display:false},
-      tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' }
+      tooltip:{ enabled:false }
     },
-    animation:{ onComplete:function(){
-      var ctx=this.ctx; ctx.font='bold 10px sans-serif'; ctx.fillStyle='#0d1b2a';
-      ctx.textAlign='center'; ctx.textBaseline='bottom';
-      var meta=this.getDatasetMeta(0);
-      meta.data.forEach(function(bar,i){
-        var val=this.data.datasets[0].data[i];
-        ctx.fillText(val, bar.x, bar.y-2);
-      }.bind(this));
-    }},
     scales:{
-      y:{ ticks:{color:'#8fa3b8',font:{size:10}}, grid:{color:'rgba(0,0,0,0.05)'} },
-      x:{ ticks:{color:'#8fa3b8',font:{size:10}}, grid:{display:false} }
+      y:{ display:false, grid:{display:false} },
+      x:{ ticks:{color:'#8fa3b8',font:{size:11,weight:'600'}}, grid:{display:false} }
     }
-  }
+  },
+  plugins:[{
+    id:'diaLabels',
+    afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      var ds=chart.data.datasets[0];
+      var meta=chart.getDatasetMeta(0);
+      ctx.save();
+      meta.data.forEach(function(bar,i){
+        var val=ds.data[i];
+        if(!val) return;
+        ctx.font='bold 11px sans-serif';
+        ctx.fillStyle=i<5?'#1565c0':'#546e7a';
+        ctx.textAlign='center';
+        ctx.textBaseline='bottom';
+        ctx.fillText(val, bar.x, bar.y-4);
+      });
+      ctx.restore();
+    }
+  }]
 });
 
 // Inicializar tabela SLA
