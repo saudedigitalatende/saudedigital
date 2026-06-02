@@ -631,11 +631,11 @@ body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-
           <div style="display:flex;gap:14px;align-items:center">
             <div><canvas id="statusDonut" width="110" height="110"></canvas></div>
             <div style="flex:1">
-              <div class="mm"><span class="mm-label">✅ Fechado</span><span class="mm-val" id="st-fechado" style="color:var(--verde)">3.748</span></div>
-              <div class="mm"><span class="mm-label">🟢 Solucionado</span><span class="mm-val" id="st-solucionado" style="color:var(--verde)">284</span></div>
-              <div class="mm"><span class="mm-label">🟠 Em atendimento</span><span class="mm-val" id="st-atendimento" style="color:#ef6c00">722</span></div>
-              <div class="mm"><span class="mm-label">🟠 Pendente</span><span class="mm-val" id="st-pendente" style="color:#e65100">112</span></div>
-              <div class="mm"><span class="mm-label">🔴 Novo</span><span class="mm-val" style="color:var(--red)">109</span></div>
+              <div class="mm"><span class="mm-label">✅ Fechado</span><span class="mm-val" id="st-fechado" style="color:var(--verde)">5.018</span></div>
+              <div class="mm"><span class="mm-label">🟢 Solucionado</span><span class="mm-val" id="st-solucionado" style="color:var(--verde)">477</span></div>
+              <div class="mm"><span class="mm-label">🟠 Em atendimento</span><span class="mm-val" id="st-atendimento" style="color:#ef6c00">0</span></div>
+              <div class="mm"><span class="mm-label">🟠 Pendente</span><span class="mm-val" id="st-pendente" style="color:#e65100">138</span></div>
+              <div class="mm"><span class="mm-label">🔴 Novo</span><span class="mm-val" id="st-novo" style="color:var(--red)">138</span></div>
             </div>
           </div>
         </div>
@@ -709,8 +709,8 @@ body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--text);font-
       <div class="section-hd" style="margin-top:0"><div class="section-title">Backlog & Concentração de risco</div></div>
       <div class="kpi-grid">
         <div class="kpi warn"><div class="kpi-label">TOTAL EM ABERTO</div><div class="kpi-value warn">945</div><div class="kpi-meta"><span class="kpi-delta neg">15,4% do total</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:55%;background:#f57c00"></div></div></div>
-        <div class="kpi crit"><div class="kpi-label">EM ATENDIMENTO</div><div class="kpi-value crit">722</div><div class="kpi-meta"><span class="kpi-delta neg">sem conclusão</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:54%;background:var(--red)"></div></div></div>
-        <div class="kpi warn"><div class="kpi-label">PENDENTE</div><div class="kpi-value warn">112</div><div class="kpi-meta"><span class="kpi-delta neg">aguardando ação</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:40%;background:#f57c00"></div></div></div>
+        <div class="kpi crit"><div class="kpi-label">EM ATENDIMENTO</div><div class="kpi-value crit">0</div><div class="kpi-meta"><span class="kpi-delta neg">sem conclusão</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:54%;background:var(--red)"></div></div></div>
+        <div class="kpi warn"><div class="kpi-label">PENDENTE</div><div class="kpi-value warn">138</div><div class="kpi-meta"><span class="kpi-delta neg">aguardando ação</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:40%;background:#f57c00"></div></div></div>
         <div class="kpi crit"><div class="kpi-label">NOVOS SEM TRIAGEM</div><div class="kpi-value crit">109</div><div class="kpi-meta"><span class="kpi-delta neg">sem atribuição</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:7%;background:var(--red)"></div></div></div>
         <div class="kpi crit"><div class="kpi-label">INFRA EM ABERTO</div><div class="kpi-value crit">857</div><div class="kpi-meta"><span class="kpi-delta neg">84% do backlog</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:var(--red)"></div></div></div>
       </div>
@@ -961,7 +961,7 @@ new Chart(document.getElementById('slaTrend'), { type:'line', data:{ labels:['ja
 new Chart(document.getElementById('tipoMes'), { type:'bar', data:{ labels:['jan. 2026','fev. 2026','mar. 2026','abr. 2026','mai. 2026'], datasets:[ { label:'Sistemas', data:[215,180,269,506,424], backgroundColor:'#1565c0', borderRadius:4 }, { label:'Infraestrutura', data:[781,931,1057,1038,1251], backgroundColor:'#e65100', borderRadius:4 } ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:true, position:'top', labels:{ color:'#3d5166', font:{size:9}, boxWidth:10, padding:8 } }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } }, animation:{ onComplete: function(){ var ctx=this.ctx; ctx.font='bold 9px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='bottom'; this.data.datasets.forEach(function(ds,i){ ds.data.forEach(function(val,j){ var meta=this.getDatasetMeta(i); if(!meta.hidden){ var bar=meta.data[j]; ctx.fillStyle=ds.backgroundColor; ctx.fillText(val, bar.x, bar.y-2); } }.bind(this)); }.bind(this)); } }, scales:{ y:{ ticks:{ color:'#8fa3b8', font:{size:10} }, grid:{ color:'rgba(0,0,0,0.05)' } }, x:{ ticks:{ color:'#8fa3b8', font:{size:10}, autoSkip:false }, grid:{ display:false } } } } });;
 
 // Status donut
-var statusDonutChart = new Chart(document.getElementById('statusDonut'), { type:'doughnut', data:{ labels:['Fechado','Solucionado','Em atendimento','Pendente','Novo'], datasets:[{ data:[3748,284,722,112,109], backgroundColor:['#2e7d32','#4caf50','#ef6c00','#e65100','#c62828'], borderWidth:0, hoverOffset:4 }] }, options:{ responsive:false, cutout:'65%', plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } } } });;
+var statusDonutChart = new Chart(document.getElementById('statusDonut'), { type:'doughnut', data:{ labels:['Fechado','Solucionado','Em atendimento','Pendente','Novo'], datasets:[{ data:[5018,477,0,138,138], backgroundColor:['#2e7d32','#4caf50','#ef6c00','#e65100','#c62828'], borderWidth:0, hoverOffset:4 }] }, options:{ responsive:false, cutout:'65%', plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } } } });;
 
 // Top serviços — dados reais
 const servicosChart1 = new Chart(document.getElementById('servicosChart'), { type:'bar', data:{ labels:["Desktop", "Laser Multifuncional", "Sei", "Jato De Tinta", "Internet (Fibra)"], datasets:[{ data:[907, 770, 583, 471, 453], backgroundColor:'#1565c0', borderRadius:4 }] }, options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } }, animation:{ onComplete:function(){ var ctx=this.ctx; ctx.font='bold 10px sans-serif'; ctx.fillStyle='#0d1b2a'; ctx.textAlign='left'; ctx.textBaseline='middle'; var meta=this.getDatasetMeta(0); meta.data.forEach(function(bar,i){ var val=this.data.datasets[0].data[i]; ctx.fillText(val, bar.x+4, bar.y); }.bind(this)); } }, scales:{ x:{ ticks:{ color:'#8fa3b8', font:{size:10} }, grid:{ color:'rgba(0,0,0,0.05)' } }, y:{ ticks:{ color:'#3d5166', font:{size:9} }, grid:{ display:false } } } } });;
@@ -1216,6 +1216,11 @@ function filtrarMes(mes) {
     distritoChart2.data.datasets[1].data = dists.map(ds=>d.distritos[ds]?.fp||0);
     distritoChart2.update();
   }
+
+  // ── Atualizar subtítulos de gráficos históricos ──
+  var elInfraSub = document.getElementById('infra-sist-sub');
+  var MESES_LABEL_PT = {todos:'jan–mai 2026',jan:'jan 2026',fev:'fev 2026',mar:'mar 2026',abr:'abr 2026',mai:'mai 2026'};
+  if(elInfraSub) elInfraSub.textContent = 'Evolução mensal por estrutura · '+(MESES_LABEL_PT[mes]||'');
 
   // ── Status donut ──
   if(d.status && typeof statusDonutChart !== 'undefined' && statusDonutChart) {
