@@ -1028,7 +1028,7 @@ function gotoTab(id, el) {
     acoes:'Plano de ação', roadmap:'Roadmap de KPIs'
   };
   document.getElementById('page-title').textContent = titles[id];
-  setTimeout(function(){ Chart.instances.forEach(function(ch){ ch.resize(); }); }, 50);
+  setTimeout(function(){ Object.values(Chart.instances||{}).forEach(function(ch){ if(ch&&ch.resize) ch.resize(); }); }, 50);
 }
 
 const G = { color:'rgba(0,0,0,0.05)' };
