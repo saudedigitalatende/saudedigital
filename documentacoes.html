@@ -16,8 +16,8 @@
   --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
   --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
 }
-html{scroll-behavior:smooth}
-body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.6}
+html{scroll-behavior:smooth;height:100%}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
 
 .hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
