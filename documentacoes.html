@@ -86,14 +86,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .empty-state div{font-size:40px;margin-bottom:12px}
 .empty-state p{font-size:13px}
 
-.docs-body{flex:1}.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.docs-body{flex:1}.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px;position:relative}
 .footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
 .footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
 .footer-meta span{display:flex;flex-direction:column;gap:2px}
 .footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
-.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
-.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
-.back-portal svg{width:14px;height:14px;flex-shrink:0}
+.hero-actions{display:flex;justify-content:flex-end;align-items:center;margin-bottom:10px}
+.hero-crumb,.hero-path{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.02em;color:rgba(255,255,255,.68);text-decoration:none;padding:5px 13px;border:1px solid rgba(255,255,255,.14);border-radius:100px;background:rgba(255,255,255,.035);transition:all .2s}
+.hero-crumb:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.075)}
+.hero-path{gap:8px;color:rgba(255,255,255,.38)}
+.hero-path a{color:rgba(255,255,255,.68);text-decoration:none;transition:color .2s}
+.hero-path a:hover{color:#fff}
+.hero-path-current{color:#fff}
+.footer-top-link{position:absolute;right:28px;bottom:18px;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);text-decoration:none;transition:all .2s}
+.footer-top-link:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.08)}
+.footer-top-link svg{width:16px;height:16px}
 /* BARRA DE PESQUISA */
 .search-wrap{position:relative;margin-bottom:28px}
 .search-input{width:100%;padding:13px 48px 13px 18px;font-family:'DM Sans',sans-serif;font-size:14px;border:1.5px solid var(--rule);border-radius:12px;background:#fff;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
@@ -121,13 +128,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 <header class="hero">
   <div class="hero-inner">
-    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
-      <a href="#" onclick="goRoot(); return false;"
-        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
-        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
-        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
-        ← Voltar às Documentações
-      </a>
+    <div class="hero-actions" id="heroActions">
+      <a href="https://saudedigitalatende.github.io/saudedigital/" class="hero-crumb">← Voltar ao Portal</a>
     </div>
     <h1><em>Documentações</em></h1>
     <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
@@ -520,9 +522,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <span><strong>Versão</strong>1.0 · Abril/2026</span>
     <span><strong>Uso</strong>Interno · Documento Institucional</span>
   </div>
-  <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
-    Voltar ao Portal
+  <a href="#" onclick="scrollTopPage(); return false;" class="footer-top-link" title="Voltar ao topo" aria-label="Voltar ao topo">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 13V3M4 7l4-4 4 4"/></svg>
   </a>
 </footer>
 
@@ -558,8 +559,23 @@ const docs = [
   }
 ];
 
+function setHeroNav(mode) {
+  const actions = document.getElementById('heroActions');
+  if (!actions) return;
+  if (mode === 'section') {
+    actions.innerHTML = `<nav class="hero-path" aria-label="Navegação principal">
+      <a href="https://saudedigitalatende.github.io/saudedigital/">Portal</a>
+      <span>/</span>
+      <a href="#" onclick="goRoot(); return false;" class="hero-path-current">Documentações</a>
+    </nav>`;
+    return;
+  }
+  actions.innerHTML = `<a href="https://saudedigitalatende.github.io/saudedigital/" class="hero-crumb">← Voltar ao Portal</a>`;
+}
+
 function openFolder(id) {
   clearSearchInput();
+  setHeroNav('section');
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + id).classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
@@ -567,8 +583,14 @@ function openFolder(id) {
 
 function goRoot() {
   clearSearchInput();
+  setHeroNav('root');
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-root').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  return false;
+}
+
+function scrollTopPage() {
   window.scrollTo({top: 0, behavior: 'smooth'});
   return false;
 }
@@ -580,6 +602,7 @@ function clearSearchInput() {
 
 function clearSearch() {
   clearSearchInput();
+  setHeroNav('root');
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-root').classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
@@ -591,11 +614,13 @@ function doSearch(q) {
   clear.style.display = q.trim() ? 'block' : 'none';
 
   if (!q.trim()) {
+    setHeroNav('root');
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById('view-root').classList.add('active');
     return;
   }
 
+  setHeroNav('section');
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-search').classList.add('active');
 
