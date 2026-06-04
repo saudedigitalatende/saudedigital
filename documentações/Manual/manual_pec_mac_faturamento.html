@@ -96,7 +96,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .meta-item{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink2)}
 .meta-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:4px}
 
-.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:12px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:10px 0;font-size:13px;color:#7a5a00;line-height:1.6}
 .alert-box strong{color:#5a3f00}
 .alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
 .alert-box.info strong{color:#1a4070}
@@ -107,6 +107,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
 .meta-item{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink2)}
 .meta-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:4px}
+.section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+.section-label::before{content:'';display:block;width:3px;height:12px;border-radius:2px;background:var(--blue-mid)}
 </style>
 </head>
 <body>
@@ -121,7 +123,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         ← Voltar às Documentações
       </a>
     </div>
-    <h1>Manual do Usuário<br><em>PEC MAC – Faturamento Ambulatorial</em></h1>
+    <h1>Manual do Usuário<br><em>PEC MAC — Faturamento Ambulatorial</em></h1>
     <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
   </div>
 </header>
@@ -132,13 +134,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <ul class="toc">
       <li><a href="#historico">Histórico de Revisões</a></li>
       <li><a href="#info">Informações e Pré-requisitos</a></li>
-      <li><a href="#dss001">Competência</a></li>
-      <li><a href="#dss002">Importar XML</a></li>
-      <li><a href="#dss003">Tabela Unificada</a></li>
+      <li><a href="#competencia">Definir Competência</a></li>
+      <li><a href="#xml">Importar XML dos Profissionais</a></li>
+      <li><a href="#tabela">Importar Tabela Unificada</a></li>
       <li><a href="#bpa">BPA Individualizado</a></li>
       <li><a href="#substituir">Substituir Profissionais</a></li>
       <li><a href="#cep">Corrigir CEP</a></li>
-      <li><a href="#individual">Editar Individual</a></li>
+      <li><a href="#editar">Editar Procedimento Individual</a></li>
       <li><a href="#exportar">Exportar Dados SIA</a></li>
       <li><a href="#bam">Cadastro de BAM</a></li>
       <li><a href="#eventos">Registrar Eventos</a></li>
@@ -147,47 +149,48 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
   <main class="content">
 
+    <!-- HISTÓRICO -->
     <div class="section" id="historico">
-      <div class="section-title">Histórico de Revisões</div>
+      <div class="section-title"><span>01</span> Histórico de Revisões</div>
       <table class="info-table">
         <thead><tr><th>Versão</th><th>Data</th><th>Autor</th></tr></thead>
         <tbody><tr><td>1.0</td><td>09/05/2025</td><td>GTIC</td></tr></tbody>
       </table>
-      <div class="alert-box info" style="margin-top:10px"><strong>📋 Sobre este manual:</strong> Destinado a profissionais dos setores administrativos e de faturamento em unidades ambulatoriais que utilizam o sistema PEC MAC. Foco em registro, faturamento e gestão da informação na atenção média e alta complexidade.</div>
+      <div class="alert-box info" style="margin-top:10px"><strong>📋 Sobre este manual:</strong> Destinado a profissionais dos setores administrativos e de faturamento em unidades ambulatoriais que utilizam o sistema PEC MAC. Autores: Diana Castro · Breno Amorim.</div>
     </div>
 
+    <!-- INFORMAÇÕES -->
     <div class="section" id="info">
-      <div class="section-title">Informações e Pré-requisitos</div>
+      <div class="section-title"><span>02</span> Informações e Pré-requisitos</div>
       <table class="info-table">
         <thead><tr><th>Acesso</th><th>Hospedagem</th><th>Fornecedor</th></tr></thead>
         <tbody><tr><td><a href="https://conectasaude.recife.pe.gov.br/" target="_blank" style="color:var(--blue-mid)">conectasaude.recife.pe.gov.br</a></td><td>iPeS</td><td>iPeS</td></tr></tbody>
       </table>
-      <div class="activity-card open" style="margin-top:12px">
+      
+      <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">PRÉ-REQUISITOS</span>
           <span class="activity-name">Sistemas e perfis necessários</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Sistemas:</strong> CNES · PEC MAC · GLPI</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Máquina:</strong> Navegador de internet com acesso à internet</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Perfil:</strong> Acesso ao CADSUS com perfil Consultador</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Programas necessários no PEC MAC:</strong> Pesquisar Usuário · Importação XML Profissionais · BPA Individualizado · Exportação de dados SIA</div></div>
-          </div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">Sistemas: CNES · PEC MAC · GLPI</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Máquina: Navegador de internet com acesso à internet</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Perfil: Acesso ao CADSUS com perfil Consultador</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Programas PEC MAC necessários: Pesquisar Usuário · Importação XML Profissionais · BPA Individualizado · Exportação de dados SIA</div></div></div>
+          
         </div>
       </div>
     </div>
 
-    <div class="section" id="dss001">
-      <div class="section-title">Abertura e Fechamento de Competência</div>
+    <!-- DEFINIR COMPETÊNCIA -->
+    <div class="section" id="competencia">
+      <div class="section-title"><span>03</span> Definir Competência</div>
       <p class="doc-p">A tela <strong>Definir Competência</strong> é utilizada para renovar e cadastrar uma nova competência no sistema. Se uma nova competência não for cadastrada, os registros serão realizados na competência anterior.</p>
       <div class="meta-grid">
         <div class="meta-item"><strong>Objetivo</strong>Solicitar abertura de competência</div>
-        <div class="meta-item"><strong>Responsável</strong>iPeS — a equipe iPeS realiza exclusivamente</div>
-        <div class="meta-item"><strong>Por que fazer?</strong>Organizar e controlar lançamentos mensais, garantindo precisão nas contas, auditorias e repasses do SUS</div>
+        <div class="meta-item"><strong>Responsável</strong>iPeS — realiza exclusivamente</div>
+        <div class="meta-item"><strong>Por que fazer?</strong>Organizar lançamentos mensais, precisão nas contas e repasses do SUS</div>
         <div class="meta-item"><strong>Contato iPeS</strong>📱 +55 (81) 8123-9883</div>
       </div>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">PASSO A PASSO</span>
@@ -195,29 +198,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Verifique se a competência do mês vigente está disponível acessando: <strong>Importar XML dos Profissionais</strong>, <strong>Importar Tabela Unificada</strong> ou <strong>BPA Individualizado</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">✅ <strong>Disponível:</strong> prossiga normalmente para as demais atividades</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">❌ <strong>Não disponível:</strong> entre em contato com o suporte iPeS pelo WhatsApp <strong>(81) 8123-9883</strong> solicitando a abertura da competência do mês vigente</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Mesmo que o sistema exiba a competência do <em>próximo mês</em>, <strong>selecione sempre o mês atual (vigente)</strong></div></div>
-          </div>
-          <div class="alert-box danger"><strong>⚠️ Competência fechada bloqueia:</strong> início de atendimentos · registro de procedimentos · geração de produção para faturamento. Após fechamento: reimporte a Tabela SIGTAP.</div>
-          
-          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Competência verificada. Prossiga para Importação do XML dos Profissionais.</div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">Verifique se a competência do mês vigente está disponível acessando: <strong>Importar XML dos Profissionais</strong>, <strong>Importar Tabela Unificada</strong> ou <strong>BPA Individualizado</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">✅ <strong>Disponível:</strong> prossiga normalmente</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">❌ <strong>Não disponível:</strong> entre em contato com o suporte iPeS pelo WhatsApp <strong>(81) 8123-9883</strong> solicitando a abertura</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Mesmo que o sistema exiba a competência do <em>próximo mês</em>, <strong>selecione sempre o mês atual (vigente)</strong></div></div></div>
+          <div class="alert-box danger" style="margin-top:10px"><strong>⚠️ Atenção:</strong> Competência fechada bloqueia: início de atendimentos · registro de procedimentos · geração de produção para faturamento. Após fechamento: reimporte a Tabela SIGTAP.</div><div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image42.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image17.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image15.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image52.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image64.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div><div class="alert-box success" style="margin-top:10px"><strong>✅ Fim de Tarefa:</strong> Competência verificada. Prossiga para Importação do XML dos Profissionais.</div>
         </div>
       </div>
     </div>
 
-    <div class="section" id="dss002">
-      <div class="section-title">Importar XML dos Profissionais</div>
-      <p class="doc-p">A tela <strong>Importar XML</strong> atualiza a base de profissionais e ocupações a partir do arquivo fornecido pelo CNES. Mantê-la atualizada evita críticas no faturamento.</p>
+    <!-- IMPORTAR XML -->
+    <div class="section" id="xml">
+      <div class="section-title"><span>04</span> Importar XML dos Profissionais</div>
+      <p class="doc-p">A tela <strong>Importar XML</strong> atualiza a base de profissionais e suas ocupações a partir do arquivo fornecido pelo CNES. Mantê-la atualizada evita críticas no faturamento.</p>
       <div class="meta-grid">
         <div class="meta-item"><strong>Objetivo</strong>Atualizar lista de profissionais vinculados ao CNES</div>
         <div class="meta-item"><strong>Responsável</strong>Profissional de faturamento com acesso ao programa</div>
-        <div class="meta-item"><strong>Por que fazer?</strong>Evitar críticas por atuação de profissionais não cadastrados</div>
+        <div class="meta-item"><strong>Por que fazer?</strong>Evitar críticas por profissionais não cadastrados corretamente</div>
         <div class="meta-item"><strong>Arquivo</strong>Planilha XML atualizada mensalmente via Regulação</div>
       </div>
-      <div class="alert-box"><strong>📌 Como obter o arquivo XML:</strong> Solicite ao gestor de faturamento ou ao setor administrativo. Eles entram em contato com a <strong>Regulação</strong> para acesso ao Drive com os arquivos XML de todas as unidades.</div>
+      <div class="alert-box"><strong>📌 Como obter o arquivo XML:</strong> Solicite ao gestor de faturamento ou ao setor administrativo. Eles entram em contato com a <strong>Regulação</strong> para acesso ao Drive com os XMLs de todas as unidades — atualizado mensalmente.</div>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">PASSO A PASSO</span>
@@ -225,28 +223,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse o módulo <strong>Importação XML Profissionais</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Importar TXT SCNES"</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>competência</strong> (mês/ano)</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Insira o <strong>CNES da unidade</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o <strong>arquivo XML</strong> disponível no Drive</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>Importar</strong> — aguarde a mensagem <em>"Importado com sucesso"</em></div></div>
-          </div>
-          <div class="alert-box info"><strong>🕓 Observação:</strong> Após a importação, o sistema registra data e hora da última atualização. Profissional em plantão extra não cadastrado no CNES gera crítica — transfira a produção para profissional com o mesmo CBO.</div>
-          
-          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Lista de profissionais atualizada na unidade.</div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse o módulo <strong>Importação XML Profissionais</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Importar TXT SCNES"</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>competência</strong> (mês/ano)</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Insira o <strong>CNES da unidade</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o <strong>arquivo XML</strong> disponível no Drive</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>Importar</strong> — aguarde a mensagem <em>"Importado com sucesso"</em></div></div></div>
+          <div class="alert-box info" style="margin-top:10px"><strong>💡 Observação:</strong> Após a importação, o sistema registra data e hora da última atualização. Profissional em plantão extra não cadastrado no CNES gera crítica — transfira a produção para profissional com mesmo CBO.</div><div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image63.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image12.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image65.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image72.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image8.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div><div class="alert-box success" style="margin-top:10px"><strong>✅ Fim de Tarefa:</strong> Lista de profissionais atualizada na unidade.</div>
         </div>
       </div>
     </div>
 
-    <div class="section" id="dss003">
-      <div class="section-title">Importar Tabela Unificada (SIGTAP)</div>
-      <p class="doc-p">A tela <strong>Importar Tabela Unificada</strong> atualiza os procedimentos SIGTAP registrados no sistema.</p>
+    <!-- IMPORTAR TABELA UNIFICADA -->
+    <div class="section" id="tabela">
+      <div class="section-title"><span>05</span> Importar Tabela Unificada (SIGTAP)</div>
+      <p class="doc-p">A tela <strong>Importar Tabela Unificada</strong> atualiza os procedimentos SIGTAP registrados no sistema. Deve ser reimportada após cada fechamento de competência.</p>
       <div class="meta-grid">
         <div class="meta-item"><strong>Objetivo</strong>Atualizar a tabela SIGTAP no sistema</div>
         <div class="meta-item"><strong>Responsável</strong>Profissional gestor ou administrativo do faturamento</div>
       </div>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">PASSO A PASSO</span>
@@ -254,63 +245,85 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <a href="https://sigtap.datasus.gov.br" target="_blank" style="color:var(--blue-mid)">sigtap.datasus.gov.br</a> e clique em <strong>"Download"</strong> (canto superior direito)</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Abra o programa <strong>"Importação Tabela Unificada"</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>competência</strong> desejada</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Choose File"</strong> e selecione o arquivo SIGTAP baixado</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Salvar"</strong> e depois em <strong>"Importar"</strong></div></div>
-          </div>
-          <div class="alert-box"><strong>📌 Observação:</strong> É comum o site ficar temporariamente fora do ar. Aguarde e tente novamente.</div>
-          
-          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Tabela SIGTAP atualizada no sistema PEC MAC.</div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <a href="https://sigtap.datasus.gov.br" target="_blank" style="color:var(--blue-mid)">sigtap.datasus.gov.br</a> e clique em <strong>"Download"</strong> (canto superior direito)</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Abra o programa <strong>"Importação Tabela Unificada"</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>competência</strong> desejada</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Choose File"</strong> e selecione o arquivo SIGTAP baixado</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Salvar"</strong> e depois em <strong>"Importar"</strong></div></div></div>
+          <div class="alert-box info" style="margin-top:10px"><strong>💡 Observação:</strong> É comum o site ficar temporariamente fora do ar. Aguarde e tente novamente.</div><div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image69.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image35.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image20.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div><div class="alert-box success" style="margin-top:10px"><strong>✅ Fim de Tarefa:</strong> Tabela SIGTAP atualizada no sistema PEC MAC.</div>
         </div>
       </div>
     </div>
 
+    <!-- BPA INDIVIDUALIZADO -->
     <div class="section" id="bpa">
-      <div class="section-title">BPA Individualizado</div>
+      <div class="section-title"><span>06</span> BPA Individualizado</div>
       <p class="doc-p">A tela <strong>BPA Individualizado</strong> é usada para resolver críticas e inconsistências nos atendimentos dos profissionais antes da exportação do faturamento.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Objetivo</strong>Resolver críticas antes do faturamento</div>
+        <div class="meta-item"><strong>Responsável</strong>Profissional gestor ou administrativo do faturamento</div>
+        <div class="meta-item"><strong>Por que fazer?</strong>Evitar deduções nas produções dos profissionais</div>
+        <div class="meta-item"><strong>Programa</strong>BPA Individualizado</div>
+      </div>
+
+      <div class="section-label">Filtros disponíveis</div>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">FILTROS DISPONÍVEIS</span>
+          <span class="activity-num">FILTROS</span>
           <span class="activity-name">Configurando a pesquisa de críticas</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Competência:</strong> campo obrigatório — uma competência por vez</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>CNES:</strong> preenchido automaticamente com a unidade em uso</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Situação:</strong> selecione sempre <em>"Com Crítica"</em> para listar pendências</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Crítica / BE / Profissional / Procedimento:</strong> filtros adicionais para refinar a busca</div></div>
-          </div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Competência:</strong> campo obrigatório — uma competência por vez</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>CNES:</strong> preenchido automaticamente com a unidade em uso</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Situação:</strong> selecione sempre <em>"Com Crítica"</em> para listar pendências a corrigir</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Crítica:</strong> exibe tipos de crítica para a competência selecionada</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>BE (Boletim de Emergência):</strong> filtra críticas de um boletim específico</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Profissional:</strong> filtra por executante</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Procedimento:</strong> exibe todos os registros com críticas do mesmo procedimento</div></div></div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image36.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image7.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image66.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image43.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div>
         </div>
       </div>
+
+      <div class="section-label">Botões principais</div>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">PASSO A PASSO</span>
-          <span class="activity-name">Acessar e corrigir críticas no BPA</span>
+          <span class="activity-num">BOTÕES</span>
+          <span class="activity-name">Entendendo os botões do BPA</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>BPA Individualizado</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Configure os filtros: Competência + CNES + Situação <em>"Com Crítica"</em></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Atualizar"</strong> para carregar os registros</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Na coluna <strong>Validação</strong>, clique no <strong>"X"</strong> para ver a crítica do procedimento</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no procedimento para abrir a correção manual e individual</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Faça a correção e clique em <strong>"Atualizar"</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Após cada correção, clique em <strong>"Consistir"</strong> para validar</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Filtre novamente e atualize para verificar quantas críticas restam</div></div>
-          </div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Atualizar:</strong> recarrega os dados conforme os filtros — usar sempre que alterar os campos</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Marcar todos a faturar:</strong> reseta o status de faturado para a faturar</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Consistir:</strong> valida os dados após cada correção — obrigatório após qualquer alteração</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Exportar individualizado:</strong> gera o arquivo BPA para envio — usar somente após todas as correções</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Correções de Faturamento:</strong> acessa as substituições em massa de profissional e correção de CEP</div></div></div>
           
-          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Críticas corrigidas. Prossiga para exportação.</div>
+        </div>
+      </div>
+
+      <div class="section-label">Campos da planilha de resultados</div>
+      
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">RESULTADO</span>
+          <span class="activity-name">Campos exibidos após pesquisa</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Núm. BE:</strong> identificador único do atendimento do paciente na unidade</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Paciente:</strong> nome completo do paciente atendido</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Data:</strong> data em que o atendimento foi realizado</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Profissional:</strong> nome do profissional executante</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Operação:</strong> categoria profissional (Médico, Enfermeiro, Técnico etc.)</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Quantidade:</strong> quantidade de procedimentos realizados</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Idade:</strong> idade do paciente no momento do atendimento</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Situação:</strong> indica se está <em>Faturado</em> ou <em>A Faturar</em></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Validação:</strong> quantidade de críticas pendentes de correção</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Ação:</strong> permite excluir um procedimento individualmente</div></div></div>
+          
+        </div>
+      </div>
+
+      <div class="section-label">Corrigir críticas</div>
+      
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Passo a passo — corrigir críticas</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>BPA Individualizado</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Configure os filtros: Competência + CNES + Situação <em>"Com Crítica"</em></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Atualizar"</strong> para carregar os registros</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Na coluna <strong>Validação</strong>, clique no <strong>"X"</strong> para ver a crítica do procedimento</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Verifique quantas críticas existem para aquele procedimento</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no procedimento para abrir a correção manual e individual</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Faça a correção e clique em <strong>"Atualizar"</strong> para salvar</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Após cada correção, clique em <strong>"Consistir"</strong> para validar</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Filtre novamente e clique em <strong>"Atualizar"</strong> para verificar quantas críticas restam</div></div></div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image20.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div><div class="alert-box success" style="margin-top:10px"><strong>✅ Fim de Tarefa:</strong> Críticas corrigidas. Prossiga para exportação.</div>
         </div>
       </div>
     </div>
 
+    <!-- SUBSTITUIR PROFISSIONAIS -->
     <div class="section" id="substituir">
-      <div class="section-title">Substituir Profissionais</div>
+      <div class="section-title"><span>07</span> Substituir Profissionais</div>
+      <p class="doc-p">Dentro de <strong>Correções de Faturamento</strong>, a aba <em>Substituição de Profissional</em> substitui todas as entradas de um procedimento específico para outro profissional.</p>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">PASSO A PASSO</span>
@@ -318,23 +331,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">No BPA Individualizado, clique em <strong>"Correções de Faturamento"</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a aba <strong>Substituição de Profissional</strong> para substituir todas as entradas de um procedimento específico</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o <strong>tipo de crítica</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o <strong>profissional com crítica</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>mesma ocupação (CBO)</strong> do profissional com crítica e escolha o profissional de destino</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Substituir"</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Consistir"</strong> para atualizar e verificar se as críticas foram corrigidas</div></div>
-          </div>
-          
-          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Profissional substituído e críticas atualizadas.</div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">No BPA Individualizado, clique em <strong>"Correções de Faturamento"</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a aba <strong>Substituição de Profissional</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o <strong>tipo de crítica</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o <strong>profissional com crítica</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>mesma ocupação (CBO)</strong> do profissional com crítica</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Escolha o profissional de destino para receber os procedimentos</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Substituir"</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Consistir"</strong> para atualizar e verificar se as críticas foram corrigidas</div></div></div>
+          <div class="alert-box info" style="margin-top:10px"><strong>💡 Observação:</strong> A aba <em>Correção de Crítica</em> substitui todos os procedimentos com aquela crítica. A aba <em>Substituição de Profissional</em> substitui todas as entradas de apenas um procedimento específico.</div><div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image25.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image73.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image57.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image58.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image34.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image31.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image61.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div><div class="alert-box success" style="margin-top:10px"><strong>✅ Fim de Tarefa:</strong> Profissional substituído e críticas atualizadas.</div>
         </div>
       </div>
     </div>
 
+    <!-- CORRIGIR CEP -->
     <div class="section" id="cep">
-      <div class="section-title">Corrigir CEP</div>
+      <div class="section-title"><span>08</span> Corrigir CEP</div>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">PASSO A PASSO</span>
@@ -342,22 +348,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Correções de Faturamento"</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a crítica <em>"CEP do paciente é inválido"</em></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o CEP com crítica</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Digite o CEP válido para substituir e clique na opção que aparecer <strong>OU</strong> clique em <em>"Utilizar CEP da unidade"</em></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Substituir"</strong> → confirme clicando em <strong>"Sim"</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">A correção foi aplicada quando a <strong>faixa amarela</strong> aparecer na tela</div></div>
-          </div>
-          
-          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> CEP corrigido com sucesso.</div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">No BPA Individualizado, clique em <strong>"Correções de Faturamento"</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a crítica <em>"CEP do paciente é inválido"</em></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o CEP com crítica</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Digite o CEP válido para substituir e clique na opção que aparecer</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Ou</strong> clique em <em>"Utilizar CEP da unidade"</em> para preencher com o CEP da unidade</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Substituir"</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Confirme clicando em <strong>"Sim"</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">A correção foi aplicada quando a <strong>faixa amarela</strong> aparecer na tela</div></div></div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image1.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image33.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image13.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image22.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image62.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image53.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image56.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image2.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div><div class="alert-box success" style="margin-top:10px"><strong>✅ Fim de Tarefa:</strong> CEP corrigido com sucesso.</div>
         </div>
       </div>
     </div>
 
-    <div class="section" id="individual">
-      <div class="section-title">Editar Procedimentos de Forma Individual</div>
+    <!-- EDITAR INDIVIDUAL -->
+    <div class="section" id="editar">
+      <div class="section-title"><span>09</span> Editar Procedimentos de Forma Individual</div>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">PASSO A PASSO</span>
@@ -365,24 +365,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o filtro, clique em <strong>"Atualizar"</strong> e clique em um procedimento individual</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Na tela individual é possível editar: <em>informações residenciais e raça/cor</em> (aba informações adicionais) · <em>adicionar, remover ou editar procedimentos</em> · <em>substituir profissionais</em></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no procedimento desejado na parte inferior</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Faça a edição necessária e clique em <strong>"Adicionar"</strong> para atualizar</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Confirme a autorização</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Consistir"</strong> para atualizar as alterações</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Produção"</strong> → filtre → <strong>"Atualizar"</strong> para verificar se a crítica foi resolvida</div></div>
-          </div>
-          
-          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Procedimento editado individualmente e crítica resolvida.</div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o filtro e clique em <strong>"Atualizar"</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em um procedimento individual na planilha</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Na tela individual é possível editar:</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">— Informações residenciais e raça/cor (aba <em>Informações Adicionais</em>)</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">— Adicionar, remover ou editar procedimentos</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">— Substituir profissionais</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no procedimento desejado na parte inferior</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Faça a edição necessária (ex: substituir o profissional)</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Adicionar"</strong> para atualizar o procedimento editado</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Confirme que a autorização foi concluída</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Consistir"</strong> para atualizar as alterações e resolver a crítica</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Produção"</strong> → selecione o filtro → <strong>"Atualizar"</strong> para verificar se a crítica foi realmente resolvida</div></div></div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image50.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image37.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image24.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image38.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image16.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image51.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image75.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image55.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image32.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div><div class="alert-box success" style="margin-top:10px"><strong>✅ Fim de Tarefa:</strong> Procedimento editado individualmente e crítica resolvida.</div>
         </div>
       </div>
     </div>
 
+    <!-- EXPORTAR DADOS SIA -->
     <div class="section" id="exportar">
-      <div class="section-title">Exportar Dados SIA</div>
+      <div class="section-title"><span>10</span> Exportar Dados SIA</div>
       <p class="doc-p">A tela <strong>Exportar Dados SIA</strong> gera o arquivo de faturamento após a resolução de todas as críticas no BPA Individualizado.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Objetivo</strong>Gerar arquivo do faturamento para exportação</div>
+        <div class="meta-item"><strong>Responsável</strong>Profissional gestor ou administrativo do faturamento</div>
+      </div>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">PASSO A PASSO</span>
@@ -390,50 +387,43 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>Exportar Dados SIA</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>competência</strong> e clique em <strong>"Pesquisar"</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Verifique o status: <em>"A faturar"</em> = total de procedimentos · <em>"Com crítica"</em> = parcela com inconsistências</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Exportar"</strong> para gerar o arquivo — o status mudará para <em>"Faturado"</em></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Baixar o Arquivo"</strong></div></div>
-          </div>
-          <div class="alert-box danger"><strong>⚠️ Atenção:</strong> Procedimentos com crítica também serão marcados como faturados ao exportar. Resolva TODAS as críticas antes. Se exportado por engano, clique em <em>"Marcar como faturar"</em> para resetar o status.</div>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image47.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image54.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image6.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image60.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div>
-          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Arquivo de faturamento gerado e baixado.</div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>Exportar Dados SIA</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>competência</strong> e clique em <strong>"Pesquisar"</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Verifique o status no canto superior direito:</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">— <em>"A Faturar"</em>: número total de procedimentos</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">— <em>"Com Crítica"</em>: parcela com inconsistências</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Exportar"</strong> para gerar o arquivo — o status mudará para <em>"Faturado"</em></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Baixar o Arquivo"</strong></div></div></div>
+          <div class="alert-box danger" style="margin-top:10px"><strong>⚠️ Atenção:</strong> Procedimentos com crítica também serão marcados como faturados ao exportar. Resolva TODAS as críticas antes. Se exportado por engano, clique em "Marcar como faturar" para resetar o status.</div><div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image47.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image54.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image6.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image60.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image28.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div><div class="alert-box success" style="margin-top:10px"><strong>✅ Fim de Tarefa:</strong> Arquivo de faturamento gerado e baixado para envio ao responsável.</div>
         </div>
       </div>
     </div>
 
+    <!-- CADASTRO DE BAM -->
     <div class="section" id="bam">
-      <div class="section-title">Cadastro de BAM</div>
-      <p class="doc-p">A tela <strong>Cadastro de BAM</strong> é utilizada para registrar atendimentos de forma tardia quando o paciente não se encontra mais na unidade.</p>
+      <div class="section-title"><span>11</span> Cadastro de BAM</div>
+      <p class="doc-p">A tela <strong>Cadastro de BAM</strong> registra atendimentos de forma tardia quando o paciente não se encontra mais na unidade, devido a algum fator externo que impediu o registro no momento do atendimento.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Objetivo</strong>Registrar atendimento tardio</div>
+        <div class="meta-item"><strong>Responsável</strong>Profissional gestor ou administrativo do faturamento</div>
+      </div>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">PASSO A PASSO</span>
-          <span class="activity-name">Cadastrar Boletim de Atendimento</span>
+          <span class="activity-name">Cadastrar Boletim de Atendimento tardio</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>Cadastro de BAM</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha: data/hora do início do atendimento, nome, sexo, escolaridade, tipo e número do documento, CNS, nome da mãe</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Pesquise pelo nome do paciente (lupa) para verificar se já tem cadastro</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Se não houver classificação de risco: preencha <strong>pulseira</strong> (número não existente no sistema) e <strong>especialidade</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha os demais campos se pertinente: dados de classificação, antecedentes, diagnóstico, CID, conduta e prescrição</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha obrigatoriamente: <strong>profissional executante</strong>, <strong>data/hora da saída</strong> e <strong>motivo de alta</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>Salvar</strong></div></div>
-          </div>
-          <div class="alert-box info"><strong>💡 Sobre o número da pulseira:</strong> Use um número que ainda não existe no sistema. Ex: se a última foi 10001, use 10002 ou superior (não precisa ser consecutivo).</div>
-          <div class="alert-box"><strong>📌 Campos obrigatórios:</strong> Todas as seções sem a opção "não preenchido" no canto superior direito são obrigatórias.</div>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image77.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image29.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image68.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image39.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div>
-          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Atendimento tardio registrado no sistema.</div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>Cadastro de BAM</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Data e hora:</strong> refere-se ao início do atendimento</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha: <strong>Nome</strong>, <strong>Sexo biológico</strong>, <strong>Escolaridade</strong> (pode ser "não sabe"), <strong>Tipo e número do documento</strong>, <strong>Nº CNS</strong>, <strong>Nome da mãe</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Digite o nome do paciente e clique na <strong>lupa</strong> para verificar se já tem cadastro</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Se não houver classificação de risco: preencha <strong>Pulseira</strong> (número inexistente no sistema) e <strong>Especialidade</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Se pertinente, preencha: dados da classificação de risco · antecedentes e medicamentos · diagnóstico e motivo do atendimento · trauma e causas externas · exame físico · critérios para síndrome vascular e sepsis · CID final, conduta e prescrição</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha obrigatoriamente: <strong>profissional executante</strong>, <strong>data e hora da saída</strong>, <strong>motivo de alta</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>Salvar</strong></div></div></div>
+          <div class="alert-box info" style="margin-top:10px"><strong>💡 Observação:</strong> Número da pulseira: use um número que ainda não existe no sistema. Ex: se a última foi 10001, use 10002 ou superior — não precisa ser consecutivo. Seções sem a opção "não preenchido" no canto superior direito são obrigatórias.</div><div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image77.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image29.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image68.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image39.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image40.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image3.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image18.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image44.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div><div class="alert-box success" style="margin-top:10px"><strong>✅ Fim de Tarefa:</strong> Atendimento tardio registrado com sucesso.</div>
         </div>
       </div>
     </div>
 
+    <!-- REGISTRAR EVENTOS -->
     <div class="section" id="eventos">
-      <div class="section-title">Registrar Eventos</div>
-      <p class="doc-p">A tela <strong>Registrar Eventos</strong> associa procedimentos SIGTAP ao boletim do paciente. Mais utilizado para registrar procedimentos em boletins criados via Cadastro de BAM.</p>
+      <div class="section-title"><span>12</span> Registrar Eventos</div>
+      <p class="doc-p">A tela <strong>Registrar Eventos</strong> associa procedimentos SIGTAP ao boletim de atendimento do paciente. Mais utilizada para registrar procedimentos em boletins criados via Cadastro de BAM.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Objetivo</strong>Registrar procedimento no boletim de atendimento</div>
+        <div class="meta-item"><strong>Responsável</strong>Profissional gestor ou administrativo do faturamento</div>
+      </div>
+      
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">PASSO A PASSO</span>
@@ -441,15 +431,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>Registrar Eventos</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Insira o número do boletim, pulseira ou nome do paciente e clique na <strong>lupa</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha: <strong>Data e hora</strong> · <strong>CRM do profissional</strong> (CBO preenchido automaticamente) · <strong>Serviço/evento</strong> (nome ou código SIGTAP) · <strong>CID</strong> (se aplicável) · <strong>Quantidade</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Adicionar"</strong> — o procedimento aparecerá na parte inferior</div></div>
-          </div>
-          <div class="alert-box info"><strong>💡 Profissional não médico:</strong> O campo CID não está disponível para profissionais não médicos.</div>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image49.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image5.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image4.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image11.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div>
-          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Procedimento registrado no boletim para faturamento.</div>
+          <div class="step-list"><div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>Registrar Eventos</strong></div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Insira o número do <strong>boletim</strong>, <strong>pulseira</strong> ou <strong>nome do paciente</strong> e clique na lupa</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha as informações do procedimento:</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">— <strong>Data e hora:</strong> quando o procedimento foi realizado</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">— <strong>CRM:</strong> informe o CRM do profissional (CBO preenchido automaticamente)</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">— <strong>Serviço/evento:</strong> digite o nome ou o código SIGTAP</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">— <strong>CID:</strong> preencha se necessário (não disponível para profissional não médico)</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">— <strong>Quantidade:</strong> altere se o procedimento foi realizado mais de uma vez</div></div><div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Adicionar"</strong> — o procedimento aparecerá na parte inferior</div></div></div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image49.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image5.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image4.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image11.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image9.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image71.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div><div class="alert-box success" style="margin-top:10px"><strong>✅ Fim de Tarefa:</strong> Procedimento registrado no boletim. Pronto para faturamento.</div>
         </div>
       </div>
     </div>
@@ -461,7 +444,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <div class="footer-brand">GTIC · Saúde Digital</div>
   <div class="footer-meta">
     <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
-    <span><strong>Autores</strong>GTIC · Breno Amorim</span>
+    <span><strong>Autores</strong>Diana Castro · Breno Amorim</span>
     <span><strong>Versão</strong>1.0 · 09/05/2025</span>
     <span><strong>Uso</strong>Interno · Documento Institucional</span>
   </div>
