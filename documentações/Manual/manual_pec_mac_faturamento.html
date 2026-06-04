@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Manual do Usuário – PEC MAC Faturamento · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+
+
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
+.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.content .section{margin-bottom:36px;scroll-margin-top:24px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
+.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px}
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
+.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even) td{background:var(--paper)}
+.rules-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.rules-list li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid);line-height:1.5}
+.activity-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:12px}
+.activity-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--ink);cursor:pointer;user-select:none}
+.activity-header:hover{background:#1a2b42}
+.activity-num{font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.activity-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.activity-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.activity-card:not(.open) .activity-body{display:none}
+.activity-card.open .activity-chevron{transform:rotate(180deg)}
+.activity-body{padding:20px}
+.step-list{display:flex;flex-direction:column;gap:8px}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-mid);flex-shrink:0;margin-top:6px}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.sub-item{font-size:12.5px;color:var(--ink3);padding:4px 12px;border-left:2px solid var(--rule);margin:4px 0 4px 20px}
+.fluxo-img{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-align:center;padding:24px}
+.fluxo-img img{max-width:100%;height:auto;border-radius:8px}
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.processo-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--blue-lt);color:var(--blue-mid);font-size:11px;font-weight:700;flex-shrink:0}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.success{background:#e6f4ee;border-color:#2a8a5a;color:#1a5a3a}
+.alert-box.success strong{color:#1a5a3a}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.meta-item{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink2)}
+.meta-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:4px}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:12px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.success{background:#e6f4ee;border-color:#2a8a5a;color:#1a5a3a}
+.alert-box.success strong{color:#1a5a3a}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.meta-item{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink2)}
+.meta-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html"
+        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px"
+        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
+        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+        ← Voltar às Documentações
+      </a>
+    </div>
+    <h1>Manual do Usuário<br><em>PEC MAC – Faturamento Ambulatorial</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="toc">
+      <li><a href="#historico">01. Histórico de Revisões</a></li>
+      <li><a href="#info">02. Informações e Pré-requisitos</a></li>
+      <li><a href="#dss001">03. DSS-001 · Competência</a></li>
+      <li><a href="#dss002">04. DSS-002 · Importar XML</a></li>
+      <li><a href="#dss003">05. DSS-003 · Tabela Unificada</a></li>
+      <li><a href="#bpa">06. DSS-003 · BPA Individualizado</a></li>
+      <li><a href="#substituir">07. DSS-03.1 · Substituir Profissionais</a></li>
+      <li><a href="#cep">08. DSS-03.2 · Corrigir CEP</a></li>
+      <li><a href="#individual">09. DSS-03.3 · Editar Individual</a></li>
+      <li><a href="#exportar">10. DSS-004 · Exportar Dados SIA</a></li>
+      <li><a href="#bam">11. DSS-004 · Cadastro de BAM</a></li>
+      <li><a href="#eventos">12. DSS-004 · Registrar Eventos</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+
+    <div class="section" id="historico">
+      <div class="section-title"><span>01</span> Histórico de Revisões</div>
+      <table class="info-table">
+        <thead><tr><th>Versão</th><th>Data</th><th>Autor</th></tr></thead>
+        <tbody><tr><td>1.0</td><td>09/05/2025</td><td>Diana Castro</td></tr></tbody>
+      </table>
+      <div class="alert-box info" style="margin-top:10px"><strong>📋 Sobre este manual:</strong> Destinado a profissionais dos setores administrativos e de faturamento em unidades ambulatoriais que utilizam o sistema PEC MAC. Foco em registro, faturamento e gestão da informação na atenção média e alta complexidade.</div>
+    </div>
+
+    <div class="section" id="info">
+      <div class="section-title"><span>02</span> Informações e Pré-requisitos</div>
+      <table class="info-table">
+        <thead><tr><th>Acesso</th><th>Hospedagem</th><th>Fornecedor</th></tr></thead>
+        <tbody><tr><td><a href="https://conectasaude.recife.pe.gov.br/" target="_blank" style="color:var(--blue-mid)">conectasaude.recife.pe.gov.br</a></td><td>iPeS</td><td>iPeS</td></tr></tbody>
+      </table>
+      <div class="activity-card open" style="margin-top:12px">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PRÉ-REQUISITOS</span>
+          <span class="activity-name">Sistemas e perfis necessários</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Sistemas:</strong> CNES · PEC MAC · GLPI</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Máquina:</strong> Navegador de internet com acesso à internet</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Perfil:</strong> Acesso ao CADSUS com perfil Consultador</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Programas necessários no PEC MAC:</strong> Pesquisar Usuário · Importação XML Profissionais · BPA Individualizado · Exportação de dados SIA</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss001">
+      <div class="section-title"><span>03</span> DSS-001 · Abertura e Fechamento de Competência</div>
+      <p class="doc-p">A tela <strong>Definir Competência</strong> é utilizada para renovar e cadastrar uma nova competência no sistema. Se uma nova competência não for cadastrada, os registros serão realizados na competência anterior.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Objetivo</strong>Solicitar abertura de competência</div>
+        <div class="meta-item"><strong>Responsável</strong>iPeS — a equipe iPeS realiza exclusivamente</div>
+        <div class="meta-item"><strong>Por que fazer?</strong>Organizar e controlar lançamentos mensais, garantindo precisão nas contas, auditorias e repasses do SUS</div>
+        <div class="meta-item"><strong>Contato iPeS</strong>📱 +55 (81) 8123-9883</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Verificar e solicitar abertura de competência</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Verifique se a competência do mês vigente está disponível acessando: <strong>Importar XML dos Profissionais</strong>, <strong>Importar Tabela Unificada</strong> ou <strong>BPA Individualizado</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">✅ <strong>Disponível:</strong> prossiga normalmente para as demais atividades</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">❌ <strong>Não disponível:</strong> entre em contato com o suporte iPeS pelo WhatsApp <strong>(81) 8123-9883</strong> solicitando a abertura da competência do mês vigente</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Mesmo que o sistema exiba a competência do <em>próximo mês</em>, <strong>selecione sempre o mês atual (vigente)</strong></div></div>
+          </div>
+          <div class="alert-box danger"><strong>⚠️ Competência fechada bloqueia:</strong> início de atendimentos · registro de procedimentos · geração de produção para faturamento. Após fechamento: reimporte a Tabela SIGTAP.</div>
+          
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Competência verificada. Prossiga para Importação do XML dos Profissionais.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss002">
+      <div class="section-title"><span>04</span> DSS-002 · Importar XML dos Profissionais</div>
+      <p class="doc-p">A tela <strong>Importar XML</strong> atualiza a base de profissionais e ocupações a partir do arquivo fornecido pelo CNES. Mantê-la atualizada evita críticas no faturamento.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Objetivo</strong>Atualizar lista de profissionais vinculados ao CNES</div>
+        <div class="meta-item"><strong>Responsável</strong>Profissional de faturamento com acesso ao programa</div>
+        <div class="meta-item"><strong>Por que fazer?</strong>Evitar críticas por atuação de profissionais não cadastrados</div>
+        <div class="meta-item"><strong>Arquivo</strong>Planilha XML atualizada mensalmente via Regulação</div>
+      </div>
+      <div class="alert-box"><strong>📌 Como obter o arquivo XML:</strong> Solicite ao gestor de faturamento ou ao setor administrativo. Eles entram em contato com a <strong>Regulação</strong> para acesso ao Drive com os arquivos XML de todas as unidades.</div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Importar XML dos profissionais</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse o módulo <strong>Importação XML Profissionais</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Importar TXT SCNES"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>competência</strong> (mês/ano)</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Insira o <strong>CNES da unidade</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o <strong>arquivo XML</strong> disponível no Drive</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>Importar</strong> — aguarde a mensagem <em>"Importado com sucesso"</em></div></div>
+          </div>
+          <div class="alert-box info"><strong>🕓 Observação:</strong> Após a importação, o sistema registra data e hora da última atualização. Profissional em plantão extra não cadastrado no CNES gera crítica — transfira a produção para profissional com o mesmo CBO.</div>
+          
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Lista de profissionais atualizada na unidade.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dss003">
+      <div class="section-title"><span>05</span> DSS-003 · Importar Tabela Unificada (SIGTAP)</div>
+      <p class="doc-p">A tela <strong>Importar Tabela Unificada</strong> atualiza os procedimentos SIGTAP registrados no sistema.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Objetivo</strong>Atualizar a tabela SIGTAP no sistema</div>
+        <div class="meta-item"><strong>Responsável</strong>Profissional gestor ou administrativo do faturamento</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Baixar e importar Tabela SIGTAP</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse <a href="https://sigtap.datasus.gov.br" target="_blank" style="color:var(--blue-mid)">sigtap.datasus.gov.br</a> e clique em <strong>"Download"</strong> (canto superior direito)</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Abra o programa <strong>"Importação Tabela Unificada"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>competência</strong> desejada</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Choose File"</strong> e selecione o arquivo SIGTAP baixado</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Salvar"</strong> e depois em <strong>"Importar"</strong></div></div>
+          </div>
+          <div class="alert-box"><strong>📌 Observação:</strong> É comum o site ficar temporariamente fora do ar. Aguarde e tente novamente.</div>
+          
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Tabela SIGTAP atualizada no sistema PEC MAC.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="bpa">
+      <div class="section-title"><span>06</span> DSS-003 · BPA Individualizado</div>
+      <p class="doc-p">A tela <strong>BPA Individualizado</strong> é usada para resolver críticas e inconsistências nos atendimentos dos profissionais antes da exportação do faturamento.</p>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">FILTROS DISPONÍVEIS</span>
+          <span class="activity-name">Configurando a pesquisa de críticas</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Competência:</strong> campo obrigatório — uma competência por vez</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>CNES:</strong> preenchido automaticamente com a unidade em uso</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Situação:</strong> selecione sempre <em>"Com Crítica"</em> para listar pendências</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Crítica / BE / Profissional / Procedimento:</strong> filtros adicionais para refinar a busca</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Acessar e corrigir críticas no BPA</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>BPA Individualizado</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Configure os filtros: Competência + CNES + Situação <em>"Com Crítica"</em></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Atualizar"</strong> para carregar os registros</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Na coluna <strong>Validação</strong>, clique no <strong>"X"</strong> para ver a crítica do procedimento</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no procedimento para abrir a correção manual e individual</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Faça a correção e clique em <strong>"Atualizar"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Após cada correção, clique em <strong>"Consistir"</strong> para validar</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Filtre novamente e atualize para verificar quantas críticas restam</div></div>
+          </div>
+          
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Críticas corrigidas. Prossiga para exportação.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="substituir">
+      <div class="section-title"><span>07</span> DSS-03.1 · Substituir Profissionais</div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Substituição em massa por profissional</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">No BPA Individualizado, clique em <strong>"Correções de Faturamento"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a aba <strong>Substituição de Profissional</strong> para substituir todas as entradas de um procedimento específico</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o <strong>tipo de crítica</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o <strong>profissional com crítica</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>mesma ocupação (CBO)</strong> do profissional com crítica e escolha o profissional de destino</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Substituir"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Consistir"</strong> para atualizar e verificar se as críticas foram corrigidas</div></div>
+          </div>
+          
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Profissional substituído e críticas atualizadas.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="cep">
+      <div class="section-title"><span>08</span> DSS-03.2 · Corrigir CEP</div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Corrigir CEP inválido do paciente</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Correções de Faturamento"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a crítica <em>"CEP do paciente é inválido"</em></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o CEP com crítica</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Digite o CEP válido para substituir e clique na opção que aparecer <strong>OU</strong> clique em <em>"Utilizar CEP da unidade"</em></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Substituir"</strong> → confirme clicando em <strong>"Sim"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">A correção foi aplicada quando a <strong>faixa amarela</strong> aparecer na tela</div></div>
+          </div>
+          
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> CEP corrigido com sucesso.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="individual">
+      <div class="section-title"><span>09</span> DSS-03.3 · Editar Procedimentos de Forma Individual</div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Edição individual de procedimento</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione o filtro, clique em <strong>"Atualizar"</strong> e clique em um procedimento individual</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Na tela individual é possível editar: <em>informações residenciais e raça/cor</em> (aba informações adicionais) · <em>adicionar, remover ou editar procedimentos</em> · <em>substituir profissionais</em></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no procedimento desejado na parte inferior</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Faça a edição necessária e clique em <strong>"Adicionar"</strong> para atualizar</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Confirme a autorização</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Consistir"</strong> para atualizar as alterações</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Produção"</strong> → filtre → <strong>"Atualizar"</strong> para verificar se a crítica foi resolvida</div></div>
+          </div>
+          
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Procedimento editado individualmente e crítica resolvida.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="exportar">
+      <div class="section-title"><span>10</span> DSS-004 · Exportar Dados SIA</div>
+      <p class="doc-p">A tela <strong>Exportar Dados SIA</strong> gera o arquivo de faturamento após a resolução de todas as críticas no BPA Individualizado.</p>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Gerar arquivo de faturamento</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>Exportar Dados SIA</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Selecione a <strong>competência</strong> e clique em <strong>"Pesquisar"</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Verifique o status: <em>"A faturar"</em> = total de procedimentos · <em>"Com crítica"</em> = parcela com inconsistências</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Exportar"</strong> para gerar o arquivo — o status mudará para <em>"Faturado"</em></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Baixar o Arquivo"</strong></div></div>
+          </div>
+          <div class="alert-box danger"><strong>⚠️ Atenção:</strong> Procedimentos com crítica também serão marcados como faturados ao exportar. Resolva TODAS as críticas antes. Se exportado por engano, clique em <em>"Marcar como faturar"</em> para resetar o status.</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image47.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image54.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image6.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image60.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div>
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Arquivo de faturamento gerado e baixado.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="bam">
+      <div class="section-title"><span>11</span> DSS-004 · Cadastro de BAM</div>
+      <p class="doc-p">A tela <strong>Cadastro de BAM</strong> é utilizada para registrar atendimentos de forma tardia quando o paciente não se encontra mais na unidade.</p>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Cadastrar Boletim de Atendimento</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>Cadastro de BAM</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha: data/hora do início do atendimento, nome, sexo, escolaridade, tipo e número do documento, CNS, nome da mãe</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Pesquise pelo nome do paciente (lupa) para verificar se já tem cadastro</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Se não houver classificação de risco: preencha <strong>pulseira</strong> (número não existente no sistema) e <strong>especialidade</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha os demais campos se pertinente: dados de classificação, antecedentes, diagnóstico, CID, conduta e prescrição</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha obrigatoriamente: <strong>profissional executante</strong>, <strong>data/hora da saída</strong> e <strong>motivo de alta</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>Salvar</strong></div></div>
+          </div>
+          <div class="alert-box info"><strong>💡 Sobre o número da pulseira:</strong> Use um número que ainda não existe no sistema. Ex: se a última foi 10001, use 10002 ou superior (não precisa ser consecutivo).</div>
+          <div class="alert-box"><strong>📌 Campos obrigatórios:</strong> Todas as seções sem a opção "não preenchido" no canto superior direito são obrigatórias.</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image77.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image29.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image68.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image39.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div>
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Atendimento tardio registrado no sistema.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="eventos">
+      <div class="section-title"><span>12</span> DSS-004 · Registrar Eventos</div>
+      <p class="doc-p">A tela <strong>Registrar Eventos</strong> associa procedimentos SIGTAP ao boletim do paciente. Mais utilizado para registrar procedimentos em boletins criados via Cadastro de BAM.</p>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Registrar procedimento no boletim</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse a tela <strong>Registrar Eventos</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Insira o número do boletim, pulseira ou nome do paciente e clique na <strong>lupa</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Preencha: <strong>Data e hora</strong> · <strong>CRM do profissional</strong> (CBO preenchido automaticamente) · <strong>Serviço/evento</strong> (nome ou código SIGTAP) · <strong>CID</strong> (se aplicável) · <strong>Quantidade</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Adicionar"</strong> — o procedimento aparecerá na parte inferior</div></div>
+          </div>
+          <div class="alert-box info"><strong>💡 Profissional não médico:</strong> O campo CID não está disponível para profissionais não médicos.</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image49.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image5.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image4.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"><img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/assets/fat_imgs/image11.png" alt="" style="max-width:100%;border-radius:8px;border:1px solid #d4cfc5;box-shadow:0 2px 6px rgba(0,0,0,.06)"></div>
+          <div class="alert-box success"><strong>✅ Fim de Tarefa:</strong> Procedimento registrado no boletim para faturamento.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Autores</strong>Diana Castro · Breno Amorim</span>
+    <span><strong>Versão</strong>1.0 · 09/05/2025</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar às Documentações
+  </a>
+</footer>
+
+<script>
+document.querySelectorAll('.activity-header').forEach(h => {
+  h.addEventListener('click', () => h.closest('.activity-card').classList.toggle('open'));
+});
+const links = document.querySelectorAll('.toc a');
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+});
+</script>
+</body>
+</html>
