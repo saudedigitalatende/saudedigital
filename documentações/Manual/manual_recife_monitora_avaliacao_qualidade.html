@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Manual de Avaliação de Qualidade – Recife Monitora</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(90,58,162,.22) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero-actions{display:flex;justify-content:flex-end;margin-bottom:12px}
+.hero-crumb{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.02em;color:rgba(255,255,255,.68);text-decoration:none;padding:5px 13px;border:1px solid rgba(255,255,255,.14);border-radius:100px;background:rgba(255,255,255,.035);transition:all .2s}
+.hero-crumb:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.075)}
+.hero-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-mid);background:rgba(200,169,74,.12);border:1px solid rgba(200,169,74,.25);border-radius:100px;padding:3px 12px;margin-bottom:12px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(20px,3vw,32px);color:#fff;line-height:1.15;margin-bottom:6px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero-sub{font-size:12.5px;color:rgba(255,255,255,.45);display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+
+.page-wrap{flex:1;max-width:1100px;margin:0 auto;padding:36px 60px 60px;width:100%;display:grid;grid-template-columns:220px 1fr;gap:36px;align-items:start}
+
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.sidebar-nav{list-style:none;display:flex;flex-direction:column;gap:2px}
+.sidebar-nav a{display:block;font-size:12.5px;color:var(--ink3);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all .15s;border-left:2px solid transparent}
+.sidebar-nav a:hover{color:var(--ink);background:var(--paper2)}
+.sidebar-nav a.active{color:var(--purple-mid);background:var(--purple-lt);border-left-color:var(--purple-mid);font-weight:600}
+.sidebar-nav .sub{padding-left:22px;font-size:12px}
+
+.section{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:32px 36px;margin-bottom:20px}
+.section-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
+.section-num{width:32px;height:32px;border-radius:8px;background:var(--purple-lt);color:var(--purple-mid);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);line-height:1.2}
+.section-sub{font-size:12px;color:var(--ink3);margin-top:3px}
+
+h2{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin:24px 0 12px}
+h3{font-size:13px;font-weight:700;color:var(--ink2);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.05em}
+p{margin-bottom:12px;color:var(--ink2)}
+ul,ol{margin:0 0 12px 20px;color:var(--ink2)}
+li{margin-bottom:4px}
+
+/* FASES */
+.phases{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0}
+.phase-card{border-radius:12px;padding:18px 20px;border:1px solid var(--rule)}
+.phase-card.p1{background:var(--blue-lt);border-color:#c0d7f5}
+.phase-card.p2{background:var(--purple-lt);border-color:#d4c5f0}
+.phase-card.p3{background:var(--green-lt);border-color:#b8e0cd}
+.phase-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.p1 .phase-label{color:var(--blue-mid)}
+.p2 .phase-label{color:var(--purple-mid)}
+.p3 .phase-label{color:var(--green-mid)}
+.phase-name{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink);margin-bottom:6px}
+.phase-desc{font-size:12px;color:var(--ink3)}
+
+/* EIXOS */
+.eixos-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:16px 0}
+.eixo-row{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.eixo-row:first-child{border-left:4px solid var(--blue-mid)}
+.eixo-row:nth-child(2){border-left:4px solid var(--purple-mid)}
+.eixo-row:nth-child(3){border-left:4px solid var(--green-mid)}
+.eixo-name{font-size:13px;font-weight:600;color:var(--ink)}
+.eixo-sub{font-size:11.5px;color:var(--ink3);margin-top:2px}
+.eixo-pts{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);white-space:nowrap}
+.eixo-pts small{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);display:block;text-align:right}
+
+/* BLOCOS */
+.blocos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:16px 0}
+.bloco{border-radius:10px;padding:16px;border:1px solid var(--rule)}
+.bloco.ba{background:var(--blue-lt);border-color:#c0d7f5}
+.bloco.bb{background:var(--purple-lt);border-color:#d4c5f0}
+.bloco.bc{background:var(--green-lt);border-color:#b8e0cd}
+.bloco-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.ba .bloco-label{color:var(--blue-mid)}
+.bb .bloco-label{color:var(--purple-mid)}
+.bc .bloco-label{color:var(--green-mid)}
+.bloco-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.bloco-pts{font-size:20px;font-family:'DM Serif Display',serif;color:var(--ink)}
+.bloco-pts small{font-size:11px;font-family:'DM Sans',sans-serif;color:var(--ink3)}
+
+/* TABELA */
+.table-wrap{overflow-x:auto;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{background:var(--ink);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:11px;letter-spacing:.03em}
+td{padding:9px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--paper)}
+td strong{color:var(--ink)}
+
+/* CERTIFICAÇÃO */
+.cert-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:16px 0}
+.cert-card{border-radius:10px;padding:14px 12px;text-align:center;border:1px solid var(--rule)}
+.cert-card.excelencia{background:#e6f4ee;border-color:#b8e0cd}
+.cert-card.qualidade{background:#e8f0fa;border-color:#c0d7f5}
+.cert-card.aperfeicoamento{background:#fdf3dc;border-color:#f0d88a}
+.cert-card.critica{background:#fdeee6;border-color:#f0c0a0}
+.cert-card.insuficiente{background:#f5f5f5;border-color:#ddd}
+.cert-nivel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.excelencia .cert-nivel{color:var(--green-mid)}
+.qualidade .cert-nivel{color:var(--blue-mid)}
+.aperfeicoamento .cert-nivel{color:var(--amber)}
+.critica .cert-nivel{color:#c05020}
+.insuficiente .cert-nivel{color:var(--ink3)}
+.cert-pts{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink)}
+
+/* INDICADORES */
+.ind-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.ind-item{background:var(--paper);border:1px solid var(--rule);border-radius:9px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start}
+.ind-num{width:28px;height:28px;border-radius:6px;background:var(--ink);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ind-num.estrategico{background:var(--purple-mid)}
+.ind-text{font-size:12.5px;color:var(--ink2)}
+.ind-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:100px;margin-top:4px;display:inline-block}
+.badge-essencial{background:var(--blue-lt);color:var(--blue-mid)}
+.badge-estrategico{background:var(--purple-lt);color:var(--purple-mid)}
+
+/* INFO BOX */
+.info-box{border-radius:10px;padding:16px 20px;margin:16px 0;border:1px solid}
+.info-box.purple{background:var(--purple-lt);border-color:#d4c5f0;color:var(--purple-mid)}
+.info-box.green{background:var(--green-lt);border-color:#b8e0cd;color:var(--green)}
+.info-box.amber{background:var(--amber-lt);border-color:#f0d88a;color:var(--amber)}
+.info-box.blue{background:var(--blue-lt);border-color:#c0d7f5;color:var(--blue-mid)}
+.info-box-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.info-box p{color:inherit;margin-bottom:0;font-size:12.5px}
+
+/* PERGUNTAS ACCORDION */
+.accordion{border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin:12px 0}
+.acc-header{padding:14px 18px;background:var(--paper);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:13px;color:var(--ink2);transition:background .2s;user-select:none}
+.acc-header:hover{background:var(--paper2)}
+.acc-header.open{background:var(--purple-lt);color:var(--purple-mid)}
+.acc-chevron{font-size:16px;transition:transform .25s;color:var(--ink3)}
+.acc-header.open .acc-chevron{transform:rotate(90deg);color:var(--purple-mid)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.acc-body.open{max-height:2000px}
+.acc-inner{padding:16px 18px;border-top:1px solid var(--rule)}
+.acc-inner table{font-size:12px}
+
+/* NPS ZONAS */
+.nps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}
+.nps-card{border-radius:10px;padding:12px;text-align:center;border:1px solid var(--rule)}
+.nps-card.excelencia{background:#e6f4ee;border-color:#b8e0cd}
+.nps-card.qualidade{background:#e8f0fa;border-color:#c0d7f5}
+.nps-card.aperfeicoamento{background:#fdf3dc;border-color:#f0d88a}
+.nps-card.critica{background:#fdeee6;border-color:#f0c0a0}
+.nps-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.excelencia .nps-label{color:var(--green-mid)}
+.qualidade .nps-label{color:var(--blue-mid)}
+.aperfeicoamento .nps-label{color:var(--amber)}
+.critica .nps-label{color:#c05020}
+.nps-range{font-family:'DM Serif Display',serif;font-size:14px;color:var(--ink)}
+
+.page-footer{margin-top:auto;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px;position:relative}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.footer-top-link{position:absolute;right:28px;bottom:18px;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);text-decoration:none;transition:all .2s}
+.footer-top-link:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.08)}
+.footer-top-link svg{width:16px;height:16px}
+
+@media(max-width:900px){
+  .page-wrap{grid-template-columns:1fr;padding:24px}
+  .hero{padding:24px}
+  .phases,.blocos,.cert-grid,.nps-grid{grid-template-columns:1fr}
+  .sidebar{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-actions">
+      <a href="../../documentacoes.html" class="hero-crumb">← Voltar às Documentações</a>
+    </div>
+    <div class="hero-tag">Manual de Avaliação de Qualidade · ESR</div>
+    <h1>Programa Recife Monitora<br><em>Avaliação de Qualidade</em></h1>
+    <div class="hero-sub">
+      <span>📋 Modelo · Fases · Eixos · Certificação</span>
+      <span>🏥 Atenção Básica · SESAU/SEAB · IEPS</span>
+      <span>📅 Ciclos Quadrimestrais</span>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">Neste documento</div>
+    <ul class="sidebar-nav" id="sideNav">
+      <li><a href="#sobre" class="active">Sobre o Programa</a></li>
+      <li><a href="#modelo">O Modelo</a></li>
+      <li><a href="#fases">Ciclos e Fases</a></li>
+      <li><a href="#fase2">Fase 2 – Avaliação</a></li>
+      <li><a href="#eixo1" class="sub">Eixo 1 – Equipes</a></li>
+      <li><a href="#bloco-a" class="sub">Bloco A</a></li>
+      <li><a href="#bloco-b" class="sub">Bloco B</a></li>
+      <li><a href="#bloco-c" class="sub">Bloco C</a></li>
+      <li><a href="#eixo2" class="sub">Eixo 2 – Usuários</a></li>
+      <li><a href="#eixo3" class="sub">Eixo 3 – Desempenho</a></li>
+      <li><a href="#certificacao">Fase 3 – Certificação</a></li>
+      <li><a href="#perguntas">Perguntas Avaliativas</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+
+    <!-- SOBRE -->
+    <section class="section" id="sobre">
+      <div class="section-head">
+        <div class="section-num">🏥</div>
+        <div>
+          <div class="section-title">Programa Recife Monitora</div>
+          <div class="section-sub">Fortalecendo a Qualidade na Atenção Básica</div>
+        </div>
+      </div>
+      <p>O <strong>Qualifica Atenção Básica</strong>, iniciado em agosto de 2022, é fruto da parceria entre a Prefeitura do Recife e o IEPS, com apoio da Umane. A estratégia se baseia em 3 pilares: <strong>reconhecimento</strong>, <strong>monitoramento</strong> e <strong>experimentação</strong>.</p>
+      <p>O <strong>Recife Monitora</strong> é um programa de avaliação e melhoria da qualidade na atenção básica, que integra dados de diversas fontes para facilitar a gestão informada por evidências ao nível de cada equipe de saúde da família do município.</p>
+      <div class="info-box green">
+        <div class="info-box-title">Plataforma Online</div>
+        <p><strong>https://qualificaab1.recife.pe.gov.br/login</strong><br>Em caso de dúvidas, consulte o FAQ disponível na plataforma.</p>
+      </div>
+    </section>
+
+    <!-- MODELO -->
+    <section class="section" id="modelo">
+      <div class="section-head">
+        <div class="section-num">🎯</div>
+        <div>
+          <div class="section-title">O Modelo</div>
+          <div class="section-sub">Objetivos e estrutura do programa</div>
+        </div>
+      </div>
+      <p>Objetivo principal: <strong>reafirmar a atenção básica como porta de entrada preferencial</strong> na rede de saúde do Recife, conduzindo as equipes a estratégias contínuas de melhoria da qualidade.</p>
+      <h3>Objetivos Específicos</h3>
+      <ul>
+        <li>Garantir o cumprimento dos princípios do SUS e da atenção básica;</li>
+        <li>Nortear ações para melhoria da qualidade na atenção básica;</li>
+        <li>Aprimorar a qualidade do registro/coleta de dados e uso dos sistemas de informação;</li>
+        <li>Estabelecer premissas organizacionais para unidades básicas de saúde;</li>
+        <li>Implementar uma cultura de monitoramento e avaliação para equipes de saúde;</li>
+        <li>Identificar e disseminar inovações assistenciais no âmbito da atenção básica.</li>
+      </ul>
+    </section>
+
+    <!-- FASES -->
+    <section class="section" id="fases">
+      <div class="section-head">
+        <div class="section-num">🔄</div>
+        <div>
+          <div class="section-title">Ciclos e Fases</div>
+          <div class="section-sub">Ciclos avaliativos quadrimestrais com 3 fases</div>
+        </div>
+      </div>
+      <div class="phases">
+        <div class="phase-card p1">
+          <div class="phase-label">Fase 1</div>
+          <div class="phase-name">Pacto Pela Qualidade</div>
+          <div class="phase-desc">Pactuação entre equipes de saúde e gestores. Adesão automática de todas as eSF.</div>
+        </div>
+        <div class="phase-card p2">
+          <div class="phase-label">Fase 2</div>
+          <div class="phase-name">Avaliação da Qualidade</div>
+          <div class="phase-desc">Verificação de padrões de qualidade em 3 eixos avaliativos.</div>
+        </div>
+        <div class="phase-card p3">
+          <div class="phase-label">Fase 3</div>
+          <div class="phase-name">Certificação</div>
+          <div class="phase-desc">Reconhecimento do grau de qualidade prestado pelas equipes avaliadas.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 2 -->
+    <section class="section" id="fase2">
+      <div class="section-head">
+        <div class="section-num">2</div>
+        <div>
+          <div class="section-title">Fase 2 – Avaliação da Qualidade</div>
+          <div class="section-sub">Três eixos · até 1000 pontos no total</div>
+        </div>
+      </div>
+      <div class="eixos-grid">
+        <div class="eixo-row">
+          <div>
+            <div class="eixo-name">Eixo 1 – Avaliação da Qualidade por Equipes</div>
+            <div class="eixo-sub">Blocos A, B e C · autoavaliação individual e coletiva</div>
+          </div>
+          <div class="eixo-pts">200<small>pts máx.</small></div>
+        </div>
+        <div class="eixo-row">
+          <div>
+            <div class="eixo-name">Eixo 2 – Avaliação da Satisfação dos Usuários (ASU)</div>
+            <div class="eixo-sub">6 perguntas via QR code e WhatsApp · método NPS</div>
+          </div>
+          <div class="eixo-pts">200<small>pts máx.</small></div>
+        </div>
+        <div class="eixo-row">
+          <div>
+            <div class="eixo-name">Eixo 3 – Avaliação do Desempenho das Equipes</div>
+            <div class="eixo-sub">11 indicadores (7 essenciais + 4 estratégicos)</div>
+          </div>
+          <div class="eixo-pts">600<small>pts máx.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EIXO 1 -->
+    <section class="section" id="eixo1">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--blue-lt);color:var(--blue-mid)">E1</div>
+        <div>
+          <div class="section-title">Eixo 1 – Avaliação da Qualidade por Equipes</div>
+          <div class="section-sub">Até 200 pontos · Blocos A + B + C</div>
+        </div>
+      </div>
+      <div class="blocos">
+        <div class="bloco ba">
+          <div class="bloco-label">Bloco A</div>
+          <div class="bloco-name">Relações de Trabalho</div>
+          <div class="bloco-pts">40 <small>pts</small></div>
+          <p style="font-size:12px;color:var(--blue-mid);margin-top:8px;margin-bottom:0">Individual e anônimo · 32 perguntas · Escala WEMS</p>
+        </div>
+        <div class="bloco bb">
+          <div class="bloco-label">Bloco B</div>
+          <div class="bloco-name">Ações e Processos</div>
+          <div class="bloco-pts">80 <small>pts</small></div>
+          <p style="font-size:12px;color:var(--purple-mid);margin-top:8px;margin-bottom:0">Por equipe em reunião · 7 atributos da AB</p>
+        </div>
+        <div class="bloco bc">
+          <div class="bloco-label">Bloco C</div>
+          <div class="bloco-name">Estrutura da AB</div>
+          <div class="bloco-pts">80 <small>pts</small></div>
+          <p style="font-size:12px;color:var(--green-mid);margin-top:8px;margin-bottom:0">C1: por equipe · C2: por unidade</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO A -->
+    <section class="section" id="bloco-a">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--blue-lt);color:var(--blue-mid)">A</div>
+        <div>
+          <div class="section-title">Bloco A – Relações de Trabalho</div>
+          <div class="section-sub">Até 40 pts · Avaliação individual e anônima</div>
+        </div>
+      </div>
+      <p>Realizado <strong>individualmente e de forma anônima</strong> por todos os membros da eSF e eSB. Para certificação: ao menos 1 profissional de nível superior e 2 de nível médio/técnico.</p>
+      <h3>6 Aspectos Avaliados (Escala WEMS)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Aspecto</th><th>Nº Perguntas</th><th>Exemplos de perguntas</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ambiente de trabalho acolhedor</strong></td><td>7 (A1–A7)</td><td>Clima de trabalho, apoio de colegas, feedback</td></tr>
+            <tr><td><strong>Experiência interna de trabalho</strong></td><td>6 (A8–A13)</td><td>Significado do trabalho, desenvolvimento de habilidades</td></tr>
+            <tr><td><strong>Autonomia do trabalhador/equipe</strong></td><td>4 (A14–A17)</td><td>Decisões sobre tarefas, ritmo e formas de trabalho</td></tr>
+            <tr><td><strong>Experiência de tempo</strong></td><td>3 (A18–A20)</td><td>Tempo suficiente, sem pressão excessiva</td></tr>
+            <tr><td><strong>Liderança</strong></td><td>6 (A21–A26)</td><td>Disponibilidade, justiça e comunicação da chefia</td></tr>
+            <tr><td><strong>Processo de mudança</strong></td><td>6 (A27–A32)</td><td>Diálogo, participação e segurança nas mudanças</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BLOCO B -->
+    <section class="section" id="bloco-b">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--purple-lt);color:var(--purple-mid)">B</div>
+        <div>
+          <div class="section-title">Bloco B – Ações e Processos</div>
+          <div class="section-sub">Até 80 pts · Avaliação por equipe em reunião</div>
+        </div>
+      </div>
+      <p>Realizado <strong>em conjunto</strong> durante reunião de equipe (incluindo eSB e ao menos 1 membro do NASF-AB). Uma única resposta por instrumento, com discussão coletiva de cada pergunta.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Atributo</th><th>Tipo</th><th>Categorias</th><th>Perguntas</th><th>Pontos</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Acesso</strong></td><td>Essencial</td><td>Acessibilidade, Humanização, Agenda</td><td>10</td><td>20</td></tr>
+            <tr><td><strong>Coordenação do Cuidado</strong></td><td>Essencial</td><td>Gestão do cuidado, Ferramentas, Intersetorialidade, Cuidado em rede</td><td>10</td><td>15</td></tr>
+            <tr><td><strong>Longitudinalidade</strong></td><td>Essencial</td><td>Vínculo, Multiprofissional, Agenda, Prontuário, Visitas domiciliares</td><td>10</td><td>15</td></tr>
+            <tr><td><strong>Integralidade</strong></td><td>Essencial</td><td>Promoção/prevenção, Olhar ampliado, Resolutividade, Serviços</td><td>10</td><td>15</td></tr>
+            <tr><td><strong>Orientação Comunitária</strong></td><td>Derivado</td><td>Dados epidemiológicos, participação comunitária</td><td>5</td><td>5</td></tr>
+            <tr><td><strong>Orientação Familiar</strong></td><td>Derivado</td><td>Abordagem familiar, fatores de risco sociais</td><td>5</td><td>5</td></tr>
+            <tr><td><strong>Competência Cultural</strong></td><td>Derivado</td><td>Diversidade cultural, comunicação efetiva</td><td>5</td><td>5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info-box amber">
+        <div class="info-box-title">Escala de Resposta</div>
+        <p>Todas as perguntas do Bloco B usam <strong>escala de concordância de 4 pontos</strong>. A pontuação é fracionada proporcionalmente entre as perguntas de cada atributo.</p>
+      </div>
+    </section>
+
+    <!-- BLOCO C -->
+    <section class="section" id="bloco-c">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--green-lt);color:var(--green-mid)">C</div>
+        <div>
+          <div class="section-title">Bloco C – Estrutura da AB</div>
+          <div class="section-sub">Até 80 pts · C1 por equipe · C2 por unidade</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Aspecto</th><th>Momento</th><th>Pontos</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Delineamento da população eletiva</strong></td><td>C1</td><td>5</td></tr>
+            <tr><td><strong>Mecanismos de acesso ao atendimento</strong></td><td>C2</td><td>15</td></tr>
+            <tr><td><strong>Ferramentas de planejamento</strong> (uso do PEC/e-SUS)</td><td>C2</td><td>5</td></tr>
+            <tr><td><strong>Recursos Humanos</strong> (completude, formação, capacitação)</td><td>C1 e C2</td><td>25</td></tr>
+            <tr><td><strong>Componentes estruturais</strong> (equipamentos, instrumentais, instalações, insumos)</td><td>C2</td><td>30</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info-box blue">
+        <div class="info-box-title">Momento C2 – Reunião Geral da Unidade</div>
+        <p>Deve contar com pelo menos 1 representante de cada equipe. Em caso de ausência, o Gestor(a) da unidade pode representar as equipes faltantes.</p>
+      </div>
+    </section>
+
+    <!-- EIXO 2 -->
+    <section class="section" id="eixo2">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--purple-lt);color:var(--purple-mid)">E2</div>
+        <div>
+          <div class="section-title">Eixo 2 – Avaliação da Satisfação dos Usuários (ASU)</div>
+          <div class="section-sub">Até 200 pts · Método Net Promoter Score</div>
+        </div>
+      </div>
+      <p>Aplicado via <strong>QR code</strong> nas unidades ou <strong>WhatsApp</strong> após consultas. Período de extração: últimos 120 dias.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Atributo</th><th>Pergunta</th><th>Peso</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Acesso</strong></td><td>É fácil ter acesso a minha equipe de saúde quando tenho um problema</td><td>2</td></tr>
+            <tr><td><strong>Integralidade</strong></td><td>Minha equipe conversa comigo sobre o que é necessário para manter minha saúde</td><td>2</td></tr>
+            <tr><td><strong>Longitudinalidade</strong></td><td>Confio na minha equipe para falar sobre a minha vida</td><td>2</td></tr>
+            <tr><td><strong>Atributos Derivados</strong></td><td>Minha equipe conhece os problemas da minha família</td><td>2</td></tr>
+            <tr><td><strong>Satisfação – Receptividade</strong></td><td>Sou bem recebido nesta unidade de saúde</td><td>1</td></tr>
+            <tr><td><strong>Satisfação – Atendimento</strong></td><td>Estou satisfeito com meu atendimento nesta unidade de saúde</td><td>1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Perfis de Usuários (escala 1–10)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Perfil</th><th>Pontuação</th><th>Descrição</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Detratores</strong></td><td>1 a 4</td><td>Insatisfeitos, criticam o serviço</td></tr>
+            <tr><td><strong>Passivos</strong></td><td>5 e 6</td><td>Neutros, satisfeitos momentaneamente</td></tr>
+            <tr><td><strong>Promotores</strong></td><td>7 a 10</td><td>Satisfeitos, incentivam a comunidade</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info-box purple">
+        <div class="info-box-title">Fórmula NPS</div>
+        <p><strong>(Promotores − Detratores) / Respondentes × 100</strong></p>
+      </div>
+      <h3>Zonas de Classificação NPS</h3>
+      <div class="nps-grid">
+        <div class="nps-card excelencia"><div class="nps-label">Excelência</div><div class="nps-range">75 a 100</div></div>
+        <div class="nps-card qualidade"><div class="nps-label">Qualidade</div><div class="nps-range">50 a 74</div></div>
+        <div class="nps-card aperfeicoamento"><div class="nps-label">Aperfeiçoamento</div><div class="nps-range">0 a 49</div></div>
+        <div class="nps-card critica"><div class="nps-label">Crítica</div><div class="nps-range">-100 a -1</div></div>
+      </div>
+    </section>
+
+    <!-- EIXO 3 -->
+    <section class="section" id="eixo3">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--green-lt);color:var(--green-mid)">E3</div>
+        <div>
+          <div class="section-title">Eixo 3 – Avaliação do Desempenho das Equipes</div>
+          <div class="section-sub">Até 600 pts · 11 indicadores de saúde</div>
+        </div>
+      </div>
+      <h3>Grupo Essencial — 70% (até 420 pts)</h3>
+      <div class="ind-list">
+        <div class="ind-item"><div class="ind-num">1</div><div class="ind-text">Gestantes com ≥ 6 consultas pré-natal (1ª até 12ª semana) — Meta: 45% · Peso 1<br><span class="ind-badge badge-essencial">Parâmetro: 100%</span></div></div>
+        <div class="ind-item"><div class="ind-num">2</div><div class="ind-text">Gestantes com exames para sífilis e HIV — Meta: 60% · Peso 1<br><span class="ind-badge badge-essencial">Parâmetro: 100%</span></div></div>
+        <div class="ind-item"><div class="ind-num">3</div><div class="ind-text">Gestantes com atendimento odontológico — Meta: 60% · Peso 2<br><span class="ind-badge badge-essencial">Parâmetro: 100%</span></div></div>
+        <div class="ind-item"><div class="ind-num">4</div><div class="ind-text">Mulheres com coleta de citopatológico na APS — Meta: 40% · Peso 1<br><span class="ind-badge badge-essencial">Parâmetro: 80%</span></div></div>
+        <div class="ind-item"><div class="ind-num">5</div><div class="ind-text">Crianças de 1 ano vacinadas (DTP, HepB, Hib, VIP) — Meta: 95% · Peso 2<br><span class="ind-badge badge-essencial">Parâmetro: 95%</span></div></div>
+        <div class="ind-item"><div class="ind-num">6</div><div class="ind-text">Hipertensos com consulta e PA aferida no semestre — Meta: 50% · Peso 2<br><span class="ind-badge badge-essencial">Parâmetro: 100%</span></div></div>
+        <div class="ind-item"><div class="ind-num">7</div><div class="ind-text">Diabéticos com consulta e hemoglobina glicada solicitada — Meta: 50% · Peso 1<br><span class="ind-badge badge-essencial">Parâmetro: 100%</span></div></div>
+      </div>
+      <h3>Grupo Estratégico — 30% (até 180 pts)</h3>
+      <div class="ind-list">
+        <div class="ind-item"><div class="ind-num estrategico">8</div><div class="ind-text">Cadastro da população adscrita — Meta: ≥ 85% do potencial · Peso 3<br><span class="ind-badge badge-estrategico">Parâmetro: 100%</span></div></div>
+        <div class="ind-item"><div class="ind-num estrategico">9</div><div class="ind-text">Pessoas visitadas pelo ACS / total cadastradas — Meta: 70% · Peso 2<br><span class="ind-badge badge-estrategico">Parâmetro: 70–100%</span></div></div>
+        <div class="ind-item"><div class="ind-num estrategico">10</div><div class="ind-text">Consultas realizadas por médico(a), enfermeiro(a) e dentista — Meta: 80% do parâmetro · Peso 3<br><span class="ind-badge badge-estrategico">192 médico / 154 enfermeiro / 168 dentista por mês</span></div></div>
+        <div class="ind-item"><div class="ind-num estrategico">11</div><div class="ind-text">Casos novos de Tuberculose testados para HIV — Meta: 75% · Peso 2<br><span class="ind-badge badge-estrategico">Parâmetro: 100%</span></div></div>
+      </div>
+      <h3>Cálculo da Pontuação</h3>
+      <ol>
+        <li><strong>Passo 1:</strong> Resultado convertido em nota 0–100 (100 = alcance ou superação da meta)</li>
+        <li><strong>Passo 2:</strong> Média ponderada por grupo (essenciais e estratégicos)</li>
+        <li><strong>Passo 3:</strong> Nota 100 = 420 pts (essenciais) ou 180 pts (estratégicos) → teto 600 pts</li>
+      </ol>
+    </section>
+
+    <!-- CERTIFICAÇÃO -->
+    <section class="section" id="certificacao">
+      <div class="section-head">
+        <div class="section-num">3</div>
+        <div>
+          <div class="section-title">Fase 3 – Certificação</div>
+          <div class="section-sub">Reconhecimento quadrimestral · divulgado na Plataforma Recife Monitora</div>
+        </div>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card excelencia"><div class="cert-nivel">Excelência</div><div class="cert-pts">≥ 900 pts</div></div>
+        <div class="cert-card qualidade"><div class="cert-nivel">Qualidade</div><div class="cert-pts">800–899</div></div>
+        <div class="cert-card aperfeicoamento"><div class="cert-nivel">Aperfeiçoamento</div><div class="cert-pts">600–799</div></div>
+        <div class="cert-card critica"><div class="cert-nivel">Crítica</div><div class="cert-pts">400–599</div></div>
+        <div class="cert-card insuficiente"><div class="cert-nivel">Insuficiente</div><div class="cert-pts">0–399</div></div>
+      </div>
+      <div class="info-box amber" style="margin-top:8px">
+        <div class="info-box-title">Desclassificação</div>
+        <p>Equipes que se recusem a participar das avaliações ou que não enviem informações aos Sistemas de Informação da Atenção Básica serão <strong>desclassificadas</strong>.</p>
+      </div>
+    </section>
+
+    <!-- PERGUNTAS AVALIATIVAS -->
+    <section class="section" id="perguntas">
+      <div class="section-head">
+        <div class="section-num">📝</div>
+        <div>
+          <div class="section-title">Perguntas Avaliativas – Eixo 1</div>
+          <div class="section-sub">Anexo 1 do documento original</div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Bloco A – Relações de Trabalho (32 perguntas)
+          <span class="acc-chevron">›</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>ID</th><th>Aspecto</th><th>Pergunta</th></tr></thead>
+                <tbody>
+                  <tr><td>A1</td><td rowspan="7">Ambiente acolhedor</td><td>Me sinto encorajado(a) e apoiado(a) pelos colegas imediatos no trabalho</td></tr>
+                  <tr><td>A2</td><td>Existe um bom clima no meu ambiente de trabalho</td></tr>
+                  <tr><td>A3</td><td>Acredito que as rotinas de trabalho funcionam bem</td></tr>
+                  <tr><td>A4</td><td>Recebo retornos (feedback) sobre o trabalho que realizo</td></tr>
+                  <tr><td>A5</td><td>Estou contente em relação ao meu trabalho</td></tr>
+                  <tr><td>A6</td><td>Sinto que a gestão investe na minha saúde</td></tr>
+                  <tr><td>A7</td><td>Quando necessário, recebo conselhos e ajuda dos meus colegas imediatos</td></tr>
+                  <tr><td>A8</td><td rowspan="6">Experiência interna</td><td>Sinto que meu trabalho é significativo</td></tr>
+                  <tr><td>A9</td><td>Sinto que minha ocupação atual permite que eu desenvolva minhas habilidades</td></tr>
+                  <tr><td>A10</td><td>Existe variedade na minha rotina de trabalho</td></tr>
+                  <tr><td>A11</td><td>Eu faço o trabalho para o qual fui capacitado</td></tr>
+                  <tr><td>A12</td><td>Fico feliz de ir ao trabalho</td></tr>
+                  <tr><td>A13</td><td>Meu trabalho é um desafio interessante para mim</td></tr>
+                  <tr><td>A14</td><td rowspan="4">Autonomia</td><td>Eu e minha equipe decidimos quando vamos realizar as diferentes tarefas</td></tr>
+                  <tr><td>A15</td><td>Eu e minha equipe decidimos o que vamos fazer no trabalho</td></tr>
+                  <tr><td>A16</td><td>Eu e minha equipe decidimos como vamos realizar as tarefas</td></tr>
+                  <tr><td>A17</td><td>Eu e minha equipe decidimos o ritmo de trabalho</td></tr>
+                  <tr><td>A18</td><td rowspan="3">Experiência de tempo</td><td>Durante meu expediente, tenho tempo suficiente para realizar meu trabalho sem pressões</td></tr>
+                  <tr><td>A19</td><td>Sempre tenho tempo para finalizar cada tarefa de trabalho da maneira adequada</td></tr>
+                  <tr><td>A20</td><td>Não preciso trabalhar além do horário do meu expediente</td></tr>
+                  <tr><td>A21</td><td rowspan="6">Liderança</td><td>Meu(minha) superior(a) imediato(a) está disponível quando preciso contatá-lo(a)</td></tr>
+                  <tr><td>A22</td><td>Meu(minha) superior(a) é capaz de nos manter interessados(as) e comprometidos(as)</td></tr>
+                  <tr><td>A23</td><td>Meu(minha) superior(a) nos ajuda a dividir o trabalho de uma maneira justa</td></tr>
+                  <tr><td>A24</td><td>Meu(minha) superior(a) consulta a unidade/equipe antes de tomar decisões importantes</td></tr>
+                  <tr><td>A25</td><td>Quando necessário, meu(minha) superior(a) é capaz de tomar decisões sozinho(a)</td></tr>
+                  <tr><td>A26</td><td>Meu(minha) superior(a) garante que informações sobre objetivos estão disponíveis para minha equipe</td></tr>
+                  <tr><td>A27</td><td rowspan="6">Processo de mudança</td><td>Processos de mudança no trabalho são feitos com diálogo aberto</td></tr>
+                  <tr><td>A28</td><td>Processos de mudança são resultado das necessidades e desejos da minha equipe</td></tr>
+                  <tr><td>A29</td><td>Processos de mudança no trabalho são importantes para mim</td></tr>
+                  <tr><td>A30</td><td>Minha equipe tem participação ativa nos processos de mudança</td></tr>
+                  <tr><td>A31</td><td>Me sinto seguro(a) da minha posição no trabalho em relação às mudanças</td></tr>
+                  <tr><td>A32</td><td>Sou bem informado(a) sobre os processos de mudança</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Bloco B – Ações e Processos (seleção de perguntas chave)
+          <span class="acc-chevron">›</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p style="margin-bottom:12px;font-size:12.5px;color:var(--ink3)">Seleção das principais perguntas por atributo. Consulte o documento original para a lista completa.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>ID</th><th>Atributo / Categoria</th><th>Pergunta</th></tr></thead>
+                <tbody>
+                  <tr><td>B.A1</td><td>Acesso / Acessibilidade</td><td>Há número de telefone ou canal virtual para usuários contactarem a equipe?</td></tr>
+                  <tr><td>B.A4</td><td>Acesso</td><td>A equipe responde às necessidades dos usuários em tempo adequado?</td></tr>
+                  <tr><td>B.A7</td><td>Acesso / Humanização</td><td>O usuário é ouvido no mesmo dia em que busca atendimento?</td></tr>
+                  <tr><td>B.C1</td><td>Coordenação / Gestão do cuidado</td><td>A equipe realiza busca ativa no território conforme protocolos?</td></tr>
+                  <tr><td>B.C5</td><td>Coordenação / Ferramentas</td><td>Profissionais preenchem adequadamente o prontuário eletrônico (e-SUS)?</td></tr>
+                  <tr><td>B.L6</td><td>Longitudinalidade / Multiprofissional</td><td>A equipe discute casos em reunião de equipe?</td></tr>
+                  <tr><td>B.I8</td><td>Integralidade / Resolutividade</td><td>A equipe acolhe e resolve as demandas espontâneas de risco?</td></tr>
+                  <tr><td>B.I10</td><td>Integralidade / Serviços</td><td>A equipe oferta testes rápidos, coleta de citopatológico, vacinação, curativos?</td></tr>
+                  <tr><td>B.OC1</td><td>Orientação Comunitária</td><td>A equipe utiliza dados epidemiológicos para nortear ações no território?</td></tr>
+                  <tr><td>B.OF1</td><td>Orientação Familiar</td><td>A equipe conhece e utiliza ferramentas de abordagem familiar?</td></tr>
+                  <tr><td>B.CC4</td><td>Competência Cultural</td><td>A equipe desenha estratégias de comunicação para públicos diferentes?</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Bloco C – Estrutura (C1 + C2 · seleção de perguntas)
+          <span class="acc-chevron">›</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>ID</th><th>Momento</th><th>Aspecto</th><th>Pergunta</th></tr></thead>
+                <tbody>
+                  <tr><td>C.1.1</td><td>C1</td><td>População</td><td>Nº de usuários cadastrados na equipe atualmente</td></tr>
+                  <tr><td>C.1.2</td><td>C1</td><td>ACS</td><td>Houve número suficiente de ACS (1 por microárea) no último quadrimestre?</td></tr>
+                  <tr><td>C.1.3</td><td>C1</td><td>Completude de equipe</td><td>A equipe (médico, enfermeiro, técnico, ACS) esteve completa no último quadrimestre?</td></tr>
+                  <tr><td>C.1.9</td><td>C1</td><td>Capacitação</td><td>A equipe recebeu capacitação em protocolos de atenção básica no último quadrimestre?</td></tr>
+                  <tr><td>C.1.10</td><td>C1</td><td>Sistemas</td><td>A equipe recebeu capacitação para uso de sistemas de informação/PEC?</td></tr>
+                  <tr><td>C.2.4</td><td>C2</td><td>Acesso</td><td>A unidade possui telefone fixo ou celular próprio em funcionamento?</td></tr>
+                  <tr><td>C.2.12</td><td>C2</td><td>Planejamento</td><td>As equipes utilizam o PEC/e-SUS AB?</td></tr>
+                  <tr><td>C.2.15</td><td>C2</td><td>Equipamentos</td><td>A unidade dispôs de internet com conexão estável no último quadrimestre?</td></tr>
+                  <tr><td>C.2.27</td><td>C2</td><td>Gestão</td><td>A unidade conta com apoio de um gerente local?</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Documento</strong>Manual de Avaliação de Qualidade · Recife Monitora</span>
+    <span><strong>Versão</strong>ESR · 2024 · Uso Interno</span>
+  </div>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="footer-top-link" title="Voltar ao topo">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 13V3M4 7l4-4 4 4"/></svg>
+  </a>
+</footer>
+
+<script>
+function toggleAcc(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('open');
+}
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.sidebar-nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+  navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+});
+</script>
+</body>
+</html>
