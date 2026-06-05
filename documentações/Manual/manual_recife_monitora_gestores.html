@@ -3,327 +3,616 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Manual de Gestão – Recife Monitora · Gestores(as) Distritais · GTIC</title>
+<title>Manual de Gestão – Recife Monitora · Gestores(as) Distritais</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-
-
-
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
   --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
-  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
   --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
-  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
-  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
   --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
 }
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+
+/* HERO */
 .hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(90,58,162,.22) 0%,transparent 70%)}
 .hero-inner{position:relative;max-width:1100px;margin:0 auto}
-.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero-actions{display:flex;justify-content:flex-end;margin-bottom:12px}
+.hero-crumb{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.02em;color:rgba(255,255,255,.68);text-decoration:none;padding:5px 13px;border:1px solid rgba(255,255,255,.14);border-radius:100px;background:rgba(255,255,255,.035);transition:all .2s}
+.hero-crumb:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.075)}
+.hero-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-mid);background:rgba(200,169,74,.12);border:1px solid rgba(200,169,74,.25);border-radius:100px;padding:3px 12px;margin-bottom:12px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(20px,3vw,32px);color:#fff;line-height:1.15;margin-bottom:6px}
 .hero h1 em{color:var(--amber-mid);font-style:normal}
-.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
-.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.hero-sub{font-size:12.5px;color:rgba(255,255,255,.45);display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+.hero-sub span{display:flex;align-items:center;gap:5px}
+
+/* LAYOUT */
+.page-wrap{flex:1;max-width:1100px;margin:0 auto;padding:36px 60px 60px;width:100%;display:grid;grid-template-columns:220px 1fr;gap:36px;align-items:start}
+
+/* SIDEBAR */
 .sidebar{position:sticky;top:24px}
 .sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
-.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
-.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
-.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
-.content .section{margin-bottom:36px;scroll-margin-top:24px}
-.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
-.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
-.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px}
-.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
-.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
-.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
-.info-table tr:last-child td{border-bottom:none}
-.info-table tr:nth-child(even) td{background:var(--paper)}
-.rules-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.rules-list li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid);line-height:1.5}
-.activity-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:12px}
-.activity-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--ink);cursor:pointer;user-select:none}
-.activity-header:hover{background:#1a2b42}
-.activity-num{font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
-.activity-name{font-size:13px;font-weight:600;color:#fff;flex:1}
-.activity-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.activity-card:not(.open) .activity-body{display:none}
-.activity-card.open .activity-chevron{transform:rotate(180deg)}
-.activity-body{padding:20px}
-.step-list{display:flex;flex-direction:column;gap:8px}
-.step-item{display:flex;gap:12px;align-items:flex-start}
-.step-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-mid);flex-shrink:0;margin-top:6px}
-.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
-.sub-item{font-size:12.5px;color:var(--ink3);padding:4px 12px;border-left:2px solid var(--rule);margin:4px 0 4px 20px}
-.fluxo-img{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-align:center;padding:24px}
-.fluxo-img img{max-width:100%;height:auto;border-radius:8px}
-.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.sidebar-nav{list-style:none;display:flex;flex-direction:column;gap:2px}
+.sidebar-nav a{display:block;font-size:12.5px;color:var(--ink3);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all .15s;border-left:2px solid transparent}
+.sidebar-nav a:hover{color:var(--ink);background:var(--paper2)}
+.sidebar-nav a.active{color:var(--purple-mid);background:var(--purple-lt);border-left-color:var(--purple-mid);font-weight:600}
+.sidebar-nav .sub{padding-left:22px;font-size:12px}
+
+/* CONTEÚDO */
+.content{}
+
+/* SECÇÕES */
+.section{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:32px 36px;margin-bottom:20px}
+.section-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
+.section-num{width:32px;height:32px;border-radius:8px;background:var(--purple-lt);color:var(--purple-mid);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);line-height:1.2}
+.section-sub{font-size:12px;color:var(--ink3);margin-top:3px}
+
+h2{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin:24px 0 12px}
+h3{font-size:13px;font-weight:700;color:var(--ink2);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.05em}
+p{margin-bottom:12px;color:var(--ink2)}
+ul,ol{margin:0 0 12px 20px;color:var(--ink2)}
+li{margin-bottom:4px}
+
+/* FASES */
+.phases{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0}
+.phase-card{border-radius:12px;padding:18px 20px;border:1px solid var(--rule)}
+.phase-card.p1{background:var(--blue-lt);border-color:#c0d7f5}
+.phase-card.p2{background:var(--purple-lt);border-color:#d4c5f0}
+.phase-card.p3{background:var(--green-lt);border-color:#b8e0cd}
+.phase-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.p1 .phase-label{color:var(--blue-mid)}
+.p2 .phase-label{color:var(--purple-mid)}
+.p3 .phase-label{color:var(--green-mid)}
+.phase-name{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink);margin-bottom:6px}
+.phase-desc{font-size:12px;color:var(--ink3)}
+
+/* EIXOS */
+.eixos-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:16px 0}
+.eixo-row{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.eixo-row:first-child{border-left:4px solid var(--blue-mid)}
+.eixo-row:nth-child(2){border-left:4px solid var(--purple-mid)}
+.eixo-row:nth-child(3){border-left:4px solid var(--green-mid)}
+.eixo-name{font-size:13px;font-weight:600;color:var(--ink)}
+.eixo-sub{font-size:11.5px;color:var(--ink3);margin-top:2px}
+.eixo-pts{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);white-space:nowrap}
+.eixo-pts small{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);display:block;text-align:right}
+
+/* BLOCOS */
+.blocos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:16px 0}
+.bloco{border-radius:10px;padding:16px;border:1px solid var(--rule)}
+.bloco.ba{background:var(--blue-lt);border-color:#c0d7f5}
+.bloco.bb{background:var(--purple-lt);border-color:#d4c5f0}
+.bloco.bc{background:var(--green-lt);border-color:#b8e0cd}
+.bloco-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.ba .bloco-label{color:var(--blue-mid)}
+.bb .bloco-label{color:var(--purple-mid)}
+.bc .bloco-label{color:var(--green-mid)}
+.bloco-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.bloco-pts{font-size:20px;font-family:'DM Serif Display',serif;color:var(--ink)}
+.bloco-pts small{font-size:11px;font-family:'DM Sans',sans-serif;color:var(--ink3)}
+
+/* TABELA */
+.table-wrap{overflow-x:auto;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{background:var(--ink);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:11px;letter-spacing:.03em}
+td{padding:9px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--paper)}
+td strong{color:var(--ink)}
+
+/* CERTIFICAÇÃO */
+.cert-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:16px 0}
+.cert-card{border-radius:10px;padding:14px 12px;text-align:center;border:1px solid var(--rule)}
+.cert-card.excelencia{background:#e6f4ee;border-color:#b8e0cd}
+.cert-card.qualidade{background:#e8f0fa;border-color:#c0d7f5}
+.cert-card.aperfeicoamento{background:#fdf3dc;border-color:#f0d88a}
+.cert-card.critica{background:#fdeee6;border-color:#f0c0a0}
+.cert-card.insuficiente{background:#f5f5f5;border-color:#ddd}
+.cert-nivel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.excelencia .cert-nivel{color:var(--green-mid)}
+.qualidade .cert-nivel{color:var(--blue-mid)}
+.aperfeicoamento .cert-nivel{color:var(--amber)}
+.critica .cert-nivel{color:#c05020}
+.insuficiente .cert-nivel{color:var(--ink3)}
+.cert-pts{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink)}
+
+/* INDICADORES */
+.ind-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.ind-item{background:var(--paper);border:1px solid var(--rule);border-radius:9px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start}
+.ind-num{width:28px;height:28px;border-radius:6px;background:var(--ink);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ind-num.estrategico{background:var(--purple-mid)}
+.ind-text{font-size:12.5px;color:var(--ink2)}
+.ind-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:100px;margin-top:4px;display:inline-block}
+.badge-essencial{background:var(--blue-lt);color:var(--blue-mid)}
+.badge-estrategico{background:var(--purple-lt);color:var(--purple-mid)}
+
+/* COMPROMISSOS */
+.compromisso-group{margin-bottom:20px}
+.compromisso-header{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#fff;background:var(--ink2);padding:8px 16px;border-radius:8px 8px 0 0}
+.compromisso-list{border:1px solid var(--rule);border-top:none;border-radius:0 0 8px 8px;overflow:hidden}
+.compromisso-item{padding:10px 16px;border-bottom:1px solid var(--rule);font-size:12.5px;color:var(--ink2);display:flex;gap:10px;align-items:flex-start}
+.compromisso-item:last-child{border-bottom:none}
+.compromisso-item::before{content:'•';color:var(--purple-mid);font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* INFO BOX */
+.info-box{border-radius:10px;padding:16px 20px;margin:16px 0;border:1px solid}
+.info-box.purple{background:var(--purple-lt);border-color:#d4c5f0;color:var(--purple-mid)}
+.info-box.green{background:var(--green-lt);border-color:#b8e0cd;color:var(--green)}
+.info-box.amber{background:var(--amber-lt);border-color:#f0d88a;color:var(--amber)}
+.info-box-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.info-box p{color:inherit;margin-bottom:0;font-size:12.5px}
+
+/* FOOTER */
+.page-footer{margin-top:auto;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px;position:relative}
 .footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
 .footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
 .footer-meta span{display:flex;flex-direction:column;gap:2px}
 .footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
-.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
-.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
-.back-portal svg{width:14px;height:14px}
-@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
+.footer-top-link{position:absolute;right:28px;bottom:18px;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);text-decoration:none;transition:all .2s}
+.footer-top-link:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.08)}
+.footer-top-link svg{width:16px;height:16px}
 
-.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
-.alert-box strong{color:#5a3f00}
-.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
-.alert-box.info strong{color:#1a4070}
-.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
-.alert-box.danger strong{color:#7a2e00}
-.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
-.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
-.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
-.processo-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--blue-lt);color:var(--blue-mid);font-size:11px;font-weight:700;flex-shrink:0}
-
-.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
-.alert-box strong{color:#5a3f00}
-.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
-.alert-box.info strong{color:#1a4070}
-.alert-box.success{background:#e6f4ee;border-color:#2a8a5a;color:#1a5a3a}
-.alert-box.success strong{color:#1a5a3a}
-.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
-.alert-box.danger strong{color:#7a2e00}
-.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
-.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
-.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
-.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
-.meta-item{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink2)}
-.meta-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:4px}
-
-.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:12px 0;font-size:13px;color:#7a5a00;line-height:1.6}
-.alert-box strong{color:#5a3f00}
-.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
-.alert-box.info strong{color:#1a4070}
-.alert-box.success{background:#e6f4ee;border-color:#2a8a5a;color:#1a5a3a}
-.alert-box.success strong{color:#1a5a3a}
-.alert-box.purple{background:#f5f0fa;border-color:#7e3f8f;color:#4a1a6a}
-.alert-box.purple strong{color:#4a1a6a}
-.fase-card{background:#fff;border:1.5px solid var(--rule);border-radius:12px;padding:16px 20px;margin:10px 0;position:relative;padding-left:20px}
-.fase-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:12px 0 0 12px;background:var(--blue-mid)}
-.fase-card.fase2::before{background:#7e3f8f}
-.fase-card.fase3::before{background:#2a8a5a}
-.fase-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:4px}
-.fase-titulo{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px}
-.compromisso-list{list-style:none;padding:0;margin:0}
-.compromisso-list li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink2);line-height:1.5}
-.compromisso-list li:last-child{border-bottom:none}
-.compromisso-list li::before{content:counter(item);counter-increment:item;min-width:22px;height:22px;background:var(--blue-mid);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
-.compromisso-list{counter-reset:item}
-.msg-exemplo{background:#f8f5ff;border:1px solid #c4a8e0;border-radius:10px;padding:14px 18px;margin:10px 0;font-size:12px;color:#4a2a6a;line-height:1.7;font-style:italic}
-.msg-exemplo strong{font-style:normal;color:#7e3f8f}
+@media(max-width:900px){
+  .page-wrap{grid-template-columns:1fr;padding:24px}
+  .hero{padding:24px}
+  .phases,.blocos,.cert-grid{grid-template-columns:1fr}
+  .sidebar{display:none}
+}
 </style>
 </head>
 <body>
 
 <header class="hero">
   <div class="hero-inner">
-    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
-      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html"
-        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px"
-        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
-        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
-        ← Voltar às Documentações
-      </a>
+    <div class="hero-actions">
+      <a href="../../documentacoes.html" class="hero-crumb">← Voltar às Documentações</a>
     </div>
-    <h1>Manual de Gestão<br><em>Recife Monitora — Gestores(as) Distritais</em></h1>
-    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+    <div class="hero-tag">Manual de Gestão · 2024</div>
+    <h1>Recife Monitora<br><em>Gestores(as) Distritais</em></h1>
+    <div class="hero-sub">
+      <span>📍 Pacto, Avaliação e Certificação</span>
+      <span>🏥 Distritos Sanitários · Atenção Básica</span>
+      <span>📅 Ciclos Quadrimestrais</span>
+    </div>
   </div>
 </header>
 
-<div class="layout">
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sidebar-title">Sumário</div>
-    <ul class="toc">
-      <li><a href="#apresentacao">Apresentação</a></li>
-      <li><a href="#fase1">Fase 1 · Pacto pela Qualidade</a></li>
-      <li><a href="#fase2">Fase 2 · Avaliação de Qualidade</a></li>
-      <li><a href="#fase3">Fase 3 · Certificação de Equipes</a></li>
+    <div class="sidebar-title">Neste documento</div>
+    <ul class="sidebar-nav" id="sideNav">
+      <li><a href="#sobre" class="active">Sobre o Programa</a></li>
+      <li><a href="#modelo">O Modelo</a></li>
+      <li><a href="#fases">Ciclos e Fases</a></li>
+      <li><a href="#fase1">Fase 1 – Pacto</a></li>
+      <li><a href="#compromissos" class="sub">Compromissos</a></li>
+      <li><a href="#fase2">Fase 2 – Avaliação</a></li>
+      <li><a href="#eixo1" class="sub">Eixo 1 – Equipes</a></li>
+      <li><a href="#eixo2" class="sub">Eixo 2 – Usuários</a></li>
+      <li><a href="#eixo3" class="sub">Eixo 3 – Desempenho</a></li>
+      <li><a href="#fase3">Fase 3 – Certificação</a></li>
+      <li><a href="#indicadores">Indicadores</a></li>
     </ul>
   </aside>
 
+  <!-- CONTEÚDO -->
   <main class="content">
 
-    <!-- APRESENTAÇÃO -->
-    <div class="section" id="apresentacao">
-      <div class="section-title"><span>01</span> Apresentação</div>
-      <p class="doc-p">Este manual tem como objetivo apoiar os Distritos Sanitários no processo de adesão das equipes de saúde da família e gestão dos resultados do <strong>Recife Monitora</strong>, programa de avaliação e melhoria da qualidade do <strong>Programa Qualifica Atenção Básica</strong>, iniciativa da Secretaria de Saúde do Recife e do programa Recife Cuida para o aprimoramento da estratégia de saúde da família e da atenção básica no município.</p>
-
-      <p class="doc-p">O Recife Monitora possui <strong>3 fases</strong> a cada quadrimestre:</p>
-
-      <div style="display:flex;flex-direction:column;gap:10px;margin:16px 0">
-        <div class="fase-card">
-          <div class="fase-num">Fase 1</div>
-          <div class="fase-titulo">Pacto pela Qualidade</div>
-          <p style="font-size:12px;color:var(--ink2);margin:0">A gestão central e distrital comunica as equipes sobre o início do ciclo avaliativo.</p>
-        </div>
-        <div class="fase-card fase2">
-          <div class="fase-num">Fase 2</div>
-          <div class="fase-titulo">Avaliação da Qualidade</div>
-          <p style="font-size:12px;color:var(--ink2);margin:0">Acompanhamento regular das respostas das equipes aos Blocos A, B e C do Eixo 1.</p>
-        </div>
-        <div class="fase-card fase3">
-          <div class="fase-num">Fase 3</div>
-          <div class="fase-titulo">Certificação</div>
-          <p style="font-size:12px;color:var(--ink2);margin:0">Análise dos indicadores, estratificação das equipes e reconhecimento.</p>
+    <!-- SOBRE -->
+    <section class="section" id="sobre">
+      <div class="section-head">
+        <div class="section-num">🏥</div>
+        <div>
+          <div class="section-title">Programa Recife Monitora</div>
+          <div class="section-sub">Fortalecendo a Qualidade na Atenção Básica</div>
         </div>
       </div>
 
-      <div class="alert-box info"><strong>🔗 Plataforma:</strong> <a href="https://qualificaab1.recife.pe.gov.br/login" target="_blank" style="color:var(--blue-mid)">qualificaab1.recife.pe.gov.br/login</a></div>
-    </div>
+      <p>O <strong>Qualifica Atenção Básica</strong>, iniciado em agosto de 2022, é fruto da parceria entre a Prefeitura do Recife e o Instituto de Estudos para Políticas de Saúde (IEPS), com apoio da Associação Umane. A estratégia se baseia em 3 pilares: <strong>reconhecimento</strong>, <strong>monitoramento</strong> e <strong>experimentação</strong>.</p>
 
-    <!-- FASE 1 - PACTO PELA QUALIDADE -->
-    <div class="section" id="fase1">
-      <div class="section-title"><span>02</span> Fase 1 · Pacto pela Qualidade</div>
-      <p class="doc-p">A primeira fase representa o momento em que a gestão central e distrital comunica as equipes sobre o início do ciclo avaliativo. É importante reiterar os compromissos firmados pela Secretaria Executiva de Atenção Básica e pelos Distritos Sanitários com as equipes de saúde da família.</p>
+      <h3>Premissas do Qualifica AB</h3>
+      <ul>
+        <li>Monitoramento e avaliação criam incentivos para que equipes de saúde inovem nas práticas em atenção básica;</li>
+        <li>Boas práticas inspiram intervenções assistenciais;</li>
+        <li>Inovações assistenciais são o pontapé para melhorar a qualidade dos processos de trabalho das equipes de saúde.</li>
+      </ul>
 
-      <div class="activity-card open">
-        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">COMPROMISSOS</span>
-          <span class="activity-name">Secretaria Executiva de Atenção Básica e Distritos Sanitários</span>
-          <span class="activity-chevron">▾</span>
-        </div>
-        <div class="activity-body">
-          <ol class="compromisso-list">
-            <li>Comunicar às equipes e unidades a estrutura do modelo de avaliação e de momentos avaliativos específicos: individuais, em equipe e/ou pela unidade</li>
-            <li>Ofertar apoio institucional e matricial às equipes de saúde</li>
-            <li>Realizar ações de educação permanente para equipes de saúde</li>
-            <li>Apoiar mecanismos de gestão colegiada nas unidades básicas de saúde</li>
-            <li>Monitorar sistemas de informação em saúde da atenção básica de forma regular e sistemática</li>
-            <li>Acompanhar e disseminar dados da atenção básica</li>
-            <li>Apoiar a realização do Recife Monitora: Fortalecimento da Qualidade na AB em todos os eixos</li>
-            <li>Usar dados e informações geradas pelo Recife Monitora para aprimorar a qualidade da AB</li>
-            <li>Instituir processos avaliativos para equipes de saúde da família, saúde bucal e Núcleos Ampliados de Saúde da Família no âmbito da atenção básica</li>
-            <li>Realizar gestão informada pelas evidências dos ciclos quadrimestrais, pautando investimentos, processos de reterritorialização e gestão de recursos humanos, além de considerar a vulnerabilidade da população atendida</li>
-          </ol>
+      <div class="info-box purple">
+        <div class="info-box-title">O que é o Recife Monitora?</div>
+        <p>Parte estruturante do Qualifica AB, o Recife Monitora é um programa de avaliação e melhoria da qualidade na atenção básica, que integra dados de diversas fontes para facilitar a gestão informada por evidências ao nível de cada equipe de saúde da família do município.</p>
+      </div>
+
+      <div class="info-box green" style="margin-top:10px">
+        <div class="info-box-title">Plataforma Online</div>
+        <p>Disponível em: <strong>https://qualificaab1.recife.pe.gov.br/login</strong><br>Em caso de dúvidas, consulte o documento de Perguntas Frequentes (FAQ).</p>
+      </div>
+    </section>
+
+    <!-- MODELO -->
+    <section class="section" id="modelo">
+      <div class="section-head">
+        <div class="section-num">🎯</div>
+        <div>
+          <div class="section-title">O Modelo</div>
+          <div class="section-sub">Objetivos e estrutura do programa</div>
         </div>
       </div>
 
-      <div class="activity-card open" style="margin-top:10px">
-        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">BOAS PRÁTICAS</span>
-          <span class="activity-name">Como comunicar o início do ciclo avaliativo</span>
-          <span class="activity-chevron">▾</span>
+      <p>O Programa tem como objetivo principal <strong>reafirmar a atenção básica como porta de entrada preferencial</strong> na rede de saúde do Recife, além de conduzir as equipes de saúde a estratégias contínuas e efetivas de melhoria da qualidade.</p>
+
+      <h3>Objetivos Específicos</h3>
+      <ul>
+        <li>Garantir o cumprimento dos princípios do SUS e da atenção básica;</li>
+        <li>Nortear ações para melhoria da qualidade na atenção básica;</li>
+        <li>Aprimorar a qualidade do registro/coleta de dados e uso dos sistemas de informação;</li>
+        <li>Estabelecer premissas organizacionais para unidades básicas de saúde;</li>
+        <li>Implementar uma cultura de monitoramento e avaliação para equipes de saúde;</li>
+        <li>Identificar e disseminar inovações assistenciais no âmbito da atenção básica.</li>
+      </ul>
+    </section>
+
+    <!-- CICLOS E FASES -->
+    <section class="section" id="fases">
+      <div class="section-head">
+        <div class="section-num">🔄</div>
+        <div>
+          <div class="section-title">Ciclos e Fases</div>
+          <div class="section-sub">Organização quadrimestral do programa</div>
         </div>
-        <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Mensagem padrão de disparo</strong> — ter um corpo de e-mail/WhatsApp pronto antes de cada quadrimestre para as Coordenações de USF e equipes. Exemplo:</div></div>
+      </div>
+
+      <p>O Recife Monitora está organizado em <strong>ciclos avaliativos quadrimestrais</strong>. Cada ciclo possui três fases:</p>
+
+      <div class="phases">
+        <div class="phase-card p1">
+          <div class="phase-label">Fase 1</div>
+          <div class="phase-name">Pacto Pela Qualidade</div>
+          <div class="phase-desc">Pactuação pelo fortalecimento da qualidade na AB entre equipes de saúde e gestores</div>
+        </div>
+        <div class="phase-card p2">
+          <div class="phase-label">Fase 2</div>
+          <div class="phase-name">Avaliação da Qualidade</div>
+          <div class="phase-desc">Verificação de padrões de qualidade a partir dos compromissos pactuados na fase 1</div>
+        </div>
+        <div class="phase-card p3">
+          <div class="phase-label">Fase 3</div>
+          <div class="phase-name">Certificação</div>
+          <div class="phase-desc">Reconhecimento do grau de qualidade prestado pelas equipes de saúde avaliadas</div>
+        </div>
+      </div>
+
+      <div class="info-box amber">
+        <div class="info-box-title">Atualização dos Ciclos</div>
+        <p>Cada ciclo avaliativo será definido pela SESAU/SEAB. Os itens e instrumentos avaliativos poderão ser atualizados a cada novo ciclo, objetivando o constante aprimoramento do programa.</p>
+      </div>
+    </section>
+
+    <!-- FASE 1 -->
+    <section class="section" id="fase1">
+      <div class="section-head">
+        <div class="section-num">1</div>
+        <div>
+          <div class="section-title">Fase 1 – Pacto Pela Qualidade</div>
+          <div class="section-sub">Pactuação entre equipes e gestores</div>
+        </div>
+      </div>
+
+      <p>A fase 1 consiste em momento de pactuação pelo fortalecimento da qualidade na AB entre equipes de saúde da família e gestores da Secretaria de Saúde.</p>
+      <p>O objetivo é comunicar, discutir, sanar dúvidas e pactuar o Recife Monitora e seus ciclos avaliativos. A SEAB/SESAU garantirá a apresentação do escopo do programa nas reuniões de cada microrregião dos oito Distritos Sanitários de Recife.</p>
+
+      <div class="info-box green">
+        <div class="info-box-title">Adesão Automática</div>
+        <p>Nesta fase ocorre a <strong>adesão automática de todas as equipes de saúde da família (eSF)</strong> ao programa. Equipes de saúde bucal (eSB) e NASF-AB estão contempladas pela avaliação das eSF.</p>
+      </div>
+    </section>
+
+    <!-- COMPROMISSOS -->
+    <section class="section" id="compromissos">
+      <div class="section-head">
+        <div class="section-num">📋</div>
+        <div>
+          <div class="section-title">Compromissos</div>
+          <div class="section-sub">Responsabilidades de cada ator</div>
+        </div>
+      </div>
+
+      <div class="compromisso-group">
+        <div class="compromisso-header">a) Equipes de Saúde da Família</div>
+        <div class="compromisso-list">
+          <div class="compromisso-item">Implementar processos para ampliar e qualificar o acesso à saúde no âmbito da atenção básica</div>
+          <div class="compromisso-item">Promover acesso de primeiro contato equitativo, universal e de qualidade</div>
+          <div class="compromisso-item">Promover cuidado coordenado aos diversos níveis de atenção</div>
+          <div class="compromisso-item">Responsabilizar-se pela integralidade da atenção e da promoção da saúde</div>
+          <div class="compromisso-item">Fortalecer a vinculação dos usuários ao serviço de atenção primária</div>
+          <div class="compromisso-item">Orientar-se pela atenção às diferentes formas de sociabilidade e determinantes de saúde</div>
+          <div class="compromisso-item">Alimentar sistemas de informação em saúde da atenção básica de forma regular e consistente</div>
+          <div class="compromisso-item">Instituir espaços de discussão dos processos de trabalho em equipe</div>
+          <div class="compromisso-item">Organizar os processos de trabalho de acordo com os princípios da PNAB</div>
+        </div>
+      </div>
+
+      <div class="compromisso-group">
+        <div class="compromisso-header">b) Secretaria Executiva de Atenção Básica e Distritos Sanitários</div>
+        <div class="compromisso-list">
+          <div class="compromisso-item">Comunicar às equipes a estrutura do modelo de avaliação</div>
+          <div class="compromisso-item">Ofertar apoio institucional e matricial às equipes de saúde</div>
+          <div class="compromisso-item">Realizar ações de educação permanente para equipes de saúde</div>
+          <div class="compromisso-item">Apoiar mecanismos de gestão colegiada nas unidades básicas de saúde</div>
+          <div class="compromisso-item">Monitorar sistemas de informação em saúde da atenção básica de forma regular e sistemática</div>
+          <div class="compromisso-item">Acompanhar e disseminar dados da atenção básica</div>
+          <div class="compromisso-item">Usar dados e informações geradas pelo Recife Monitora para aprimorar a qualidade da AB</div>
+          <div class="compromisso-item">Realizar gestão informada pelas evidências dos ciclos quadrimestrais</div>
+        </div>
+      </div>
+
+      <div class="compromisso-group">
+        <div class="compromisso-header">c) Secretaria de Saúde e Prefeitura do Recife</div>
+        <div class="compromisso-list">
+          <div class="compromisso-item">Garantir a composição mínima das equipes de saúde no âmbito da atenção básica</div>
+          <div class="compromisso-item">Garantir a oferta mínima de ações de saúde para a população coberta</div>
+          <div class="compromisso-item">Aplicar recursos para incentivo à qualificação da atenção básica</div>
+          <div class="compromisso-item">Realizar ações para melhoria das condições de trabalho das equipes de saúde</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 2 -->
+    <section class="section" id="fase2">
+      <div class="section-head">
+        <div class="section-num">2</div>
+        <div>
+          <div class="section-title">Fase 2 – Avaliação da Qualidade</div>
+          <div class="section-sub">Três eixos avaliativos com até 1000 pontos no total</div>
+        </div>
+      </div>
+
+      <div class="eixos-grid">
+        <div class="eixo-row">
+          <div>
+            <div class="eixo-name">Eixo 1 – Avaliação da Qualidade por Equipes</div>
+            <div class="eixo-sub">Blocos A (relações de trabalho), B (ações e processos) e C (estrutura da AB)</div>
           </div>
-          <div class="msg-exemplo">
-            <strong>Olá, Coordenador(a) de USF e equipe de saúde da família!</strong><br><br>
-            Qualificar a atenção básica requer dados para potencializar as nossas intervenções! Por isso, pedimos que a equipe contribuísse respondendo sobre as relações de trabalho, as ações e processos desenvolvidos e a estrutura das Unidades Básicas de Saúde do Recife.<br><br>
-            Colabore respondendo aos Blocos A, B e C na plataforma online do Recife Monitora: <strong>https://qualificaab1.recife.pe.gov.br/login</strong>. Reserve um tempo para responder com calma aos blocos avaliativos! Que tal na próxima reunião de equipe?
+          <div class="eixo-pts">200<small>pts máx.</small></div>
+        </div>
+        <div class="eixo-row">
+          <div>
+            <div class="eixo-name">Eixo 2 – Avaliação da Satisfação dos Usuários</div>
+            <div class="eixo-sub">6 perguntas via QR code e WhatsApp · método NPS</div>
           </div>
-          <div class="step-list" style="margin-top:10px">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Divulgar <strong>card elaborado pelo nível central</strong> avisando do início do ciclo — para uso em todos os quadrimestres</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Usar <strong>vídeos</strong> para instigar a participação das equipes via WhatsApp</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Controle social:</strong> comunicar aos conselheiros distritais o início de cada ciclo e articulá-los como agentes disseminadores em equipes que não estejam participando</div></div>
+          <div class="eixo-pts">200<small>pts máx.</small></div>
+        </div>
+        <div class="eixo-row">
+          <div>
+            <div class="eixo-name">Eixo 3 – Avaliação do Desempenho das Equipes</div>
+            <div class="eixo-sub">11 indicadores de saúde (7 essenciais + 4 estratégicos)</div>
           </div>
+          <div class="eixo-pts">600<small>pts máx.</small></div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- FASE 2 - AVALIAÇÃO DE QUALIDADE -->
-    <div class="section" id="fase2">
-      <div class="section-title"><span>03</span> Fase 2 · Avaliação de Qualidade</div>
-      <p class="doc-p">Uma vez estabelecido o Pacto pela Qualidade, Coordenadores(as) de USF e Distritos Sanitários precisam <strong>acompanhar regularmente</strong> as respostas das equipes para garantir que todas participem da avaliação de qualidade.</p>
-
-      <div class="activity-card open">
-        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">BLOCO A</span>
-          <span class="activity-name">Verificar respostas e acompanhar quórum</span>
-          <span class="activity-chevron">▾</span>
-        </div>
-        <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no botão <strong>"Bloco A - Classificação"</strong> para verificar quantas equipes já responderam (mínimo de 30% dos profissionais por equipe)</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Exportar"</strong> para visualizar as informações em tabela Excel</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">A partir da tabela ou da lista da plataforma, identifique equipes que ainda não responderam e saiba o número de profissionais que faltam para avançar ao Bloco B</div></div>
-          </div>
+    <!-- EIXO 1 -->
+    <section class="section" id="eixo1">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--blue-lt);color:var(--blue-mid)">E1</div>
+        <div>
+          <div class="section-title">Eixo 1 – Avaliação da Qualidade por Equipes</div>
+          <div class="section-sub">Até 200 pontos divididos entre os Blocos A, B e C</div>
         </div>
       </div>
 
-      <div class="activity-card open" style="margin-top:10px">
-        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">BLOCO B</span>
-          <span class="activity-name">Verificar respostas da avaliação coletiva</span>
-          <span class="activity-chevron">▾</span>
+      <div class="blocos">
+        <div class="bloco ba">
+          <div class="bloco-label">Bloco A</div>
+          <div class="bloco-name">Relações de Trabalho</div>
+          <div class="bloco-pts">40 <small>pontos</small></div>
+          <p style="font-size:12px;color:var(--ink3);margin-top:8px;margin-bottom:0">Avaliação individual e anônima · 32 perguntas · Escala WEMS</p>
         </div>
-        <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no botão <strong>"Bloco B - Classificação"</strong> para verificar quantas equipes já responderam</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Exportar"</strong> para visualizar as informações em tabela Excel</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Identifique equipes que ainda não responderam e incentive-as a participar</div></div>
-          </div>
+        <div class="bloco bb">
+          <div class="bloco-label">Bloco B</div>
+          <div class="bloco-name">Ações e Processos</div>
+          <div class="bloco-pts">80 <small>pontos</small></div>
+          <p style="font-size:12px;color:var(--ink3);margin-top:8px;margin-bottom:0">Avaliação por equipe em reunião · 7 atributos da AB (Starfield, 2002)</p>
         </div>
-      </div>
-
-      <div class="activity-card open" style="margin-top:10px">
-        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">BLOCO C</span>
-          <span class="activity-name">Verificar respostas estruturais da unidade</span>
-          <span class="activity-chevron">▾</span>
-        </div>
-        <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique no botão <strong>"Bloco C - Classificação"</strong> para verificar quantas equipes responderam</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Atenção:</strong> para a equipe ser registrada como tendo respondido ao Bloco C, <em>todas as equipes da Unidade</em> precisam ter respondido conjuntamente ao momento C2</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Clique em <strong>"Exportar"</strong> para visualizar as informações em tabela Excel</div></div>
-          </div>
+        <div class="bloco bc">
+          <div class="bloco-label">Bloco C</div>
+          <div class="bloco-name">Estrutura da AB</div>
+          <div class="bloco-pts">80 <small>pontos</small></div>
+          <p style="font-size:12px;color:var(--ink3);margin-top:8px;margin-bottom:0">C1: por equipe · C2: por unidade de saúde</p>
         </div>
       </div>
 
-      <div class="alert-box danger" style="margin-top:14px"><strong>⚠️ Último mês do quadrimestre:</strong> A verificação de respostas se torna <strong>mais crítica</strong> neste período. Caso equipes não tenham respondido, contate diretamente os(as) coordenadores(as) das USF, traçando estratégias conjuntas e apoio matricial para que entendam a importância dos momentos avaliativos.</div>
-    </div>
+      <h3>Bloco A – Relações de Trabalho</h3>
+      <p>Realizado <strong>individualmente e de forma anônima</strong> por todos os membros da eSF e eSB. Avalia 6 aspectos: ambiente de trabalho acolhedor, experiência interna de trabalho, autonomia, experiência de tempo, liderança e processo de mudança.</p>
+      <p><em>Requisito para certificação:</em> ao menos 1 profissional de nível superior e 2 de nível médio/técnico.</p>
 
-    <!-- FASE 3 - CERTIFICAÇÃO -->
-    <div class="section" id="fase3">
-      <div class="section-title"><span>04</span> Fase 3 · Certificação de Equipes</div>
-      <p class="doc-p">A certificação é a última etapa do programa, na qual os Distritos Sanitários se voltam para a <strong>análise dos indicadores</strong> da plataforma, realizando gestão informada pelas evidências dos ciclos quadrimestrais.</p>
+      <h3>Bloco B – Ações e Processos</h3>
+      <p>Realizado <strong>em conjunto</strong> durante reunião de equipe (incluindo eSB e ao menos 1 membro do NASF-AB). Avalia os atributos essenciais e derivados da Atenção Primária.</p>
 
-      <div class="activity-card open">
-        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">ESTRATIFICAÇÃO</span>
-          <span class="activity-name">Visualizar e estratificar resultados das equipes</span>
-          <span class="activity-chevron">▾</span>
-        </div>
-        <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse o painel de <strong>Classificação Geral</strong> (Certificação da Qualidade → Classificação da Certificação das Equipes) para verificar em qual zona cada equipe do Distrito se situa</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Observe a <strong>pontuação geral</strong> das equipes somando os Eixos 1, 2 e 3</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Acesse o <strong>Eixo 1 - Bloco C</strong> para analisar as questões estruturais da equipe e da USF — disponibilidade de insumos, recursos humanos e capacitação</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Estratifique equipes por pontuação identificando <strong>principais desafios e fortalezas</strong> em cada Eixo avaliativo</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Priorize <strong>investimentos e intervenções</strong> nas Unidades e equipes que reportam maior necessidade, corrigindo iniquidades na rede</div></div>
-          </div>
-          <div class="alert-box info" style="margin-top:10px"><strong>📊 Como acessar:</strong> Relatórios → Eixo 1 → Bloco A/B/C (Pontuação ou Classificação) → Exportar para Excel.</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Atributo</th><th>Tipo</th><th>Perguntas</th><th>Pontos</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Acesso</strong></td><td>Essencial</td><td>10</td><td>20</td></tr>
+            <tr><td><strong>Coordenação do Cuidado</strong></td><td>Essencial</td><td>10</td><td>15</td></tr>
+            <tr><td><strong>Longitudinalidade</strong></td><td>Essencial</td><td>10</td><td>15</td></tr>
+            <tr><td><strong>Integralidade</strong></td><td>Essencial</td><td>10</td><td>15</td></tr>
+            <tr><td><strong>Orientação Comunitária</strong></td><td>Derivado</td><td>5</td><td>5</td></tr>
+            <tr><td><strong>Orientação Familiar</strong></td><td>Derivado</td><td>5</td><td>5</td></tr>
+            <tr><td><strong>Competência Cultural</strong></td><td>Derivado</td><td>5</td><td>5</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Bloco C – Estrutura da AB</h3>
+      <p><strong>C1</strong> (por equipe): delineamento da população e recursos humanos. <strong>C2</strong> (por unidade): mecanismos de acesso, ferramentas de planejamento, componentes estruturais (equipamentos, instrumentais, instalações, insumos).</p>
+    </section>
+
+    <!-- EIXO 2 -->
+    <section class="section" id="eixo2">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--purple-lt);color:var(--purple-mid)">E2</div>
+        <div>
+          <div class="section-title">Eixo 2 – Avaliação da Satisfação dos Usuários</div>
+          <div class="section-sub">Até 200 pontos · Método Net Promoter Score (NPS)</div>
         </div>
       </div>
 
-      <div class="activity-card open" style="margin-top:10px">
-        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">RECONHECIMENTO</span>
-          <span class="activity-name">Motivar e reconhecer equipes certificadas</span>
-          <span class="activity-chevron">▾</span>
-        </div>
-        <div class="activity-body">
-          <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Oriente equipes <strong>acima da Zona de Aperfeiçoamento</strong> a imprimirem suas certificações de qualidade e colocá-las em evidência na USF</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Crie <strong>processos de reconhecimento customizados</strong>: equipes que se destacam no Eixo 2 (Satisfação dos Usuários) podem ter momentos de culminância e exposição de processos de trabalho para o Distrito Sanitário</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Mantenha <strong>contato permanente com as coordenações de USF</strong> para tirar dúvidas, colher impressões e sugestões para os próximos ciclos</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Sistematize as informações para a <strong>Secretaria Executiva de Atenção Básica</strong> e Secretaria de Coordenação Geral</div></div>
-          </div>
+      <p>Os usuários avaliam os serviços via <strong>QR code</strong> nas unidades de saúde ou por <strong>mensagens de WhatsApp</strong> enviadas após consultas e procedimentos. São 6 perguntas avaliadas em escala de 10 pontos.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Atributo</th><th>Pergunta</th><th>Peso</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Acesso</strong></td><td>É fácil ter acesso a minha equipe de saúde quando tenho um problema</td><td>2</td></tr>
+            <tr><td><strong>Integralidade</strong></td><td>Minha equipe conversa comigo sobre o que é necessário para manter minha saúde</td><td>2</td></tr>
+            <tr><td><strong>Longitudinalidade</strong></td><td>Confio na minha equipe para falar sobre a minha vida</td><td>2</td></tr>
+            <tr><td><strong>Atributos derivados</strong></td><td>Minha equipe conhece os problemas da minha família</td><td>2</td></tr>
+            <tr><td><strong>Satisfação – Receptividade</strong></td><td>Sou bem recebido nesta unidade de saúde</td><td>1</td></tr>
+            <tr><td><strong>Satisfação – Atendimento</strong></td><td>Estou satisfeito com meu atendimento nesta unidade de saúde</td><td>1</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Perfis de Usuários (NPS)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Perfil</th><th>Pontuação na escala</th><th>Descrição</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Detratores</strong></td><td>1 a 4</td><td>Usuários insatisfeitos, que criticam abertamente o serviço</td></tr>
+            <tr><td><strong>Passivos</strong></td><td>5 e 6</td><td>Usuários neutros, satisfeitos momentaneamente</td></tr>
+            <tr><td><strong>Promotores</strong></td><td>7 a 10</td><td>Usuários que gostam do serviço e incentivam a comunidade</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box purple">
+        <div class="info-box-title">Fórmula NPS</div>
+        <p><strong>(Nº de promotores − Nº de detratores) / Nº de respondentes × 100</strong><br>
+        A avaliação ocorre quadrimestralmente, considerando avaliações registradas nos últimos 120 dias.</p>
+      </div>
+    </section>
+
+    <!-- EIXO 3 -->
+    <section class="section" id="eixo3">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--green-lt);color:var(--green-mid)">E3</div>
+        <div>
+          <div class="section-title">Eixo 3 – Avaliação do Desempenho das Equipes</div>
+          <div class="section-sub">Até 600 pontos · 11 indicadores de saúde</div>
         </div>
       </div>
 
-      <div class="alert-box purple" style="margin-top:14px">
-        <strong>🎯 Objetivo principal do Programa:</strong> Reafirmar a atenção básica como porta de entrada preferencial na rede de saúde do Recife, conduzindo as equipes de saúde a estratégias contínuas e efetivas de melhoria da qualidade do serviço prestado.
+      <p>Avaliação por 11 indicadores definidos pela SEAB/SESAU a partir das diretrizes da PNAB.</p>
+
+      <h3>Grupo Essencial (70% = até 420 pts)</h3>
+      <div class="ind-list">
+        <div class="ind-item"><div class="ind-num">1</div><div class="ind-text">Proporção de gestantes com pelo menos 6 consultas pré-natal, sendo a 1ª até a 12ª semana de gestação<br><span class="ind-badge badge-essencial">Meta: 45%</span></div></div>
+        <div class="ind-item"><div class="ind-num">2</div><div class="ind-text">Proporção de gestantes com realização de exames para sífilis e HIV<br><span class="ind-badge badge-essencial">Meta: 60%</span></div></div>
+        <div class="ind-item"><div class="ind-num">3</div><div class="ind-text">Proporção de gestantes com atendimento odontológico realizado<br><span class="ind-badge badge-essencial">Meta: 60% · Peso 2</span></div></div>
+        <div class="ind-item"><div class="ind-num">4</div><div class="ind-text">Proporção de mulheres com coleta de citopatológico na APS<br><span class="ind-badge badge-essencial">Meta: 40%</span></div></div>
+        <div class="ind-item"><div class="ind-num">5</div><div class="ind-text">Proporção de crianças de 1 ano vacinadas na APS contra DTP, Hepatite B, Hib e Poliomielite inativada<br><span class="ind-badge badge-essencial">Meta: 95% · Peso 2</span></div></div>
+        <div class="ind-item"><div class="ind-num">6</div><div class="ind-text">Proporção de pessoas com hipertensão, com consulta e pressão arterial aferida no semestre<br><span class="ind-badge badge-essencial">Meta: 50% · Peso 2</span></div></div>
+        <div class="ind-item"><div class="ind-num">7</div><div class="ind-text">Proporção de pessoas com diabetes, com consulta e hemoglobina glicada solicitada no semestre<br><span class="ind-badge badge-essencial">Meta: 50%</span></div></div>
       </div>
-    </div>
+
+      <h3>Grupo Estratégico (30% = até 180 pts)</h3>
+      <div class="ind-list">
+        <div class="ind-item"><div class="ind-num estrategico">8</div><div class="ind-text">Proporção de cadastro da população adscrita<br><span class="ind-badge badge-estrategico">Meta: ≥ 85% do potencial · Peso 3</span></div></div>
+        <div class="ind-item"><div class="ind-num estrategico">9</div><div class="ind-text">Proporção de pessoas visitadas pelo ACS do total de pessoas cadastradas<br><span class="ind-badge badge-estrategico">Meta: 70% · Peso 2</span></div></div>
+        <div class="ind-item"><div class="ind-num estrategico">10</div><div class="ind-text">Proporção de consultas realizadas pelos profissionais médico(a), enfermeiro(a) e cirurgião(ã) dentista<br><span class="ind-badge badge-estrategico">Meta: 80% do parâmetro · Peso 3</span></div></div>
+        <div class="ind-item"><div class="ind-num estrategico">11</div><div class="ind-text">Proporção de casos novos de Tuberculose testados para HIV<br><span class="ind-badge badge-estrategico">Meta: 75% · Peso 2</span></div></div>
+      </div>
+
+      <h3>Cálculo da Pontuação</h3>
+      <ol style="margin-left:20px">
+        <li><strong>Passo 1:</strong> Resultados convertidos proporcionalmente em notas de 0 a 100 (100 = alcance ou superação da meta)</li>
+        <li><strong>Passo 2:</strong> Cálculo de média ponderada para cada grupo de indicadores (essenciais e estratégicos)</li>
+        <li><strong>Passo 3:</strong> Nota agrupada 100 = 420 pts (essenciais) ou 180 pts (estratégicos) → teto de 600 pts</li>
+      </ol>
+    </section>
+
+    <!-- CERTIFICAÇÃO -->
+    <section class="section" id="fase3">
+      <div class="section-head">
+        <div class="section-num">3</div>
+        <div>
+          <div class="section-title">Fase 3 – Certificação</div>
+          <div class="section-sub">Reconhecimento quadrimestral da qualidade das equipes</div>
+        </div>
+      </div>
+
+      <p>A certificação identifica o grau de desenvolvimento alcançado, aponta não conformidades e permite que equipes desenvolvam planos de melhoria contínua.</p>
+
+      <div class="cert-grid">
+        <div class="cert-card excelencia">
+          <div class="cert-nivel">Excelência</div>
+          <div class="cert-pts">≥ 900 pts</div>
+        </div>
+        <div class="cert-card qualidade">
+          <div class="cert-nivel">Qualidade</div>
+          <div class="cert-pts">800–899</div>
+        </div>
+        <div class="cert-card aperfeicoamento">
+          <div class="cert-nivel">Aperfeiçoamento</div>
+          <div class="cert-pts">600–799</div>
+        </div>
+        <div class="cert-card critica">
+          <div class="cert-nivel">Crítica</div>
+          <div class="cert-pts">400–599</div>
+        </div>
+        <div class="cert-card insuficiente">
+          <div class="cert-nivel">Insuficiente</div>
+          <div class="cert-pts">0–399</div>
+        </div>
+      </div>
+
+      <div class="info-box amber" style="margin-top:8px">
+        <div class="info-box-title">Desclassificação</div>
+        <p>Equipes que se recusem a participar das avaliações ou que não enviem informações para os Sistemas de Informação da Atenção Básica serão <strong>desclassificadas</strong>.</p>
+      </div>
+
+      <h3>Periodicidade e Reavaliação</h3>
+      <p>O Recife Monitora será realizado em <strong>ciclos quadrimestrais</strong>. A certificação para cada quadrimestre será apresentada em conjunto à apresentação de relatórios analíticos e descritivos do ciclo avaliativo.</p>
+    </section>
+
+    <!-- INDICADORES DETALHADOS -->
+    <section class="section" id="indicadores">
+      <div class="section-head">
+        <div class="section-num">📊</div>
+        <div>
+          <div class="section-title">Métodos de Cálculo – Indicadores Eixo 3</div>
+          <div class="section-sub">Fórmulas e fontes de dados</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Indicador</th><th>Parâmetro</th><th>Meta</th><th>Peso</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Gestantes com ≥ 6 consultas pré-natal (1ª até 12ª semana)</td><td>100%</td><td>45%</td><td>1</td></tr>
+            <tr><td>2</td><td>Gestantes com exames para sífilis e HIV</td><td>100%</td><td>60%</td><td>1</td></tr>
+            <tr><td>3</td><td>Gestantes com atendimento odontológico</td><td>100%</td><td>60%</td><td>2</td></tr>
+            <tr><td>4</td><td>Mulheres com coleta de citopatológico na APS</td><td>80%</td><td>40%</td><td>1</td></tr>
+            <tr><td>5</td><td>Crianças de 1 ano vacinadas (DTP, HepB, Hib, VIP)</td><td>95%</td><td>95%</td><td>2</td></tr>
+            <tr><td>6</td><td>Hipertensos com consulta e PA aferida no semestre</td><td>100%</td><td>50%</td><td>2</td></tr>
+            <tr><td>7</td><td>Diabéticos com consulta e hemoglobina glicada solicitada</td><td>100%</td><td>50%</td><td>1</td></tr>
+            <tr><td>8</td><td>Cadastro da população adscrita</td><td>100%</td><td>≥ 85%</td><td>3</td></tr>
+            <tr><td>9</td><td>Pessoas visitadas pelo ACS</td><td>70–100%</td><td>70%</td><td>2</td></tr>
+            <tr><td>10</td><td>Consultas realizadas por médico(a), enfermeiro(a) e dentista</td><td>192/154/168 por mês</td><td>80%</td><td>3</td></tr>
+            <tr><td>11</td><td>Casos novos de Tuberculose testados para HIV</td><td>100%</td><td>75%</td><td>2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
   </main>
 </div>
@@ -332,25 +621,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <div class="footer-brand">GTIC · Saúde Digital</div>
   <div class="footer-meta">
     <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
-    <span><strong>Elaboração</strong>IEPS · Secretaria Executiva de Atenção Básica</span>
-    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+    <span><strong>Documento</strong>Manual de Gestão · Recife Monitora</span>
+    <span><strong>Versão</strong>1.0 · 2024 · Uso Interno</span>
   </div>
-  <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
-    Voltar às Documentações
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="footer-top-link" title="Voltar ao topo">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 13V3M4 7l4-4 4 4"/></svg>
   </a>
 </footer>
 
 <script>
-document.querySelectorAll('.activity-header').forEach(h => {
-  h.addEventListener('click', () => h.closest('.activity-card').classList.toggle('open'));
-});
-const links = document.querySelectorAll('.toc a');
-const sections = document.querySelectorAll('.section');
+// Highlight sidebar nav on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.sidebar-nav a');
 window.addEventListener('scroll', () => {
-  let cur = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
-  links.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
 });
 </script>
 </body>
