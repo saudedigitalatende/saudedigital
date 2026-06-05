@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>POP – Recife Monitora · POP.001</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;--paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;--blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;--green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;--purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;--amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero-actions{display:flex;justify-content:flex-end;margin-bottom:12px}
+.hero-crumb{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.02em;color:rgba(255,255,255,.68);text-decoration:none;padding:5px 13px;border:1px solid rgba(255,255,255,.14);border-radius:100px;background:rgba(255,255,255,.035);transition:all .2s}
+.hero-crumb:hover{color:#fff;border-color:rgba(255,255,255,.38)}
+.hero-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-mid);background:rgba(200,169,74,.12);border:1px solid rgba(200,169,74,.25);border-radius:100px;padding:3px 12px;margin-bottom:12px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(20px,3vw,32px);color:#fff;line-height:1.15;margin-bottom:6px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero-sub{font-size:12.5px;color:rgba(255,255,255,.45);display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+.hero-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:14px}
+.hero-meta-item{font-size:11px;color:rgba(255,255,255,.5)}
+.hero-meta-item strong{color:rgba(255,255,255,.8);display:block;font-size:12px}
+.page-wrap{flex:1;max-width:1100px;margin:0 auto;padding:36px 60px 60px;width:100%;display:grid;grid-template-columns:220px 1fr;gap:36px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.sidebar-nav{list-style:none;display:flex;flex-direction:column;gap:2px}
+.sidebar-nav a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 12px;border-radius:8px;transition:all .15s;border-left:2px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-nav a:hover{color:var(--ink);background:var(--paper2)}
+.sidebar-nav a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.sidebar-sep{height:1px;background:var(--rule);margin:8px 0}
+.section{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin-bottom:20px}
+.section-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
+.section-icon{width:36px;height:36px;border-radius:8px;background:var(--blue-lt);color:var(--blue-mid);font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink)}
+.section-sub{font-size:11.5px;color:var(--ink3);margin-top:2px}
+.dss-card{border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.dss-header{padding:14px 20px;background:var(--blue-mid);color:#fff;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.dss-num{background:rgba(255,255,255,.2);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.dss-title{font-weight:600;font-size:13px;flex:1}
+.dss-chevron{font-size:18px;transition:transform .25s}
+.dss-header.open .dss-chevron{transform:rotate(90deg)}
+.dss-body{display:none}
+.dss-body.open{display:block}
+.dss-meta{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-bottom:1px solid var(--rule)}
+.dss-meta-cell{padding:12px 16px;border-right:1px solid var(--rule);font-size:11.5px}
+.dss-meta-cell:last-child{border-right:none}
+.dss-meta-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);margin-bottom:4px}
+.dss-meta-val{color:var(--ink2)}
+.dss-section{padding:16px 20px;border-bottom:1px solid var(--rule)}
+.dss-section:last-child{border-bottom:none}
+.dss-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue-mid);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.dss-section-title::before{content:'';display:inline-block;width:3px;height:12px;background:var(--blue-mid);border-radius:2px}
+p{margin-bottom:10px;color:var(--ink2)}
+ul,ol{margin:0 0 10px 20px;color:var(--ink2)}
+li{margin-bottom:4px}
+strong{color:var(--ink)}
+.step-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--blue-mid);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-text{font-size:13px;color:var(--ink2);flex:1}
+.info-box{border-radius:9px;padding:12px 16px;margin:10px 0;border:1px solid;display:flex;gap:10px}
+.info-box.amber{background:var(--amber-lt);border-color:#f0d88a}
+.info-box.blue{background:var(--blue-lt);border-color:#c0d7f5}
+.info-box.green{background:var(--green-lt);border-color:#b8e0cd}
+.info-box-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+.info-box p{color:var(--ink2);margin:0;font-size:12.5px}
+.prereq-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.prereq-block{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:12px 14px}
+.prereq-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);margin-bottom:6px}
+.prereq-block ul{margin-left:14px;font-size:12.5px}
+.table-wrap{overflow-x:auto;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{background:var(--ink);color:#fff;padding:9px 12px;text-align:left;font-size:11px;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--paper)}
+a{color:var(--blue-mid)}
+.fim-tarefa{background:var(--green-lt);border:1px solid #b8e0cd;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:12.5px;color:var(--green);display:flex;gap:8px}
+.fim-tarefa::before{content:'✅';flex-shrink:0}
+.screen-img{max-width:100%;border-radius:8px;border:1px solid var(--rule);margin:8px 0;display:block}
+h3.sub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin:16px 0 10px}
+.page-footer{margin-top:auto;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;align-items:center;flex-wrap:wrap;gap:40px;position:relative}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.footer-top-link{position:absolute;right:28px;bottom:18px;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);text-decoration:none}
+.footer-top-link svg{width:16px;height:16px}
+@media(max-width:900px){.page-wrap{grid-template-columns:1fr;padding:24px}.hero{padding:24px}.sidebar{display:none}.dss-meta{grid-template-columns:1fr 1fr}.prereq-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-actions"><a href="../../documentacoes.html" class="hero-crumb">← Voltar às Documentações</a></div>
+    <div class="hero-tag">POP · Procedimento Operacional Padrão · POP.001</div>
+    <h1>Recife Monitora<br><em>Suporte e Gestão de Acessos</em></h1>
+    <div class="hero-sub"><span>📋 9 Solicitações de Serviço</span><span>🔧 Saúde Digital Atende · Nível 2 e 3</span></div>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Elaboração</strong>GTIC</div>
+      <div class="hero-meta-item"><strong>Versão</strong>1.0 · 11/10/2024</div>
+      <div class="hero-meta-item"><strong>Próxima atualização</strong>24/09/2024</div>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="sidebar-nav" id="sideNav">
+      <li><a href="#info">Informações Gerais</a></li>
+      <div class="sidebar-sep"></div>
+      <li><a href="#dss001">1. Cadastro Conecta Recife</a></li>
+      <li><a href="#dss002">2. Cadastro Gov.br</a></li>
+      <li><a href="#dss003">3. Incluir Permissões</a></li>
+      <li><a href="#dss004">4. Atualizar Permissões</a></li>
+      <li><a href="#dss005">5. Inativar Permissões</a></li>
+      <li><a href="#dss006">6. Dúvida/Orientação</a></li>
+      <li><a href="#dss007">7. Correção de Bugs</a></li>
+      <li><a href="#dss008">8. Indisponibilidade</a></li>
+      <li><a href="#dss009">9. Lentidão</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <section class="section" id="info">
+      <div class="section-head">
+        <div class="section-icon">ℹ️</div>
+        <div><div class="section-title">Informações Gerais</div><div class="section-sub">Links e histórico de revisões</div></div>
+      </div>
+      <h3 class="sub">Links do Sistema</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Sistema</th><th>Link</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Recife Monitora (Gestor)</strong></td><td><a href="https://qualificaab.recife.pe.gov.br/adm/" target="_blank">qualificaab.recife.pe.gov.br/adm/</a></td></tr>
+          <tr><td><strong>Recife Monitora (Usuário)</strong></td><td><a href="https://qualificaab1.recife.pe.gov.br/login" target="_blank">qualificaab1.recife.pe.gov.br/login</a></td></tr>
+        </tbody>
+      </table></div>
+      <h3 class="sub" style="margin-top:16px">Histórico de Revisões</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Versão</th><th>Data</th><th>Autor</th></tr></thead>
+        <tbody><tr><td>1.0</td><td>11/10/2024</td><td>GTIC</td></tr></tbody>
+      </table></div>
+    </section>
+
+    <!-- DSS 1 -->
+    <div class="dss-card" id="dss001">
+      <div class="dss-header" onclick="toggleDSS(this)">
+        <span class="dss-num">1</span><span class="dss-title">Cadastro de Novo Usuário pelo Sistema Conecta Recife</span><span class="dss-chevron">›</span>
+      </div>
+      <div class="dss-body">
+        <div class="dss-meta">
+          <div class="dss-meta-cell"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-val">Ter acesso ao Recife Monitora via Conecta Recife</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-val">Próprio usuário</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-val">Próprio usuário</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Origem</div><div class="dss-meta-val">Usuário</div></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Pré-Requisitos</div>
+          <ul><li>Acesso à internet</li><li>Dados pessoais disponíveis</li></ul>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Como Fazer</div>
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div class="step-text">Acesse o link de cadastro do Conecta Recife e siga as instruções até finalizar.<br><a href="https://login.recife.pe.gov.br/auth/realms/recife/protocol/openid-connect/auth?response_type=code&redirect_uri=https%3A%2F%2Fconecta.recife.pe.gov.br%2Facesso%2Flogin_check&client_id=psp&scope=openid" target="_blank" style="font-size:12px">login.recife.pe.gov.br (Conecta Recife)</a></div></li>
+          </ol>
+          <div class="fim-tarefa">O usuário terá cadastro no Conecta Recife e poderá acessar o Recife Monitora.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DSS 2 -->
+    <div class="dss-card" id="dss002">
+      <div class="dss-header" onclick="toggleDSS(this)">
+        <span class="dss-num">2</span><span class="dss-title">Cadastro de Novo Usuário pelo Sistema Gov.br</span><span class="dss-chevron">›</span>
+      </div>
+      <div class="dss-body">
+        <div class="dss-meta">
+          <div class="dss-meta-cell"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-val">Gov.br atua como autenticador para o Recife Monitora</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-val">Próprio usuário</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-val">Próprio usuário</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Origem</div><div class="dss-meta-val">Usuário</div></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Como Fazer</div>
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div class="step-text">Acesse o link de cadastro do Gov.br e siga as instruções até finalizar.<br><a href="https://sso.acesso.gov.br/login?client_id=www.gov.br&authorization_id=192a086aede" target="_blank" style="font-size:12px">sso.acesso.gov.br (Gov.br)</a></div></li>
+          </ol>
+          <div class="fim-tarefa">O usuário terá cadastro no Gov.br e poderá acessar o Recife Monitora.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DSS 3 -->
+    <div class="dss-card" id="dss003">
+      <div class="dss-header" onclick="toggleDSS(this)">
+        <span class="dss-num">3</span><span class="dss-title">Alteração de Perfil – Inclusão de Permissões</span><span class="dss-chevron">›</span>
+      </div>
+      <div class="dss-body">
+        <div class="dss-meta">
+          <div class="dss-meta-cell"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-val">Liberar unidades e equipes ao perfil do gestor no primeiro acesso</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-val">Gestor registrado no CNES</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-val">Saúde Digital Atende (Nível 2)</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Origem</div><div class="dss-meta-val">Chat</div></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Pré-Requisitos</div>
+          <div class="prereq-grid">
+            <div class="prereq-block"><div class="prereq-title">Usuário Gestor</div><ul><li>Cadastro no Conecta Recife ou Gov.br</li><li>Perfil como Gestor Distrital ou de Unidade</li><li>Registro no CNES com cargo de gestor</li></ul></div>
+            <div class="prereq-block"><div class="prereq-title">Suporte Técnico</div><ul><li>Acesso ao GLPI</li><li>Acesso ao Recife Monitora com perfil Super Administrador</li></ul></div>
+          </div>
+          <div class="info-box amber"><div class="info-box-icon">⚠️</div><p><strong>Sem cargo de gestor no CNES:</strong> o gestor superior deve abrir processo no SEI e encaminhar ao canal do Saúde Digital Atende.</p></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Como Fazer — Adicionando Unidades ao Perfil Gestor</div>
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div class="step-text"><strong>Faça login</strong> no Recife Monitora (Gov.br ou Conecta Recife).<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image11.png" alt="Tela de login" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image14.png" alt="Tela inicial" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">2</span><div class="step-text">No menu lateral esquerdo, acesse <strong>Principal → Usuários</strong>.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image15.png" alt="Menu Principal" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">3</span><div class="step-text">A tela "Usuários" será exibida. Digite o <strong>CPF</strong> do usuário e clique em <strong>Aplicar</strong>.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image27.png" alt="Tela Usuários" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image21.png" alt="Pesquisa por CPF" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">4</span><div class="step-text">No campo <strong>Ações</strong>, clique na seta ▼ e depois em <strong>Editar</strong>.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image36.png" alt="Campo Ações" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image13.png" alt="Botão Editar" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">5</span><div class="step-text">Na tela "Editando", no campo <strong>Perfil de Acesso</strong>, selecione <strong>"Gestor Distrital"</strong> (vale tanto para Gestor de Unidade quanto Gestor Distrital).<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image23.png" alt="Tela Editando" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image28.png" alt="Campo Perfil de Acesso" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image22.png" alt="Seleção Gestor Distrital" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">6</span><div class="step-text">O perfil "usuário comum" aparece como <strong>"Sem acesso"</strong> no sistema.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image32.png" alt="Tipos de perfil" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">7</span><div class="step-text">Clique em <strong>Gestão de Unidades</strong>. Selecione o <strong>Distrito</strong> e a <strong>Unidade</strong>. Clique em <strong>Adicionar</strong> para cada unidade. Repita para todas as unidades do distrito.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image40.png" alt="Gestão de Unidades" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image9.png" alt="Selecionar Distrito" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image5.png" alt="Selecionar Unidade" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image39.png" alt="Botão Adicionar" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image8.png" alt="Múltiplas unidades" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">8</span><div class="step-text">Aparecerão todas as unidades selecionadas. Clique em <strong>Salvar</strong>.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image41.png" alt="Unidades listadas" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image35.png" alt="Botão Salvar" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">9</span><div class="step-text">Notificação de sucesso no canto superior direito.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image2.png" alt="Notificação de sucesso" class="screen-img"></div></li>
+          </ol>
+          <div class="fim-tarefa">As unidades serão adicionadas ao perfil do usuário selecionado.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DSS 4 -->
+    <div class="dss-card" id="dss004">
+      <div class="dss-header" onclick="toggleDSS(this)">
+        <span class="dss-num">4</span><span class="dss-title">Alteração de Perfil – Atualização de Permissões</span><span class="dss-chevron">›</span>
+      </div>
+      <div class="dss-body">
+        <div class="dss-meta">
+          <div class="dss-meta-cell"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-val">Gestor realocado para outra unidade ou função</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-val">Gestor registrado no CNES</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-val">Saúde Digital Atende (Nível 2)</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Origem</div><div class="dss-meta-val">Chat</div></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Como Fazer</div>
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div class="step-text"><strong>Faça login</strong> no Recife Monitora.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image11.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image14.png" alt="" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">2</span><div class="step-text">Acesse <strong>Principal → Participante</strong>. Pesquise pelo CPF.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image15.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image27.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image21.png" alt="" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">3</span><div class="step-text">No campo <strong>Ações</strong> → <strong>Editar</strong>.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image36.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image13.png" alt="" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">4</span><div class="step-text">Tela de edição exibida com todas as unidades vinculadas. Para remover, clique no <strong>X</strong> ao lado de cada unidade. Se houver muitas, selecione o novo distrito e unidades e clique em <strong>Adicionar</strong>.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image6.png" alt="Tela de edição" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image1.png" alt="Remover unidade" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image4.png" alt="Muitas unidades" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image17.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image31.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image24.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image19.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image26.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image34.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image3.png" alt="" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">5</span><div class="step-text">Confirme as unidades e clique em <strong>Salvar</strong>.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image41.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image33.png" alt="Salvar" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">6</span><div class="step-text">Notificação de sucesso.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image2.png" alt="" class="screen-img"></div></li>
+          </ol>
+          <div class="fim-tarefa">O perfil do usuário será atualizado com as novas unidades.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DSS 5 -->
+    <div class="dss-card" id="dss005">
+      <div class="dss-header" onclick="toggleDSS(this)">
+        <span class="dss-num">5</span><span class="dss-title">Alteração de Perfil – Inativando Permissões</span><span class="dss-chevron">›</span>
+      </div>
+      <div class="dss-body">
+        <div class="dss-meta">
+          <div class="dss-meta-cell"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-val">Gestor não trabalha mais no distrito/unidade</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-val">Gestor registrado no CNES</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-val">Saúde Digital Atende (Nível 2)</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Origem</div><div class="dss-meta-val">Chat</div></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Como Fazer</div>
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div class="step-text"><strong>Faça login</strong> no Recife Monitora.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image11.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image14.png" alt="" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">2</span><div class="step-text">Acesse <strong>Principal → Participante</strong>. Pesquise pelo CPF.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image15.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image27.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image21.png" alt="" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">3</span><div class="step-text">No campo <strong>Ações</strong> → <strong>Editar</strong>.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image36.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image13.png" alt="" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">4</span><div class="step-text">Altere o perfil para <strong>"usuário"</strong> (sem acesso de gestor).<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image6.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image30.png" alt="Alterar para usuário" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">5</span><div class="step-text">Remova todas as unidades clicando no <strong>X</strong> ao lado de cada uma.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image1.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image4.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image17.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image31.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image24.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image19.png" alt="" class="screen-img"><img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image25.png" alt="" class="screen-img"></div></li>
+            <li class="step-item"><span class="step-num">6</span><div class="step-text">Clique em <strong>Salvar</strong>. Notificação de sucesso aparecerá.<img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/img_recife_monitora/image2.png" alt="" class="screen-img"></div></li>
+          </ol>
+          <div class="info-box green"><div class="info-box-icon">🔄</div><p>Para <strong>reativar</strong> o perfil, siga o item <strong>4 – Atualização de Permissões</strong>.</p></div>
+          <div class="fim-tarefa">O usuário não terá mais acesso ao Recife Monitora como gestor.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DSS 6 -->
+    <div class="dss-card" id="dss006">
+      <div class="dss-header" onclick="toggleDSS(this)">
+        <span class="dss-num">6</span><span class="dss-title">Dúvida / Orientação</span><span class="dss-chevron">›</span>
+      </div>
+      <div class="dss-body">
+        <div class="dss-meta">
+          <div class="dss-meta-cell"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-val">Fornecer suporte contínuo ao usuário</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-val">Qualquer usuário</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-val">Saúde Digital Atende (Nível 2)</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Origem</div><div class="dss-meta-val">Chat (WhatsApp)</div></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Como Fazer</div>
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div class="step-text">Acessar o chat e garantir conexão ativa.</div></li>
+            <li class="step-item"><span class="step-num">2</span><div class="step-text"><strong>Identificar o usuário:</strong> coletar Unidade de Saúde, Nome, Cargo, Telefone, CPF, E-mail, Sistema.</div></li>
+            <li class="step-item"><span class="step-num">3</span><div class="step-text"><strong>Abrir chamado no GLPI:</strong> <a href="https://ggtibix.recife.pe.gov.br/" target="_blank">ggtibix.recife.pe.gov.br</a>. Inserir dados, descrever a solicitação, salvar e informar o protocolo ao usuário.</div></li>
+            <li class="step-item"><span class="step-num">4</span><div class="step-text"><strong>Entender o problema:</strong> em qual etapa ocorre? Há mensagem de erro? O problema ocorre em todos os dispositivos?</div></li>
+            <li class="step-item"><span class="step-num">5</span><div class="step-text"><strong>Verificação inicial:</strong> falha de login, problemas de rede, configurações incorretas, dúvida funcional.</div></li>
+            <li class="step-item"><span class="step-num">6</span><div class="step-text">Fornecer instruções em linguagem acessível. Solicitar feedback a cada passo.</div></li>
+            <li class="step-item"><span class="step-num">7</span><div class="step-text">Testar a solução com o usuário.</div></li>
+            <li class="step-item"><span class="step-num">8</span><div class="step-text"><strong>Escalar se necessário:</strong> <em>"Vou encaminhar para a equipe técnica nível 3. Retornaremos em até 24 horas."</em></div></li>
+            <li class="step-item"><span class="step-num">9</span><div class="step-text">Encerrar atendimento: confirmar resolução, perguntar se há mais dúvidas.</div></li>
+            <li class="step-item"><span class="step-num">10</span><div class="step-text">Encerrar chamado no GLPI com registro completo do atendimento.</div></li>
+          </ol>
+          <div class="fim-tarefa">O usuário terá suas dúvidas esclarecidas e saberá como proceder.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DSS 7 -->
+    <div class="dss-card" id="dss007">
+      <div class="dss-header" onclick="toggleDSS(this)">
+        <span class="dss-num">7</span><span class="dss-title">Correção de Erros (BUGs)</span><span class="dss-chevron">›</span>
+      </div>
+      <div class="dss-body">
+        <div class="dss-meta">
+          <div class="dss-meta-cell"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-val">Garantir que incidentes sejam reportados e corrigidos rapidamente</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-val">Qualquer usuário</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-val">Saúde Digital Atende (Nível 3)</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Origem</div><div class="dss-meta-val">Chat</div></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Pré-Requisitos</div>
+          <div class="prereq-grid">
+            <div class="prereq-block"><div class="prereq-title">Máquina do Usuário</div><ul><li>AnyDesk instalado</li><li>Acesso à internet</li></ul></div>
+            <div class="prereq-block"><div class="prereq-title">Suporte Técnico</div><ul><li>Acesso ao GLPI</li><li>AnyDesk instalado</li></ul></div>
+          </div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Como Fazer</div>
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div class="step-text">Acessar o chat e garantir conexão ativa.</div></li>
+            <li class="step-item"><span class="step-num">2</span><div class="step-text">Identificar o usuário: Unidade, Nome, Cargo, Telefone, CPF, E-mail, Sistema.</div></li>
+            <li class="step-item"><span class="step-num">3</span><div class="step-text">Abrir chamado no GLPI. Informar protocolo ao usuário.</div></li>
+            <li class="step-item"><span class="step-num">4</span><div class="step-text">Entender o problema: qual erro? Em qual etapa? Há captura de tela? É recorrente?</div></li>
+            <li class="step-item"><span class="step-num">5</span><div class="step-text">Verificação inicial: falha de login, rede, configurações, regra de negócio.</div></li>
+            <li class="step-item"><span class="step-num">6</span><div class="step-text">Fornecer instruções claras. Solicitar feedback a cada passo.</div></li>
+            <li class="step-item"><span class="step-num">7</span><div class="step-text">Se não resolvido: <em>"Vou encaminhar para os analistas nível 3. Retornaremos em até 24 horas."</em></div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- DSS 8 -->
+    <div class="dss-card" id="dss008">
+      <div class="dss-header" onclick="toggleDSS(this)">
+        <span class="dss-num">8</span><span class="dss-title">Indisponibilidade do Sistema</span><span class="dss-chevron">›</span>
+      </div>
+      <div class="dss-body">
+        <div class="dss-meta">
+          <div class="dss-meta-cell"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-val">Reportar e corrigir incidentes rapidamente</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-val">Qualquer usuário</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-val">Saúde Digital Atende (Nível 3)</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Origem</div><div class="dss-meta-val">Chat</div></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Como Fazer</div>
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div class="step-text">Se a indisponibilidade for geral: a coordenadora fornece script ao monitor da equipe, que repassa ao suporte técnico.</div></li>
+            <li class="step-item"><span class="step-num">2</span><div class="step-text">O suporte envia mensagem informando que o sistema está fora do ar, com as devidas recomendações.</div></li>
+            <li class="step-item"><span class="step-num">3</span><div class="step-text">Encerrar o chamado no GLPI após as ações.</div></li>
+          </ol>
+          <div class="fim-tarefa">O usuário será informado sobre a situação do sistema.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DSS 9 -->
+    <div class="dss-card" id="dss009">
+      <div class="dss-header" onclick="toggleDSS(this)">
+        <span class="dss-num">9</span><span class="dss-title">Lentidão do Sistema</span><span class="dss-chevron">›</span>
+      </div>
+      <div class="dss-body">
+        <div class="dss-meta">
+          <div class="dss-meta-cell"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-val">Registrar e encaminhar incidente para resolução eficiente</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-val">Qualquer usuário</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-val">Saúde Digital Atende (Nível 3)</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Origem</div><div class="dss-meta-val">Chat</div></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Como Fazer</div>
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div class="step-text">Se a lentidão for geral: a coordenadora fornece script ao monitor, que repassa ao suporte.</div></li>
+            <li class="step-item"><span class="step-num">2</span><div class="step-text">O suporte notifica os usuários sobre a situação com recomendações.</div></li>
+            <li class="step-item"><span class="step-num">3</span><div class="step-text">Encerrar o chamado no GLPI após as ações.</div></li>
+          </ol>
+          <div class="fim-tarefa">O usuário será informado sobre a situação do sistema.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Documento</strong>POP.001 – Recife Monitora</span>
+    <span><strong>Versão</strong>1.0 · Outubro/2024</span>
+    <span><strong>Uso</strong>Interno · GTIC</span>
+  </div>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="footer-top-link" title="Voltar ao topo">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 13V3M4 7l4-4 4 4"/></svg>
+  </a>
+</footer>
+
+<script>
+function toggleDSS(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open')}
+const secs=[...document.querySelectorAll('section[id],div.dss-card[id]')];
+const navs=document.querySelectorAll('.sidebar-nav a');
+window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id});navs.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})});
+</script>
+</body>
+</html>
