@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Manual – HopChat · Permissão de Notificações no Navegador</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:900px;margin:0 auto}
+.hero-actions{display:flex;justify-content:flex-end;margin-bottom:12px}
+.hero-crumb{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.02em;color:rgba(255,255,255,.68);text-decoration:none;padding:5px 13px;border:1px solid rgba(255,255,255,.14);border-radius:100px;background:rgba(255,255,255,.035);transition:all .2s}
+.hero-crumb:hover{color:#fff;border-color:rgba(255,255,255,.38)}
+.hero-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-mid);background:rgba(200,169,74,.12);border:1px solid rgba(200,169,74,.25);border-radius:100px;padding:3px 12px;margin-bottom:12px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(20px,3vw,32px);color:#fff;line-height:1.15;margin-bottom:6px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero-sub{font-size:12.5px;color:rgba(255,255,255,.45);display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+.hero-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:14px}
+.hero-meta-item{font-size:11px;color:rgba(255,255,255,.5)}
+.hero-meta-item strong{color:rgba(255,255,255,.8);display:block;font-size:12px}
+
+.main{flex:1;max-width:900px;margin:0 auto;padding:36px 60px 60px;width:100%}
+
+.info-box{border-radius:10px;padding:14px 18px;margin:16px 0;border:1px solid;display:flex;gap:12px;align-items:flex-start}
+.info-box.amber{background:var(--amber-lt);border-color:#f0d88a}
+.info-box.green{background:var(--green-lt);border-color:#b8e0cd}
+.info-box.blue{background:var(--blue-lt);border-color:#c0d7f5}
+.info-box.orange{background:var(--orange-lt);border-color:#f0c0a0}
+.info-box-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.info-box p{font-size:13px;margin:0;color:var(--ink2)}
+.info-box p strong{color:var(--ink)}
+
+.step-section{margin-bottom:40px}
+.step-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:4px}
+.step-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:10px}
+.step-desc{font-size:13.5px;color:var(--ink2);margin-bottom:16px;line-height:1.7}
+.step-desc strong{color:var(--ink)}
+
+.screen{background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin:16px 0}
+.screen-label{background:var(--ink);color:rgba(255,255,255,.6);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px}
+.screen img{width:100%;display:block}
+
+.callout{border-left:3px solid var(--blue-mid);background:var(--blue-lt);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px;color:var(--ink2)}
+.callout strong{color:var(--ink)}
+
+.divider{height:1px;background:var(--rule);margin:36px 0}
+
+p{color:var(--ink2);margin-bottom:10px}
+ul{margin:0 0 10px 20px;color:var(--ink2)}
+li{margin-bottom:4px}
+strong{color:var(--ink)}
+
+.page-footer{margin-top:auto;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;align-items:center;flex-wrap:wrap;gap:40px;position:relative}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.footer-top-link{position:absolute;right:28px;bottom:18px;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);text-decoration:none}
+.footer-top-link svg{width:16px;height:16px}
+
+@media(max-width:768px){.main,.hero{padding:24px}.hero-meta{gap:12px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-actions">
+      <a href="../../documentacoes.html" class="hero-crumb">← Voltar às Documentações</a>
+    </div>
+    <div class="hero-tag">Manual Operacional · HopChat</div>
+    <h1>HopChat – <em>Permissão de Notificações</em><br>no Navegador</h1>
+    <div class="hero-sub">
+      <span>🔔 Conversas entram automaticamente na fila</span>
+      <span>🌐 Google Chrome · chat-conecta.recife.pe.gov.br</span>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Elaboração</strong>GTIC</div>
+      <div class="hero-meta-item"><strong>Sistema</strong>HopChat · Omnichannel</div>
+      <div class="hero-meta-item"><strong>Versão</strong>1.0 · 2024</div>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="info-box orange">
+    <div class="info-box-icon">⚠️</div>
+    <p><strong>Por que fazer isso?</strong> Sem a permissão de notificações ativada, o HopChat não consegue alertar o atendente quando uma nova conversa entra na fila. Isso faz com que os bate-papos acumulem sem que o agente perceba.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PASSO 1 -->
+  <div class="step-section" id="passo1">
+    <div class="step-label">Passo 1</div>
+    <div class="step-title">Acesse o HopChat</div>
+    <div class="step-desc">
+      Abra o Google Chrome e acesse o endereço:<br>
+      <strong>chat-conecta.recife.pe.gov.br/home</strong><br><br>
+      Na tela inicial você verá a lista de <strong>Bate-papos na Fila</strong> no painel esquerdo.
+    </div>
+    <div class="screen">
+      <div class="screen-label">Tela inicial do HopChat</div>
+      <img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Manual/img_hopchat/step1.png" alt="Tela inicial HopChat">
+    </div>
+  </div>
+
+  <!-- PASSO 2 -->
+  <div class="step-section" id="passo2">
+    <div class="step-label">Passo 2</div>
+    <div class="step-title">Abra as configurações do site</div>
+    <div class="step-desc">
+      Clique no <strong>ícone de cadeado</strong> (🔒) na barra de endereço, à esquerda do URL. Um menu será exibido com as permissões atuais do site.
+    </div>
+    <div class="screen">
+      <div class="screen-label">Menu de permissões do site</div>
+      <img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Manual/img_hopchat/step3.png" alt="Menu de permissões">
+    </div>
+    <div class="callout">
+      Observe que <strong>Notifications</strong> está como <em>"Automatically blocked"</em> — é exatamente isso que precisamos alterar. Clique em <strong>Site settings</strong>.
+    </div>
+  </div>
+
+  <!-- PASSO 3 -->
+  <div class="step-section" id="passo3">
+    <div class="step-label">Passo 3</div>
+    <div class="step-title">Localize a permissão de Notificações</div>
+    <div class="step-desc">
+      A página de configurações do site será aberta. Role até encontrar o item <strong>Notifications</strong>. O status atual estará como <strong>Block</strong>.
+    </div>
+    <div class="screen">
+      <div class="screen-label">Configurações de permissão do site · Notifications = Block</div>
+      <img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Manual/img_hopchat/step4.png" alt="Permissões – Notifications bloqueado">
+    </div>
+  </div>
+
+  <!-- PASSO 4 -->
+  <div class="step-section" id="passo4">
+    <div class="step-label">Passo 4</div>
+    <div class="step-title">Altere para "Allow"</div>
+    <div class="step-desc">
+      Clique no menu suspenso ao lado de <strong>Notifications</strong> e selecione <strong>Allow</strong>. A alteração é salva automaticamente — não é necessário reiniciar o navegador.
+    </div>
+    <div class="screen">
+      <div class="screen-label">Notifications alterado para Allow</div>
+      <img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Manual/img_hopchat/step8.png" alt="Notifications Allow">
+    </div>
+    <div class="info-box green">
+      <div class="info-box-icon">✅</div>
+      <p>Após selecionar <strong>Allow</strong>, o HopChat poderá enviar notificações sonoras e visuais sempre que um novo bate-papo entrar na fila.</p>
+    </div>
+  </div>
+
+  <!-- PASSO 5 -->
+  <div class="step-section" id="passo5">
+    <div class="step-label">Passo 5</div>
+    <div class="step-title">Volte ao HopChat e verifique</div>
+    <div class="step-desc">
+      Feche a aba de configurações e volte para o HopChat. A partir de agora, sempre que uma nova conversa entrar na fila, você receberá um alerta automático do navegador.
+    </div>
+    <div class="screen">
+      <div class="screen-label">HopChat com notificações ativas</div>
+      <img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Manual/img_hopchat/step9.png" alt="HopChat com notificações ativas">
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- RESUMO -->
+  <div style="background:#fff;border:1px solid var(--rule);border-radius:14px;padding:28px 32px">
+    <div style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin-bottom:16px">Resumo do Procedimento</div>
+    <ol style="margin-left:20px;color:var(--ink2);font-size:13.5px;line-height:2">
+      <li>Acesse <strong>chat-conecta.recife.pe.gov.br/home</strong> no Chrome</li>
+      <li>Clique no <strong>ícone de cadeado</strong> 🔒 na barra de endereço</li>
+      <li>Clique em <strong>Site settings</strong></li>
+      <li>Localize <strong>Notifications</strong> e altere de <em>Block</em> para <strong>Allow</strong></li>
+      <li>Volte ao HopChat — as conversas agora entrarão com notificação automática</li>
+    </ol>
+    <div class="info-box amber" style="margin-top:16px">
+      <div class="info-box-icon">💡</div>
+      <p>Este procedimento deve ser realizado <strong>uma única vez</strong> por computador. Caso o navegador seja reinstalado ou o perfil do Chrome seja redefinido, será necessário repetir o processo.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Documento</strong>Manual HopChat – Permissão de Notificações</span>
+    <span><strong>Versão</strong>1.0 · 2024 · Uso Interno</span>
+  </div>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="footer-top-link" title="Voltar ao topo">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 13V3M4 7l4-4 4 4"/></svg>
+  </a>
+</footer>
+
+</body>
+</html>
