@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Manual de Gestão do Recife Monitora – Gestor(a) de USF</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(90,58,162,.22) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero-actions{display:flex;justify-content:flex-end;margin-bottom:12px}
+.hero-crumb{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.02em;color:rgba(255,255,255,.68);text-decoration:none;padding:5px 13px;border:1px solid rgba(255,255,255,.14);border-radius:100px;background:rgba(255,255,255,.035);transition:all .2s}
+.hero-crumb:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.075)}
+.hero-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-mid);background:rgba(200,169,74,.12);border:1px solid rgba(200,169,74,.25);border-radius:100px;padding:3px 12px;margin-bottom:12px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(20px,3vw,32px);color:#fff;line-height:1.15;margin-bottom:6px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero-sub{font-size:12.5px;color:rgba(255,255,255,.45);display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+
+.page-wrap{flex:1;max-width:1100px;margin:0 auto;padding:36px 60px 60px;width:100%;display:grid;grid-template-columns:220px 1fr;gap:36px;align-items:start}
+
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.sidebar-nav{list-style:none;display:flex;flex-direction:column;gap:2px}
+.sidebar-nav a{display:block;font-size:12.5px;color:var(--ink3);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all .15s;border-left:2px solid transparent}
+.sidebar-nav a:hover{color:var(--ink);background:var(--paper2)}
+.sidebar-nav a.active{color:var(--purple-mid);background:var(--purple-lt);border-left-color:var(--purple-mid);font-weight:600}
+.sidebar-nav .sub{padding-left:22px;font-size:12px}
+
+.section{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:32px 36px;margin-bottom:20px}
+.section-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
+.section-num{width:32px;height:32px;border-radius:8px;background:var(--purple-lt);color:var(--purple-mid);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);line-height:1.2}
+.section-sub{font-size:12px;color:var(--ink3);margin-top:3px}
+
+h3{font-size:13px;font-weight:700;color:var(--ink2);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.05em}
+p{margin-bottom:12px;color:var(--ink2)}
+ul,ol{margin:0 0 12px 20px;color:var(--ink2)}
+li{margin-bottom:5px}
+
+.info-box{border-radius:10px;padding:16px 20px;margin:16px 0;border:1px solid;display:flex;gap:12px;align-items:flex-start}
+.info-box.amber{background:var(--amber-lt);border-color:#f0d88a}
+.info-box.purple{background:var(--purple-lt);border-color:#d4c5f0}
+.info-box.green{background:var(--green-lt);border-color:#b8e0cd}
+.info-box.blue{background:var(--blue-lt);border-color:#c0d7f5}
+.info-box-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.info-box-body{}
+.info-box-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.amber .info-box-title{color:var(--amber)}
+.purple .info-box-title{color:var(--purple-mid)}
+.green .info-box-title{color:var(--green-mid)}
+.blue .info-box-title{color:var(--blue-mid)}
+.info-box p{color:var(--ink2);margin-bottom:0;font-size:12.5px}
+
+/* PASSOS */
+.steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0}
+.step-card{border-radius:12px;padding:18px;border:1px solid var(--rule);background:var(--paper)}
+.step-num{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple-mid);margin-bottom:6px}
+.step-title{font-weight:700;font-size:13px;color:var(--ink);margin-bottom:6px}
+.step-desc{font-size:12px;color:var(--ink3)}
+
+/* EIXOS */
+.eixo-card{border-radius:12px;padding:20px;border:1px solid var(--rule);margin-bottom:12px}
+.eixo-card.e1{border-left:4px solid var(--blue-mid);background:var(--blue-lt)}
+.eixo-card.e2{border-left:4px solid var(--purple-mid);background:var(--purple-lt)}
+.eixo-card.e3{border-left:4px solid var(--green-mid);background:var(--green-lt)}
+.eixo-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.e1 .eixo-label{color:var(--blue-mid)}
+.e2 .eixo-label{color:var(--purple-mid)}
+.e3 .eixo-label{color:var(--green-mid)}
+.eixo-name{font-weight:700;font-size:14px;color:var(--ink);margin-bottom:6px}
+.eixo-desc{font-size:12.5px;color:var(--ink2)}
+
+/* TABELA */
+.table-wrap{overflow-x:auto;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{background:var(--ink);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:11px;letter-spacing:.03em}
+td{padding:9px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--paper)}
+
+/* BLOCOS ANÁLISE */
+.bloco-analise{border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.bloco-header{padding:12px 18px;font-weight:700;font-size:13px;color:#fff;display:flex;align-items:center;gap:8px}
+.ba-header{background:var(--blue-mid)}
+.bb-header{background:var(--purple-mid)}
+.bc-header{background:var(--green-mid)}
+.bloco-body{padding:16px 18px}
+
+/* PLANO AÇÃO */
+.plano-table{width:100%;border-collapse:collapse;font-size:12px;margin:16px 0}
+.plano-table th{background:var(--ink2);color:#fff;padding:10px 12px;text-align:left;font-size:11px;font-weight:600}
+.plano-table td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+.plano-table tr:last-child td{border-bottom:none}
+.plano-table .eixo-cel{font-weight:700;color:var(--purple-mid);font-size:11px;background:var(--purple-lt)}
+.plano-table tr:nth-child(even) td{background:var(--paper)}
+
+/* CERT */
+.cert-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:16px 0}
+.cert-card{border-radius:10px;padding:12px;text-align:center;border:1px solid var(--rule)}
+.cert-card.excelencia{background:#e6f4ee;border-color:#b8e0cd}
+.cert-card.qualidade{background:#e8f0fa;border-color:#c0d7f5}
+.cert-card.aperfeicoamento{background:#fdf3dc;border-color:#f0d88a}
+.cert-card.critica{background:#fdeee6;border-color:#f0c0a0}
+.cert-card.insuficiente{background:#f5f5f5;border-color:#ddd}
+.cert-nivel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.excelencia .cert-nivel{color:var(--green-mid)}
+.qualidade .cert-nivel{color:var(--blue-mid)}
+.aperfeicoamento .cert-nivel{color:var(--amber)}
+.critica .cert-nivel{color:#c05020}
+.insuficiente .cert-nivel{color:var(--ink3)}
+.cert-pts{font-family:'DM Serif Display',serif;font-size:14px;color:var(--ink)}
+
+.page-footer{margin-top:auto;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px;position:relative}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.footer-top-link{position:absolute;right:28px;bottom:18px;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);text-decoration:none;transition:all .2s}
+.footer-top-link:hover{color:#fff}
+.footer-top-link svg{width:16px;height:16px}
+
+@media(max-width:900px){
+  .page-wrap{grid-template-columns:1fr;padding:24px}
+  .hero{padding:24px}
+  .steps,.cert-grid{grid-template-columns:1fr}
+  .sidebar{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-actions">
+      <a href="../../documentacoes.html" class="hero-crumb">← Voltar às Documentações</a>
+    </div>
+    <div class="hero-tag">Manual de Gestão · Gestor(a) de USF · 2024</div>
+    <h1>Recife Monitora<br><em>Gestor(a) de USF</em></h1>
+    <div class="hero-sub">
+      <span>🏥 Aplicação · Análise · Planejamento Quadrimestral</span>
+      <span>📋 Blocos A, B e C · Eixos 1, 2 e 3</span>
+      <span>📅 SESAU/SEAB · IEPS · 2024</span>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">Neste documento</div>
+    <ul class="sidebar-nav" id="sideNav">
+      <li><a href="#apresentacao" class="active">Apresentação</a></li>
+      <li><a href="#escore">Escore de Qualidade</a></li>
+      <li><a href="#aplicando">Aplicando o Recife Monitora</a></li>
+      <li><a href="#bloco-a" class="sub">Bloco A</a></li>
+      <li><a href="#bloco-b" class="sub">Bloco B</a></li>
+      <li><a href="#bloco-c" class="sub">Bloco C</a></li>
+      <li><a href="#analise">Análise dos Dados</a></li>
+      <li><a href="#analise-e1" class="sub">Eixo 1 – Análise</a></li>
+      <li><a href="#analise-e2" class="sub">Eixo 2 – Análise</a></li>
+      <li><a href="#analise-e3" class="sub">Eixo 3 – Análise</a></li>
+      <li><a href="#planejamento">Planejamento</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+
+    <!-- APRESENTAÇÃO -->
+    <section class="section" id="apresentacao">
+      <div class="section-head">
+        <div class="section-num">📖</div>
+        <div>
+          <div class="section-title">Apresentação</div>
+          <div class="section-sub">O que é o Recife Monitora e para que serve este manual</div>
+        </div>
+      </div>
+      <p>O <strong>Recife Monitora</strong> é um programa de avaliação e melhoria da qualidade na atenção básica, parte estruturante do Qualifica Atenção Básica da Secretaria de Saúde do Recife. Integra dados de diversas fontes para facilitar a gestão informada por evidências ao nível de cada equipe de saúde da família.</p>
+      <p>Neste documento, a <strong>Coordenação da USF</strong> vai encontrar informações sobre:</p>
+      <ul>
+        <li>Como aplicar os blocos A, B e C do Recife Monitora;</li>
+        <li>Como analisar os resultados de cada equipe de saúde da família;</li>
+        <li>Como construir planejamentos quadrimestrais para melhoria da qualidade.</li>
+      </ul>
+      <div class="info-box amber">
+        <div class="info-box-icon">💡</div>
+        <div class="info-box-body">
+          <div class="info-box-title">Por que avaliar qualidade?</div>
+          <p>O Recife Monitora transforma o processo de planejamento das equipes em uma <strong>rotina</strong> da rede. Um planejamento eficiente requer granularidade de dados: os dados precisam indicar exatamente em quais pontos a gestão e as equipes precisam investir.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESCORE -->
+    <section class="section" id="escore">
+      <div class="section-head">
+        <div class="section-num">🏆</div>
+        <div>
+          <div class="section-title">Escore de Qualidade</div>
+          <div class="section-sub">Escala de 0 a 1000 pontos · somatório dos 3 eixos</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Eixo</th><th>Descrição</th><th>Pontuação máxima</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Eixo 1</strong></td><td>Avaliação da qualidade por equipes (Blocos A, B e C)</td><td>Até 200 pts (A: 40 · B: 80 · C: 80)</td></tr>
+            <tr><td><strong>Eixo 2</strong></td><td>Avaliação da satisfação dos usuários</td><td>Até 200 pts</td></tr>
+            <tr><td><strong>Eixo 3</strong></td><td>Avaliação do desempenho das equipes</td><td>Até 600 pts</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Zonas de Classificação</h3>
+      <div class="cert-grid">
+        <div class="cert-card excelencia"><div class="cert-nivel">Excelência</div><div class="cert-pts">≥ 900</div></div>
+        <div class="cert-card qualidade"><div class="cert-nivel">Qualidade</div><div class="cert-pts">800–899</div></div>
+        <div class="cert-card aperfeicoamento"><div class="cert-nivel">Aperfeiçoamento</div><div class="cert-pts">600–799</div></div>
+        <div class="cert-card critica"><div class="cert-nivel">Crítica</div><div class="cert-pts">400–599</div></div>
+        <div class="cert-card insuficiente"><div class="cert-nivel">Insuficiente</div><div class="cert-pts">0–399</div></div>
+      </div>
+      <div class="info-box amber">
+        <div class="info-box-icon">⚠️</div>
+        <div class="info-box-body">
+          <div class="info-box-title">Atenção</div>
+          <p>Equipes abaixo da Zona de Aperfeiçoamento não recebem o certificado. O Recife Monitora também é um exercício de <strong>autoavaliação e transparência</strong> por parte da gestão da atenção básica.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- APLICANDO -->
+    <section class="section" id="aplicando">
+      <div class="section-head">
+        <div class="section-num">▶️</div>
+        <div>
+          <div class="section-title">Aplicando o Recife Monitora</div>
+          <div class="section-sub">Papéis e etapas do processo avaliativo</div>
+        </div>
+      </div>
+      <p>Para o Gestor(a) de USF e equipes, a principal ação é <strong>participar do ciclo avaliativo respondendo ao Eixo 1</strong>. Os Eixos 2 e 3 são alimentados automaticamente pela plataforma com dados dos sistemas de informação da Prefeitura e do Ministério da Saúde.</p>
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-num">1º Passo</div>
+          <div class="step-title">Responder ao Bloco A</div>
+          <div class="step-desc">Coordenador(a) informa que todos devem responder <strong>individual e anonimamente</strong>. Período: 2–4 semanas.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2º Passo</div>
+          <div class="step-title">Responder aos Blocos B e C1</div>
+          <div class="step-desc">Coordenador(a) reúne cada equipe para responder de maneira <strong>fidedigna e coletiva</strong>. Até 2 reuniões de equipe.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3º Passo</div>
+          <div class="step-title">Responder ao Bloco C2</div>
+          <div class="step-desc">Coordenador(a) reúne <strong>todas as equipes</strong> da unidade para responder sobre a estrutura. Até 2 reuniões.</div>
+        </div>
+      </div>
+      <div class="info-box blue">
+        <div class="info-box-icon">🔑</div>
+        <div class="info-box-body">
+          <div class="info-box-title">Primeiro passo essencial</div>
+          <p>Antes de tudo, cada profissional deve fazer <strong>login na plataforma</strong> e validar seus dados. Em caso de dificuldade, orientar o profissional a acessar o vídeo tutorial disponível na plataforma do Recife Monitora.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO A -->
+    <section class="section" id="bloco-a">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--blue-lt);color:var(--blue-mid)">A</div>
+        <div>
+          <div class="section-title">Bloco A – Relações de Trabalho</div>
+          <div class="section-sub">Individual e anônimo · 32 questões · 2 a 4 semanas</div>
+        </div>
+      </div>
+      <p>O Bloco A é o <strong>mais subjetivo</strong> do processo. Deve ser respondido na privacidade e de modo anônimo por cada trabalhador. Avalia 6 dimensões do cotidiano de trabalho:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Aspecto</th><th>O que mede</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ambiente de trabalho acolhedor</strong></td><td>Como o profissional se sente em relação aos pares e outros profissionais da unidade</td></tr>
+            <tr><td><strong>Experiência interna de trabalho</strong></td><td>Como o profissional se sente em relação a si mesmo, sua aptidão e motivação</td></tr>
+            <tr><td><strong>Autonomia do trabalhador/equipe</strong></td><td>Capacidade de autogestão quanto ao ritmo, forma e conteúdo do trabalho</td></tr>
+            <tr><td><strong>Experiência de tempo</strong></td><td>Tempo necessário para dar conta da jornada e da população atendida</td></tr>
+            <tr><td><strong>Liderança</strong></td><td>Quanto a chefia imediata fomenta ambiente cooperativo e motivador</td></tr>
+            <tr><td><strong>Processo de mudança</strong></td><td>Conforto com mudanças no processo de trabalho e rotatividade de profissionais</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BLOCO B -->
+    <section class="section" id="bloco-b">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--purple-lt);color:var(--purple-mid)">B</div>
+        <div>
+          <div class="section-title">Bloco B – Ações e Processos</div>
+          <div class="section-sub">Coletivo por equipe · 55 questões · até 2 reuniões</div>
+        </div>
+      </div>
+      <p>Processo de resposta <strong>coletivo</strong>: apenas 1 pessoa faz login e registra as respostas da equipe. Respostas variam entre <em>Discordo Totalmente / Discordo Parcialmente / Concordo Parcialmente / Concordo Totalmente</em>. A equipe deve ser reunida em círculo ou semicírculo para garantir escuta ativa.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Atributo</th><th>Tipo</th><th>O que avalia</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Acesso</strong></td><td>Essencial</td><td>Tecnologias leves (comunicação, acolhimento, vínculo) e processos organizacionais para acesso equitativo</td></tr>
+            <tr><td><strong>Coordenação do Cuidado</strong></td><td>Essencial</td><td>Registros adequados, referenciamento correto e seguimento de linhas de cuidado</td></tr>
+            <tr><td><strong>Longitudinalidade</strong></td><td>Essencial</td><td>Vínculo equipe-usuário-território; singularização e humanização do atendimento</td></tr>
+            <tr><td><strong>Integralidade</strong></td><td>Essencial</td><td>Olhar ampliado sobre cada indivíduo; resolutividade e multiprofissionalidade na AB</td></tr>
+            <tr><td><strong>Orientação Comunitária</strong></td><td>Derivado</td><td>Uso de ferramentas de cuidado comunitário, grupos de promoção/prevenção</td></tr>
+            <tr><td><strong>Orientação Familiar</strong></td><td>Derivado</td><td>Adesão à lógica de saúde da família; abordagem familiar</td></tr>
+            <tr><td><strong>Competência Cultural</strong></td><td>Derivado</td><td>Letramento em saúde para a população; corresponsabilização dos usuários</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BLOCO C -->
+    <section class="section" id="bloco-c">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--green-lt);color:var(--green-mid)">C</div>
+        <div>
+          <div class="section-title">Bloco C – Estrutura da Unidade</div>
+          <div class="section-sub">36 questões · C1 por equipe · C2 por unidade</div>
+        </div>
+      </div>
+      <p>Respostas variam entre <em>Sim / Não / Não se aplica</em> ou texto. Apenas 1 pessoa faz login e registra as respostas da(s) equipe(s).</p>
+      <div class="info-box green">
+        <div class="info-box-icon">ℹ️</div>
+        <div class="info-box-body">
+          <div class="info-box-title">USF com apenas 1 equipe</div>
+          <p>O Bloco C deve ser respondido logo após o Bloco B — C1 e C2 podem ser realizados conjuntamente.</p>
+        </div>
+      </div>
+      <div class="info-box purple">
+        <div class="info-box-icon">ℹ️</div>
+        <div class="info-box-body">
+          <div class="info-box-title">USF com mais de 1 equipe</div>
+          <p><strong>C1:</strong> cada equipe responde após o Bloco B. <strong>C2:</strong> todas as equipes reunidas respondem juntas sobre a estrutura da unidade.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Aspecto</th><th>Momento</th><th>O que avalia</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Delineamento da população eletiva</strong></td><td>C1</td><td>Capacidade de dar conta da população adscrita; suficiência de ACS por microárea</td></tr>
+            <tr><td><strong>Recursos Humanos</strong></td><td>C1 e C2</td><td>Completude da equipe (médico, enfermeiro, técnico, ACS, eSB, eMulti) e apoio de residentes</td></tr>
+            <tr><td><strong>Mecanismos de acesso ao atendimento</strong></td><td>C2</td><td>Aspectos prediais, zeladoria, funcionamento da unidade, horário de almoço, vulnerabilidade do território</td></tr>
+            <tr><td><strong>Ferramentas de planejamento</strong></td><td>C2</td><td>Adesão ao PEC/e-SUS AB; uso do módulo CDS na indisponibilidade do PEC</td></tr>
+            <tr><td><strong>Componentes estruturais</strong></td><td>C2</td><td>Internet, medicamentos, vacinas, equipamentos, instalações da unidade</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ANÁLISE -->
+    <section class="section" id="analise">
+      <div class="section-head">
+        <div class="section-num">📊</div>
+        <div>
+          <div class="section-title">Construindo Qualidade na Prática</div>
+          <div class="section-sub">Análise dos dados por eixo</div>
+        </div>
+      </div>
+      <p>A análise é feita eixo a eixo, identificando os <strong>Nós Críticos</strong> — aspectos com escores mais baixos. A sugestão é reunir a equipe em <strong>3 sessões de trabalho</strong> (uma por eixo) para desenhar ações de melhoria.</p>
+    </section>
+
+    <!-- ANÁLISE EIXO 1 -->
+    <section class="section" id="analise-e1">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--blue-lt);color:var(--blue-mid)">E1</div>
+        <div>
+          <div class="section-title">Analisando o Eixo 1</div>
+          <div class="section-sub">Blocos A, B e C – como interpretar os resultados</div>
+        </div>
+      </div>
+
+      <div class="bloco-analise">
+        <div class="bloco-header ba-header">📋 Bloco A – Relações de Trabalho</div>
+        <div class="bloco-body">
+          <p>A pontuação é calculada pela <strong>média das respostas individuais</strong>. Cada aspecto mostra pontos recebidos / teto de pontos.</p>
+          <ul>
+            <li><strong>Ambiente acolhedor distante do teto</strong> → discordância com clima de trabalho ou relação com pares</li>
+            <li><strong>Experiência de tempo distante do teto</strong> → sobrecarga; dificuldade de dar conta da demanda na jornada</li>
+            <li><strong>Processo de mudança distante do teto</strong> → resistência ou insegurança com mudanças no processo de trabalho</li>
+          </ul>
+          <div class="info-box amber" style="margin-top:12px">
+            <div class="info-box-icon">💡</div>
+            <div class="info-box-body"><p>Sem servidores engajados e sentindo bem-estar em relação ao trabalho, não há como cuidar bem do território.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bloco-analise">
+        <div class="bloco-header bb-header">📋 Bloco B – Ações e Processos</div>
+        <div class="bloco-body">
+          <p>A pontuação é calculada pelas <strong>respostas coletivas da equipe</strong>. Mostra pontos recebidos / teto por atributo.</p>
+          <ul>
+            <li><strong>Acesso abaixo do teto</strong> → revisar modelos de agendamento, acolhimento e protocolos para demanda espontânea</li>
+            <li><strong>Coordenação do Cuidado abaixo do teto</strong> → qualificar registros no PEC/e-SUS e uso de linhas de cuidado</li>
+            <li><strong>Integralidade abaixo do teto</strong> → ampliar multiprofissionalidade e resolutividade dentro da AB</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bloco-analise">
+        <div class="bloco-header bc-header">📋 Bloco C – Estrutura</div>
+        <div class="bloco-body">
+          <p>A pontuação é calculada pelas <strong>respostas coletivas da(s) equipe(s)</strong> sobre a estrutura da unidade.</p>
+          <ul>
+            <li><strong>Delineamento da população abaixo do teto</strong> → excesso de população adscrita ou falta de ACS nas microáreas</li>
+            <li><strong>Recursos Humanos abaixo do teto</strong> → equipe incompleta no quadrimestre; sinalizar para gestão distrital</li>
+            <li><strong>Componentes estruturais abaixo do teto</strong> → falta de insumos, equipamentos ou infraestrutura; encaminhar para gestão</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANÁLISE EIXO 2 -->
+    <section class="section" id="analise-e2">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--purple-lt);color:var(--purple-mid)">E2</div>
+        <div>
+          <div class="section-title">Analisando o Eixo 2</div>
+          <div class="section-sub">Satisfação dos usuários – método NPS</div>
+        </div>
+      </div>
+      <p>A pontuação é calculada pela fórmula adaptada do <strong>NPS Score</strong>. Para cada uma das 6 perguntas, observar o percentual de promotores, passivos e detratores:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Perfil</th><th>Notas</th><th>O que indica</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Promotores</strong></td><td>7 a 10</td><td>Usuários satisfeitos que incentivam a comunidade</td></tr>
+            <tr><td><strong>Passivos</strong></td><td>5 e 6</td><td>Neutros; satisfação momentânea, opinião pode mudar</td></tr>
+            <tr><td><strong>Detratores</strong></td><td>1 a 4</td><td>Insatisfeitos; criticam abertamente o serviço</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info-box purple">
+        <div class="info-box-icon">💡</div>
+        <div class="info-box-body">
+          <div class="info-box-title">Ação prática</div>
+          <p>Instigar usuários que têm boa interação com a equipe a avaliar. Realizar dinâmica (jogo de perfis de usuários) em reunião de equipe para definir protocolos comunicativos para lidar com "usuários difíceis".</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANÁLISE EIXO 3 -->
+    <section class="section" id="analise-e3">
+      <div class="section-head">
+        <div class="section-num" style="background:var(--green-lt);color:var(--green-mid)">E3</div>
+        <div>
+          <div class="section-title">Analisando o Eixo 3</div>
+          <div class="section-sub">Indicadores de desempenho – alcance de metas</div>
+        </div>
+      </div>
+      <p>A coluna chave para análise é o <strong>"% de Alcance da Meta"</strong>. O alcance de 100% equivale à pontuação máxima proporcional de cada indicador.</p>
+      <div class="info-box green">
+        <div class="info-box-icon">📌</div>
+        <div class="info-box-body">
+          <div class="info-box-title">Exemplo prático</div>
+          <p><strong>Citopatológico:</strong> se a equipe tem 682 mulheres elegíveis e a meta é 40%, precisa realizar 273 exames. Ao realizar apenas 15, o alcance é 5%. Isso sinaliza necessidade de busca ativa e reorganização de processos.</p>
+        </div>
+      </div>
+      <p>Para indicadores já com 100% de alcance, observar a diferença entre Numerador e Denominador para calcular o esforço necessário para <strong>superar a meta</strong> e atingir toda a população elegível.</p>
+    </section>
+
+    <!-- PLANEJAMENTO -->
+    <section class="section" id="planejamento">
+      <div class="section-head">
+        <div class="section-num">🗓️</div>
+        <div>
+          <div class="section-title">Planejamento e Monitoramento Quadrimestral</div>
+          <div class="section-sub">4 etapas para construir qualidade na prática</div>
+        </div>
+      </div>
+      <ol>
+        <li><strong>Identificar os Nós Críticos</strong> a partir da análise de cada eixo e bloco avaliativo do Recife Monitora</li>
+        <li><strong>Dar o retorno estruturado (feedback)</strong> à equipe em 3 encontros (um por eixo), desenhando ações de melhoria conjuntamente</li>
+        <li><strong>Sistematizar as ações</strong> em planilha disponível na plataforma e reservar espaço de monitoramento nas reuniões semanais de equipe</li>
+        <li><strong>Usar o ciclo seguinte como reflexão</strong> sobre o plano de ação: quais ações foram realizadas, quais estão em progresso, quais surtiram efeito no escore</li>
+      </ol>
+
+      <h3>Modelo de Plano de Ação</h3>
+      <div class="table-wrap">
+        <table class="plano-table">
+          <thead>
+            <tr>
+              <th>Sessão</th>
+              <th>Nós Críticos</th>
+              <th>Ações – Equipe</th>
+              <th>Ações – Gestão</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="3"><strong>Eixo 1</strong></td>
+              <td>Bloco A – Ambiente acolhedor, Experiência de tempo, Processo de Mudança</td>
+              <td>Instituir rotinas de autocuidado e integração nas reuniões; processos de planejamento para gestão do conhecimento</td>
+              <td>Facilitar acesso a psicoterapia (Cuidando de quem cuida); formações sobre grupo Balint na AB</td>
+            </tr>
+            <tr>
+              <td>Bloco B – Acesso</td>
+              <td>Testar novos modelos de agendamento; usar Guia Prático de Acolhimento</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>Bloco C – Delineamento, RH, Mecanismos de acesso, Componentes estruturais</td>
+              <td>—</td>
+              <td>Pactuar principais problemas estruturais e encaminhar para gestão distrital</td>
+            </tr>
+            <tr>
+              <td><strong>Eixo 2</strong></td>
+              <td>Acesso, Integralidade, Longitudinalidade, Atributos Derivados, Satisfação Global</td>
+              <td>Instigar promotores a avaliar; dinâmica de perfis de usuários em reunião de equipe</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Eixo 3</strong></td>
+              <td>Indicadores com baixo alcance de meta</td>
+              <td>Busca ativa dos denominadores não acompanhados; estabelecer percentual realista por indicador</td>
+              <td>Garantir insumos necessários para exames e procedimentos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box green">
+        <div class="info-box-icon">✅</div>
+        <div class="info-box-body">
+          <div class="info-box-title">Resultado esperado</div>
+          <p>Seguindo esse ciclo, é possível fazer uma <strong>gestão informada por evidências</strong> na atenção básica, cumprindo os preceitos de universalidade, integralidade e equidade do SUS.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Documento</strong>Manual de Gestão · Recife Monitora · Gestor(a) de USF</span>
+    <span><strong>Versão</strong>1.0 · 2024 · Uso Interno</span>
+  </div>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="footer-top-link" title="Voltar ao topo">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 13V3M4 7l4-4 4 4"/></svg>
+  </a>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.sidebar-nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+  navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+});
+</script>
+</body>
+</html>
