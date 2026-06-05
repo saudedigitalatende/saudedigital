@@ -122,6 +122,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .no-results p{font-size:13px}
 
 @media(max-width:768px){.folders-grid{grid-template-columns:1fr}.hero,.main,.docs-body{flex:1}.page-footer{padding-left:24px;padding-right:24px}}
+
+.rm-group{border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.rm-group:hover{border-color:#b8a0e8}
+.rm-trigger{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:default;background:#fff;transition:background .2s}
+.rm-group:hover .rm-trigger{background:var(--purple-lt)}
+.rm-chevron{font-size:20px;color:var(--ink3);transition:transform .25s;line-height:1;margin-right:4px}
+.rm-group:hover .rm-chevron{transform:rotate(90deg);color:var(--purple-mid)}
+.rm-drawer{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.rm-drawer.open{max-height:400px}
+.rm-item{border-radius:0!important;border:none!important;border-top:1px solid var(--rule)!important}
 </style>
 </head>
 <body>
@@ -412,13 +422,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         </div>
         <span class="doc-arrow">→</span>
       </a>
-      <div style="border:1.5px solid #d4c5f0;border-radius:12px;overflow:hidden;margin-top:4px">
-        <div style="background:#f0eaf8;padding:8px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #d4c5f0">
-          <span style="font-size:14px">🟣</span>
-          <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7a5ac0">Recife Monitora</span>
+      <div class="rm-group" onmouseenter="rmExpand(this)" onmouseleave="rmCollapse(this)">
+        <div class="rm-trigger">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="doc-icon-wrap" style="background:var(--purple-lt);font-size:16px;width:36px;height:36px">🟣</div>
+            <div>
+              <div class="doc-title">Recife Monitora</div>
+              <div class="doc-meta">2 documentos · passe o mouse para ver</div>
+            </div>
+          </div>
+          <span class="rm-chevron">›</span>
         </div>
-        <div style="display:flex;flex-direction:column;gap:0">
-          <a class="doc-card" href="documentações/Manual/manual_recife_monitora_bloco_a.html" target="_blank" style="border-radius:0;border:none;border-bottom:1px solid var(--rule)">
+        <div class="rm-drawer">
+          <a class="doc-card rm-item" href="documentações/Manual/manual_recife_monitora_bloco_a.html" target="_blank">
             <div class="doc-icon-wrap">📄</div>
             <div>
               <div class="doc-title">Manual Operacional – Recife Monitora · Bloco A</div>
@@ -426,7 +442,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
             </div>
             <span class="doc-arrow">→</span>
           </a>
-          <a class="doc-card" href="documentações/Manual/manual_recife_monitora_gestores.html" target="_blank" style="border-radius:0;border:none">
+          <a class="doc-card rm-item" href="documentações/Manual/manual_recife_monitora_gestores.html" target="_blank">
             <div class="doc-icon-wrap">📄</div>
             <div>
               <div class="doc-title">Manual de Gestão – Recife Monitora · Gestores(as) Distritais</div>
@@ -607,6 +623,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </footer>
 
 <script>
+
+function rmExpand(el){el.querySelector('.rm-drawer').classList.add('open')}
+function rmCollapse(el){el.querySelector('.rm-drawer').classList.remove('open')}
+
 // Índice de todos os documentos
 const docs = [
   {
