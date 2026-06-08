@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>POP – HopChat · Permissão de Notificações · POP.002</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;--paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;--blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;--green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;--amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;--orange:#b85a1a;--orange-lt:#fdeee6}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero-actions{display:flex;justify-content:flex-end;margin-bottom:12px}
+.hero-crumb{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.02em;color:rgba(255,255,255,.68);text-decoration:none;padding:5px 13px;border:1px solid rgba(255,255,255,.14);border-radius:100px;background:rgba(255,255,255,.035)}
+.hero-crumb:hover{color:#fff;border-color:rgba(255,255,255,.38)}
+.hero-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-mid);background:rgba(200,169,74,.12);border:1px solid rgba(200,169,74,.25);border-radius:100px;padding:3px 12px;margin-bottom:12px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(20px,3vw,32px);color:#fff;line-height:1.15;margin-bottom:6px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero-sub{font-size:12.5px;color:rgba(255,255,255,.45);display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+.hero-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:14px}
+.hero-meta-item{font-size:11px;color:rgba(255,255,255,.5)}
+.hero-meta-item strong{color:rgba(255,255,255,.8);display:block;font-size:12px}
+.page-wrap{flex:1;max-width:1100px;margin:0 auto;padding:36px 60px 60px;width:100%;display:grid;grid-template-columns:220px 1fr;gap:36px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.sidebar-nav{list-style:none;display:flex;flex-direction:column;gap:2px}
+.sidebar-nav a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 12px;border-radius:8px;transition:all .15s;border-left:2px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-nav a:hover{color:var(--ink);background:var(--paper2)}
+.sidebar-nav a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.sidebar-sep{height:1px;background:var(--rule);margin:8px 0}
+.section{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin-bottom:20px}
+.section-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
+.section-icon{width:36px;height:36px;border-radius:8px;background:var(--blue-lt);color:var(--blue-mid);font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink)}
+.section-sub{font-size:11.5px;color:var(--ink3);margin-top:2px}
+.dss-card{border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.dss-header{padding:14px 20px;background:var(--blue-mid);color:#fff;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.dss-num{background:rgba(255,255,255,.2);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.dss-title{font-weight:600;font-size:13px;flex:1}
+.dss-chevron{font-size:18px;transition:transform .25s}
+.dss-header.open .dss-chevron{transform:rotate(90deg)}
+.dss-body{display:none}
+.dss-body.open{display:block}
+.dss-meta{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-bottom:1px solid var(--rule)}
+.dss-meta-cell{padding:12px 16px;border-right:1px solid var(--rule);font-size:11.5px}
+.dss-meta-cell:last-child{border-right:none}
+.dss-meta-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);margin-bottom:4px}
+.dss-meta-val{color:var(--ink2)}
+.dss-section{padding:16px 20px;border-bottom:1px solid var(--rule)}
+.dss-section:last-child{border-bottom:none}
+.dss-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue-mid);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.dss-section-title::before{content:'';display:inline-block;width:3px;height:12px;background:var(--blue-mid);border-radius:2px}
+p{margin-bottom:10px;color:var(--ink2)}
+ul,ol{margin:0 0 10px 20px;color:var(--ink2)}
+li{margin-bottom:4px}
+strong{color:var(--ink)}
+.step-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--blue-mid);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-text{font-size:13px;color:var(--ink2);flex:1}
+.info-box{border-radius:9px;padding:12px 16px;margin:10px 0;border:1px solid;display:flex;gap:10px}
+.info-box.amber{background:var(--amber-lt);border-color:#f0d88a}
+.info-box.blue{background:var(--blue-lt);border-color:#c0d7f5}
+.info-box.green{background:var(--green-lt);border-color:#b8e0cd}
+.info-box.orange{background:var(--orange-lt);border-color:#f0c0a0}
+.info-box-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+.info-box p{color:var(--ink2);margin:0;font-size:12.5px}
+.table-wrap{overflow-x:auto;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{background:var(--ink);color:#fff;padding:9px 12px;text-align:left;font-size:11px;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--paper)}
+a{color:var(--blue-mid)}
+.fim-tarefa{background:var(--green-lt);border:1px solid #b8e0cd;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:12.5px;color:var(--green);display:flex;gap:8px}
+.fim-tarefa::before{content:'✅';flex-shrink:0}
+.screen-img{max-width:100%;border-radius:8px;border:1px solid var(--rule);margin:8px 0;display:block}
+h3.sub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin:16px 0 10px}
+.page-footer{margin-top:auto;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;align-items:center;flex-wrap:wrap;gap:40px;position:relative}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.footer-top-link{position:absolute;right:28px;bottom:18px;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);text-decoration:none}
+.footer-top-link svg{width:16px;height:16px}
+@media(max-width:900px){.page-wrap{grid-template-columns:1fr;padding:24px}.hero{padding:24px}.sidebar{display:none}.dss-meta{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-actions"><a href="../../documentacoes.html" class="hero-crumb">← Voltar às Documentações</a></div>
+    <div class="hero-tag">POP · Procedimento Operacional Padrão · POP.002</div>
+    <h1>HopChat – <em>Permissão de Notificações</em><br>no Navegador</h1>
+    <div class="hero-sub">
+      <span>🔔 Conversas entram automaticamente na fila</span>
+      <span>🌐 Google Chrome · chat-conecta.recife.pe.gov.br</span>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Elaboração</strong>GTIC</div>
+      <div class="hero-meta-item"><strong>Versão</strong>1.0 · 2024</div>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="sidebar-nav" id="sideNav">
+      <li><a href="#info">Informações Gerais</a></li>
+      <div class="sidebar-sep"></div>
+      <li><a href="#dss001">1. Ativar Notificações</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+
+    <section class="section" id="info">
+      <div class="section-head">
+        <div class="section-icon">ℹ️</div>
+        <div><div class="section-title">Informações Gerais</div><div class="section-sub">Links e histórico de revisões</div></div>
+      </div>
+      <h3 class="sub">Links do Sistema</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Sistema</th><th>Link</th></tr></thead>
+        <tbody>
+          <tr><td><strong>HopChat</strong></td><td><a href="https://chat-conecta.recife.pe.gov.br/home" target="_blank">chat-conecta.recife.pe.gov.br/home</a></td></tr>
+        </tbody>
+      </table></div>
+      <h3 class="sub" style="margin-top:16px">Histórico de Revisões</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Versão</th><th>Data</th><th>Autor</th></tr></thead>
+        <tbody><tr><td>1.0</td><td>2024</td><td>GTIC</td></tr></tbody>
+      </table></div>
+    </section>
+
+    <div class="dss-card" id="dss001">
+      <div class="dss-header" onclick="toggleDSS(this)">
+        <span class="dss-num">1</span>
+        <span class="dss-title">Ativar Permissão de Notificações no Navegador</span>
+        <span class="dss-chevron">›</span>
+      </div>
+      <div class="dss-body">
+        <div class="dss-meta">
+          <div class="dss-meta-cell"><div class="dss-meta-label">Por que fazer?</div><div class="dss-meta-val">Sem notificações ativas, o atendente não é alertado quando novos bate-papos entram na fila</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem solicita?</div><div class="dss-meta-val">Atendente / agente do HopChat</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Quem executa?</div><div class="dss-meta-val">Próprio usuário</div></div>
+          <div class="dss-meta-cell"><div class="dss-meta-label">Origem</div><div class="dss-meta-val">Usuário</div></div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Pré-Requisitos</div>
+          <ul>
+            <li>Google Chrome instalado</li>
+            <li>Acesso ao HopChat: <a href="https://chat-conecta.recife.pe.gov.br/home" target="_blank">chat-conecta.recife.pe.gov.br/home</a></li>
+          </ul>
+          <div class="info-box orange">
+            <div class="info-box-icon">⚠️</div>
+            <p>Este procedimento deve ser realizado <strong>uma única vez</strong> por computador. Caso o navegador seja reinstalado ou o perfil do Chrome seja redefinido, será necessário repetir o processo.</p>
+          </div>
+        </div>
+        <div class="dss-section">
+          <div class="dss-section-title">Como Fazer</div>
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div class="step-text">
+              Acesse <strong>chat-conecta.recife.pe.gov.br/home</strong> no Google Chrome. Você verá a tela inicial do HopChat com os bate-papos na fila.
+              <img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Manual/img_hopchat/step1.png" alt="Tela inicial HopChat" class="screen-img">
+            </div></li>
+            <li class="step-item"><span class="step-num">2</span><div class="step-text">
+              Clique no <strong>ícone de cadeado 🔒</strong> na barra de endereço, à esquerda da URL. Um menu com as permissões do site será exibido.<br>
+              Observe que <strong>Notifications</strong> está como <em>"Automatically blocked"</em>. Clique em <strong>Site settings</strong>.
+              <img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Manual/img_hopchat/step3.png" alt="Menu de permissões" class="screen-img">
+            </div></li>
+            <li class="step-item"><span class="step-num">3</span><div class="step-text">
+              A página de configurações do site será aberta. Role até encontrar o item <strong>Notifications</strong>. O status atual estará como <strong>Block</strong>.
+              <img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Manual/img_hopchat/step4.png" alt="Notifications bloqueado" class="screen-img">
+            </div></li>
+            <li class="step-item"><span class="step-num">4</span><div class="step-text">
+              Clique no menu suspenso ao lado de <strong>Notifications</strong> e selecione <strong>Allow</strong>. A alteração é salva automaticamente.
+              <img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Manual/img_hopchat/step8.png" alt="Notifications Allow" class="screen-img">
+            </div></li>
+            <li class="step-item"><span class="step-num">5</span><div class="step-text">
+              Feche a aba de configurações e volte ao HopChat. A partir de agora, novas conversas na fila gerarão alertas automáticos.
+              <img src="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Manual/img_hopchat/step9.png" alt="HopChat com notificações ativas" class="screen-img">
+            </div></li>
+          </ol>
+          <div class="fim-tarefa">As notificações estão ativas. Novos bate-papos entrarão automaticamente na fila com alerta sonoro e visual.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Documento</strong>POP.002 – HopChat · Permissão de Notificações</span>
+    <span><strong>Versão</strong>1.0 · 2024 · Uso Interno</span>
+  </div>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="footer-top-link" title="Voltar ao topo">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 13V3M4 7l4-4 4 4"/></svg>
+  </a>
+</footer>
+
+<script>
+function toggleDSS(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open')}
+const secs=[...document.querySelectorAll('section[id],div.dss-card[id]')];
+const navs=document.querySelectorAll('.sidebar-nav a');
+window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id});navs.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})});
+</script>
+</body>
+</html>
