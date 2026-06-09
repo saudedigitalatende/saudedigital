@@ -291,7 +291,7 @@ function buildCatalog(area) {
       <div class="service-header" onclick="this.parentElement.classList.toggle('open')">
         <div class="service-icon si-${color}">${icon}</div>
         <div class="service-meta">
-          <div class="service-name">${srvName}${srvName.includes("LOCUS") ? ` <a href="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/pop_locus.html" target="_blank" onclick="event.stopPropagation()" style="font-size:11px;font-weight:600;color:#1a73e8;background:#e8f0fe;padding:2px 8px;border-radius:10px;text-decoration:none;margin-left:6px">📄 POP</a>` : ""}</div>
+          <div class="service-name">${srvName}${srvName.includes("LOCUS") ? ` <a href="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/pop_locus.html" target="_blank" onclick="event.stopPropagation()" style="font-size:11px;font-weight:600;color:#1a73e8;background:#e8f0fe;padding:2px 8px;border-radius:10px;text-decoration:none;margin-left:6px">📄 POP</a>` : ""}${srvName.includes("TERRITÓRIO") ? ` <a href="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/POP/pop_esus_territorio.html" target="_blank" onclick="event.stopPropagation()" style="font-size:11px;font-weight:600;color:#1a73e8;background:#e8f0fe;padding:2px 8px;border-radius:10px;text-decoration:none;margin-left:6px">📄 POP</a>` : ""}</div>
           ${srv.dono ? `<div class="service-sub">Responsável: ${srv.dono}</div>` : ''}
         </div>
         <span class="service-count-badge scb-${color}">${srv.rows.length} itens</span>
