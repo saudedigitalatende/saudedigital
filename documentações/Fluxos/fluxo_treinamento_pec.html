@@ -51,10 +51,11 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
 .activity-card:not(.open) .activity-
 .activity-card.open .activity-chevron{transform:rotate(180deg)}
 .activity-
-.step-list{display:flex;flex-direction:column;gap:8px}
-.step-item{display:flex;gap:12px;align-items:flex-start}
-.step-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-mid);flex-shrink:0;margin-top:6px}
-.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.step-list{counter-reset:step;display:flex;flex-direction:column;gap:8px}
+.step-item{counter-increment:step;position:relative;display:flex;align-items:flex-start;gap:12px;padding:10px 14px 10px 48px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid)}
+.step-dot{position:absolute;left:14px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--blue-lt);border:1px solid rgba(45,111,189,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin:0}
+.step-dot::after{content:counter(step);font-size:11px;font-weight:700;color:var(--blue-mid);line-height:1}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.55}
 .sub-item{font-size:12.5px;color:var(--ink3);padding:4px 12px;border-left:2px solid var(--rule);margin:4px 0 4px 20px}
 .fluxo-img{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-align:center;padding:24px}
 .fluxo-img img{max-width:100%;height:auto;border-radius:8px}
@@ -118,7 +119,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
 
     <div class="section" id="escopo">
       <div class="section-title"><span>03</span> Escopo</div>
-      <p class="doc-p">Aplica-se aos chamados de treinamento solicitados pelos usuários por meio da <strong>Central de Serviços</strong>, envolvendo as equipes de <strong>N2 Remoto, N3 e N2 Campo</strong>.</p>
+      <p class="doc-p">Aplica-se aos chamados de treinamento solicitados pelos usuários por meio da <strong>Central de Serviços</strong>, envolvendo as equipes de <strong>Sistemas Remoto, Sistemas N3/Analista e Sistemas Campo</strong>.</p>
     </div>
 
     <div class="section" id="atores">
@@ -127,9 +128,10 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
         <thead><tr><th>Ator</th><th>Responsabilidade</th></tr></thead>
         <tbody>
           <tr><td><strong>Usuário Final</strong></td><td>Solicita o treinamento</td></tr>
-          <tr><td><strong>Central de Serviços</strong></td><td>Abertura do chamado, registro na planilha e validação de disponibilidade do técnico de Sistemas N2 Campo com o N3</td></tr>
-          <tr><td><strong>Sistemas N3</strong></td><td>Validação de disponibilidade de técnico e data</td></tr>
-          <tr><td><strong>Sistemas N2 Campo</strong></td><td>Recebe o encaminhamento do chamado da Central de Serviços, executa o treinamento e realiza o encerramento do chamado</td></tr>
+          <tr><td><strong>Central de Serviços</strong></td><td>Realiza o atendimento inicial, abre o chamado no GLPI, coleta as informações básicas da solicitação e escalona o chamado para <strong>Sistemas Remoto</strong></td></tr>
+          <tr><td><strong>Sistemas Remoto</strong></td><td>Alimenta a planilha de controle, contata o suporte N3/analista, valida data, horário e treinador, registra as informações no chamado e encaminha para Sistemas Campo</td></tr>
+          <tr><td><strong>Sistemas N3 / Analista</strong></td><td>Apoia a validação de disponibilidade, definição do treinador e viabilidade da data</td></tr>
+          <tr><td><strong>Sistemas Campo</strong></td><td>Recebe o chamado encaminhado por Sistemas Remoto, executa o treinamento e realiza o encerramento do chamado</td></tr>
         </tbody>
       </table>
     </div>
@@ -137,14 +139,19 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
     <div class="section" id="regras">
       <div class="section-title"><span>05</span> Regras de Negócio</div>
       <ul class="rules-list">
-        <li>Toda solicitação de treinamento deve ser registrada via <strong>Central de Serviços</strong>.</li>
-        <li>A Central deve coletar obrigatoriamente: <strong>data sugerida</strong>, <strong>horário sugerido</strong> e <strong>descrição da necessidade</strong>.</li>
-        <li>A Central de Serviços deve registrar a solicitação na <a href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit" target="_blank" style="color:var(--blue-mid)">planilha de controle</a>.</li>
-        <li>A validação de disponibilidade deve ser realizada pela <strong>Central de Serviços</strong> junto ao <strong>N3</strong>, responsável por definir o técnico e viabilidade da data.</li>
-        <li>Após validação, o chamado deve ser encaminhado para o <strong>N2 Campo</strong>, responsável pela execução.</li>
-        <li>O técnico responsável deve ser informado previamente, incluindo o <strong>número do chamado</strong>.</li>
-        <li>O chamado deve ser <strong>encerrado pelo N2 Campo</strong> após a execução do treinamento.</li>
+        <li>Toda solicitação de treinamento deve ser registrada via <strong>Central de Serviços</strong>, com abertura do chamado no GLPI.</li>
+        <li>A Central de Serviços deve coletar obrigatoriamente: <strong>data sugerida</strong>, <strong>horário sugerido</strong> e <strong>descrição da necessidade</strong>.</li>
+        <li>A equipe de <strong>Sistemas Remoto</strong> deve registrar a solicitação na <a href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit" target="_blank" style="color:var(--blue-mid)">planilha de controle</a>.</li>
+        <li>A validação de disponibilidade deve ser realizada por <strong>Sistemas Remoto</strong> junto ao <strong>suporte N3/analista</strong>, responsável por apoiar a definição do treinador e a viabilidade da data.</li>
+        <li>Após validação, <strong>Sistemas Remoto</strong> deve atualizar a descrição do chamado e encaminhá-lo para <strong>Sistemas Campo</strong>, responsável pela execução.</li>
+        <li>O treinador responsável deve ser informado previamente, incluindo <strong>número do chamado</strong>, <strong>data</strong>, <strong>hora</strong>, local/unidade e solicitante.</li>
+        <li>O chamado deve ser <strong>encerrado por Sistemas Campo</strong> após a execução do treinamento.</li>
       </ul>
+
+      <div class="alert-box info" style="margin-top:14px">
+        <strong>Observação importante:</strong> Após a identificação do treinador responsável e a confirmação da data e horário, essas informações devem ficar registradas na <strong>descrição do chamado</strong> e também devem ser comunicadas ao <strong>treinador</strong> e ao <strong>usuário solicitante</strong>. A comunicação deve conter, no mínimo: número do chamado, nome do treinador, data, hora, local/unidade e objetivo do treinamento.
+      </div>
+
     </div>
 
     <div class="section" id="fluxo">
@@ -167,7 +174,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">ATIVIDADE 2</span>
-          <span class="activity-name">Abertura e Registro — Central de Serviços</span>
+          <span class="activity-name">Abertura do Chamado — Central de Serviços</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
@@ -175,8 +182,8 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Registrar chamado no sistema <strong>GLPI</strong></div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Coletar data e horário sugeridos pelo usuário</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Descrever a necessidade de treinamento</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Registrar solicitação na <a href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit" target="_blank" style="color:var(--blue-mid)">planilha de controle de treinamentos</a></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Atualizar informações do chamado</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Encaminhar o chamado para <strong>Sistemas Remoto</strong> após o registro inicial</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Garantir que data sugerida, horário sugerido e descrição da necessidade estejam no chamado</div></div>
           </div>
         </div>
       </div>
@@ -184,15 +191,15 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">ATIVIDADE 3</span>
-          <span class="activity-name">Validação de Disponibilidade — Central de Serviços / N3</span>
+          <span class="activity-name">Registro, Planilha e Validação — Sistemas Remoto</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
           <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Central de Serviços contata o <strong>N3</strong> para verificar disponibilidade</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Verificar disponibilidade do técnico de Sistemas N2 Campo</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Validar data e horário propostos</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se NÃO disponível:</strong> ajustar nova data com o usuário, atualizar planilha e chamado, e retornar para validação</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Sistemas Remoto registra a solicitação na <a href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit" target="_blank" style="color:var(--blue-mid)">planilha de controle de treinamentos</a></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Sistemas Remoto contata o <strong>suporte N3/analista</strong> para verificar disponibilidade e definição do treinador</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Validar data, horário, treinador responsável e viabilidade da execução</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se NÃO disponível:</strong> Sistemas Remoto ajusta nova data com o usuário solicitante, atualiza planilha e chamado, e retorna para validação</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se DISPONÍVEL:</strong> prosseguir com o fluxo</div></div>
           </div>
         </div>
@@ -201,14 +208,14 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">ATIVIDADE 4</span>
-          <span class="activity-name">Encaminhamento para Execução — Central de Serviços</span>
+          <span class="activity-name">Encaminhamento para Execução — Sistemas Remoto</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
           <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Direcionar chamado para <strong>Sistemas N2 Campo</strong></div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Informar o técnico responsável pela execução</div></div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Informar o número do chamado ao técnico</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Direcionar chamado para <strong>Sistemas Campo</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Informar o treinador responsável pela execução</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Informar ao treinador o número do chamado, data, hora e dados do solicitante</div></div>
           </div>
         </div>
       </div>
@@ -216,12 +223,12 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">ATIVIDADE 5</span>
-          <span class="activity-name">Execução do Treinamento — Sistemas N2 Campo</span>
+          <span class="activity-name">Execução do Treinamento — Sistemas Campo</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
           <div class="step-list">
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Recebe o encaminhamento do chamado da Central de Serviços</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Recebe o encaminhamento do chamado de Sistemas Remoto</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Realizar treinamento no local</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Apoiar e orientar os usuários</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Esclarecer dúvidas sobre o sistema</div></div>
@@ -232,7 +239,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">ATIVIDADE 6</span>
-          <span class="activity-name">Registro e Encerramento — Sistemas N2 Campo</span>
+          <span class="activity-name">Registro e Encerramento — Sistemas Campo</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
@@ -285,21 +292,21 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
 <text class="th" x="340" y="204" text-anchor="middle" dominant-baseline="central">Atividade 2 — Abertura do chamado</text>
 <text class="ts" x="340" y="224" text-anchor="middle" dominant-baseline="central">Central de Serviços registra no GLPI</text>
 <text class="ts" x="340" y="242" text-anchor="middle" dominant-baseline="central">Coleta data, horário e descrição da necessidade</text>
-<text class="ts" x="340" y="260" text-anchor="middle" dominant-baseline="central">Encaminha para N2 Remoto</text></g>
+<text class="ts" x="340" y="260" text-anchor="middle" dominant-baseline="central">Encaminha para Sistemas Remoto</text></g>
 <line x1="340" y1="282" x2="340" y2="314" class="arr" marker-end="url(#arw2)"/>
 
 <!-- AT3 N2 Remoto -->
 <g class="n-purple"><rect x="100" y="314" width="480" height="82" rx="8"/>
 <text class="th" x="340" y="336" text-anchor="middle" dominant-baseline="central">Atividade 3 — Registro e controle</text>
-<text class="ts" x="340" y="356" text-anchor="middle" dominant-baseline="central">N2 Remoto registra na planilha de controle</text>
+<text class="ts" x="340" y="356" text-anchor="middle" dominant-baseline="central">Sistemas Remoto registra na planilha de controle</text>
 <text class="ts" x="340" y="374" text-anchor="middle" dominant-baseline="central">Atualiza informações do chamado</text></g>
 <line x1="340" y1="396" x2="340" y2="428" class="arr" marker-end="url(#arw2)"/>
 
 <!-- AT4 Validação -->
 <g class="n-purple"><rect x="100" y="428" width="480" height="82" rx="8"/>
 <text class="th" x="340" y="450" text-anchor="middle" dominant-baseline="central">Atividade 4 — Validação de disponibilidade</text>
-<text class="ts" x="340" y="470" text-anchor="middle" dominant-baseline="central">N2 Remoto contata N3 para verificar disponibilidade</text>
-<text class="ts" x="340" y="488" text-anchor="middle" dominant-baseline="central">Valida data, horário e técnico disponível</text></g>
+<text class="ts" x="340" y="470" text-anchor="middle" dominant-baseline="central">Sistemas Remoto contata N3/analista</text>
+<text class="ts" x="340" y="488" text-anchor="middle" dominant-baseline="central">Valida data, horário e treinador disponível</text></g>
 <line x1="340" y1="510" x2="340" y2="542" class="arr" marker-end="url(#arw2)"/>
 
 <!-- Decisão -->
@@ -316,24 +323,24 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
 <path d="M500 592 L560 592 L560 672" fill="none" class="arr" marker-end="url(#arw2)"/>
 <path d="M560 672 L420 672" fill="none" class="arr" marker-end="url(#arw2)"/>
 
-<!-- AT5 Encaminhar N2 Campo -->
+<!-- AT5 Encaminhar Sistemas Campo -->
 <g class="n-amber"><rect x="100" y="650" width="480" height="82" rx="8"/>
-<text class="th" x="340" y="672" text-anchor="middle" dominant-baseline="central">Atividade 5 — Encaminhamento para N2 Campo</text>
-<text class="ts" x="340" y="692" text-anchor="middle" dominant-baseline="central">Direciona chamado para N2 Campo</text>
-<text class="ts" x="340" y="710" text-anchor="middle" dominant-baseline="central">Informa técnico responsável e número do chamado</text></g>
+<text class="th" x="340" y="672" text-anchor="middle" dominant-baseline="central">Atividade 5 — Encaminhamento para Sistemas Campo</text>
+<text class="ts" x="340" y="692" text-anchor="middle" dominant-baseline="central">Sistemas Remoto direciona para Sistemas Campo</text>
+<text class="ts" x="340" y="710" text-anchor="middle" dominant-baseline="central">Informa treinador, solicitante, data e hora</text></g>
 <line x1="340" y1="732" x2="340" y2="764" class="arr" marker-end="url(#arw2)"/>
 
 <!-- AT6 Execução -->
 <g class="n-orange"><rect x="100" y="764" width="480" height="82" rx="8"/>
 <text class="th" x="340" y="786" text-anchor="middle" dominant-baseline="central">Atividade 6 — Execução do treinamento</text>
-<text class="ts" x="340" y="806" text-anchor="middle" dominant-baseline="central">N2 Campo realiza treinamento no local</text>
+<text class="ts" x="340" y="806" text-anchor="middle" dominant-baseline="central">Sistemas Campo realiza treinamento no local</text>
 <text class="ts" x="340" y="824" text-anchor="middle" dominant-baseline="central">Apoia usuários e esclarece dúvidas</text></g>
 <line x1="340" y1="846" x2="340" y2="878" class="arr" marker-end="url(#arw2)"/>
 
 <!-- AT7 Registro e encerramento -->
 <g class="n-teal"><rect x="100" y="878" width="480" height="100" rx="8"/>
 <text class="th" x="340" y="900" text-anchor="middle" dominant-baseline="central">Atividade 7 — Registro e encerramento</text>
-<text class="ts" x="340" y="920" text-anchor="middle" dominant-baseline="central">N2 Campo registra atividades e evidências no chamado</text>
+<text class="ts" x="340" y="920" text-anchor="middle" dominant-baseline="central">Sistemas Campo registra atividades e evidências no chamado</text>
 <text class="ts" x="340" y="938" text-anchor="middle" dominant-baseline="central">Valida conclusão do treinamento</text>
 <text class="ts" x="340" y="956" text-anchor="middle" dominant-baseline="central">Encerra o chamado no GLPI</text></g>
 <line x1="340" y1="978" x2="340" y2="1010" class="arr" marker-end="url(#arw2)"/>
@@ -348,14 +355,14 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
 <rect x="200" y="1078" width="18" height="14" rx="3" fill="#e8f0fa" stroke="#2d6fbd" stroke-width="1.5"/>
 <text class="ts" x="226" y="1085" dominant-baseline="central">Central de Serviços</text>
 <rect x="390" y="1078" width="18" height="14" rx="3" fill="#ede9f6" stroke="#7c3aed" stroke-width="1.5"/>
-<text class="ts" x="416" y="1085" dominant-baseline="central">N2 Remoto / N3</text>
+<text class="ts" x="416" y="1085" dominant-baseline="central">Sistemas Remoto / N3</text>
 
 <rect x="50" y="1102" width="18" height="14" rx="3" fill="#fdf3dc" stroke="#c8a94a" stroke-width="1.5"/>
 <text class="ts" x="76" y="1109" dominant-baseline="central">Encaminhamento</text>
 <rect x="200" y="1102" width="18" height="14" rx="3" fill="#fff7ed" stroke="#ea7d2a" stroke-width="1.5"/>
-<text class="ts" x="226" y="1109" dominant-baseline="central">N2 Campo — Execução</text>
+<text class="ts" x="226" y="1109" dominant-baseline="central">Sistemas Campo — Execução</text>
 <rect x="390" y="1102" width="18" height="14" rx="3" fill="#e6f4f1" stroke="#0d9488" stroke-width="1.5"/>
-<text class="ts" x="416" y="1109" dominant-baseline="central">N2 Campo — Encerramento</text>
+<text class="ts" x="416" y="1109" dominant-baseline="central">Sistemas Campo — Encerramento</text>
         </svg>
       </div>
     </div>
