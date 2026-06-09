@@ -129,7 +129,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
         <tbody>
           <tr><td><strong>Usuário Final</strong></td><td>Solicita o treinamento</td></tr>
           <tr><td><strong>Central de Serviços</strong></td><td>Realiza o atendimento inicial, abre o chamado no GLPI, coleta as informações básicas da solicitação e escalona o chamado para <strong>Sistemas Remoto</strong></td></tr>
-          <tr><td><strong>Sistemas Remoto</strong></td><td>Alimenta a planilha de controle, contata o suporte N3/analista, valida data, horário e treinador, registra as informações no chamado e encaminha para Sistemas Campo</td></tr>
+          <tr><td><strong>Sistemas Remoto</strong></td><td>Recebe a conversa transferida pela Central de Serviços, alimenta a planilha de controle, contata o suporte N3/analista, valida data, horário e treinador, registra as informações no chamado, encerra a conversa após concluir o processo e encaminha para Sistemas Campo</td></tr>
           <tr><td><strong>Sistemas N3 / Analista</strong></td><td>Apoia a validação de disponibilidade, definição do treinador e viabilidade da data</td></tr>
           <tr><td><strong>Sistemas Campo</strong></td><td>Recebe o chamado encaminhado por Sistemas Remoto, executa o treinamento e realiza o encerramento do chamado</td></tr>
         </tbody>
@@ -196,11 +196,13 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
         </div>
         <div class="activity-body">
           <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Sistemas Remoto recebe a conversa transferida pela <strong>Central de Serviços</strong> para dar andamento à solicitação</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Sistemas Remoto registra a solicitação na <a href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit" target="_blank" style="color:var(--blue-mid)">planilha de controle de treinamentos</a></div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Sistemas Remoto contata o <strong>suporte N3/analista</strong> para verificar disponibilidade e definição do treinador</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text">Validar data, horário, treinador responsável e viabilidade da execução</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se NÃO disponível:</strong> Sistemas Remoto ajusta nova data com o usuário solicitante, atualiza planilha e chamado, e retorna para validação</div></div>
             <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se DISPONÍVEL:</strong> prosseguir com o fluxo</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Após concluir o processo na conversa, <strong>Sistemas Remoto</strong> deve encerrar a conversa</div></div>
           </div>
         </div>
       </div>
@@ -298,8 +300,9 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
 <!-- AT3 N2 Remoto -->
 <g class="n-purple"><rect x="100" y="314" width="480" height="82" rx="8"/>
 <text class="th" x="340" y="336" text-anchor="middle" dominant-baseline="central">Atividade 3 — Registro e controle</text>
-<text class="ts" x="340" y="356" text-anchor="middle" dominant-baseline="central">Sistemas Remoto registra na planilha de controle</text>
-<text class="ts" x="340" y="374" text-anchor="middle" dominant-baseline="central">Atualiza informações do chamado</text></g>
+<text class="ts" x="340" y="356" text-anchor="middle" dominant-baseline="central">Recebe conversa da Central de Serviços</text>
+<text class="ts" x="340" y="374" text-anchor="middle" dominant-baseline="central">Registra na planilha e atualiza o chamado</text>
+<text class="ts" x="340" y="392" text-anchor="middle" dominant-baseline="central">Encerra a conversa após concluir</text></g>
 <line x1="340" y1="396" x2="340" y2="428" class="arr" marker-end="url(#arw2)"/>
 
 <!-- AT4 Validação -->
