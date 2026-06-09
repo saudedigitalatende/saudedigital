@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Manual Operacional – Abertura e Gestão de Chamados GLPI · GTIC</title>
+<title>Manual de Atendimento – Abertura, Triagem e Gestão de Chamados GLPI · GTIC</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 
@@ -96,6 +96,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .nivel-body{padding:14px 18px}
 .nivel-body ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
 .nivel-body li{font-size:13px;color:var(--ink2);padding:6px 12px;border-left:3px solid var(--blue-mid);background:var(--paper);border-radius:4px}
+
+.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:14px 0}
+.decision-card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:14px 16px;border-top:4px solid var(--blue-mid)}
+.decision-card.good{border-top-color:var(--green-mid)}
+.decision-card.warn{border-top-color:var(--orange-mid)}
+.decision-card h4{font-size:13px;color:var(--ink);margin-bottom:8px}
+.decision-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.decision-card li{font-size:12.5px;color:var(--ink2);line-height:1.55;padding-left:12px;position:relative}
+.decision-card li::before{content:'•';position:absolute;left:0;color:var(--blue-mid);font-weight:700}
+.mini-steps{counter-reset:step;display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.mini-step{counter-increment:step;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:10px 12px 10px 42px;position:relative;font-size:13px;color:var(--ink2);line-height:1.55}
+.mini-step::before{content:counter(step);position:absolute;left:12px;top:10px;width:20px;height:20px;border-radius:50%;background:var(--blue-mid);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.rule-answer{background:var(--green-lt);border:1.5px solid var(--green-mid);border-radius:12px;padding:14px 16px;color:#164f35;font-size:13px;line-height:1.65;margin:14px 0}
+.rule-answer strong{color:#123f2c}
+@media(max-width:760px){.decision-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -110,7 +126,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         ← Voltar às Documentações
       </a>
     </div>
-    <h1>Manual Operacional<br><em>Abertura e Gestão de Chamados – GLPI</em></h1>
+    <h1>Manual de Atendimento<br><em>Abertura, Triagem e Gestão de Chamados – GLPI</em></h1>
     <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
   </div>
 </header>
@@ -124,9 +140,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <li><a href="#finalidade">03. Finalidade</a></li>
       <li><a href="#visao-geral">04. Visão Geral do Processo</a></li>
       <li><a href="#notificacoes">05. Notificações Automáticas</a></li>
-      <li><a href="#orientacoes">06. Orientações para Abertura</a></li>
+      <li><a href="#orientacoes">06. Orientações e Passo a Passo</a></li>
       <li><a href="#categorizacao">07. Categorização e Templates</a></li>
-      <li><a href="#papeis">08. Papéis e Responsabilidades</a></li>
+      <li><a href="#papeis">08. Papéis, Níveis e Escalonamento</a></li>
     </ul>
   </aside>
 
@@ -136,7 +152,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <div class="section-title"><span>01</span> Histórico de Revisões</div>
       <table class="info-table">
         <thead><tr><th>Versão</th><th>Última Atualização</th><th>Autor</th></tr></thead>
-        <tbody><tr><td>1.0</td><td>2026</td><td>GTIC</td></tr></tbody>
+        <tbody><tr><td>1.1</td><td>2026</td><td>GTIC</td></tr></tbody>
       </table>
     </div>
 
@@ -224,7 +240,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </div>
 
     <div class="section" id="orientacoes">
-      <div class="section-title"><span>06</span> Orientações para Abertura de Chamados</div>
+      <div class="section-title"><span>06</span> Orientações e Passo a Passo para Atendimento</div>
 
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
@@ -297,6 +313,130 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           </div>
         </div>
       </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">6.4</span>
+          <span class="activity-name">Passo a Passo por Tipo de Solicitação</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <p class="doc-p">Para cada chamado, a equipe deve identificar o tipo de solicitação e seguir um fluxo básico de tratamento. O objetivo é evitar registros incompletos, retrabalho e encaminhamentos desnecessários.</p>
+          <div class="decision-grid">
+            <div class="decision-card good">
+              <h4>Cadastro, liberação ou alteração de acesso</h4>
+              <ul>
+                <li>Conferir nome completo, CPF ou matrícula, unidade, função e sistema solicitado.</li>
+                <li>Validar se há autorização da chefia ou responsável pela unidade, quando aplicável.</li>
+                <li>Executar o cadastro ou alteração quando o serviço estiver previsto para N1.</li>
+                <li>Registrar no chamado quais usuários foram atendidos e qual acesso foi concedido.</li>
+              </ul>
+            </div>
+            <div class="decision-card">
+              <h4>Erro de sistema</h4>
+              <ul>
+                <li>Identificar sistema, módulo, tela, mensagem de erro e horário da ocorrência.</li>
+                <li>Solicitar evidência, como print ou descrição do passo que gerou o erro.</li>
+                <li>Verificar se é caso isolado ou se afeta outros usuários/unidades.</li>
+                <li>Escalonar para N2/N3 quando exigir análise técnica, correção ou intervenção sistêmica.</li>
+              </ul>
+            </div>
+            <div class="decision-card">
+              <h4>Equipamento, rede ou infraestrutura</h4>
+              <ul>
+                <li>Identificar patrimônio, setor, unidade, ponto de rede e telefone de contato.</li>
+                <li>Registrar sintomas objetivos: sem rede, sem impressão, lentidão, tela apagada, travamento.</li>
+                <li>Orientar testes simples quando possível, como reiniciar equipamento ou verificar cabos.</li>
+                <li>Encaminhar para a equipe responsável quando houver necessidade de visita ou manutenção.</li>
+              </ul>
+            </div>
+            <div class="decision-card warn">
+              <h4>Dúvida, orientação ou solicitação administrativa</h4>
+              <ul>
+                <li>Confirmar qual procedimento o usuário precisa executar.</li>
+                <li>Orientar com base em POP, manual ou script oficial, sempre que houver documento publicado.</li>
+                <li>Registrar a orientação prestada no histórico do chamado.</li>
+                <li>Encerrar somente após deixar claro o encaminhamento ou a resposta fornecida.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">6.5</span>
+          <span class="activity-name">O que é Demanda Simples e Padronizada para N1?</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <p class="doc-p">Considera-se <strong>demanda simples e padronizada</strong> aquela que possui procedimento conhecido, baixo risco operacional, informações suficientes no chamado e não exige análise técnica aprofundada, alteração estrutural, desenvolvimento, correção de sistema ou decisão de gestão.</p>
+          <div class="decision-grid">
+            <div class="decision-card good">
+              <h4>Exemplos que N1 pode atender</h4>
+              <ul>
+                <li>Cadastro de usuário em sistema com dados completos e autorização informada.</li>
+                <li>Reset de senha ou desbloqueio de acesso, conforme regra do serviço.</li>
+                <li>Atualização simples de dados cadastrais, quando prevista no catálogo.</li>
+                <li>Orientação de uso baseada em manual, POP ou script já validado.</li>
+                <li>Triagem e correção de informação incompleta antes do encaminhamento.</li>
+              </ul>
+            </div>
+            <div class="decision-card warn">
+              <h4>Quando não é N1</h4>
+              <ul>
+                <li>Erro sem causa conhecida ou que exige análise em banco, servidor ou código.</li>
+                <li>Solicitação sem autorização obrigatória ou com conflito de regra de negócio.</li>
+                <li>Incidente que afeta vários usuários, unidade inteira ou serviço crítico.</li>
+                <li>Criação de nova funcionalidade, relatório, integração ou mudança de fluxo.</li>
+                <li>Manutenção física, visita técnica ou intervenção especializada.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="alert-box info">
+            <strong>Critério prático:</strong> se o atendente consegue resolver seguindo um procedimento já documentado, com dados completos e sem precisar investigar causa técnica, a demanda tende a ser N1. Se precisar analisar, decidir, corrigir estrutura ou envolver especialista, deve ser escalonada.
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">6.6</span>
+          <span class="activity-name">Um Chamado ou Vários Chamados?</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="rule-answer">
+            <strong>Regra geral:</strong> quando o mesmo solicitante pedir o mesmo tipo de serviço, para o mesmo sistema, na mesma unidade e com a mesma finalidade, pode ser registrado <strong>um único chamado</strong> contendo a lista de profissionais. Quando houver sistemas diferentes, unidades diferentes, tipos de serviço diferentes ou necessidades com análise individual, devem ser abertos <strong>chamados separados</strong>.
+          </div>
+          <div class="mini-steps">
+            <div class="mini-step">Verificar se todos os profissionais pertencem à mesma unidade ou contexto de atendimento.</div>
+            <div class="mini-step">Confirmar se a solicitação é exatamente a mesma para todos: cadastro, perfil, sistema e tipo de acesso.</div>
+            <div class="mini-step">Anexar ou registrar uma lista organizada com nome completo, CPF/matrícula, cargo/função, unidade e e-mail.</div>
+            <div class="mini-step">Registrar no histórico quais profissionais foram atendidos e quais ficaram pendentes por falta de informação.</div>
+          </div>
+          <div class="decision-grid">
+            <div class="decision-card good">
+              <h4>Um chamado</h4>
+              <ul>
+                <li>Uma chefia solicita cadastro de 12 profissionais no mesmo sistema, para a mesma unidade e com o mesmo perfil de acesso.</li>
+                <li>Um setor solicita reset de senha para 5 usuários do mesmo sistema, todos listados no chamado.</li>
+                <li>Uma unidade pede liberação do mesmo módulo para uma equipe específica, com autorização única da chefia.</li>
+              </ul>
+            </div>
+            <div class="decision-card warn">
+              <h4>Chamados separados</h4>
+              <ul>
+                <li>O solicitante pede cadastro de profissionais em sistemas diferentes, como SEI, CNES e PEC.</li>
+                <li>A lista mistura unidades diferentes, perfis de acesso diferentes ou autorizações distintas.</li>
+                <li>Parte da demanda é cadastro, outra parte é correção de erro, desbloqueio ou alteração de perfil.</li>
+                <li>Cada profissional apresenta um problema específico que exige análise individual.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="section" id="categorizacao">
@@ -320,7 +460,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </div>
 
     <div class="section" id="papeis">
-      <div class="section-title"><span>08</span> Papéis e Responsabilidades das Equipes</div>
+      <div class="section-title"><span>08</span> Papéis, Níveis e Escalonamento</div>
       <p class="doc-p">Os papéis e responsabilidades das equipes estão alinhados ao <strong>Catálogo de Serviços</strong> e às boas práticas de <strong>governança ITIL</strong>, garantindo clareza na atuação de cada nível de atendimento e adequada gestão das demandas.</p>
 
       <div class="nivel-card">
@@ -330,11 +470,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         </div>
         <div class="nivel-body">
           <ul>
-            <li>Realizar o atendimento inicial ao usuário</li>
-            <li>Registrar corretamente as informações no GLPI</li>
-            <li>Resolver e encerrar demandas simples e padronizadas</li>
-            <li>Escalonar o chamado quando ultrapassar seu escopo de atuação</li>
+            <li>Realizar o atendimento inicial ao usuário, conferindo dados obrigatórios e contexto da solicitação</li>
+            <li>Registrar corretamente as informações no GLPI, incluindo sistema, unidade, contato, evidências e autorização quando aplicável</li>
+            <li>Resolver e encerrar demandas simples e padronizadas, conforme catálogo, POP, manual ou script oficial</li>
+            <li>Orientar o usuário quando houver procedimento documentado e registrar a orientação no histórico</li>
+            <li>Escalonar o chamado quando ultrapassar seu escopo de atuação, descrevendo o motivo do encaminhamento e as verificações já realizadas</li>
           </ul>
+          <div class="alert-box info" style="margin-top:12px">
+            <strong>Resumo do N1:</strong> atende o que é repetível, documentado e de baixo risco. Não deve assumir demandas que dependam de investigação técnica, alteração estrutural, regra de negócio não validada ou autorização ausente.
+          </div>
         </div>
       </div>
 
@@ -376,7 +520,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <div class="footer-brand">GTIC · Saúde Digital</div>
   <div class="footer-meta">
     <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
-    <span><strong>Versão</strong>1.0 · 2026</span>
+    <span><strong>Versão</strong>1.1 · 2026</span>
     <span><strong>Uso</strong>Interno · Documento Institucional</span>
   </div>
   <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
@@ -386,7 +530,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </footer>
 
 <script>
-document.querySelectorAll('.activity-header').forEach(h => {
+document.querySelectorAll('.activity-header:not([onclick])').forEach(h => {
   h.addEventListener('click', () => h.closest('.activity-card').classList.toggle('open'));
 });
 const links = document.querySelectorAll('.toc a');
