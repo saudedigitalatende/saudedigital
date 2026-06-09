@@ -300,59 +300,234 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 .back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
 .back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
 .back-portal svg{width:14px;height:14px;flex-shrink:0}
+
+/* Visual mais suave para a visão geral */
+#tab-visao .exec-card,
+#tab-visao .estrutura-card,
+#tab-visao .overview-quality-card{
+  background:#ffffff!important;
+  border:1px solid rgba(63,91,125,.22)!important;
+  box-shadow:0 8px 24px rgba(13,26,46,.08);
+}
+#tab-visao .exec-eyebrow,
+#tab-visao .estrutura-eyebrow,
+#tab-visao .overview-quality-title{
+  color:#3f6f9f!important;
+}
+#tab-visao .exec-stat,
+#tab-visao .estrutura-equipe,
+#tab-visao .overview-soft-box,
+#tab-visao .overview-ds-card,
+#tab-visao .estrutura-card [style*="background:rgba(255,255,255,.07)"],
+#tab-visao .overview-quality-card [style*="background:rgba(255,255,255,.07)"]{
+  background:#f4f7fb!important;
+  border:1px solid rgba(63,91,125,.16)!important;
+}
+#tab-visao .exec-label,
+#tab-visao .exec-note,
+#tab-visao .estrutura-total,
+#tab-visao .estrutura-equipe-lbl,
+#tab-visao .overview-quality-card [style*="rgba(255,255,255,.6)"],
+#tab-visao .overview-ds-name,
+#tab-visao .overview-ds-total{
+  color:#42576d!important;
+}
+#tab-visao .exec-note{
+  border-top-color:rgba(13,26,46,.08)!important;
+}
+#tab-visao .exec-note strong{
+  color:#254d76!important;
+}
+#tab-visao .ev-blue,
+#tab-visao #q-resolucao-pct,
+#tab-visao .estrutura-card.infra .estrutura-equipe-val{
+  color:#1565c0!important;
+}
+#tab-visao .ev-green,
+#tab-visao .estrutura-card.sistemas .estrutura-sla,
+#tab-visao .estrutura-card.sistemas .estrutura-equipe-val{
+  color:#2e7d32!important;
+}
+#tab-visao .ev-amber{
+  color:#e65100!important;
+}
+#tab-visao .ev-red,
+#tab-visao .estrutura-card.infra .estrutura-sla{
+  color:#c62828!important;
+}
+#tab-visao .estrutura-card.infra .estrutura-tag{
+  background:#ffebee!important;
+  color:#c62828!important;
+}
+#tab-visao .estrutura-card.sistemas .estrutura-tag{
+  background:#e8f5e9!important;
+  color:#2e7d32!important;
+}
+#tab-visao .estrutura-bar-wrap,
+#tab-visao .overview-quality-card [style*="height:4px;background:rgba(255,255,255,.1)"],
+#tab-visao .sla-global-header [style*="background:rgba(255,255,255,.1)"],
+#tab-visao .estrutura-card [style*="background:rgba(255,255,255,.1)"]{
+  background:#cdd8e6!important;
+}
+#tab-visao .estrutura-trend{
+  border-top-color:rgba(13,26,46,.08)!important;
+}
+#tab-visao .estrutura-card.infra .estrutura-trend-item{
+  color:#52708e!important;
+}
+#tab-visao .estrutura-card.sistemas .estrutura-trend-item{
+  color:#4f7d55!important;
+}
+#tab-visao .sla-global-header{
+  background:#ffffff!important;
+  border:1px solid rgba(63,91,125,.22)!important;
+  border-bottom:1px solid rgba(63,91,125,.22)!important;
+}
+#tab-visao .sla-global-header span[style*="color:#6a8dad"]{
+  color:#40566d!important;
+}
+#tab-visao .sla-global-header strong{
+  color:#2e7d32!important;
+}
+
+.card,
+.kpi{
+  border-color:rgba(63,91,125,.26)!important;
+}
+#tab-visao > div[style*="background:var(--white);border:1px solid var(--border)"],
+#tab-visao .exec-card,
+#tab-visao .estrutura-card,
+#tab-visao .overview-quality-card{
+  border-color:rgba(52,76,105,.38)!important;
+}
+#tab-visao .exec-stat,
+#tab-visao .estrutura-equipe,
+#tab-visao .overview-ds-card,
+#tab-visao .overview-quality-card [style*="background:rgba(255,255,255,.07)"],
+#tab-visao .estrutura-card [style*="background:rgba(255,255,255,.07)"]{
+  border-color:rgba(52,76,105,.28)!important;
+}
+#tab-visao .sla-global-header{
+  border-color:rgba(52,76,105,.38)!important;
+  border-bottom-color:rgba(52,76,105,.38)!important;
+}
+
+#tab-visao .exec-val,
+#tab-visao .estrutura-sla,
+#tab-visao .estrutura-equipe-val,
+#tab-visao #q-resolucao-pct,
+#tab-visao #q-enc-val,
+#tab-visao #q-ab-val,
+#tab-visao #infra-enc-val,
+#tab-visao #infra-ab-val,
+#tab-visao #sist-enc-val,
+#tab-visao #sist-ab-val,
+#tab-visao .overview-ds-sla{
+  font-weight:500!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.45);
+}
+#tab-visao .ev-blue,
+#tab-visao #q-resolucao-pct,
+#tab-visao #q-enc-val,
+#tab-visao #infra-enc-val,
+#tab-visao .estrutura-card.infra .estrutura-equipe-val{
+  color:#0057b8!important;
+}
+#tab-visao .ev-green,
+#tab-visao #sist-enc-val,
+#tab-visao .estrutura-card.sistemas .estrutura-sla,
+#tab-visao .estrutura-card.sistemas .estrutura-equipe-val{
+  color:#17752b!important;
+}
+#tab-visao .ev-amber,
+#tab-visao #q-ab-val,
+#tab-visao #sist-ab-val{
+  color:#d85a00!important;
+}
+#tab-visao .ev-red,
+#tab-visao #infra-ab-val,
+#tab-visao .estrutura-card.infra .estrutura-sla{
+  color:#b31324!important;
+}
+#tab-visao .ev-teal,
+#tab-visao #ev-csat{
+  color:#00695c!important;
+  font-weight:600!important;
+}
+
 @media(max-width:768px){.page-footer{padding-left:24px;padding-right:24px}}
+
+
+/* Menu superior de navegação */
+.main{margin-left:0}
+.content>.sidebar{
+  position:static;
+  width:auto;
+  height:auto;
+  background:transparent;
+  display:block;
+  overflow:visible;
+  margin:0 0 16px;
+  z-index:auto;
+}
+.content>.sidebar .sb-nav{
+  display:flex!important;
+  align-items:center;
+  gap:10px 14px;
+  flex-wrap:wrap;
+  overflow:visible!important;
+  padding:0!important;
+}
+.content>.sidebar .nav-group{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+  margin:0;
+}
+.content>.sidebar .nav-group-label{
+  padding:0;
+  margin:0 4px 0 0;
+  color:#406080;
+  font-size:10px;
+}
+.content>.sidebar .nav-item{
+  background:#fff;
+  border-color:rgba(52,76,105,.28);
+  border-radius:18px;
+  padding:7px 11px;
+  margin:0;
+  box-shadow:0 6px 18px rgba(15,30,50,.06);
+  white-space:nowrap;
+}
+.content>.sidebar .nav-item:hover{
+  background:#f4f7fb;
+  border-color:rgba(21,101,192,.25);
+}
+.content>.sidebar .nav-item.active{
+  background:#1565c0;
+  color:#fff;
+  border-color:#1565c0;
+}
+.content>.sidebar .nav-item.active .nav-count{
+  background:rgba(255,255,255,.18);
+  color:#fff;
+}
+.content>.sidebar .nav-count{
+  margin-left:4px;
+  background:#eef3f9;
+  color:#4d6685;
+}
+@media(max-width:768px){
+  .content>.sidebar .sb-nav{align-items:flex-start}
+  .content>.sidebar .nav-group{width:100%}
+}
+
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════ SIDEBAR ══════════════════════ -->
-<nav class="sidebar">
 
-  <div class="sb-nav" style="flex:1;overflow-y:auto;padding:8px 9px">
-      <div class="nav-group">
-        <div class="nav-group-label">Monitoramento</div>
-        <div class="nav-item active" onclick="gotoTab('visao',this)">
-          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
-          Visão geral<span class="nav-count">4.977</span>
-        </div>
-        <div class="nav-item" onclick="gotoTab('satisfacao',this)">
-          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M5.5 9.5s.7 1.5 2.5 1.5 2.5-1.5 2.5-1.5"/><circle cx="5.5" cy="7" r=".8" fill="currentColor"/><circle cx="10.5" cy="7" r=".8" fill="currentColor"/></svg>
-          Satisfação CSAT<span class="nav-count">392</span>
-        </div>
-        <div class="nav-item" onclick="gotoTab('sla',this)">
-          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v3.5l2.5 1.5"/></svg>
-          SLA & Grupo Técnico<span class="nav-count">10 grp</span>
-        </div>
-        <div class="nav-item" onclick="gotoTab('backlog',this)">
-          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h8M2 12h5"/></svg>
-          Backlog & Risco<span class="nav-count">945</span>
-        </div>
-        <div class="nav-item" onclick="gotoTab('concentracao',this)">
-          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 2.5A6 6 0 1 1 2.5 8"/><path d="M2 4l.5-1.5L4 3"/></svg>
-          Concentração de Demanda<span class="nav-count">15</span>
-        </div>
-        <div class="nav-item" onclick="gotoTab('distritos',this)">
-          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2C5.2 2 3 4.2 3 7c0 4.5 5 8 5 8s5-3.5 5-8c0-2.8-2.2-5-5-5z"/><circle cx="8" cy="7" r="1.5"/></svg>
-          Por distrito<span class="nav-count">DS1-8</span>
-        </div>
-      </div>
-      <div class="nav-group">
-        <div class="nav-group-label">Estratégia</div>
-        <div class="nav-item" onclick="gotoTab('acoes',this)">
-          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3L6 10l-3-3"/></svg>
-          Plano de ação
-        </div>
-        <div class="nav-item" onclick="gotoTab('roadmap',this)">
-          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          Roadmap KPIs
-        </div>
-      </div>
-    </div>
-
-  <div class="sb-footer">
-    
-  </div>
-</nav>
 
 <!-- ══════════════════════ MAIN ══════════════════════ -->
 <main class="main">
@@ -372,6 +547,56 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
   </header>
 
   <div class="content">
+
+    <!-- ══════════════════════ MENU SUPERIOR ══════════════════════ -->
+<!-- ══════════════════════ SIDEBAR ══════════════════════ -->
+    <nav class="sidebar">
+    
+      <div class="sb-nav" style="flex:1;overflow-y:auto;padding:8px 9px">
+          <div class="nav-group">
+            <div class="nav-group-label">Monitoramento</div>
+            <div class="nav-item active" onclick="gotoTab('visao',this)">
+              <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
+              Visão geral<span class="nav-count">4.977</span>
+            </div>
+            <div class="nav-item" onclick="gotoTab('satisfacao',this)">
+              <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M5.5 9.5s.7 1.5 2.5 1.5 2.5-1.5 2.5-1.5"/><circle cx="5.5" cy="7" r=".8" fill="currentColor"/><circle cx="10.5" cy="7" r=".8" fill="currentColor"/></svg>
+              Satisfação CSAT<span class="nav-count">392</span>
+            </div>
+            <div class="nav-item" onclick="gotoTab('sla',this)">
+              <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v3.5l2.5 1.5"/></svg>
+              SLA & Grupo Técnico<span class="nav-count">10 grp</span>
+            </div>
+            <div class="nav-item" onclick="gotoTab('backlog',this)">
+              <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h8M2 12h5"/></svg>
+              Backlog & Risco<span class="nav-count">945</span>
+            </div>
+            <div class="nav-item" onclick="gotoTab('concentracao',this)">
+              <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 2.5A6 6 0 1 1 2.5 8"/><path d="M2 4l.5-1.5L4 3"/></svg>
+              Concentração de Demanda<span class="nav-count">15</span>
+            </div>
+            <div class="nav-item" onclick="gotoTab('distritos',this)">
+              <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2C5.2 2 3 4.2 3 7c0 4.5 5 8 5 8s5-3.5 5-8c0-2.8-2.2-5-5-5z"/><circle cx="8" cy="7" r="1.5"/></svg>
+              Por distrito<span class="nav-count">DS1-8</span>
+            </div>
+          </div>
+          <div class="nav-group">
+            <div class="nav-group-label">Estratégia</div>
+            <div class="nav-item" onclick="gotoTab('acoes',this)">
+              <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3L6 10l-3-3"/></svg>
+              Plano de ação
+            </div>
+            <div class="nav-item" onclick="gotoTab('roadmap',this)">
+              <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              Roadmap KPIs
+            </div>
+          </div>
+        </div>
+    
+      <div class="sb-footer">
+        
+      </div>
+    </nav>
 
     <!-- ═══════════════════════════ TAB: VISÃO GERAL ═══════════════════════════ -->
     <div class="tab-content active" id="tab-visao">
@@ -406,10 +631,10 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
         </div>
 
         <!-- WRAPPER SLA: header + infra + sistemas -->
-        <div style="grid-column:1/-1;background:var(--white);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden">
+        <div style="grid-column:1/-1;background:var(--white);border:1px solid rgba(52,76,105,.38);border-radius:var(--rl);overflow:hidden">
 
           <!-- SLA GLOBAL HEADER -->
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:linear-gradient(90deg,#0d1b2a,#1a3a6b);border-bottom:1px solid rgba(255,255,255,.1)">
+          <div class="sla-global-header" style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#ffffff;border-bottom:1px solid rgba(52,76,105,.38)">
             <div style="display:flex;align-items:center;gap:16px">
               <span style="font-size:10px;font-weight:700;color:#6a8dad;text-transform:uppercase;letter-spacing:.1em">SLA Global</span>
               <span id="sla-global-val" style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:300;color:#ef9a9a">66,2%</span>
@@ -519,7 +744,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
       </div><!-- /grid 4 quadrantes -->
 
       <!-- CARD QUALIDADE & DISTRITOS — modelo sistemas -->
-      <div style="background:linear-gradient(135deg,#0d1b2a 0%,#1a3352 100%);border-radius:var(--rl);padding:16px 20px;margin-bottom:12px">
+      <div class="overview-quality-card" style="background:#ffffff;border:1px solid rgba(52,76,105,.38);border-radius:var(--rl);padding:16px 20px;margin-bottom:12px">
 
         <!-- Eyebrow -->
         <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:#6a9fd8">
@@ -555,7 +780,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 
           <!-- Coluna direita: Distritos -->
           <div>
-            <div style="font-size:10px;color:#6a9fd8;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:600">SLA por Distrito Sanitário</div>
+            <div class="overview-quality-title" style="font-size:10px;color:#3f6f9f;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:600">SLA por Distrito Sanitário</div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
               <div class="overview-ds-card" style="background:rgba(255,255,255,.07);border-radius:7px;padding:8px 6px;text-align:center">
                 <div class="overview-ds-name" style="font-size:8px;color:rgba(255,255,255,.5);margin-bottom:3px">DS 1</div>
@@ -598,8 +823,8 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
                 <div class="overview-ds-total" style="font-size:7px;color:rgba(255,255,255,.35);margin-top:2px">100 ch.</div>
               </div></div>
             <div style="display:flex;align-items:center;gap:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.07)">
-              <div id="q-best-ds" style="display:flex;align-items:center;gap:5px;font-size:9px;color:#ffcc80"><div style="width:5px;height:5px;border-radius:50%;background:#ffcc80"></div>DS3 — destaque (76,1%)</div>
-              <div id="q-worst-ds" style="display:flex;align-items:center;gap:5px;font-size:9px;color:#ef9a9a"><div style="width:5px;height:5px;border-radius:50%;background:#ef9a9a"></div>DS6 — atenção (55,7%)</div>
+              <div id="q-best-ds" style="display:flex;align-items:center;gap:5px;font-size:9px;color:#9f4a00;font-weight:600"><div style="width:5px;height:5px;border-radius:50%;background:#9f4a00"></div>DS3 — destaque (76,1%)</div>
+              <div id="q-worst-ds" style="display:flex;align-items:center;gap:5px;font-size:9px;color:#b31324;font-weight:600"><div style="width:5px;height:5px;border-radius:50%;background:#b31324"></div>DS6 — atenção (55,7%)</div>
             </div>
           </div>
 
@@ -1805,14 +2030,14 @@ function updateOverviewQualidadeDistritos(mes, d) {
     if (!item) return;
     const isBest = best && item.raw === best.raw;
     const isWorst = worst && item.raw === worst.raw;
-    const color = item.sla >= 85 ? '#a5d6a7' : item.sla >= 60 ? '#ffcc80' : '#ef9a9a';
+    const color = item.sla >= 85 ? '#17752b' : item.sla >= 60 ? '#d85a00' : '#b31324';
     card.style.border = isBest ? '1px solid rgba(255,204,128,.45)' : '0';
     const name = card.querySelector('.overview-ds-name');
     const sla = card.querySelector('.overview-ds-sla');
     const total = card.querySelector('.overview-ds-total');
     if (name) {
       name.textContent = item.nome + (isBest ? ' ★' : '');
-      name.style.color = isWorst ? '#ef9a9a' : isBest ? '#ffcc80' : 'rgba(255,255,255,.5)';
+      name.style.color = isWorst ? '#c62828' : isBest ? '#e65100' : '#42576d';
     }
     if (sla) {
       sla.textContent = pctText(item.sla);
@@ -1822,8 +2047,8 @@ function updateOverviewQualidadeDistritos(mes, d) {
   });
   const bestEl = document.getElementById('q-best-ds');
   const worstEl = document.getElementById('q-worst-ds');
-  if (bestEl && best) bestEl.innerHTML = '<div style="width:5px;height:5px;border-radius:50%;background:#ffcc80"></div>' + best.nome + ' — destaque (' + pctText(best.sla) + ')';
-  if (worstEl && worst) worstEl.innerHTML = '<div style="width:5px;height:5px;border-radius:50%;background:#ef9a9a"></div>' + worst.nome + ' — atenção (' + pctText(worst.sla) + ')';
+  if (bestEl && best) { bestEl.style.color = '#9f4a00'; bestEl.style.fontWeight = '600'; bestEl.innerHTML = '<div style="width:5px;height:5px;border-radius:50%;background:#9f4a00"></div>' + best.nome + ' — destaque (' + pctText(best.sla) + ')'; }
+  if (worstEl && worst) { worstEl.style.color = '#b31324'; worstEl.style.fontWeight = '600'; worstEl.innerHTML = '<div style="width:5px;height:5px;border-radius:50%;background:#b31324"></div>' + worst.nome + ' — atenção (' + pctText(worst.sla) + ')'; }
 }
 
 function filtrarMes(mes) {
@@ -1848,7 +2073,7 @@ function filtrarMes(mes) {
     const slaNum = d.sla;
     const slaFormatted = String(slaNum.toFixed(1)).replace('.',',') + '%';
     slaGlobalVal.textContent  = slaFormatted;
-    slaGlobalVal.style.color  = slaNum >= 85 ? '#a5d6a7' : slaNum >= 60 ? '#ffcc80' : '#ef9a9a';
+    slaGlobalVal.style.color  = slaNum >= 85 ? '#17752b' : slaNum >= 60 ? '#9f4a00' : '#b31324';
   }
   if(slaGlobalStats){
     slaGlobalStats.textContent = fmt(d.np) + ' no prazo · ' + fmt(d.fp) + ' fora';
@@ -1862,7 +2087,7 @@ function filtrarMes(mes) {
       abr:   'abr 2026'
     };
     slaGlobalTrend.textContent = trends[mes] || '';
-    slaGlobalTrend.style.color = d.sla >= 85 ? '#a5d6a7' : d.sla >= 60 ? '#ffcc80' : '#ef9a9a';
+    slaGlobalTrend.style.color = d.sla >= 85 ? '#17752b' : d.sla >= 60 ? '#9f4a00' : '#b31324';
   }
 
   // ── Resumo Executivo ──
