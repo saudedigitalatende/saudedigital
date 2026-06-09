@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>POP – COLMEIA · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
+.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.content .section{margin-bottom:36px;scroll-margin-top:24px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
+.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px}
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
+.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even) td{background:var(--paper)}
+.rules-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.rules-list li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid);line-height:1.5}
+.activity-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:12px}
+.activity-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--ink);cursor:pointer;user-select:none}
+.activity-header:hover{background:#1a2b42}
+.activity-num{font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.activity-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.activity-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.activity-card:not(.open) .activity-body{display:none}
+.activity-card.open .activity-chevron{transform:rotate(180deg)}
+.activity-body{padding:20px}
+.step-list{display:flex;flex-direction:column;gap:8px}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-mid);flex-shrink:0;margin-top:6px}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.sub-item{font-size:12.5px;color:var(--ink3);padding:4px 12px;border-left:2px solid var(--rule);margin:4px 0 4px 20px}
+.fluxo-img{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-align:center;padding:24px}
+.fluxo-img img{max-width:100%;height:auto;border-radius:8px}
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.processo-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--blue-lt);color:var(--blue-mid);font-size:11px;font-weight:700;flex-shrink:0}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.success{background:#e6f4ee;border-color:#2a8a5a;color:#1a5a3a}
+.alert-box.success strong{color:#1a5a3a}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.meta-item{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink2)}
+.meta-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:4px}
+
+/* Complementos para POPs convertidos de DOCX. */
+.toc a{line-height:1.35;text-transform:none}
+.label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin:12px 0 6px}
+.steps-box{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:14px 16px;color:var(--ink2);font-size:13px;line-height:1.75;margin-bottom:12px}
+.steps-box p{margin-bottom:10px}
+.steps-box p:last-child{margin-bottom:0}
+.steps-box a,.info-table td a{color:var(--blue-mid);word-break:break-word}
+@media(max-width:900px){.meta-grid{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html"
+        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
+        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
+        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+        ← Voltar às Documentações
+      </a>
+    </div>
+    <h1>Procedimento Operacional Padrão<br><em>COLMEIA</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="toc">
+      <li><a href="#historico">01. Histórico de Revisões</a></li>
+      <li><a href="#links">02. Links Complementares</a></li>
+      <li><a href="#provedor">03. Provedor</a></li>
+      <li><a href="#contatos">04. Contatos</a></li>
+      <li><a href="#dss001">05. Cadastro de Novo Usuário pelo Sistema Conecta Recife</a></li>
+      <li><a href="#dss002">06. Cadastro de Novo Usuário pelo Sistema GOV.BR</a></li>
+      <li><a href="#dss003">07. Alteração do Perfil: Inclusão Permissões</a></li>
+      <li><a href="#dss004">08. Alteração do Perfil: Alteração Permissões</a></li>
+      <li><a href="#dss005">09. Alteração de Perfil: Inativando Perfil</a></li>
+      <li><a href="#dss006">10. Dúvida/Orientação</a></li>
+      <li><a href="#dss007">11. Correção de Erros (bugs)</a></li>
+      <li><a href="#dss008">12. Indisponibilidade do Sistema</a></li>
+      <li><a href="#dss009">13. Lentidão do Sistema</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <div class="section" id="historico">
+      <div class="section-title"><span>01</span> Histórico de Revisões</div>
+      <table class="info-table">
+        <thead><tr><th>Versão</th><th>Data</th><th>Autor</th><th>Descrição</th></tr></thead>
+        <tbody><tr><td>1.0</td><td>03/01/2025</td><td>GTIC</td><td>—</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="section" id="links">
+      <div class="section-title"><span>02</span> Links Complementares</div>
+      <table class="info-table">
+        <thead><tr><th>Nome</th><th>Link da Documentação</th></tr></thead>
+        <tbody><tr><td>PMCR</td><td><a href="https://colmeia.recife.pe.gov.br/" target="_blank" rel="noopener">https://colmeia.recife.pe.gov.br/</a></td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="section" id="provedor">
+      <div class="section-title"><span>03</span> Provedor</div>
+      <table class="info-table">
+        <thead><tr><th>IP</th><th>Localização</th><th>Fornecedor</th><th>Executiva</th></tr></thead>
+        <tbody><tr><td colspan="4" style="text-align:center;color:var(--ink3);font-size:13px">Não informado</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="section" id="contatos">
+      <div class="section-title"><span>04</span> Contatos</div>
+      <table class="info-table">
+        <thead><tr><th>Unidade</th><th>Nome</th><th>Telefone</th><th>E-mail</th></tr></thead>
+        <tbody><tr><td>GTIC</td><td>#saudedigitalatende</td><td>(81) 3355-7325</td><td><a href="mailto:saudedigitalatende@recife.pe.gov.br">saudedigitalatende@recife.pe.gov.br</a></td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="section" id="dss001">
+      <div class="section-title"><span>05</span> Cadastro de Novo Usuário pelo Sistema Conecta Recife</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Cadastre-se no sistema Conecta Recife.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Ter acesso ao sistema Colmeia: A página de login do Conecta Recife é integrada e também funciona como a página de autenticação para o sistema.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>É de responsabilidade do usuário executar esse processo.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>É de responsabilidade do usuário executar esse processo.</div><div class="meta-item"><strong>Origem da Requisição</strong>É de responsabilidade do usuário executar esse processo.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Cadastro no Conecta Recife</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Computador do usuário Ter acesso a internet.</p><p>Ter dados pessoais.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>FAZENDO CADASTRO NO SISTEMA CONECTA RECIFE Para realizar o seu cadastro no Conecta Recife, clique no link abaixo e siga as instruções fornecidas pelo sistema: <a href="https://login.recife.pe.gov.br/auth/realms/recife/protocol/openid-connect/auth?response_type=code&amp;redirect_uri=https%3A%2F%2Fconecta.recife.pe.gov.br%2Facesso%2Flogin_check&amp;client_id=psp&amp;nonce=bbec3787ec12abea9c57c8f5ca30354c&amp;state=883ad2f779fd5856626ce58e72b82a9c&amp;scope=openid" target="_blank" rel="noopener">https://login.recife.pe.gov.br/auth/realms/recife/protocol/openid-connect/auth?response_type=code&amp;redirect_uri=https%3A%2F%2Fconecta.recife.pe.gov.br%2Facesso%2Flogin_check&amp;client_id=psp&amp;nonce=bbec3787ec12abea9c57c8f5ca30354c&amp;state=883ad2f779fd5856626ce58e72b82a9c&amp;scope=openid</a></p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="dss002">
+      <div class="section-title"><span>06</span> Cadastro de Novo Usuário pelo Sistema GOV.BR</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Cadastre-se no sistema GOV.BR.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Login no Sistema Colmeia: O login do GOV.BR atua como autenticador, permitindo o cadastro e acesso aos sistemas do governo.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>É de responsabilidade do usuário executar esse processo.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>É de responsabilidade do usuário executar esse processo.</div><div class="meta-item"><strong>Origem da Requisição</strong>É de responsabilidade do usuário executar esse processo.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Cadastro no GOV.BR</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Computador do usuário Ter acesso a internet.</p><p>Ter dados pessoais.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>FAZENDO CADASTRO NO SISTEMA GOV.BR Para realizar o seu cadastro no GOV.BR clique no link abaixo e siga as instruções fornecidas pelo sistema. <a href="https://sso.acesso.gov.br/login?client_id=www.gov.br&amp;authorization_id=192a086aede" target="_blank" rel="noopener">https://sso.acesso.gov.br/login?client_id=www.gov.br&amp;authorization_id=192a086aede</a></p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="dss003">
+      <div class="section-title"><span>07</span> Alteração do Perfil: Inclusão Permissões</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Alterar as permissões do usuário que já tem um perfil criado nos sistemas Conecta Recife e GOV.BR, adicionando o nível de acesso do usuário ao sistema e os espaços relacionados.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Ao realizar o primeiro acesso no sistema Colmeia Recife, o gestor deve entrar em contato com o canal da Saúde Digital Atende para solicitar a liberação do perfil e do espaço do profissional;</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>A coordenadora do PMCR</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Saúde Digital Atende (Nível 2) e/ou Profissional de TI do PMCR</div><div class="meta-item"><strong>Origem da Requisição</strong>Chat</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Inclusão de permissões no COLMEIA</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Sistemas Utilizados: Sistema do PMCR; e Sistemas de Gestão de Chamados (GLPI).</p><p>Usuário Comum Não entra no processo Gestor Atualmente a coordenação do PMCR; Profissional de TI do PMCR; Ter um cadastro no Conecta Recife ou GOV.BR.</p><p>O gestor e o Profissional de TI tem um perfil de SuperAdmin; Suporte Técnico Ter acesso ao sistema GLPI para a abertura do chamado.</p><p>Ter acesso ao sistema do PMCR com o perfil Super Administrador.</p><p>Ter internet em seu computador.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Gestão da SEGTES, encaminhar para a SEGTES.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="dss004">
+      <div class="section-title"><span>08</span> Alteração do Perfil: Alteração Permissões</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Alterar as permissões do usuário que já tem um perfil criado,alterando o nível de acesso do usuário ao sistema, Especialidade, Categoria e Agenda</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>É necessário quando um profissional é realocado para um perfil diferente ou vai modificar a agenda do trabalho;</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>O gestor com perfil de superAdmin do Telessaúde.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Saúde Digital Atende (Nível 2) e/ou O gestor do Telessaúde.</div><div class="meta-item"><strong>Origem da Requisição</strong>Chat</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Alteração de permissões no COLMEIA</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Sistemas Utilizados: Sistema Colmeia; e Sistemas de Gestão de Chamados (GLPI).</p><p>Usuário Comum Não entra no processo Gestor Atualmente os gestores estão vinculados no Telessaúde; Ter um cadastro no Conecta Recife ou GOV.BR.</p><p>O gestor tem um perfil de SuperAdmin; Suporte Técnico Ter acesso ao sistema GLPI para a abertura do chamado.</p><p>Ter acesso ao sistema Colmeia com o perfil Super Administrador.</p><p>Ter internet em seu computador.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Gestão da SEGTES, encaminhar para a SEGTES.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="dss005">
+      <div class="section-title"><span>09</span> Alteração de Perfil: Inativando Perfil</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Inativar um Perfil de um Usuário;</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Quando um gestor não trabalha mais no setor de telessaúde ele pode ter o seu perfil inativado;</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>O gestor com perfil de superAdmin do Telessaúde.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Saúde Digital Atende (Nível 2) e/ou O gestor do Telessaúde.</div><div class="meta-item"><strong>Origem da Requisição</strong>chat</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Inativação de perfil de usuário</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Sistemas Utilizados: Sistema Colmeia; e Sistemas de Gestão de Chamados (GLPI).</p><p>Usuário Comum Não entra no processo Gestor Atualmente os gestores estão vinculados no Telessaúde; Ter um cadastro no Conecta Recife ou GOV.BR.</p><p>O gestor tem um perfil de SuperAdmin; Suporte Técnico Ter acesso ao sistema GLPI para a abertura do chamado.</p><p>Ter acesso ao sistema Colmeia com o perfil Super Administrador.</p><p>Ter internet em seu computador.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Gestão da SEGTES, encaminhar para a SEGTES.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="dss006">
+      <div class="section-title"><span>10</span> Dúvida/Orientação</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Esclarecer as dúvidas do usuário para que ele possa tomar as melhores decisões em seu trabalho.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Fornecer suporte contínuo ao usuário para facilitar seu dia a dia de trabalho, garantindo que ele tenha as informações e orientações necessárias para executar suas atividades de maneira eficiente e tomar decisões assertivas.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Qualquer usuário</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Saúde Digital Atende (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>Chat</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Orientação ao usuário</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Suporte Técnico Ter o conhecimento profundo técnico do sistema (Veja os manuais no Drive: <a href="https://drive.google.com/drive/folders/1AxDDj24PPN-5jJOk32AMUdLeS-obhNck?usp=sharing" target="_blank" rel="noopener">https://drive.google.com/drive/folders/1AxDDj24PPN-5jJOk32AMUdLeS-obhNck?usp=sharing</a> );e Ter acesso ao sistema GLPI para a abertura do chamado.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>SUPORTE TÉCNICO Acessar o sistema de chat (Atualmente WhatsApp) Certifique-se de que você está conectado à plataforma de chat apropriada para o Saúde Digital Atende.</p><p>Identificação do usuário Inicie o atendimento pedindo que o usuário se identifique, seguindo o modelo padrão: UNIDADE DE SAÚDE DO SOLICITANTE: NOME COMPLETO: CARGO: CONTATO DE TELEFONE: CPF: EMAIL: SISTEMA (CADSUS/ SEI e etc...): Abertura do chamado Adicionar link do script de atendimento Acessar o Sistema GLPI: Acesse o sistema GLPI por meio do link <a href="https://ggtibix.recife.pe.gov.br/index.php?redirect=%2Ffront%2Fcentral.php&amp;error=3" target="_blank" rel="noopener">https://ggtibix.recife.pe.gov.br/index.php?redirect=%2Ffront%2Fcentral.php&amp;error=3</a> .</p><p>Utilize suas credenciais (usuário e senha) para realizar o login.</p><p>Iniciar a Abertura do Chamado: No painel principal do sistema GLPI, localize e clique na opção &quot;Abertura de Chamado&quot; ou &quot;Novo Chamado&quot; para iniciar o processo.</p><p>Insira os dados do usuário previamente coletados, como nome, CPF ou matrícula, conforme necessário.</p><p>No campo de descrição, faça um resumo claro e objetivo da solicitação do usuário, utilizando suas próprias palavras para garantir que a situação seja bem compreendida.</p><p>Após preencher todas as informações, salve o chamado.</p><p>O sistema irá gerar um número de protocolo, que deve ser informado ao usuário para que ele possa acompanhar o andamento de sua solicitação.</p><p>Entender o problema Pergunte ao usuário qual é o problema ou dúvida que ele está enfrentando, buscando obter uma descrição detalhada da situação.</p><p>Exemplos de perguntas: Em qual etapa do processo o problema ocorre? Você tentou alguma solução previamente? Aparece alguma mensagem de erro? Poderia descrever exatamente o que estava fazendo quando o problema aconteceu? É possível enviar uma captura de tela ou foto do erro que está aparecendo? O problema ocorre em todos os dispositivos ou apenas em um específico? Você pode compartilhar se há algum padrão em relação ao momento em que o problema acontece (por exemplo, em horários específicos ou após realizar certas ações)? Existem outros usuários enfrentando o mesmo problema? Além das fotos, você poderia enviar logs ou documentos relevantes que possam ajudar a diagnosticar a situação? Verificação inicial Baseado na descrição do problema, realize uma verificação inicial para identificar possíveis causas.</p><p>Isso pode incluir questões como: Falha de login.</p><p>Problemas de rede.</p><p>Configurações incorretas no sistema.</p><p>Dúvidas sobre funcionalidades específicas.</p><p>Fornecer instruções claras Explique a solução de forma simples e direta.</p><p>Script de atendimento utilize uma linguagem acessível, evitando termos muito técnicos, para que o usuário entenda e siga as orientações corretamente.</p><p>Exemplo: &quot;Por favor, tente reiniciar o sistema clicando no botão &#x27;Desconectar&#x27; e faça login novamente.&quot; Solicitar feedback após cada passo A cada instrução, peça que o usuário informe o resultado.</p><p>Isso ajuda a confirmar se as orientações estão sendo seguidas corretamente e se o problema está sendo resolvido.</p><p>Exemplo: &quot;Você conseguiu localizar o botão &#x27;Desconectar&#x27;?&quot; Testar a solução Após seguir todas as instruções, peça ao usuário para testar a solução e verificar se o problema foi resolvido.</p><p>Caso seja uma dúvida funcional, certifique-se de que o usuário entende como proceder nas próximas situações.</p><p>Escalar o problema, se necessário Se o problema não puder ser resolvido no nível inicial de suporte, informe ao usuário que a situação será encaminhada para a equipe técnica especializada e forneça um prazo estimado para a resolução.</p><p>Exemplo: &quot;Vou encaminhar o seu caso para a equipe técnica nível 3.</p><p>Eles retornaram com a resposta em até 24 horas.&quot; Encerramento do atendimento com o usuário Ao concluir o atendimento, pergunte se o usuário tem mais alguma dúvida ou problema.</p><p>Caso contrário, finaliza agradecendo e reforçando que ele pode entrar em contato novamente caso precise de mais assistência.</p><p>Exemplo: &quot;Seu problema foi resolvido? Posso ajudar com mais alguma coisa? Se precisar de mais suporte, estamos à disposição.&quot; Encerramento do chamado no GLPI Após o término do suporte, registre todas as informações relevantes, incluindo a descrição do problema, os passos tomados para resolvê-lo, e a resposta final do usuário.</p><p>Isso ajuda a manter um histórico para atendimentos futuros.</p><p>Finalize o chamado.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="dss007">
+      <div class="section-title"><span>11</span> Correção de Erros (bugs)</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Registrar o incidente de forma detalhada e encaminhá-lo para o Saúde Digital Atende de nível 3, garantindo que todas as informações necessárias estejam disponíveis para uma resolução eficiente.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Para garantir que os incidentes sejam reportados e corrigidos o mais rapidamente possível.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Qualquer usuário</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Saúde Digital Atende (Nível 3)</div><div class="meta-item"><strong>Origem da Requisição</strong>Chat</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Registro e encaminhamento de erros</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Sistemas Utilizados: Recife Monitora.</p><p>AnyDesck; e Sistemas de Gestão de Chamados (GLPI).</p><p>Máquina do Usuário: Ter o sistema AnyDesck no computador para realizar acesso remoto.</p><p>Ter internet.</p><p>Suporte Técnico Ter acesso ao sistema GLPI para a abertura do chamado.</p><p>Ter o sistema AnyDesck no computador para fazer acesso remoto na máquina do usuário.</p><p>Ter internet em seu computador.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>REGISTRO DE ERROS E BUGS Acessar o sistema de chat (Atualmente WhatsApp) Certifique-se de que você está conectado à plataforma de chat apropriada para o Saúde Digital Atende.</p><p>Identificação do usuário Inicie o atendimento pedindo que o usuário se identifique, seguindo o modelo padrão: UNIDADE DE SAÚDE DO SOLICITANTE: NOME COMPLETO: CARGO: CONTATO DE TELEFONE: CPF: EMAIL: SISTEMA (CADSUS/ SEI e etc...): Abertura do chamado Acessar o Sistema GLPI: Acesse o sistema GLPI por meio do link <a href="https://ggtibix.recife.pe.gov.br/index.php?redirect=%2Ffront%2Fcentral.php&amp;error=3" target="_blank" rel="noopener">https://ggtibix.recife.pe.gov.br/index.php?redirect=%2Ffront%2Fcentral.php&amp;error=3</a> .</p><p>Utilize suas credenciais (usuário e senha) para realizar o login.</p><p>Iniciar a Abertura do Chamado: No painel principal do sistema GLPI, localize e clique na opção &quot;Abertura de Chamado&quot; ou &quot;Novo Chamado&quot; para iniciar o processo.</p><p>Insira os dados do usuário previamente coletados, como nome, CPF ou matrícula, conforme necessário.</p><p>No campo de descrição, faça um resumo claro e objetivo da solicitação do usuário, utilizando suas próprias palavras para garantir que a situação seja bem compreendida.</p><p>Após preencher todas as informações, salve o chamado.</p><p>O sistema irá gerar um número de protocolo, que deve ser informado ao usuário para que ele possa acompanhar o andamento de sua solicitação.</p><p>Entender o problema Pergunte ao usuário qual é o problema ou dúvida que ele está enfrentando, buscando obter uma descrição detalhada da situação.</p><p>Exemplos de perguntas: Qual erro você está recebendo? Em qual etapa do processo o problema ocorre? Você tentou alguma solução previamente? Aparece alguma mensagem de erro? Poderia descrever exatamente o que estava fazendo quando o problema aconteceu? É possível enviar uma captura de tela ou foto do erro que está aparecendo? O problema ocorre em todos os dispositivos ou apenas em um específico? Você pode compartilhar se há algum padrão em relação ao momento em que o problema acontece (por exemplo, em horários específicos ou após realizar certas ações)? Existem outros usuários enfrentando o mesmo problema? Além das fotos, você poderia enviar logs ou documentos relevantes que possam ajudar a diagnosticar a situação? Testes para a verificação inicial Baseado na descrição do problema, realize uma verificação inicial para identificar possíveis causas.</p><p>Isso pode incluir questões como: Falha de login.</p><p>Problemas de rede.</p><p>Configurações incorretas no sistema.</p><p>Dúvidas sobre funcionalidades específicas.</p><p>Regra de negócio.</p><p>Fornecer instruções claras Explique a solução de forma simples e direta.</p><p>Utilize uma linguagem acessível, evitando termos muito técnicos, para que o usuário entenda e siga as orientações corretamente.</p><p>Exemplo: &quot;Por favor, tente reiniciar o sistema clicando no botão &#x27;Desconectar&#x27; e faça login novamente.&quot; Solicitar feedback após cada passo A cada instrução, peça que o usuário informe o resultado.</p><p>Isso ajuda a confirmar se as orientações estão sendo seguidas corretamente e se o problema está sendo resolvido.</p><p>Exemplo: &quot;Você conseguiu localizar o botão &#x27;Desconectar&#x27;?&quot; Escalar o problema Se o problema não puder ser resolvido no nível inicial do suporte, informe ao usuário que a situação será encaminhada para a equipe técnica especializada e forneça um prazo estimado para a resolução.</p><p>Exemplo: &quot;Vou encaminhar o seu caso para a equipe de analistas nível 3.</p><p>Eles retornaram com a resposta em até 24 horas.&quot;</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="dss008">
+      <div class="section-title"><span>12</span> Indisponibilidade do Sistema</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Registrar o incidente de forma detalhada e encaminhá-lo para o suporte de nível 3, garantindo que todas as informações necessárias estejam disponíveis para uma resolução eficiente.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Para garantir que os incidentes sejam reportados e corrigidos o mais rapidamente possível.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Qualquer usuário</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Saúde Digital Atende (Nível 3)</div><div class="meta-item"><strong>Origem da Requisição</strong>Chat</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Registro de indisponibilidade do sistema</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Sistemas Utilizados: Recife Monitora.</p><p>AnyDesck; e Sistemas de Gestão de Chamados (GLPI).</p><p>Máquina do Usuário: Ter o sistema AnyDesck no computador para realizar acesso remoto.</p><p>Ter internet.</p><p>Suporte Técnico Ter acesso ao sistema GLPI para a abertura do chamado.</p><p>Ter o sistema AnyDesck no computador para fazer acesso remoto na máquina do usuário.</p><p>Ter internet em seu computador.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>INDISPONIBILIDADE NO SISTEMA Caso a indisponibilidade seja geral, a coordenadora fornecerá um script ao monitor da equipe, que repassará a informação para o suporte técnico de sistemas.</p><p>O suporte, por sua vez, enviará a notificação aos usuários.</p><p>Enviar uma mensagem aos usuários informando que o sistema está fora do ar, juntamente com as devidas recomendações.</p><p>Após as ações, encerrar o chamado no sistema.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="dss009">
+      <div class="section-title"><span>13</span> Lentidão do Sistema</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Registrar o incidente de forma detalhada e encaminhá-lo para o suporte de nível 3, garantindo que todas as informações necessárias estejam disponíveis para uma resolução eficiente.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Para garantir que os incidentes sejam reportados e corrigidos o mais rapidamente possível.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Qualquer usuário</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Saúde Digital Atende (Nível 3)</div><div class="meta-item"><strong>Origem da Requisição</strong>Chat</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Registro de lentidão do sistema</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Sistemas Utilizados: Recife Monitora.</p><p>AnyDesck; e Sistemas de Gestão de Chamados (GLPI).</p><p>Máquina do Usuário: Ter o sistema AnyDesck no computador para realizar acesso remoto.</p><p>Ter internet.</p><p>Suporte Técnico Ter acesso ao sistema GLPI para a abertura do chamado.</p><p>Ter o sistema AnyDesck no computador para fazer acesso remoto na máquina do usuário.</p><p>Ter internet em seu computador.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>INDISPONIBILIDADE NO SISTEMA Caso a indisponibilidade seja geral, a coordenadora fornecerá um script ao monitor da equipe, que repassará a informação para o suporte técnico de sistemas.</p><p>O suporte, por sua vez, enviará a notificação aos usuários.</p><p>Enviar uma mensagem aos usuários informando que o sistema está fora do ar, juntamente com as devidas recomendações.</p><p>Após as ações, encerrar o chamado no sistema.</p></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>1.0 · 03/01/2025</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar às Documentações
+  </a>
+</footer>
+
+<script>
+document.querySelectorAll('.activity-header').forEach(h => {
+  h.addEventListener('click', () => h.closest('.activity-card').classList.toggle('open'));
+});
+const links = document.querySelectorAll('.toc a');
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+});
+</script>
+</body>
+</html>
