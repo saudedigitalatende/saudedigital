@@ -1,0 +1,576 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>POP – Administração Setorial SEI · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
+.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.content .section{margin-bottom:36px;scroll-margin-top:24px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
+.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px}
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
+.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even) td{background:var(--paper)}
+.rules-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.rules-list li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid);line-height:1.5}
+.activity-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:12px}
+.activity-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--ink);cursor:pointer;user-select:none}
+.activity-header:hover{background:#1a2b42}
+.activity-num{font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.activity-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.activity-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.activity-card:not(.open) .activity-body{display:none}
+.activity-card.open .activity-chevron{transform:rotate(180deg)}
+.activity-body{padding:20px}
+.step-list{display:flex;flex-direction:column;gap:8px}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-mid);flex-shrink:0;margin-top:6px}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.sub-item{font-size:12.5px;color:var(--ink3);padding:4px 12px;border-left:2px solid var(--rule);margin:4px 0 4px 20px}
+.fluxo-img{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-align:center;padding:24px}
+.fluxo-img img{max-width:100%;height:auto;border-radius:8px}
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.processo-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--blue-lt);color:var(--blue-mid);font-size:11px;font-weight:700;flex-shrink:0}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.success{background:#e6f4ee;border-color:#2a8a5a;color:#1a5a3a}
+.alert-box.success strong{color:#1a5a3a}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.meta-item{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink2)}
+.meta-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:4px}
+
+/* Complementos para POPs convertidos de DOCX. */
+.toc a{line-height:1.35;text-transform:none}
+.label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin:12px 0 6px}
+.steps-box{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:14px 16px;color:var(--ink2);font-size:13px;line-height:1.75;margin-bottom:12px}
+.steps-box p{margin-bottom:10px}
+.steps-box p:last-child{margin-bottom:0}
+.steps-box a,.info-table td a{color:var(--blue-mid);word-break:break-word}
+@media(max-width:900px){.meta-grid{grid-template-columns:1fr}}
+.doc-figure{margin:12px 0;text-align:center;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;overflow:hidden}
+.doc-figure img{max-width:100%;height:auto;border-radius:8px;display:block;margin:0 auto}
+.steps-box p{margin-bottom:10px;position:relative;padding-left:20px}
+.steps-box p::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:8px;border-radius:50%;background:var(--blue-mid)}
+.steps-box p:last-child{margin-bottom:0}
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html"
+        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s">
+        ← Voltar às Documentações
+      </a>
+    </div>
+    <h1>Procedimento Operacional Padrão<br><em>Administração Setorial SEI</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="toc">
+      <li><a href="#historico">01. histórico de revisões</a></li>
+      <li><a href="#visao">02. visão geral do administrador setorial</a></li>
+      <li><a href="#solicitar-administrador">03. solicitar indicação como administrador setorial</a></li>
+      <li><a href="#incluir-usuario">04. incluir usuário no sei/sip</a></li>
+      <li><a href="#consultar-usuario">05. consultar usuário</a></li>
+      <li><a href="#alterar-usuario">06. alterar usuário</a></li>
+      <li><a href="#desativar-usuario">07. desativar usuário</a></li>
+      <li><a href="#excluir-usuario">08. excluir usuário</a></li>
+      <li><a href="#reativar-usuario">09. reativar usuário</a></li>
+      <li><a href="#alocar-usuario">10. alocar ou mudar usuário de unidade</a></li>
+      <li><a href="#atribuir-permissoes">11. atribuir permissões</a></li>
+      <li><a href="#visualizar-permissoes">12. visualizar permissões existentes</a></li>
+      <li><a href="#excluir-permissao">13. excluir permissão</a></li>
+      <li><a href="#novo-tipo-processo">14. solicitar novo tipo de processo</a></li>
+      <li><a href="#novo-tipo-documento">15. solicitar novo tipo de documento</a></li>
+      <li><a href="#criar-desativar-unidade">16. solicitar criação ou desativação de unidade</a></li>
+      <li><a href="#assinatura">17. solicitar criação ou desativação de assinatura</a></li>
+      <li><a href="#atualizacao-unidade">18. solicitar atualização cadastral de unidade</a></li>
+      <li><a href="#usuario-externo-cadastro">19. orientar cadastro de usuário externo</a></li>
+      <li><a href="#usuario-externo-liberacao">20. liberar acesso de usuário externo</a></li>
+      <li><a href="#administrador-usuario-externo">21. conceder perfil de administrador de usuário externo</a></li>
+      <li><a href="#links">22. links importantes</a></li>
+    </ul>
+  </aside>
+  <main class="content">
+
+    <div class="section" id="historico">
+      <div class="section-title"><span>01</span> Histórico de Revisões</div>
+      <table class="info-table"><thead><tr><th>Versão</th><th>Data</th><th>Autor</th><th>Descrição</th></tr></thead><tbody><tr><td>1.0</td><td>09/06/2026</td><td>GTIC</td><td>Conversão do Guia Prático de Administração Setorial para POP em HTML.</td></tr></tbody></table>
+    </div>
+    <div class="section" id="visao">
+      <div class="section-title"><span>02</span> Visão Geral do Administrador Setorial</div>
+      <p class="doc-p">O Administrador Setorial atua como ponto de apoio do SEI no órgão ou unidade, tratando demandas de primeiro nível e realizando ações operacionais de gestão de usuários, permissões e solicitações administrativas.</p>
+      <div class="steps-box"><p>Incluir, alterar, desativar, reativar e excluir usuário.</p><p>Realizar alocação e mudança de usuários nas unidades.</p><p>Gerenciar permissões no SIP.</p><p>Prestar suporte setorial de primeiro nível aos usuários.</p><p>Liberar acesso para usuário externo.</p><p>Solicitar criação de unidades, assinaturas, tipos de processos e tipos de documentos.</p><p>Solicitar atualização cadastral de unidade.</p></div>
+    </div>
+    <div class="section" id="solicitar-administrador">
+      <div class="section-title"><span>03</span> Solicitar indicação como Administrador Setorial</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Padronizar a solicitação de inclusão de servidor como Administrador Setorial do SEI.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Permitir que o órgão tenha usuário responsável pela administração setorial do SEI.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Autoridade competente do órgão ou unidade.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Autoridade competente e SEPLAGTD/SEFAJ/SUTEC/SEI.</div><div class="meta-item"><strong>Origem da Requisição</strong>Processo SEI.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Solicitar indicação como Administrador Setorial</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Processo SEI do tipo Solicitação de Serviços.</p><p>Documento do tipo Ofício assinado pela autoridade competente.</p><p>Dados completos do administrador indicado.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Criar processo no SEI com o tipo Solicitação de Serviços.</p><p>Incluir documento Ofício e colher assinatura da autoridade competente.</p><p>Informar nome completo, CPF, matrícula, login de rede, e-mail, telefone ou ramal, e secretaria na qual atuará como Administrador Setorial.</p><p>Enviar o processo para SEPLAGTD/SEFAJ/SUTEC/SEI.</p></div>
+          
+          
+        </div>
+      </div>
+    </div>
+    <div class="section" id="incluir-usuario">
+      <div class="section-title"><span>04</span> Incluir usuário no SEI/SIP</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Cadastrar novo usuário no SIP, conceder permissão de acesso e completar o cadastro no SEI.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Garantir que o usuário tenha acesso correto ao SEI e à unidade de trabalho.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Gestor, autoridade competente ou Administrador Setorial.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial.</div><div class="meta-item"><strong>Origem da Requisição</strong>SIP e SEI.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Incluir usuário no SEI/SIP</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Usuário deve possuir AD, login e senha de rede da Prefeitura.</p><p>Quando não possuir AD, solicitar criação à Emprel pelo e-mail <a href="mailto:emprelatende@recife.pe.gov.br">emprelatende@recife.pe.gov.br</a>.</p><p>Ter dados do usuário: nome, CPF, e-mail, unidade e perfil adequado.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Acessar o SIP.</p><p>No menu lateral, acessar Usuários.</p><p>Clicar em Novo.</p><p>Preencher órgão, sigla/login de rede, nome, CPF e e-mail; nome social pode ser preenchido quando necessário.</p><p>Salvar o cadastro.</p><p>No SIP, acessar Permissões e clicar em Nova.</p><p>Preencher órgão PR, sistema SEI, órgão/unidade de destino, login do usuário e perfil adequado.</p><p>Selecionar perfil Básico, Administrador de Usuário Externo ou Apoio conforme a função.</p><p>Salvar a permissão.</p><p>Acessar o SEI.</p><p>No menu Administração, acessar Usuários e clicar em Listar.</p><p>Localizar o usuário e clicar em Alterar.</p><p>Clicar em Alterar dados do contato associado.</p><p>Completar gênero, cargo e demais dados necessários.</p><p>Salvar os dados do contato e salvar novamente na tela inicial.</p></div>
+          <div class="alert-box info"><strong>Observação:</strong> A seleção de gênero e cargo é essencial, pois define assinatura, vocativo e pronome de tratamento.</div>
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p09_01.jpg" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p09_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p10_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p10_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p11_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p11_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p11_03.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p11_04.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p11_05.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p12_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p12_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p13_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p13_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p13_03.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p13_04.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p14_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p14_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p14_03.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="consultar-usuario">
+      <div class="section-title"><span>05</span> Consultar usuário</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Localizar usuários cadastrados na unidade pelo SIP.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Permitir conferência de dados e permissões antes de alterações.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Administrador Setorial ou equipe autorizada.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial.</div><div class="meta-item"><strong>Origem da Requisição</strong>SIP.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Consultar usuário</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Acesso ao SIP.</p><p>Perfil habilitado para administração setorial.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Abrir o SIP.</p><p>No menu principal, acessar Usuários.</p><p>Clicar em Listar.</p><p>Consultar a lista de usuários da unidade e localizar o registro desejado.</p></div>
+          
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p16_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p16_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p16_03.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="alterar-usuario">
+      <div class="section-title"><span>06</span> Alterar usuário</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Atualizar informações cadastrais de usuário já existente.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Manter dados de usuários corretos e atualizados.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Gestor, usuário ou autoridade competente.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial.</div><div class="meta-item"><strong>Origem da Requisição</strong>SIP.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Alterar usuário</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Solicitação com dados a alterar.</p><p>Validação da autoridade competente quando aplicável.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>No SIP, acessar Usuários.</p><p>Clicar em Listar.</p><p>Na coluna Ações, clicar em Alterar usuário.</p><p>Realizar a alteração necessária.</p><p>Clicar em Salvar.</p></div>
+          
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p17_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p17_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p17_03.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p17_04.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p17_05.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="desativar-usuario">
+      <div class="section-title"><span>07</span> Desativar usuário</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Desativar acesso de usuário que não deve mais atuar na unidade ou no sistema.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Evitar uso indevido do sistema mantendo histórico e integridade dos registros.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Gestor ou autoridade competente.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial.</div><div class="meta-item"><strong>Origem da Requisição</strong>SIP.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Desativar usuário</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Confirmação da necessidade de desativação.</p><p>Verificar processos em tramitação antes da desativação.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>No SIP, acessar Usuários e Listar.</p><p>Localizar o usuário.</p><p>Na coluna Ações, clicar em Desativar usuário.</p><p>Confirmar a operação na caixa de diálogo quando estiver certo do procedimento.</p></div>
+          <div class="alert-box info"><strong>Observação:</strong> Usuário que já tramitou processos não deve ser excluído; deve ser desativado para preservar histórico e auditoria.</div>
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p17_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p17_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p17_03.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p17_04.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p17_05.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p18_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p18_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p18_03.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p18_04.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="excluir-usuario">
+      <div class="section-title"><span>08</span> Excluir usuário</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Orientar sobre a regra de não exclusão de usuários com histórico no SEI.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Evitar perda de registros vinculados a processos, documentos, protocolos e e-mails.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Não recomendado para usuários com tramitação.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial, apenas quando não houver risco de perda de histórico.</div><div class="meta-item"><strong>Origem da Requisição</strong>SIP.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Excluir usuário</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Confirmar que o usuário não tramitou processos.</p><p>Avaliar se a desativação atende à necessidade.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>No SIP, acessar Usuários e Listar.</p><p>Na coluna Ações, clicar em Excluir usuário somente se a exclusão for segura.</p><p>Confirmar a operação apenas se não houver histórico a preservar.</p><p>Preferir desativação quando houver qualquer registro de tramitação.</p></div>
+          <div class="alert-box info"><strong>Observação:</strong> A exclusão pode prejudicar auditoria do sistema. A orientação padrão é desativar, não excluir.</div>
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p18_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p18_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p18_03.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p18_04.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="reativar-usuario">
+      <div class="section-title"><span>09</span> Reativar usuário</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Reativar usuário previamente desativado.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Restabelecer acesso quando houver retorno ou necessidade operacional.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Gestor ou autoridade competente.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial.</div><div class="meta-item"><strong>Origem da Requisição</strong>SIP.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Reativar usuário</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Usuário previamente cadastrado e desativado.</p><p>Confirmação da necessidade de reativação.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>No SIP, acessar Usuários.</p><p>Clicar em Reativar.</p><p>Pesquisar o usuário que deseja reativar.</p><p>Na coluna Ações, clicar em Reativar usuário.</p><p>Confirmar a reativação quando estiver certo do procedimento.</p></div>
+          
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p19_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p19_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p19_03.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="alocar-usuario">
+      <div class="section-title"><span>10</span> Alocar ou mudar usuário de unidade</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Alterar a unidade de atuação de usuário no SEI.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Garantir que o usuário esteja vinculado à unidade correta.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Autoridade competente via SEI.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial.</div><div class="meta-item"><strong>Origem da Requisição</strong>Processo SEI e SIP.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Alocar ou mudar usuário de unidade</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Processo SEI encaminhado à unidade do Administrador Setorial.</p><p>Tipo de processo Solicitação de Serviços.</p><p>Documento SEI: Solicitação de Demanda assinado.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Receber processo com nome completo, CPF, matrícula, login de rede, e-mail e unidade de destino.</p><p>Verificar se o usuário deve ser retirado de unidade anterior.</p><p>No SIP, seguir o fluxo de inclusão de permissão.</p><p>Adicionar a nova unidade e, quando necessário, remover acesso anterior.</p></div>
+          
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p19_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p19_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p19_03.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="atribuir-permissoes">
+      <div class="section-title"><span>11</span> Atribuir permissões</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Conceder perfil de acesso ao usuário no SIP.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Permitir acesso às unidades do SEI conforme atribuições do usuário.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Gestor, autoridade competente ou Administrador Setorial.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial.</div><div class="meta-item"><strong>Origem da Requisição</strong>SIP.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Atribuir permissões</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Usuário cadastrado no SIP.</p><p>Definição do perfil adequado: Básico, Administrador de Usuário Externo ou Apoio.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>No menu principal do SIP, acessar Permissões.</p><p>Escolher Nova para inclusão individual ou Atribuição em Bloco para vários usuários.</p><p>Informar órgão PR e sistema SEI.</p><p>Selecionar órgão e unidade para a nova permissão.</p><p>Informar órgão do usuário e login.</p><p>Selecionar o perfil adequado.</p><p>Salvar a permissão.</p></div>
+          <div class="alert-box info"><strong>Observação:</strong> Conceda perfis com cuidado. Estagiários devem utilizar perfil Apoio e não devem assinar documentos como usuários internos do SEI.</div>
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p22_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p22_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p22_03.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p23_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p23_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p23_03.jpg" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p23_04.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p23_05.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p23_06.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p23_07.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p23_08.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p24_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p24_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p24_03.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p24_04.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p24_05.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="visualizar-permissoes">
+      <div class="section-title"><span>12</span> Visualizar permissões existentes</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Consultar permissões administradas para usuários e unidades.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Apoiar auditoria, revisão e manutenção de acessos.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Administrador Setorial.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial.</div><div class="meta-item"><strong>Origem da Requisição</strong>SIP.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Visualizar permissões existentes</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Acesso ao SIP.</p><p>Perfil com permissão de administração setorial.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Acessar o menu Permissões.</p><p>Selecionar Administradas.</p><p>Utilizar filtros para pesquisar por unidade, usuário ou combinação específica.</p><p>Analisar a tabela de resultados apresentada pelo SIP.</p></div>
+          
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p22_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p22_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p22_03.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="excluir-permissao">
+      <div class="section-title"><span>13</span> Excluir permissão</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Remover permissão de acesso desnecessária ou indevida.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Manter acessos coerentes com a lotação e atribuições do usuário.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Gestor ou Administrador Setorial.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial.</div><div class="meta-item"><strong>Origem da Requisição</strong>SIP.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Excluir permissão</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Permissão existente localizada.</p><p>Confirmação de que o acesso deve ser removido.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Acessar Permissões Administradas.</p><p>Usar filtros para localizar a permissão.</p><p>Na tabela de resultados, clicar em Excluir Permissão na coluna Ações.</p><p>Para excluir várias permissões, selecionar os registros e usar o botão de exclusão em lote.</p></div>
+          
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p24_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p24_02.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p24_03.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p24_04.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p24_05.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="novo-tipo-processo">
+      <div class="section-title"><span>14</span> Solicitar novo tipo de processo</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Encaminhar solicitação de criação de novo tipo de processo no SEI.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Atualizar o catálogo de processos conforme necessidade institucional.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Administrador Setorial ou autoridade competente.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>SEPLAGTD/SEFAJ/SUTEC/SEI, após avaliação das equipes de gestão.</div><div class="meta-item"><strong>Origem da Requisição</strong>Processo SEI.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Solicitar novo tipo de processo</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Nome do tipo de processo, com até 100 caracteres.</p><p>Descrição, classificação por assunto, escopo de órgão/unidade e justificativa legal.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Reunir as informações obrigatórias.</p><p>Criar processo SEI: Solicitação de Novo Tipo de Processo.</p><p>Incluir documento SEI: Solicitação de Novo Tipo de Processo.</p><p>Assinar o documento.</p><p>Encaminhar para SEPLAGTD/SEFAJ/SUTEC/SEI.</p></div>
+          <div class="alert-box info"><strong>Observação:</strong> Todas as solicitações estão sujeitas à avaliação pelas equipes de gestão.</div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="section" id="novo-tipo-documento">
+      <div class="section-title"><span>15</span> Solicitar novo tipo de documento</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Encaminhar solicitação de criação de novo tipo de documento no SEI.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Atualizar documentos disponíveis no sistema conforme necessidade do órgão.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Administrador Setorial ou autoridade competente.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>SEPLAGTD/SEFAJ/SUTEC/SEI, após avaliação das equipes de gestão.</div><div class="meta-item"><strong>Origem da Requisição</strong>Processo SEI.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Solicitar novo tipo de documento</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Nome do tipo de documento.</p><p>Indicação se será interno ou externo.</p><p>Modelo em .docx quando houver modelo associado.</p><p>Informações sobre numeração automática, classificação, interessado/destinatário e justificativa.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Reunir as informações obrigatórias.</p><p>Quando houver modelo associado, anexar arquivo .docx para análise.</p><p>Criar processo SEI: Solicitação de Inclusão de Novo Tipo de Documento.</p><p>Incluir documento SEI: Solicitação de Demanda.</p><p>Assinar e encaminhar para SEPLAGTD/SEFAJ/SUTEC/SEI.</p></div>
+          <div class="alert-box info"><strong>Observação:</strong> Tipos de documento com modelo associado podem ser criados em ambiente de treinamento antes da inclusão definitiva.</div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="section" id="criar-desativar-unidade">
+      <div class="section-title"><span>16</span> Solicitar criação ou desativação de unidade</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Padronizar pedidos de criação ou desativação de unidades formais e informais.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Manter a estrutura organizacional do SEI coerente com a estrutura do Município do Recife.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Administrador Setorial ou autoridade competente.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>SEPLAGTD/SEFAJ/SUTEC/SEI, após avaliação.</div><div class="meta-item"><strong>Origem da Requisição</strong>Processo SEI.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Solicitar criação ou desativação de unidade</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Para criação: nome completo, sigla, posicionamento hierárquico, endereço, telefone, e-mail e justificativa.</p><p>Para desativação: nome completo, sigla e justificativa da autoridade competente.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Identificar se a demanda é criação ou desativação.</p><p>Conferir dados obrigatórios.</p><p>Criar processo SEI: Solicitação de Serviços.</p><p>Incluir documento SEI: Solicitação de Demanda.</p><p>Assinar o documento.</p><p>Encaminhar para SEPLAGTD/SEFAJ/SUTEC/SEI.</p><p>Antes de desativar, verificar se há processos em andamento na unidade e providenciar conclusão ou encaminhamento.</p></div>
+          <div class="alert-box info"><strong>Observação:</strong> Órgão, secretaria ou unidade pode solicitar unidade de protocolo para recepção e distribuição de processos.</div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="section" id="assinatura">
+      <div class="section-title"><span>17</span> Solicitar criação ou desativação de assinatura</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Solicitar criação ou desativação de assinatura vinculada à unidade.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Manter assinaturas compatíveis com cargos e responsabilidades institucionais.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Administrador Setorial ou autoridade competente.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>SEPLAGTD/SEFAJ/SUTEC/SEI, após avaliação.</div><div class="meta-item"><strong>Origem da Requisição</strong>Processo SEI.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Solicitar criação ou desativação de assinatura</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Nome da assinatura.</p><p>Unidade na qual a assinatura será incluída.</p><p>Justificativa e legislação que embasa a criação.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Reunir as informações obrigatórias.</p><p>Criar processo SEI: Solicitação de Serviços.</p><p>Incluir documento SEI: Solicitação de Demanda.</p><p>Assinar e encaminhar para SEPLAGTD/SEFAJ/SUTEC/SEI.</p></div>
+          <div class="alert-box info"><strong>Observação:</strong> Assinaturas de chefias de unidades específicas não devem ser incluídas em outras unidades; quando necessário, usar bloco de assinatura.</div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="section" id="atualizacao-unidade">
+      <div class="section-title"><span>18</span> Solicitar atualização cadastral de unidade</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Solicitar atualização de dados cadastrais de unidade no SEI.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Manter dados institucionais atualizados no sistema.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Administrador Setorial ou autoridade competente.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>SEPLAGTD/SEFAJ/SUTEC/SEI, após avaliação.</div><div class="meta-item"><strong>Origem da Requisição</strong>Processo SEI.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Solicitar atualização cadastral de unidade</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Unidade a ser atualizada.</p><p>Dados que precisam ser alterados.</p><p>Justificativa da autoridade competente.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Reunir dados da atualização.</p><p>Criar processo SEI: Solicitação de Serviços.</p><p>Incluir documento SEI: Solicitação de Demanda.</p><p>Assinar e encaminhar para SEPLAGTD/SEFAJ/SUTEC/SEI.</p></div>
+          
+          
+        </div>
+      </div>
+    </div>
+    <div class="section" id="usuario-externo-cadastro">
+      <div class="section-title"><span>19</span> Orientar cadastro de usuário externo</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Orientar o usuário externo quanto ao cadastro no Portal SEI.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Permitir que fornecedores, advogados ou partes interessadas solicitem acesso externo.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Usuário externo.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Usuário externo, com orientação do órgão.</div><div class="meta-item"><strong>Origem da Requisição</strong>Portal SEI.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Orientar cadastro de usuário externo</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Usuário deve possuir documentação exigida pelo órgão.</p><p>Definir órgão ao qual estará vinculado.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Acessar o Portal SEI: <a href="https://portalsei.recife.pe.gov.br/" target="_blank" rel="noopener">https://portalsei.recife.pe.gov.br/</a>.</p><p>Clicar em Cadastrar usuário Externo.</p><p>Escolher o órgão ao qual estará vinculado.</p><p>Preencher o formulário.</p><p>Enviar documentação solicitada por e-mail.</p><p>Aguardar retorno da unidade ou órgão com a liberação do cadastro.</p></div>
+          
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p32_01.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="usuario-externo-liberacao">
+      <div class="section-title"><span>20</span> Liberar acesso de usuário externo</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Liberar cadastro de usuário externo após conferência documental.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Garantir acesso externo somente após validação de identidade e documentação.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Usuário externo, após envio de documentação.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Usuário com perfil Administrador de Usuário Externo.</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Liberar acesso de usuário externo</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Documentação enviada e conferida.</p><p>Usuário com perfil Administrador de Usuário Externo.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Acessar o SEI.</p><p>No menu principal, acessar Administração.</p><p>Selecionar Usuários Externos.</p><p>Clicar em Listar.</p><p>Pesquisar por nome, e-mail ou CPF.</p><p>Na coluna Ações, clicar em Alterar Usuário Externo.</p><p>Conferir dados do contato.</p><p>Alterar situação de Pendente para Liberado.</p></div>
+          <div class="alert-box info"><strong>Observação:</strong> Após liberado, o usuário externo poderá assinar e incluir documentos nos processos liberados para ele.</div>
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p33_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p33_02.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="administrador-usuario-externo">
+      <div class="section-title"><span>21</span> Conceder perfil de Administrador de Usuário Externo</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Habilitar servidor responsável pela liberação de usuários externos.</p>
+      <div class="meta-grid"><div class="meta-item"><strong>por Que Fazer?</strong>Permitir conferência documental e liberação de usuários externos no órgão.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Administrador Setorial ou autoridade competente.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Administrador Setorial e Emprel.</div><div class="meta-item"><strong>Origem da Requisição</strong>SIP e Emprel Atende.</div></div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">Conceder perfil de Administrador de Usuário Externo</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Definição dos servidores que atuarão como administradores de usuários externos.</p><p>Usuários devem ter permissão adequada no SIP.</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Selecionar servidores responsáveis pela administração de usuários externos.</p><p>Conceder permissão de Administrador de Usuário Externo conforme fluxo de nova permissão.</p><p>Encaminhar solicitação à Emprel pelo e-mail <a href="mailto:emprelatende@recife.pe.gov.br">emprelatende@recife.pe.gov.br</a> ou telefone 3355-7156.</p><p>Solicitar inclusão do administrador no e-mail da secretaria para recebimento das solicitações de novo usuário externo.</p></div>
+          
+          <figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p33_01.png" alt="Imagem do Guia de Administração Setorial"></figure><figure class="doc-figure"><img src="pop_guia_administracao_setorial_assets/guia_p33_02.png" alt="Imagem do Guia de Administração Setorial"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="links">
+      <div class="section-title"><span>22</span> Links importantes</div>
+      <table class="info-table"><thead><tr><th>Nome</th><th>Link</th></tr></thead><tbody><tr><td>Portal SEI Recife</td><td><a href="https://portalsei.recife.pe.gov.br/" target="_blank" rel="noopener">https://portalsei.recife.pe.gov.br/</a></td></tr><tr><td>Formulário para demanda de Administrador Setorial</td><td><a href="http://bit.ly/suporte-sei-recife" target="_blank" rel="noopener">http://bit.ly/suporte-sei-recife</a></td></tr><tr><td>Suporte Emprel</td><td><a href="mailto:emprelatende@recife.pe.gov.br">emprelatende@recife.pe.gov.br</a></td></tr><tr><td>Telefone Emprel</td><td>3355-7156</td></tr></tbody></table>
+    </div>
+  </main>
+</div>
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Origem</strong>Guia Prático de Administração Setorial · 2022</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar às Documentações
+  </a>
+</footer>
+<script>
+document.querySelectorAll('.activity-header').forEach(h => {
+  h.addEventListener('click', () => h.closest('.activity-card').classList.toggle('open'));
+});
+const links = document.querySelectorAll('.toc a');
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+});
+</script>
+</body>
+</html>
+
