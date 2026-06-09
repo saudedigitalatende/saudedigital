@@ -72,12 +72,12 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 /* ══ MAIN ══ */
 .main{margin-left:var(--sb);min-height:100vh;display:flex;flex-direction:column}
 /* HERO */
-.hero{background:#0d1a2e;color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero{background:#fff;color:var(--text);padding:32px 60px 28px;position:relative;overflow:hidden;border-bottom:1px solid rgba(52,76,105,.18)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.08) 0%,transparent 70%)}
 .hero-inner{position:relative}
-.hero h1{font-family:'Sora',sans-serif;font-size:clamp(22px,3vw,36px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(22px,3vw,36px);font-weight:700;color:var(--text);line-height:1.1;margin-bottom:4px}
 .hero h1 em{color:#c8a94a;font-style:normal}
-.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+.hero p{font-size:12.5px;color:var(--text2)}
 .content{padding:18px 24px}
 
 /* ══ BLOCO INFRA + SISTEMAS ══ */
@@ -535,9 +535,9 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
     <div class="hero-inner" style="display:flex;flex-direction:column">
       <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
         <a href="https://saudedigitalatende.github.io/saudedigital/"
-           style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
-           onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
-           onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+           style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#40566d;text-decoration:none;padding:4px 12px;border:1px solid rgba(52,76,105,.26);border-radius:100px;transition:all .2s"
+           onmouseover="this.style.color='#1565c0';this.style.borderColor='rgba(21,101,192,.45)'"
+           onmouseout="this.style.color='#40566d';this.style.borderColor='rgba(52,76,105,.26)'">
           ← Voltar ao Portal
         </a>
       </div>
