@@ -1,0 +1,671 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>POP – SEI · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
+.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.content .section{margin-bottom:36px;scroll-margin-top:24px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
+.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px}
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
+.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even) td{background:var(--paper)}
+.rules-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.rules-list li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid);line-height:1.5}
+.activity-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:12px}
+.activity-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--ink);cursor:pointer;user-select:none}
+.activity-header:hover{background:#1a2b42}
+.activity-num{font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.activity-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.activity-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.activity-card:not(.open) .activity-body{display:none}
+.activity-card.open .activity-chevron{transform:rotate(180deg)}
+.activity-body{padding:20px}
+.step-list{display:flex;flex-direction:column;gap:8px}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-mid);flex-shrink:0;margin-top:6px}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.sub-item{font-size:12.5px;color:var(--ink3);padding:4px 12px;border-left:2px solid var(--rule);margin:4px 0 4px 20px}
+.fluxo-img{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-align:center;padding:24px}
+.fluxo-img img{max-width:100%;height:auto;border-radius:8px}
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.processo-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--blue-lt);color:var(--blue-mid);font-size:11px;font-weight:700;flex-shrink:0}
+
+.alert-box{background:#fffbe6;border:1.5px solid #f0c040;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;color:#7a5a00;line-height:1.6}
+.alert-box strong{color:#5a3f00}
+.alert-box.info{background:#e8f0fa;border-color:#2d6fbd;color:#1a4070}
+.alert-box.info strong{color:#1a4070}
+.alert-box.success{background:#e6f4ee;border-color:#2a8a5a;color:#1a5a3a}
+.alert-box.success strong{color:#1a5a3a}
+.alert-box.danger{background:#fdeee6;border-color:#b85a1a;color:#7a2e00}
+.alert-box.danger strong{color:#7a2e00}
+.notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.meta-item{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink2)}
+.meta-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:4px}
+
+/* Complementos para POPs convertidos de DOCX. */
+.toc a{line-height:1.35;text-transform:none}
+.label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin:12px 0 6px}
+.steps-box{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:14px 16px;color:var(--ink2);font-size:13px;line-height:1.75;margin-bottom:12px}
+.steps-box p{margin-bottom:10px;position:relative;padding-left:20px}
+.steps-box p:last-child{margin-bottom:0}
+.steps-box p::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:8px;border-radius:50%;background:var(--blue-mid)}
+.steps-box a,.info-table td a{color:var(--blue-mid);word-break:break-word}
+.doc-figure{margin:12px 0;text-align:center;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;overflow:hidden}
+.doc-figure img{max-width:100%;height:auto;border-radius:8px;display:block;margin:0 auto}
+@media(max-width:900px){.meta-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html"
+        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
+        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
+        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+        ← Voltar às Documentações
+      </a>
+    </div>
+    <h1>Procedimento Operacional Padrão<br><em>SEI</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="toc">
+            <li><a href="#historico">01. histórico de revisões</a></li>
+      <li><a href="#links">02. links complementares</a></li>
+      <li><a href="#provedor">03. provedor</a></li>
+      <li><a href="#contatos">04. contatos</a></li>
+      <li><a href="#proc001">05. criação de nova unidade na estrutura organizacional</a></li>
+      <li><a href="#proc002">06. desativação de unidade</a></li>
+      <li><a href="#proc003">07. reativação de unidade na estrutura organizacional</a></li>
+      <li><a href="#proc004">08. inclusão de setores em uma unidade já existente na estrutura organizacional</a></li>
+      <li><a href="#proc005">09. alteração de sigla da unidade</a></li>
+      <li><a href="#proc006">10. reorganização da estrutura hierárquica organizacional</a></li>
+      <li><a href="#proc007">11. criação de novo usuário - sei</a></li>
+      <li><a href="#proc008">12. alteração de dados cadastrais - sei</a></li>
+      <li><a href="#proc009">13. alteração de alocação de usuários em setores e unidades</a></li>
+      <li><a href="#proc010">14. inclusão/alteração de assinatura</a></li>
+      <li><a href="#proc011">15. liberação de perfil de acesso documento externo</a></li>
+      <li><a href="#proc012">16. recuperação de senha</a></li>
+      <li><a href="#proc013">17. reset de senha</a></li>
+      <li><a href="#proc014">18. liberação de acesso para usuário ( administrador setorial, administrador de</a></li>
+      <li><a href="#proc015">19. desativação de usuário</a></li>
+      <li><a href="#proc016">20. reativação de usuário</a></li>
+      <li><a href="#proc017">21. exclusão de usuário.</a></li>
+      <li><a href="#proc018">22. criação/desativação de assinatura</a></li>
+      <li><a href="#proc019">23. criação de novos tipos de documentos</a></li>
+      <li><a href="#proc020">24. solicitar e criação de novos tipos de processos</a></li>
+      <li><a href="#proc021">25. realizar treinamento</a></li>
+      <li><a href="#proc022">26. correção de erros (bugs)</a></li>
+      <li><a href="#proc023">27. indisponibilidade do sistema</a></li>
+      <li><a href="#proc024">28. lentidão do sistema</a></li>
+    </ul>
+  </aside>
+  <main class="content">
+<div class="section" id="historico"><div class="section-title"><span>01</span> Histórico de Revisões</div><table class="info-table"><thead><tr><th>VERSÃO</th><th>DATA</th><th>AUTOR</th><th>DESCRIÇÃO</th></tr></thead><tbody><tr><td>1.0</td><td>25/04/2023</td><td>GTIC</td><td>Criação da primeira versão</td></tr><tr><td>2.0</td><td>18/07/2024</td><td>GTIC</td><td>Alteração de Layout e inclusão de novas solicitações</td></tr></tbody></table></div><div class="section" id="links"><div class="section-title"><span>02</span> Links Complementares</div><table class="info-table"><thead><tr><th>Nome</th><th>Link da Documentação</th></tr></thead><tbody><tr><td>Sistema SEI Recife</td><td></td></tr><tr><td>Sistema SIP Recife</td><td></td></tr><tr><td>Ambiente de Treinamento - SEI</td><td></td></tr><tr><td>Ambiente de Treinamento - SIP</td><td></td></tr><tr><td>Guia Prático de Administração Setorial</td><td></td></tr><tr><td>Guia Prático - SEI STJ</td><td></td></tr><tr><td>Modelos de Documentos Para Processos - SEI</td><td></td></tr><tr><td>Relatório de Registro de Erros do Sistema</td><td></td></tr></tbody></table></div><div class="section" id="provedor"><div class="section-title"><span>03</span> Provedor</div><table class="info-table"><thead><tr><th>IP</th><th>LOCALIZAÇÃO</th><th>FORNECEDOR</th><th>EXECUTIVA</th></tr></thead><tbody><tr><td>192.207.206.179</td><td>EMPREL</td><td>SEPLAGTD</td><td>ORGÃO</td></tr></tbody></table></div><div class="section" id="contatos"><div class="section-title"><span>04</span> Contatos</div><table class="info-table"><thead><tr><th>Unidade</th><th>Nome</th><th>Cargo</th><th>Telefone</th><th>E-mail</th></tr></thead><tbody><tr><td>SEPLAGTD</td><td></td><td>SECRETARIA EXECUTIVA</td><td></td><td>SEPLAGTD / SEFAJ /SUTEC/SEI</td></tr><tr><td>EMPREL</td><td></td><td></td><td>3355-7156</td><td>emprelatende@recife.pe.gov.br</td></tr><tr><td>GTIC</td><td>SAIANE SÀ</td><td>Analista de sistemas</td><td></td><td>saianedias777@gmail.com</td></tr></tbody></table></div>
+    <div class="section" id="proc001">
+      <div class="section-title"><span>05</span> CRIAÇÃO DE NOVA UNIDADE NA ESTRUTURA ORGANIZACIONAL</div>
+      <p class="doc-p"><strong>Objetivo:</strong> O serviço de criação de unidades ou setores na estrutura organizacional refere-se à ação de inclusão de uma sigla na estrutura organizacional do Sistema SEI Recife. Esse serviço possibilita a criação de novas unidades ou a criação de subsetores dentro de unidades novas ou já existentes.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Pode surgir a necessidade de criar novas unidades de saúde ou administrativas e elas deverão ter acesso ao sistema SEI Recife.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">CRIAÇÃO DE NOVA UNIDADE NA ESTRUTURA ORGANIZACIONAL</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá vir oriunda do SistemaSEI, contendo todas as informações necessária</p><p>Verifique se a permissão e as assinaturas do gestor da unidade solicitante e da administração setorial estão presentesDeve ser autorizada e assinada pela gestão da unidade e pelo administrador setorial responsável pela área</p><p>Encaminhar processo do SEI para a SEPLAGTDrealizar a criação da unidade na estrutura organizacional: Deverá ser criado um processo de despacho encaminhando a solicitação de criação da unidade para a SEPLAGTD</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber o processo via SEI, deverá ser verificada as seguintes informações para realizar a criação das unidades e, serão considerados os nomes, siglas e relacionamento hierárquico que constem na Estrutura do Município do Recife</p><p>Para cadastrar uma unidade as informações abaixo devem ser enviadas acompanhando a solicitação:</p><p>Nome completo da unidade</p><p>Proposta de sigla a ser utilizada (no máximo de 30 caracteres, levando em conta toda a hierarquia)</p><p>Posicionamento hierárquico da unidade</p><p>E-mail a ser utilizado pela unidade</p><p>VERIFIQUE SE A PERMISSÃO E AS ASSINATURAS DO GESTOR DA UNIDADE SOLICITANTE E DA ADMINISTRAÇÃO SETORIAL ESTÃO PRESENTES. (*)</p><p>Para verificar se a criação foi aprovada e assinada pelo administrador setorial, siga as instruções abaixo:</p><p>Entre no sistema SEI Recife com seu login e senha:e</p><p>Identifique o documento associado à solicitação e verifique o solicitante e o signatário do documento</p><p>Siga as instruções abaixo:</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_036.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_038.png" alt="Imagem do procedimento SEI"></figure><p>Para verificar se a solicitação foi aprovada por um administrador setorial, siga as instruções abaixo:</p><p>Para seguir o fluxo de criação das novas unidades, é imprescindível ter a aprovação da administradora setorial responsável conforme o organograma, que posteriormente encaminhará o processo para a equipe de suporte</p><p>Abaixo, seguem instruções para entrar em contato com seu administrador setorial:</p><p>Para facilitar essa etapa, recomendamos consultar o site<a href="https://portalsei.recife.pe.gov.br/contatos-administradores-sei" target="_blank" rel="noopener">https://portalsei.recife.pe.gov.br/contatos-administradores-sei</a> para identificar o administrador setorial correspondente à sua unidade</p><p>Criação de Unidades de Média e Alta Complexidade precisarão da autorização do administrador setorial da SERMAC:</p><p>SERMAC: SESAU/SERMAC - Administradora Ariane Cristina</p><p>Criação de Unidades de Baixa Complexidade precisarão da autorização do administrador setorial da NIIMA:</p><p>SEAB: SESAU/SEAB/GGAIT/NIIMA - Administradora Alessandra Valeria</p><p>Criação de Unidades de Distrito precisarão da autorização da Gerência:</p><p>SESAU/SECOGE/GGGD</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_037.png" alt="Imagem do procedimento SEI"></figure><p>Observação: O passo4, desta documentação,nãodeverá ser executado, se o processo recebido com a solicitação do gestornãoatender aos critérios necessários</p><p>Para concluir essa etapa, deverá ser respondida diretamente ao usuário por meio de um despacho no mesmo processo</p><p>Indique claramente as informações faltantes e forneça instruções detalhadas para o envio correto</p><p>Somente após o recebimento das informações corretas, o processo deverá seguir com a tramitação</p><p>ENCAMINHAR PROCESSO DO SEI PARA a SEPLAGTD REALIZAR A CRIAÇÃO DA UNIDADE NA ESTRUTURA ORGANIZACIONAL</p><p>A solicitação deve ser encaminhada para a unidade responsável pela ação, SEPLAGTD/SEFAJ/SUTEC/SEI, para continuidade da tramitação:</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_015.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_019.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc002">
+      <div class="section-title"><span>06</span> DESATIVAÇÃO DE UNIDADE</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Desativar unidade e atualizar o organograma das unidades do órgão SESAU.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Pode surgir a necessidade de desativar uma unidade caso uma unidade integre a outra ou deixe de prestar os serviços.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas. (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">DESATIVAÇÃO DE UNIDADE</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá vir oriunda do SistemaSEI, contendo todas as informações necessária</p><p>Verificar a assinatura da gestão e administração setorial: Deve ser autorizada e assinada pela gestão da unidade e pelo administrador setorial responsável pela área</p><p>Encaminhar processo do SEI para a SEPLAGTDrealizar a criação da unidade na estrutura organizacional: Deverá ser criado um processo de despacho encaminhando a solicitação de desativação da unidade para a SEPLAGTD</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Solicitação de desativação das unidades formais/informais Dar-se-á por meio de solicitação do Administrador Setorial ou autoridade competente da unidade, para desativar uma unidade as informações abaixo devem ser enviadas acompanhando a solicitação:</p><p>Nome completo da unidade</p><p>Sigla da unidade</p><p>Justificativa da autoridade competente para desativação</p><p>VERIFICAR SE A ASSINATURA DA GESTÃO E ADMINISTRAÇÃO SETORIAL (*)</p><p>Para saber se a solicitação foi aprovada e assinada pelo administrador setorial, siga as instruções a seguir:</p><p>Entre no sistema SEI Recife com seu login e senha:e</p><p>Identifique o documento associado à solicitação e verifique o solicitante e o signatário do documento</p><p>Siga as instruções abaixo:</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_036.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_038.png" alt="Imagem do procedimento SEI"></figure><p>Para verificar se a solicitação foi aprovada por um administrador setorial, siga as instruções abaixo:</p><p>Para seguir o fluxo de criação das novas unidades, é imprescindível ter a aprovação da administradora setorial responsável conforme o organograma, que posteriormente encaminhará o processo para a equipe de suporte</p><p>Abaixo, seguem instruções para entrar em contato com seu administrador setorial:</p><p>Para facilitar essa etapa, recomendamos consultar o site<a href="https://portalsei.recife.pe.gov.br/contatos-administradores-sei" target="_blank" rel="noopener">https://portalsei.recife.pe.gov.br/contatos-administradores-sei</a> para identificar o administrador setorial correspondente à sua unidade</p><p>Criação de Unidades de Média e Alta Complexidade precisarão da autorização do administrador setorial da SERMAC:</p><p>SERMAC: SESAU/SERMAC - Administradora Ariane Cristina</p><p>Criação de Unidades de Baixa Complexidade precisarão da autorização do administrador setorial da NIIMA:</p><p>SEAB: SESAU/SEAB/GGAIT/NIIMA - Administradora Alessandra Valeria</p><p>Criação de Unidades de Distrito precisarão da autorização da Gerência:</p><p>SESAU/SECOGE/GGGD</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_037.png" alt="Imagem do procedimento SEI"></figure><p>Observação: O passo4, desta documentação,nãodeverá ser executado, se o processo recebido com a solicitação do gestornãoatender aos critérios necessários</p><p>Para concluir essa etapa, deverá ser respondida diretamente ao usuário por meio de um despacho no mesmo processo</p><p>Indique claramente as informações faltantes e forneça instruções detalhadas para o envio correto</p><p>Somente após o recebimento das informações corretas, o processo deverá seguir com a tramitação</p><p>ENCAMINHAR PROCESSO DO SEI PARA a SEPLAGTD REALIZAR A CRIAÇÃO DA UNIDADE NA ESTRUTURA ORGANIZACIONAL</p><p>A solicitação deve ser encaminhada para a unidade responsável pela ação, SEPLAGTD/SEFAJ/SUTEC/SEI, para continuidade da tramitação:</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_015.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_019.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc003">
+      <div class="section-title"><span>07</span> REATIVAÇÃO DE UNIDADE NA ESTRUTURA ORGANIZACIONAL</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Reativar uma unidade da SESAU no sistema SIP.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Pode haver a necessidade de reativar uma unidade anteriormente desativada para permitir que a unidade possa incluir colaboradores, gerenciar solicitações e utilizar plenamente o sistema.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">REATIVAÇÃO DE UNIDADE NA ESTRUTURA ORGANIZACIONAL</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da unidade: A solicitação deverá vir oriunda do SistemaSEI, contendo todas as informações necessária</p><p>Verificar a assinatura da gestão e administração setorial: Deve ser autorizada e assinada pela gestão da unidade e pelo administrador setorial responsável pela área</p><p>Encaminhar processo do SEI para a SEPLAGTDrealizar a criação da unidade na estrutura organizacional: Deverá ser criado um processo de despacho encaminhando a solicitação de reativação da unidade para a SEPLAGTD</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Solicitação de reativação das unidades formais/informais Dar-se-á por meio de solicitação do Administrador Setorial ou autoridade competente da unidade, para reativar uma unidade as informações abaixo devem ser enviadas acompanhando a solicitação:</p><p>Nome completo da unidade</p><p>Sigla da unidade</p><p>Justificativa da autoridade competente para desativação</p><p>VERIFICAR SE A ASSINATURA DA GESTÃO E ADMINISTRAÇÃO SETORIAL (*)</p><p>Para saber se a solicitação foi aprovada e assinada pelo administrador setorial, siga as instruções a seguir:</p><p>Entre no sistema SEI Recife com seu login e senha:e</p><p>Identifique o documento associado à solicitação e verifique o solicitante e o signatário do documento</p><p>Siga as instruções abaixo:</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_036.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_038.png" alt="Imagem do procedimento SEI"></figure><p>Para verificar se a solicitação foi aprovada por um administrador setorial, siga as instruções abaixo:</p><p>Para seguir o fluxo de criação das novas unidades, é imprescindível ter a aprovação da administradora setorial responsável conforme o organograma, que posteriormente encaminhará o processo para a equipe de suporte</p><p>Abaixo, seguem instruções para entrar em contato com seu administrador setorial:</p><p>Para facilitar essa etapa, recomendamos consultar o site<a href="https://portalsei.recife.pe.gov.br/contatos-administradores-sei" target="_blank" rel="noopener">https://portalsei.recife.pe.gov.br/contatos-administradores-sei</a> para identificar o administrador setorial correspondente à sua unidade</p><p>Criação de Unidades de Média e Alta Complexidade precisarão da autorização do administrador setorial da SERMAC:</p><p>SERMAC: SESAU/SERMAC - Administradora Ariane Cristina</p><p>Criação de Unidades de Baixa Complexidade precisarão da autorização do administrador setorial da NIIMA:</p><p>SEAB: SESAU/SEAB/GGAIT/NIIMA - Administradora Alessandra Valeria</p><p>Criação de Unidades de Distrito precisarão da autorização da Gerência:</p><p>SESAU/SECOGE/GGGD</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_037.png" alt="Imagem do procedimento SEI"></figure><p>Observação: O passo4, desta documentação,nãodeverá ser executado, se o processo recebido com a solicitação do gestornãoatender aos critérios necessários</p><p>Para concluir essa etapa, deverá ser respondida diretamente ao usuário por meio de um despacho no mesmo processo</p><p>Indique claramente as informações faltantes e forneça instruções detalhadas para o envio correto</p><p>Somente após o recebimento das informações corretas, o processo deverá seguir com a tramitação</p><p>ENCAMINHAR PROCESSO DO SEI PARA a SEPLAGTD REALIZAR A CRIAÇÃO DA UNIDADE NA ESTRUTURA ORGANIZACIONAL</p><p>A solicitação deve ser encaminhada para a unidade responsável pela ação, SEPLAGTD/SEFAJ/SUTEC/SEI, para continuidade da tramitação:</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_015.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_019.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc004">
+      <div class="section-title"><span>08</span> INCLUSÃO DE SETORES EM UMA UNIDADE JÁ EXISTENTE NA ESTRUTURA ORGANIZACIONAL</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Incluir um setor dentro de uma unidade na estrutura organizacional.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Por questão de segurança ou de organização para gerenciamento dos processos da unidade se faz necessário a criação de setores dentro da unidade organizacional.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas. (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">INCLUSÃO DE SETORES EM UMA UNIDADE JÁ EXISTENTE NA ESTRUTURA ORGANIZACIONAL</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da unidade: A solicitação deverá vir oriunda do SistemaSEI, contendo todas as informações necessária</p><p>Verificar se há assinatura com autorização da gestão e administração setorial: Deve ser autorizada e assinada pela gestão da unidade e pelo administrador setorial responsável pela área</p><p>Encaminhar processo do SEI para a SEPLAGTDrealizar a criação da unidade na estrutura organizacional: Deverá ser criado um processo de despacho encaminhando a solicitação de inclusão da unidade para a SEPLAGTD</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber o processo via SEI, deverá ser verificada as seguintes informações para realizar a criação das unidades e, serão considerados os nomes, siglas e relacionamento hierárquico que constem na Estrutura do Município do Recife</p><p>Para cadastrar uma unidade as informações abaixo devem ser enviadas acompanhando a solicitação:</p><p>Nome completo da unidade</p><p>Proposta de sigla a ser utilizada (no máximo de 30 caracteres, levando em conta toda a hierarquia)</p><p>Posicionamento hierárquico da unidade</p><p>Endereço e telefone da unidade</p><p>E-mail a ser utilizado pela unidade</p><p>Justificativa para criação com a legislação que embasa e/ou embasamento da autoridade competente</p><p>VERIFICAR SE HÁ ASSINATURA COM AUTORIZAÇÃO DA GESTÃO E ADMINISTRAÇÃO SETORIAL (*)</p><p>Para saber se a criação foi aprovada e assinada pelo administrador setorial, siga as instruções a seguir:</p><p>Entre no sistema SEI Recife com seu login e senha:e</p><p>Identifique o documento associado à solicitação e verifique o solicitante e o signatário do documento</p><p>Siga as instruções abaixo:</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_036.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_038.png" alt="Imagem do procedimento SEI"></figure><p>Para verificar se a solicitação foi aprovada por um administrador setorial, siga as instruções abaixo:</p><p>Para seguir o fluxo de criação das novas unidades, é imprescindível ter a aprovação da administradora setorial responsável conforme o organograma, que posteriormente encaminhará o processo para a equipe de suporte</p><p>Abaixo, seguem instruções para entrar em contato com seu administrador setorial:</p><p>Para facilitar essa etapa, recomendamos consultar o site<a href="https://portalsei.recife.pe.gov.br/contatos-administradores-sei" target="_blank" rel="noopener">https://portalsei.recife.pe.gov.br/contatos-administradores-sei</a> para identificar o administrador setorial correspondente à sua unidade</p><p>Criação de Unidades de Média e Alta Complexidade precisarão da autorização do administrador setorial da SERMAC:</p><p>SERMAC: SESAU/SERMAC - Administradora Ariane Cristina</p><p>Criação de Unidades de Baixa Complexidade precisarão da autorização do administrador setorial da NIIMA:</p><p>SEAB: SESAU/SEAB/GGAIT/NIIMA - Administradora Alessandra Valeria</p><p>Criação de Unidades de Distrito precisarão da autorização da Gerência:</p><p>SESAU/SECOGE/GGGD</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_037.png" alt="Imagem do procedimento SEI"></figure><p>Observação: O passo4, desta documentação,nãodeverá ser executado, se o processo recebido com a solicitação do gestornãoatender aos critérios necessários</p><p>Para concluir essa etapa, deverá ser respondida diretamente ao usuário por meio de um despacho no mesmo processo</p><p>Indique claramente as informações faltantes e forneça instruções detalhadas para o envio correto</p><p>Somente após o recebimento das informações corretas, o processo deverá seguir com a tramitação</p><p>ENCAMINHAR PROCESSO DO SEI PARA a SEPLAGTD REALIZAR A CRIAÇÃO DA UNIDADE NA ESTRUTURA ORGANIZACIONAL</p><p>A solicitação deve ser encaminhada para a unidade responsável pela ação, SEPLAGTD/SEFAJ/SUTEC/SEI, para continuidade da tramitação:</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_015.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_024.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc005">
+      <div class="section-title"><span>09</span> ALTERAÇÃO DE SIGLA DA UNIDADE</div>
+      <p class="doc-p"><strong>Objetivo:</strong> A alteração de sigla se refere a mudança na nomenclatura de uma sigla.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Pode ocorrer a mudança nas siglas de uma unidade ou serviço em algum setor, o que requer a atualização das siglas correspondentes.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas. (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">ALTERAÇÃO DE SIGLA DA UNIDADE</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da unidade: A solicitação deverá vir oriunda do SistemaSEI, contendo todas as informações necessária</p><p>Verificar se há assinatura com autorização da gestão e administração setorial: Deve ser autorizada e assinada pela gestão da unidade e pelo administrador setorial responsável pela área</p><p>Encaminhar processo do SEI para a SEPLAGTDrealizar a criação da unidade na estrutura organizacional: Deverá ser criado um processo de despacho encaminhando a solicitação de alteração de sigla da unidade para a SEPLAGTD</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber o processo via SEI, deverá ser verificada as seguintes informações para realizar a alteração e, serão considerados os nomes, siglas e relacionamento hierárquico que constem na Estrutura do Município do Recife</p><p>Para cadastrar uma unidade as informações abaixo devem ser enviadas acompanhando a solicitação:</p><p>Nome completo da unidade</p><p>Proposta de sigla a ser utilizada (no máximo de 30 caracteres, levando em conta toda a hierarquia)</p><p>Posicionamento hierárquico da unidade</p><p>A solicitação deve especificar as mudanças das siglas e suas descrições:</p><p>De: SESAU/SEVS/GGAM/GEVEPI/DDT- Descrição: DIVISÃO DE DOENÇAS TRANSMISSÍVEIS</p><p>Para: SESAU/SEVS/GGAM/GEVEPI/DDST- Descrição: DIVISÃO DE SAÚDE DOENÇAS TRANSMISSIVEIS</p><p>VERIFICAR SE HÁ ASSINATURA COM AUTORIZAÇÃO DA GESTÃO E ADMINISTRAÇÃO SETORIAL (*)</p><p>Para saber se a criação foi aprovada e assinada pelo administrador setorial, siga as instruções a seguir:</p><p>Entre no sistema SEI Recife com seu login e senha:e</p><p>Identifique o documento associado à solicitação e verifique o solicitante e o signatário do documento</p><p>Siga as instruções abaixo:</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_036.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_038.png" alt="Imagem do procedimento SEI"></figure><p>Para verificar se a solicitação foi aprovada por um administrador setorial, siga as instruções abaixo:</p><p>Para seguir o fluxo de criação das novas unidades, é imprescindível ter a aprovação da administradora setorial responsável conforme o organograma, que posteriormente encaminhará o processo para a equipe de suporte</p><p>Abaixo, seguem instruções para entrar em contato com seu administrador setorial:</p><p>Para facilitar essa etapa, recomendamos consultar o site<a href="https://portalsei.recife.pe.gov.br/contatos-administradores-sei" target="_blank" rel="noopener">https://portalsei.recife.pe.gov.br/contatos-administradores-sei</a> para identificar o administrador setorial correspondente à sua unidade</p><p>Criação de Unidades de Média e Alta Complexidade precisarão da autorização do administrador setorial da SERMAC:</p><p>SERMAC: SESAU/SERMAC - Administradora Ariane Cristina</p><p>Criação de Unidades de Baixa Complexidade precisarão da autorização do administrador setorial da NIIMA:</p><p>SEAB: SESAU/SEAB/GGAIT/NIIMA - Administradora Alessandra Valeria</p><p>Criação de Unidades de Distrito precisarão da autorização da Gerência:</p><p>SESAU/SECOGE/GGGD</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_037.png" alt="Imagem do procedimento SEI"></figure><p>Observação: O passo5, desta documentação,nãodeverá ser executado, se o processo recebido com a solicitação do gestornãoatender aos critérios necessários</p><p>Para concluir essa etapa, deverá ser respondida diretamente ao usuário por meio de um despacho no mesmo processo</p><p>Indique claramente as informações faltantes e forneça instruções detalhadas para o envio correto</p><p>Somente após o recebimento das informações corretas, o processo deverá seguir com a tramitação</p><p>ENCAMINHAR PROCESSO DO SEI PARA a SEPLAGTD REALIZAR A CRIAÇÃO DA UNIDADE NA ESTRUTURA ORGANIZACIONAL</p><p>A solicitação deve ser encaminhada para a unidade responsável pela ação, SEPLAGTD/SEFAJ/SUTEC/SEI, para continuidade da tramitação:</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_015.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_019.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc006">
+      <div class="section-title"><span>10</span> REORGANIZAÇÃO DA ESTRUTURA HIERÃRQUICA ORGANIZACIONAL</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Realocar uma uma estrutura hierárquica dentro do organograma.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>É possível que um setor se desvincule de um departamento ou se torne independente, o que pode exigir uma reorganização da estrutura hierárquica.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas. (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">REORGANIZAÇÃO DA ESTRUTURA HIERÃRQUICA ORGANIZACIONAL</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da unidade: a solicitação deverá vir oriunda do SistemaSEI, contendo todas as informações necessária</p><p>Verificar se há assinatura com autorização da gestão e administração setorial:deve ser autorizada e assinada pela gestão da unidade e pelo administrador setorial responsável pela área</p><p>Encaminhar processo do SEI para a SEPLAGTDrealizar a criação da unidade na estrutura organizacional: Deverá ser criado um processo de despacho encaminhando a solicitação de reorganização da estrutura hierárquica organizacional da unidade para a SEPLAGTD</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber o processo via SEI, deverá ser verificada as seguintes informações:</p><p>Estrutura hierárquica completa</p><p>A nova posição em que a estrutura hierárquica será alocada</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_008.png" alt="Imagem do procedimento SEI"></figure><p>VERIFICAR SE HÁ ASSINATURA COM AUTORIZAÇÃO DA GESTÃO E ADMINISTRAÇÃO SETORIAL (*)</p><p>Para saber se a criação foi aprovada e assinada pelo administrador setorial, siga as instruções a seguir:</p><p>Entre no sistema SEI Recife com seu login e senha:e</p><p>Identifique o documento associado à solicitação e verifique o solicitante e o signatário do documento</p><p>Siga as instruções abaixo:</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_036.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_038.png" alt="Imagem do procedimento SEI"></figure><p>Para verificar se a solicitação foi aprovada por um administrador setorial, siga as instruções abaixo:</p><p>Para seguir o fluxo de criação das novas unidades, é imprescindível ter a aprovação da administradora setorial responsável conforme o organograma, que posteriormente encaminhará o processo para a equipe de suporte</p><p>Abaixo, seguem instruções para entrar em contato com seu administrador setorial:</p><p>Para facilitar essa etapa, recomendamos consultar o site<a href="https://portalsei.recife.pe.gov.br/contatos-administradores-sei" target="_blank" rel="noopener">https://portalsei.recife.pe.gov.br/contatos-administradores-sei</a> para identificar o administrador setorial correspondente à sua unidade</p><p>Criação de Unidades de Média e Alta Complexidade precisarão da autorização do administrador setorial da SERMAC:</p><p>SERMAC: SESAU/SERMAC - Administradora Ariane Cristina</p><p>Criação de Unidades de Baixa Complexidade precisarão da autorização do administrador setorial da NIIMA:</p><p>SEAB: SESAU/SEAB/GGAIT/NIIMA - Administradora Alessandra Valeria</p><p>Criação de Unidades de Distrito precisarão da autorização da Gerência:</p><p>SESAU/SECOGE/GGGD</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_037.png" alt="Imagem do procedimento SEI"></figure><p>Observação: O passo4, desta documentação,nãodeverá ser executado, se o processo recebido com a solicitação do gestornãoatender aos critérios necessários</p><p>Para concluir essa etapa, deverá ser respondida diretamente ao usuário por meio de um despacho no mesmo processo</p><p>Indique claramente as informações faltantes e forneça instruções detalhadas para o envio correto</p><p>Somente após o recebimento das informações corretas, o processo deverá seguir com a tramitação</p><p>ENCAMINHAR PROCESSO DO SEI PARA a SEPLAGTD REALIZAR A CRIAÇÃO DA UNIDADE NA ESTRUTURA ORGANIZACIONAL</p><p>A solicitação deve ser encaminhada para a unidade responsável pela ação, SEPLAGTD/SEFAJ/SUTEC/SEI, para continuidade da tramitação:</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_015.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_019.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc007">
+      <div class="section-title"><span>11</span> CRIAÇÃO DE NOVO USUÁRIO - SEI</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Refere-se a uma ação que envolve cadastrar um novo usuário para o sistema SEI Recife.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Solicitar a criação de um novo usuário para o SEI Recife é crucial para garantir acesso seguro e adequado aos novos colaboradores.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI , E-mail e WhatsApp.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI , E-mail e WhatsApp.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">CRIAÇÃO DE NOVO USUÁRIO - SEI</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá conter todas as informações obrigatórias</p><p>Validar autorização do gestor ou validar dados do CNES: Avalie a abordagem mais adequada para proceder com cada tipo de origem da requisição</p><p>Verificar se o usuário já possui cadastro no sistema SEIConsulte a base de dados do sistema SEI para confirmar se o usuário já está cadastrado no sistema</p><p>Encaminhar solicitação para criação novo usuário do SEI: Enviar solicitação para a EMPREL realizar a criação de usuário</p><p>Cadastrar usuário no sistema SIP: Cadastre o usuário no sistema SIP</p><p>Configure a sua assinatura eletrônica no sistema SEI: Configure a assinatura eletrônica do usuário informando o sexo e o cargo</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá conter todas as informações obrigatórias</p><p>Validar autorização do gestor ou validar dados do CNES: Avalie a abordagem mais adequada para proceder com cada tipo de origem da requisição</p><p>Verificar se o usuário já possui cadastro no sistema SEIConsulte a base de dados do sistema SEI para confirmar se o usuário já está cadastrado no sistema</p><p>Encaminhar solicitação para criação novo usuário do SEI: Enviar solicitação para a EMPREL realizar a criação de usuário</p><p>Cadastrar usuário no sistema SIP: Cadastre o usuário no sistema SIP</p><p>Configure a sua assinatura eletrônica no sistema SEI: Configure a assinatura eletrônica do usuário informando o sexo e o cargo</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_010.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_009.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_011.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_012.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_001.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_002.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_004.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_003.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_005.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_006.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_007.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_027.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_026.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_028.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc008">
+      <div class="section-title"><span>12</span> ALTERAÇÃO DE DADOS CADASTRAIS - SEI</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Alterar dados do usuário (E-mail).</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Alterar os dados cadastrais do usuário garante autenticidade das informações.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, Whatsapp, E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas. (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, Whatsapp, E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">ALTERAÇÃO DE DADOS CADASTRAIS - SEI</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá conter todas as informações obrigatórias</p><p>Validar autorização do gestor ou validar dados do CNES: Confirmar dados do usuário na base de dados do CNES ou confirmação do gestor</p><p>Alterar dados do usuário: Verifique as orientações/procedimentos para cada tipo de alteração</p><p>Atualize o sistema SIP: Após o retorno e correções na base de dados da Emprel, atualize o sistema SIP</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá conter todas as informações obrigatórias</p><p>Validar autorização do gestor ou validar dados do CNES: Confirmar dados do usuário na base de dados do CNES ou confirmação do gestor</p><p>Alterar dados do usuário: Verifique as orientações/procedimentos para cada tipo de alteração</p><p>Atualize o sistema SIP: Após o retorno e correções na base de dados da Emprel, atualize o sistema SIP</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_029.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc009">
+      <div class="section-title"><span>13</span> ALTERAÇÃO DE ALOCAÇÃO DE USUÁRIOS EM SETORES E UNIDADES</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Alterar dados do usuário ( Realocação unidade) .</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Alterar os dados cadastrais do usuário garante autenticidade das informações.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, Whatsapp, E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas. (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, Whatsapp, E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">ALTERAÇÃO DE ALOCAÇÃO DE USUÁRIOS EM SETORES E UNIDADES</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá conter todas as informações obrigatórias</p><p>Validar autorização do gestor ou validar dados do CNES: Confirmar dados do usuário na base de dados do CNES ou confirmação do gestor</p><p>Alteração de alocação de usuários em setores e unidades: Atualize os dados como Órgão, unidade, e-mail</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber solicitação, deverá ser verificada as seguintes informações para realizar o cadastro de novo usuário:</p><p>Nome Completo</p><p>CPF:</p><p>Matrícula</p><p>Unidade de Trabalho</p><p>Cargo</p><p>Telefone pessoal</p><p>E-mail pessoal</p><p>VERIFICAR AUTORIZAÇÃO DO GESTOR OU VALIDAR DADOS NO CNES (*):</p><p>Colaborador/Servidor via Solicitação Direta:</p><p>O colaborador ou servidor pode solicitar diretamente a criação de seu perfil:</p><p>Se o colaborador estiver no CNES, com seus dados vinculados à unidade e ao cargo, você poderá prosseguir com a solicitação</p><p>Caso esses dados não constem no CNES, será necessário que o gestor (que esteja cadastrado no CNES ou que tenha a assinatura do SEI) faça a solicitação</p><p>ALTERAÇÃO DE ALOCAÇÃO DE USUÁRIOS EM SETORES E UNIDADES (*)</p><p>Altere ou adicione um setores/unidades</p><p>Entre no sistema SIP</p><p>Primeiro selecione os campos Sistema, Órgão da Unidade e Órgão do Usuário</p><p>Segundo, você deverá pesquisar o perfil do usuário pelo seu nome de Login</p><p>Terceiro, selecione a unidade que o usuário será inserido e salve</p><p>O nível de acesso será Básico para todos os colaboradores que não sejam administradores setoriais</p><p>Estagiários terão o perfil do tipo Apoio</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_031.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_028.png" alt="Imagem do procedimento SEI"></figure><p>Observação: Verifique a necessidade de remoção de acesso do usuário de uma setor/unidade</p><p>Se o usuário foi transferido para outra unidade, exclua o acesso do usuário à unidade anterior</p><p>Observação: O passo4, desta documentação,nãodeverá ser executado, se não houver necessidade de remoção de acesso de um usuário a uma unidade</p><p>EXCLUIR O ACESSO DO USUÁRIO A UM SETOR/UNIDADE</p><p>Para remover acesso do usuário a uma unidade, siga as instruções abaixo:</p><p>Observação: Antes de proceder, verifique com o usuário se há algum processo em tramitação utilizando o acesso à antiga unidade de trabalho</p><p>Caso haja, o usuário deverá enviar todos os processos em tramitação para a caixa da nova unidade</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_030.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_035.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc010">
+      <div class="section-title"><span>14</span> INCLUSÃO/ALTERAÇÃO DE ASSINATURA</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Alterar cargo e sexo do cadastro do usuário para alterar a assinatura do usuário.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Ter assinatura eletrônica no sistema SEI é essencial para tramitar os processos.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail, WhatsApp</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas. (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail, WhatsApp</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">INCLUSÃO/ALTERAÇÃO DE ASSINATURA</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá vir oriunda do SistemaSEI, contendo todas as informações necessária</p><p>Validar autorização do gestor ou validar dados do CNES: Confirmar dados do usuário na base de dados do CNES ou confirmação do gestor</p><p>Configure a assinatura eletrônica no sistema SEI: Adicione cargo e sexo no perfil do usuário no sistema SEI Recife</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber solicitação, deverá ser verificada as seguintes informações para realizar o cadastro de novo usuário:</p><p>Nome Completo</p><p>CPF:</p><p>Matrícula</p><p>Unidade de Trabalho</p><p>Cargo</p><p>Telefone pessoal</p><p>E-mail pessoal</p><p>VERIFICAR AUTORIZAÇÃO DO GESTOR OU VALIDAR DADOS NO CNES (*):</p><p>Colaborador/Servidor via Solicitação Direta:</p><p>O colaborador ou servidor pode solicitar diretamente a criação de seu perfil:</p><p>Se o colaborador estiver no CNES, com seus dados vinculados à unidade e ao cargo, você poderá prosseguir com a solicitação</p><p>Caso esses dados não constem no CNES, será necessário que o gestor (que esteja cadastrado no CNES ou que tenha a assinatura do SEI) faça a solicitação</p><p>CONFIGURE A ASSINATURA ELETRÔNICA NO SISTEMA SEI:</p><p>Configure a assinatura eletrônica do usuário informando o sexo e o cargo</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_033.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_023.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_014.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_013.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_017.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_016.png" alt="Imagem do procedimento SEI"></figure><p>Observação: A seleção de gênero e de cargo é de extrema importÃ¢ncia, pois irá determinar a assinatura, vocativo e pronome de tratamento utilizados</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc011">
+      <div class="section-title"><span>15</span> LIBERAÇÃO DE PERFIL DE ACESSO DOCUMENTO EXTERNO</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Conceder permissão de acesso ao usuário.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Conceder níveis de acesso ao usuário garante que ele tenha as permissões necessárias para desempenhar suas funções de acordo com sua atribuição específica dentro da organização.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">LIBERAÇÃO DE PERFIL DE ACESSO DOCUMENTO EXTERNO</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá vir oriunda do SistemaSEI, contendo todas as informações necessária</p><p>Liberação de acesso e permissões para documentações externas: Adicionar permissão</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>USUÁRIO COLABORADOR/SERVIDOR</p><p>VERIFICAR DADOS DA SOLICITAÇÃO (*):</p><p>Ao receber solicitação, deverá ser verificada as seguintes informações para realizar o cadastro de novo usuário:</p><p>Cópia digitalizada de documento de identificação civil no qual conste CPF</p><p>Autorretrato (selfie) segurando o documento de identificação. Ex.: (CNH, RG, Passaporte, etc.)</p><p>Cópia digitalizada de procuração, termo de posse, ata ou outro documento digitalizado, caso o Usuário Externo esteja representando alguma organização pública ou privada</p><p>“Termo de Declaração de ConcordÃ¢ncia e Veracidade” preenchido e assinado via GOV.BR , através de certificado digital emitido por Autoridade Certificadora credenciada na Infraestrutura de Chaves Públicas Brasileiras (ICP-Brasil) ou ainda pelo Assinador Digital da Prefeitura do Recife. O original desse documento deverá ser mantido em posse do usuário e poderá ser solicitado pela administração pública, caso necessário</p><p>Observação: O passo2desta documentaçãonãodeve ser executado se o solicitante não enviou todas as documentações</p><p>LIBERAÇÃO DE ACESSO E PERMISSÕES PARA DOCUMENTAÇÕES EXTERNAS</p><p>Siga as instruções abaixo:</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_020.png" alt="Imagem do procedimento SEI"></figure><figure class="doc-figure"><img src="pop_sei_assets/sei_img_018.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc012">
+      <div class="section-title"><span>16</span> RECUPERAÇÃO DE SENHA</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Atualizar a senha do usuário</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Para que o usuário possa ter acesso ao sistema.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>Whatsapp, e-mail ou SEI.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas (Nível 2) ou usuário</div><div class="meta-item"><strong>Origem da Requisição</strong>Whatsapp, e-mail ou SEI.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">RECUPERAÇÃO DE SENHA</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá conter todas as informações obrigatórias</p><p>Redefinir Senha: Oriente o usuário sobre como redefinir a senha ou, se necessário, realize o procedimento para ele</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber solicitação, deverá ser verificada as seguintes informações para realizar o cadastro de novo usuário:</p><p>Nome Completo</p><p>CPF:</p><p>REDEFINIR SENHA</p><p>Siga os passos abaixo redefinir senha:</p><p>Acesse o portal SEI RECIFE</p><p>Clique em “Recuperar Senha”:</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_022.png" alt="Imagem do procedimento SEI"></figure><p>Insira o nome de “Nome de usuário”:</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_021.png" alt="Imagem do procedimento SEI"></figure><p>Aparecerá uma caixa de diálogo informando que o e-mail do usuário receberá um e-mail de redefinição de senha</p><p>Observação: O link de redefinição de senha expira em 5 minutos:</p><figure class="doc-figure"><img src="pop_sei_assets/sei_img_025.png" alt="Imagem do procedimento SEI"></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc013">
+      <div class="section-title"><span>17</span> RESET DE SENHA</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Objetivo: Atualizar a senha do usuário</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Para que o usuário possa ter acesso ao sistema.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail ou whatsApp.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail ou whatsApp.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">RESET DE SENHA</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá conter todas as informações obrigatórias</p><p>Solicitação de reset de Senha: Solicite via e-mail para o suporte da Emprel</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber solicitação, deverá ser verificada as seguintes informações para realizar o cadastro de novo usuário:</p><p>Nome Completo</p><p>CPF:</p><p>SOLICITAÇÃO DE RESET DE SENHA</p><p>Solicite via e-mail para o suporte da Emprel:</p><p>O proprio usuário poderá solicitar via telefone pelo número 33557651</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc014">
+      <div class="section-title"><span>18</span> LIBERAÇÃO DE ACESSO PARA USUÁRIO ( ADMINISTRADOR SETORIAL, ADMINISTRADOR DE USUÁRIO EXTERNO)</div>
+      <p class="doc-p"><strong>Objetivo:</strong> O N3 solicitará para o N2 os acessos para ADM Setorial e ADM Usuário externo.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>O administrador setorial é responsável por auxiliar a SEPLAGTD e EMPREL.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Nível 3 Analista</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">LIBERAÇÃO DE ACESSO PARA USUÁRIO ( ADMINISTRADOR SETORIAL, ADMINISTRADOR DE USUÁRIO EXTERNO)</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: A solicitação deverá vir oriunda do SistemaSEI, contendo todas as informações necessária</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber solicitação, deverá ser verificada as seguintes informações:</p><p>Nome completo</p><p>CPF</p><p>Matrícula</p><p>Login de rede</p><p>E-mail</p><p>Telefone/Ramal do Administrador Setorial e Secretaria a qual será Administrador Setorial</p><p>VERIFICAR AUTORIZAÇÃO DO GESTOR</p><p>O gestor deverá validar a solicitação por meio de um e-mail ou assinatura</p><p>ENCAMINHAR PROCESSO DO SEI PARA a SEPLAGTD</p><p>A solicitação deve ser encaminhada através do SEI enviando o processo para a unidade SEPLAGTD/SEFAJ/SUTEC/SEI, pelo órgão a</p><p>que se refere a solicitação, informando:</p><p>TIPO DE PROCESSO - SEI: SOLICITAÇÃO DE SERVIÇOS</p><p>TIPO DE DOCUMENTO- OFÃCIO (assinado pela autoridade competente)</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc015">
+      <div class="section-title"><span>19</span> DESATIVAÇÃO DE USUÁRIO</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Desativar o perfil do usuário no sistema SEI Recife.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Pode ser necessário pedir a desativação do usuário caso o seu perfil esteja incorreto e precise criar outro usuário com o mesmo nome ou CPF.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Analistas (Nível 03)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">DESATIVAÇÃO DE USUÁRIO</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: Verificar se a solicitação contém todas as informações e permissões necessária</p><p>Validar autorização do gestor ou validar dados do CNES: Avalie a abordagem mais adequada para proceder com cada tipo de origem da requisição</p><p>Procedimento: Explicação/Orientação</p><p>Encaminhar solicitaçãopara Emprel: Encaminhe o e-mail com a solicitação para o suporte da Emprel,</p><p>Encaminhar solicitaçãopar a SEPLAGTD Encaminhe o e-mail com a solicitação para o suporte da Emprel, ou</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber solicitação, deverá ser verificada as seguintes informações para realizar o cadastro de novo usuário:</p><p>Nome Completo</p><p>CPF:</p><p>Matrícula</p><p>Unidade de Trabalho</p><p>Cargo</p><p>Telefone pessoal</p><p>E-mail pessoal</p><p>VERIFICAR AUTORIZAÇÃO DO GESTOR OU VALIDAR DADOS NO CNES (*):</p><p>Tipos de solicitações:</p><p>Colaborador/Servidor via Solicitação Direta:</p><p>O colaborador ou servidor pode solicitar diretamente a criação de seu perfil:</p><p>Se o colaborador estiver no CNES, com seus dados vinculados à unidade e ao cargo, você poderá prosseguir com a solicitação</p><p>Caso esses dados não constem no CNES, será necessário que o gestor faça a solicitação</p><p>PROCEDIMENTO</p><p>O sistema não permite a atualização do nome ou CPF dos usuários</p><p>Quando for necessário alterar essas informações, é preciso criar um novo perfil e desativar o usuário com os dados incorretos</p><p>Desativação de Usuário no Sistema AD:</p><p>O sistema AD gerencia os logins de rede</p><p>Para desativar um usuário nesse sistema, é necessário enviar um e-mail paraemprelatende@recife.pe.gov.brsolicitando a desativação</p><p>Mesmo após a desativação no sistema AD, o nome do usuário continuará aparecendo no organograma, sendo necessário solicitar a desativação também no sistema SEI/SIP</p><p>Desativação de Usuário no Sistema SEI/SIP:</p><p>Para desativar um usuário no sistema SEI/SIP, a solicitação deve ser encaminhada à unidade responsável, SEPLAGTD/SEFAJ/SUTEC/SEI, para que a tramitação prossiga</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p><p>Quando o usuário não é mais colaborador servidor, siga as instruções do  &gt; PROCEDIMENTO &gt; Tópico 03</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc016">
+      <div class="section-title"><span>20</span> REATIVAÇÃO DE USUÁRIO</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Reativar o cadastro do usuário.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Não informado.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Analistas (Nível 03)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">REATIVAÇÃO DE USUÁRIO</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: Verificar se a solicitação contém todas as informações e permissões necessária</p><p>Procedimento: Explicação/Orientação</p><p>Encaminhar solicitaçãopara Emprel: Encaminhe o e-mail com a solicitação para o suporte da Emprel, ou</p><p>Encaminhar solicitaçãopar a SEPLAGTD Encaminhe o e-mail com a solicitação para o suporte da Emprel, ou</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO (*)</p><p>Ao receber solicitação, deverá ser verificada as seguintes informações para realizar o cadastro de novo usuário:</p><p>Nome Completo</p><p>CPF:</p><p>Matrícula</p><p>Unidade de Trabalho</p><p>Cargo</p><p>Telefone pessoal</p><p>E-mail pessoal</p><p>VERIFICAR AUTORIZAÇÃO DO GESTOR OU VALIDAR DADOS NO CNES (*):</p><p>Colaborador/Servidor via Solicitação Direta:</p><p>O colaborador ou servidor pode solicitar diretamente a criação de seu perfil:</p><p>Se o colaborador estiver no CNES, com seus dados vinculados à unidade e ao cargo, você poderá prosseguir com a solicitação</p><p>Caso esses dados não constem no CNES, será necessário que o gestor faça a solicitação</p><p>PROCEDIMENTO</p><p>Para ativar o usuário, siga as duas etapas conforme as instruções abaixo:</p><p>Para ativar um usuário nesse sistema, é necessário enviar um e-mail paraemprelatende@recife.pe.gov.brsolicitando a desativação</p><p>Para ativar de Usuário no Sistema SEI/SIP:</p><p>Para desativar um usuário no sistema SEI/SIP, a solicitação deve ser encaminhada à unidade responsável, SEPLAGTD/SEFAJ/SUTEC/SEI, para que a tramitação prossiga</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc017">
+      <div class="section-title"><span>21</span> EXCLUSÃO DE USUÁRIO.</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Excluir o usuário no sistema SIP E SEI.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Usuários não devem ser excluídos, pois isso pode comprometer a integridade das auditorias.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Analistas (Nivel 3)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">EXCLUSÃO DE USUÁRIO.</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Procedimento: Explicação/Orientação</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>PROCEDIMENTO(*):</p><p>Embora o sistema possua a funcionalidade de exclusão de usuários, elanão é utilizadadevido aos seguintes riscos:</p><p>A exclusão do usuário compromete a integridade dos documentos, pois o registro associado ao usuário é permanentemente deletado</p><p>Quando um usuário é excluído, os processos em tramitação vinculados a ele podem ser perdidos, e</p><p>A exclusão de usuários também compromete a integridade das auditorias, uma vez que elimina registros essenciais para rastreamento e verificação</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc018">
+      <div class="section-title"><span>22</span> CRIAÇÃO/DESATIVAÇÃO DE ASSINATURA</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Criação de criação ou desativação de assinatura</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Atualização ou desativação sistema SEI Recife.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">CRIAÇÃO/DESATIVAÇÃO DE ASSINATURA</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: Verificar se a solicitação contém todas as informações e permissões necessária</p><p>Procedimento: Explicação/Orientação</p><p>Encaminhar processo do SEI para a SEPLAGTD: Por meio de um processo no Sistema Sei deverá ser gerado um processo contendo solicitação</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO</p><p>Para cadastrar uma nova assinatura, as informações abaixo devem ser enviadas acompanhando a solicitação:</p><p>Nome da assinatura</p><p>Unidade que deverá ser incluída a assinatura</p><p>Justificativa da autoridade competente para criação com a legislação que a embasa</p><p>PROCEDIMENTO</p><p>Não serão incluídas assinaturas referentes a cargos de chefia de unidades específicas em outras unidades que não aquela a que se refere o cargo de assinatura, devendo eventuais assinaturas de chefes de outras unidades que não aquela em que o documento foi gerado ser colhidas por meio da ferramenta “bloco de assinatura”</p><p>ENCAMINHAR PROCESSO DO SEI PARA a SEPLAGTD</p><p>A solicitação deve ser encaminhada via SEI àSEPLAGTD/SEFAJ/SUTEC/ SEI, com o tipo de processo - SEI: Solicitação de Novo Tipo de Processo, incluindo o documento SEI: Solicitação de Novo Tipo de Processo</p><p>Obs.: Enviar o documento assinado</p><p></p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc019">
+      <div class="section-title"><span>23</span> CRIAÇÃO DE NOVOS TIPOS DE DOCUMENTOS</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Criar um novo tipo de documento no sistema SEI.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Atualização dos documentos no sistema SEI Recife.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">CRIAÇÃO DE NOVOS TIPOS DE DOCUMENTOS</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: Verificar se a solicitação contém todas as informações e permissões necessária</p><p>Procedimento: Orientação/Procedimento</p><p>Encaminhar processo do SEI para a SEPLAGTD: Por meio de um processo no Sistema Sei deverá ser gerado um processo contendo solicitação</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO</p><p>Para cadastrar novos Tipos de Processo, as informações abaixo devem ser enviadas acompanhando a solicitação:</p><p>Nome do Tipo de Documento, associando, de forma sucinta e clara se o documento será utilizado como externo ou interno</p><p>Se existe modelo a ser associado, e em caso positivo enviar o modelo junto com a solicitação</p><p>Se utilizará numeração automática para o órgão</p><p>Qual a classificação por assunto sugerida</p><p>Se permite interessado ou destinatário</p><p>Justificativa para criação do Tipo de Documento</p><p>ORIENTAÇÃO/PROCEDIMENTO</p><p>No caso de documentos internos que tenham modelo associado, o solicitante deverá encaminhar o arquivo na extensão .docx para análise e parametrizações necessárias</p><p>Nesse caso, o tipo de documento será criado em ambiente de treinamento e submetido à aprovação do usuário antes de sua inclusão no sistema</p><p>ENCAMINHAR PROCESSO DO SEI PARA a SEPLAGTD</p><p>A solicitação deve ser encaminhada via SEI àSEPLAGTD/SEFAJ/SUTEC/ SEI, com o tipo de processo - SEI: Solicitação de Novo Tipo de Processo, incluindo o documento SEI: Solicitação de Novo Tipo de Processo</p><p>Obs.: Enviar o documento assinado</p><p></p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc020">
+      <div class="section-title"><span>24</span> SOLICITAR E CRIAÇÃO DE NOVOS TIPOS DE PROCESSOS</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Criar um novo tipo de processos no sistema SEI.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Atualização dos processos no sistema SEI Recife.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas (Nível 2)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">SOLICITAR E CRIAÇÃO DE NOVOS TIPOS DE PROCESSOS</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: Verificar se a solicitação contém todas as informações e permissões necessária</p><p>Encaminhar processo do SEI para a SEPLAGTD: Por meio de um processo no Sistema Sei deverá ser gerado um processo contendo solicitação</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO</p><p>Para cadastrar novos Tipos de Processo, as informações abaixo devem ser enviadas acompanhando a solicitação:</p><p>Nome do Tipo de Processo, de forma sucinta e clara, respeitando o limite de 100 (cem) caracteres</p><p>Descrição do Tipo de Processo, apresentando suas características e finalidade</p><p>Qual a classificação por assunto sugerida para o Tipo de Processo</p><p>Se o Tipo de Processo a ser criado é restrito a um dos órgãos ou unidades do SEI indicando os órgãos e/ou unidades aos quais ele se aplica</p><p>Justificativa para a criação do Tipo de Processo, incluindo normas e dispositivos legais que conferem competência à unidade</p><p>ENCAMINHAR PROCESSO DO SEI PARA a SEPLAGTD</p><p>A solicitação deve ser encaminhada via SEI àSEPLAGTD/SEFAJ/SUTEC/ SEI, com o tipo de processo - SEI: Solicitação de Novo Tipo de Processo, incluindo o documento SEI: Solicitação de Novo Tipo de Processo</p><p>Obs.: Enviar o documento assinado</p><p>Para mais informações veja o </p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc021">
+      <div class="section-title"><span>25</span> REALIZAR TREINAMENTO</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Dar treinamento para os colaboradores/Servidores</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Para capacitar os usuários a obter um maior aproveitamento do sistema.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI , E-mail.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Suporte de Sistemas (Nível 2) e Analistas de Sistemas (Nível 3)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI , E-mail.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">REALIZAR TREINAMENTO</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Verificar dados da solicitação: Verificar se a solicitação contém todas as informações e permissões necessária</p><p>Avaliar a necessidade da solicitação: O suporte de sistemas reporta a coordenadora para verificar disponibilidade</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>VERIFICAR DADOS DA SOLICITAÇÃO</p><p>Todos os usuários podem fazer a solicitação, mas ela deve ser aprovada pela coordenação</p><p>AVALIAR A NECESSIDADE DA SOLICITAÇÃO</p><p>A coordenadora da equipe de suporte de sistemas, juntamente com a analista, avaliará a necessidade de treinamento e, se necessário, verificará a disponibilidade de dias e horários</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc022">
+      <div class="section-title"><span>26</span> CORREÇÃO DE ERROS (BUGs)</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Reportar os erros e Bugs para o Emprel ou SEPLAGTD.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Reportar os incidentes é fundamental para correções do erro.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail, WhatsApp.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Analistas (Nível 03)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail, WhatsApp.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">CORREÇÃO DE ERROS (BUGs)</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Procedimento: Explicação/Orientação</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>PROCEDIMENTO(*):</p><p>O suporte técnico de sistema é responsável por receber ou identificar erros e bugs</p><p>Ao encontrar um problema, a equipe deve detalhar o ocorrido, coletar evidências e repassar as informações para os analistas de sistemas</p><p>Os analistas de sistemas, após a análise inicial, devem reportar o problema tanto para a Emprel quanto para a SEPLAGTD, seguindo os procedimentos abaixo:</p><p>Reporte à Emprel: Enviar um e-mail paraemprelatende@recife.pe.gov.brcom todos os detalhes do erro ou bug</p><p>Reporte à SEPLAGTD: Processo no sistema SEIa solicitação deve ser encaminhada à unidade responsável, SEPLAGTD/SEFAJ/SUTEC/SEI, para que a tramitação prossiga</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc023">
+      <div class="section-title"><span>27</span> INDISPONIBILIDADE DO SISTEMA</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Reportar indisponibilidade para o Emprel ou SEPLAGTD.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Reportar os incidentes é fundamental para correções do erro.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail, WhatsApp.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Analistas (Nível 03)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail, WhatsApp.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">INDISPONIBILIDADE DO SISTEMA</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Procedimento: Explicação/Orientação</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>PROCEDIMENTO(*):</p><p>O suporte técnico de sistema é responsável por receber ou identificar erros e bugs</p><p>Ao encontrar um problema, a equipe deve detalhar o ocorrido, coletar evidências e repassar as informações para os analistas de sistemas</p><p>Os analistas de sistemas, após a análise inicial, devem reportar o problema tanto para a Emprel quanto para a SEPLAGTD, seguindo os procedimentos abaixo:</p><p>Reporte à Emprel: Enviar um e-mail paraemprelatende@recife.pe.gov.brcom todos os detalhes do erro ou bug</p><p>Reporte à SEPLAGTD: Processo no sistema SEIa solicitação deve ser encaminhada à unidade responsável, SEPLAGTD/SEFAJ/SUTEC/SEI, para que a tramitação prossiga</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="proc024">
+      <div class="section-title"><span>28</span> LENTIDÃO DO SISTEMA</div>
+      <p class="doc-p"><strong>Objetivo:</strong> Reportar a lentidão para o Emprel ou SEPLAGTD.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>por Que Fazer?</strong>Reportar os incidentes é fundamental para correções do erro.</div><div class="meta-item"><strong>Quem Pode Solicitar?</strong>SEI, E-mail, WhatsApp.</div><div class="meta-item"><strong>Quem Pode Executar?</strong>Analistas (Nível 03)</div><div class="meta-item"><strong>Origem da Requisição</strong>SEI, E-mail, WhatsApp.</div>
+      </div>
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">PASSO A PASSO</span>
+          <span class="activity-name">LENTIDÃO DO SISTEMA</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="label">Pré-requisitos</div>
+          <div class="steps-box"><p>Procedimento: Explicação/Orientação</p></div>
+          <div class="label">Como fazer</div>
+          <div class="steps-box"><p>PROCEDIMENTO(*):</p><p>O suporte técnico de sistema é responsável por receber ou identificar erros e bugs</p><p>Ao encontrar um problema, a equipe deve detalhar o ocorrido, coletar evidências e repassar as informações para os analistas de sistemas</p><p>Os analistas de sistemas, após a análise inicial, devem reportar o problema tanto para a Emprel quanto para a SEPLAGTD, seguindo os procedimentos abaixo:</p><p>Reporte à Emprel: Enviar um e-mail paraemprelatende@recife.pe.gov.brcom todos os detalhes do erro ou bug</p><p>Reporte à SEPLAGTD: Processo no sistema SEIa solicitação deve ser encaminhada à unidade responsável, SEPLAGTD/SEFAJ/SUTEC/SEI, para que a tramitação prossiga</p><p>Acessar o SEI/ Processo - SEI: Solicitação de Serviços, incluindo o documento</p><p>SEI: Solicitação de Demanda</p><p>Enviar o documento assinado</p><p>Insira o caminho da unidadeSEPLAGTD/SEFAJ/SUTEC/SEI, selecione a opção correta e clique no botão &quot;Enviar&quot;</p></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>2.0 · 18/07/2024</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar às Documentações
+  </a>
+</footer>
+<script>
+document.querySelectorAll('.activity-header').forEach(h => {
+  h.addEventListener('click', () => h.closest('.activity-card').classList.toggle('open'));
+});
+const links = document.querySelectorAll('.toc a');
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+});
+</script>
+</body>
+</html>
+
+
+
+
