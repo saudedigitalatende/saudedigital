@@ -279,6 +279,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         </div>
       </div>
 
+      <div class="folder-card" onclick="openFolder('ferias')">
+        <div class="folder-bar" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div>
+        <div class="folder-header">
+          <div class="folder-icon" style="background:#fef3c7;font-size:20px;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center">🏖️</div>
+          <div>
+            <div class="folder-name">Férias</div>
+            <div class="folder-desc">Controle de licenças da equipe</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count" style="background:#fef3c7;color:#b45309">📂 1 documento</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -602,6 +617,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         <div>
           <div class="doc-title">Trilhas de Treinamento – Prontuário Eletrônico em Rede (RES)</div>
           <div class="doc-meta">Materiais de capacitação · Google Drive</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA FÉRIAS -->
+  <div class="view" id="view-ferias">
+    <div class="breadcrumb">
+      <a href="#" onclick="openFolder(null)">Documentações</a> › <span>Férias</span>
+    </div>
+    <div class="docs-list">
+      <a class="doc-card" href="documentações/Férias/ferias_eq_ss.html" target="_blank">
+        <div class="doc-icon-wrap">🏖️</div>
+        <div>
+          <div class="doc-title">Controle de Férias – Equipe SS</div>
+          <div class="doc-meta">Licenças por ano · GTIC · Saúde Digital</div>
         </div>
         <span class="doc-arrow">→</span>
       </a>
