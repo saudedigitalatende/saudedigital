@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Férias – Equipe SS · GTIC</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -31,14 +31,23 @@
   .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead tr { background: var(--bg); }
-  th { padding: 11px 14px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--ink3); border-bottom: 1px solid var(--border); white-space: nowrap; }
-  td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  th { padding: 11px 14px; text-align: center; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--ink3); border-bottom: 1px solid var(--border); white-space: nowrap; }
+  .group-header th { text-align: center; font-size: 12px; letter-spacing: .8px; border-bottom: 1px solid var(--border); }
+  .group-header .blank { color: transparent; background: #fbfbff; }
+  .group-header .gtic-title { color: #1c4ed8; background: #edf4ff; border-left: 1px solid #b9cdfa; border-right: 1px solid #d6e2fb; }
+  .group-header .rpl-title { color: #087f5b; background: #edfdf6; border-left: 1px solid #a9e8d0; border-right: 1px solid #d4f4e7; }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; text-align: center; }
+  th:nth-child(1), td:nth-child(1) { text-align: left; }
+  thead tr:not(.group-header) th:nth-child(5), thead tr:not(.group-header) th:nth-child(6), thead tr:not(.group-header) th:nth-child(7), tbody td:nth-child(5), tbody td:nth-child(6), tbody td:nth-child(7) { background: #f7faff; }
+  thead tr:not(.group-header) th:nth-child(8), thead tr:not(.group-header) th:nth-child(9), tbody td:nth-child(8), tbody td:nth-child(9) { background: #f6fffb; }
+  thead tr:not(.group-header) th:nth-child(5), tbody td:nth-child(5) { border-left: 1px solid #cbd8f6; }
+  thead tr:not(.group-header) th:nth-child(8), tbody td:nth-child(8) { border-left: 1px solid #c6eadb; }
+  thead tr:not(.group-header) th:nth-child(10), tbody td:nth-child(10) { border-left: 1px solid var(--border); }
   tr:last-child td { border-bottom: none; }
   tr:hover td { background: #fafafa; }
   .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
   .badge-green { background: var(--green-lt); color: var(--green); }
   .badge-orange { background: var(--orange-lt); color: var(--orange); }
-  .badge-red { background: var(--red-lt); color: var(--red); }
   .nome { font-weight: 500; }
   .mat { font-size: 11px; color: var(--ink3); }
   .mes { font-weight: 600; color: var(--blue); }
@@ -55,89 +64,178 @@
 </header>
 
 <div class="tabs">
-  <button class="tab-btn active" onclick="showTab('t2023',this)">Relativo a 2023</button>
-  <button class="tab-btn" onclick="showTab('t2024',this)">Relativo a 2024</button>
-  <button class="tab-btn" onclick="showTab('t2025',this)">Relativo a 2025</button>
-  <button class="tab-btn" onclick="showTab('t2026',this)">Relativo a 2026</button>
+  <button class="tab-btn active" onclick="showTab('t0',this)">Relativo a 2023</button>
+  <button class="tab-btn" onclick="showTab('t1',this)">Relativo a 2024</button>
+  <button class="tab-btn" onclick="showTab('t2',this)">Relativo a 2025</button>
+  <button class="tab-btn" onclick="showTab('t3',this)">Relativo a 2026</button>
 </div>
 
 <div class="content">
 
-<!-- ABA 2023 -->
-<div class="view active" id="t2023">
-<div class="table-wrap"><table>
-<thead><tr><th>Nome</th><th>Matrícula</th><th>Admissão</th><th>Ano</th><th>Mês GTIC</th><th>Período GTIC</th><th>Mês RPL</th><th>Período RPL</th><th>Dias</th><th>Status</th></tr></thead>
-<tbody>
-<tr><td class="nome">Breno Felipe Amorim Gomes</td><td class="mat">19976</td><td class="mat">12/09/2023</td><td>2024</td><td class="mes">Janeiro</td><td>02/01 a 31/01</td><td>Janeiro</td><td>02/01 a 31/01</td><td class="dias">30</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Penha Karine de Siqueira Truzzolino</td><td class="mat">19961</td><td class="mat">05/09/2023</td><td>2024</td><td class="mes">Janeiro</td><td>13/01 a 01/02</td><td>Janeiro</td><td>13/01 a 01/02</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Edleuza Severiano dos Santos</td><td class="mat">7081</td><td class="mat">03/06/2013</td><td>2024</td><td class="mes">Janeiro</td><td>09/01 a 28/01</td><td>Janeiro</td><td>09/01 a 28/01</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Regina Celi de Souza Araujo</td><td class="mat">20152</td><td class="mat">02/10/2023</td><td>2024</td><td class="mes">Jun–Dez</td><td>A partir de 16/06 até dezembro (pegar data exata do nascimento) · Concluiu em 2024</td><td>Fevereiro</td><td>11/02 a 12/03</td><td class="dias">60</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Leonardo José da Silva Junior</td><td class="mat">20154</td><td class="mat">05/09/2023</td><td>2024</td><td class="mes">Março</td><td>13/03 a 01/04</td><td>Março</td><td>13/03 a 01/04</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Diana Rafaela Silva de Castro</td><td class="mat">18408</td><td class="mat">20/01/2023</td><td>2024</td><td class="mes">Março</td><td>07/03 a 03/04</td><td>Março</td><td>07/03 a 03/04</td><td class="dias">30</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Vinnicius Coutinho Santos e Silva</td><td class="mat">20016</td><td class="mat">20/09/2023</td><td>2024</td><td class="mes">Outubro</td><td>16/10 a 05/11</td><td>Outubro</td><td>16/10 a 05/11</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Talles Roberto de Santana</td><td class="mat">19960</td><td class="mat">05/09/2023</td><td>2024</td><td class="mes">Setembro</td><td>23/09 a 22/10</td><td>Setembro</td><td>23/09 a 22/10</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Lílian Pastichi de Artaujo Silva</td><td class="mat">6580</td><td class="mat">03/12/2012</td><td>2024</td><td class="mes">Setembro</td><td>09/09 a 28/09</td><td>Setembro</td><td>09/09 a 28/09</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-
-</tbody></table></div></div>
-
-<!-- ABA 2024 -->
-<div class="view" id="t2024">
-<div class="table-wrap"><table>
-<thead><tr><th>Nome</th><th>Matrícula</th><th>Admissão</th><th>Ano</th><th>Mês GTIC</th><th>Período GTIC</th><th>Mês RPL</th><th>Período RPL</th><th>Dias</th><th>Status</th></tr></thead>
-<tbody>
-<tr><td class="nome">Edleuza Severiano dos Santos</td><td class="mat">7081</td><td class="mat">03/06/2013</td><td>2025</td><td class="mes">Janeiro</td><td>02/01 a 31/01</td><td>Janeiro</td><td>02/01 a 31/01</td><td class="dias">30</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Vinnicius Coutinho Santos e Silva</td><td class="mat">20016</td><td class="mat">20/09/2023</td><td>2025</td><td class="mes">Novembro</td><td>11/09 a 30/09</td><td>Novembro</td><td>10/11 a 29/11</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Breno Felipe Amorim Gomes</td><td class="mat">19976</td><td class="mat">12/09/2023</td><td>2025</td><td class="mes">Março</td><td>03/03 a 01/04</td><td>Março</td><td>03/03 a 01/04</td><td class="dias">30</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Lílian Pastichi de Artaujo Silva</td><td class="mat">6580</td><td class="mat">03/12/2012</td><td>2025</td><td class="mes">Abril</td><td>22/04 a 11/05</td><td>Abril</td><td>22/04 a 11/05</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Penha Karine de Siqueira Truzzolino</td><td class="mat">19961</td><td class="mat">05/09/2023</td><td>2025</td><td class="mes">Novembro</td><td>03/11 a 02/12</td><td>Novembro</td><td>03/11 a 02/12</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Leonardo José da Silva Junior</td><td class="mat">20154</td><td class="mat">05/09/2023</td><td>2025</td><td class="mes">Outubro</td><td>13/10 a 03/11</td><td>Outubro</td><td>06/10 a 25/10</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Talles Roberto de Santana</td><td class="mat">19960</td><td class="mat">05/09/2023</td><td>2025</td><td class="mes">Setembro</td><td>22/09 a 11/10</td><td>Setembro</td><td>22/09 a 11/10</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Rian Welky Oliveira Barbosa</td><td class="mat">22491</td><td class="mat">—</td><td>2025</td><td class="mes">Setembro</td><td>25/08 a 22/09</td><td>Setembro</td><td>01/09 a 30/09</td><td class="dias">30</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Diana Rafaela Silva de Castro</td><td class="mat">18408</td><td class="mat">20/01/2023</td><td>2025</td><td class="mes">Abril</td><td>22/04 a 22/05</td><td>Junho</td><td>12/05 a 10/06</td><td class="dias">30</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Helleson Allan Borges de Sant'ana</td><td class="mat">22822</td><td class="mat">—</td><td>2025</td><td class="mes">Outubro</td><td>20/10 a 10/11</td><td>Outubro</td><td>20/10 a 10/11</td><td class="dias">20</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Regina Celi de Souza Araujo</td><td class="mat">20152</td><td class="mat">02/10/2023</td><td>2025</td><td class="mes">Jun–Dez</td><td>A partir de 16/06 até dezembro</td><td>20/10 a 18/11</td><td>Outubro</td><td class="dias">60</td><td><span class="badge badge-green">Concluído</span></td></tr>
-</tbody></table></div></div>
-
-<!-- ABA 2025 -->
-<div class="view" id="t2025">
-<div class="table-wrap"><table>
-<thead><tr><th>Nome</th><th>Matrícula</th><th>Admissão</th><th>Ano</th><th>Mês GTIC</th><th>Período GTIC</th><th>Dias</th><th>Período RPL</th><th>Dias RPL</th><th>Status</th></tr></thead>
-<tbody>
-<tr><td class="nome">Edleuza Severiano dos Santos</td><td class="mat">7081</td><td class="mat">03/06/2013</td><td>2026</td><td class="mes">Janeiro</td><td>08/01 a 06/02/2026</td><td class="dias">30</td><td>08/01 a 06/02/2026</td><td class="dias">30</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Vinnicius Coutinho Santos e Silva</td><td class="mat">20016</td><td class="mat">20/09/2023</td><td>2026</td><td class="mes">Novembro</td><td>10/11 a 29/11/2026</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Breno Felipe Amorim Gomes</td><td class="mat">19976</td><td class="mat">12/09/2023</td><td>2026</td><td class="mes">Fevereiro</td><td>23/02 a 24/03/2026</td><td class="dias">30</td><td>02/02 a 03/03/2026</td><td class="dias">30</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Lílian Pastichi de Artaujo Silva</td><td class="mat">6580</td><td class="mat">03/12/2012</td><td>2026</td><td class="mes">Março</td><td>23–25 Fev e 09–21/03/2026</td><td class="dias">20</td><td>23/03 a 11/04/2026</td><td class="dias">20</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Penha Karine de Siqueira Truzzolino</td><td class="mat">19961</td><td class="mat">05/09/2023</td><td>2026</td><td class="mes">Janeiro</td><td>05/01 a 12/01/2026</td><td class="dias">10</td><td>—</td><td>—</td><td><span class="badge badge-green">Concluído</span></td></tr>
-<tr><td class="nome">Penha Karine de Siqueira Truzzolino</td><td class="mat">19961</td><td class="mat">05/09/2023</td><td>2026</td><td class="mes">Abril</td><td>06/04 a 20/04 (5 dias pendentes)</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Concluído parcialmente</span></td></tr>
-<tr><td class="nome">Leonardo José da Silva Junior</td><td class="mat">19962</td><td class="mat">05/09/2023</td><td>2026</td><td class="mes">Março</td><td>30/03 a 16/04/2026</td><td class="dias">20</td><td>—</td><td class="dias">20</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Talles Roberto de Santana</td><td class="mat">19960</td><td class="mat">05/09/2023</td><td>2026</td><td class="mes">Setembro</td><td>07/09 a 27/09/2026</td><td class="dias">20</td><td>—</td><td class="dias">20</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Rian Welky Oliveira Barbosa</td><td class="mat">22491</td><td class="mat">—</td><td>2026</td><td class="mes">Agosto</td><td>10/08 a 29/08/2026</td><td class="dias">20</td><td>—</td><td class="dias">20</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Helleson Allan Borges de Sant'ana</td><td class="mat">22822</td><td class="mat">—</td><td>2026</td><td class="mes">Outubro</td><td>12/10 a 31/10/2026</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Regina Celi de Souza Araujo</td><td class="mat">20152</td><td class="mat">02/10/2023</td><td>2026</td><td class="mes">Janeiro</td><td>04/01 a 23/01/2027</td><td class="dias">20</td><td>—</td><td class="dias">20</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Thiago Felipe</td><td class="mat">24815</td><td class="mat">—</td><td>2026</td><td class="mes">Julho</td><td>02/07 a 31/07/2026</td><td class="dias">30</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Ramon Castilho</td><td class="mat">26036</td><td class="mat">—</td><td>2027</td><td class="mes">Junho</td><td>01/05 a 30/05/2027</td><td class="dias">30</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-</tbody></table></div></div>
-
-<!-- ABA 2026 -->
-<div class="view" id="t2026">
-<div class="table-wrap"><table>
-<thead><tr><th>Nome</th><th>Matrícula</th><th>Admissão</th><th>Ano</th><th>Mês GTIC</th><th>Período GTIC</th><th>Dias</th><th>Período RPL</th><th>Mês RPL</th><th>2ª Opção</th><th>Dias</th><th>Status</th></tr></thead>
-<tbody>
-<tr><td class="nome">Edleuza Severiano dos Santos</td><td class="mat">7081</td><td class="mat">03/06/2013</td><td>2027</td><td class="mes">Janeiro</td><td>—</td><td class="dias">30</td><td>—</td><td>13/05 a 11/06</td><td><span class="badge badge-orange">Pendente</span></td><td class="dias">30</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Vinnicius Coutinho Santos e Silva</td><td class="mat">20016</td><td class="mat">20/09/2023</td><td>2027</td><td class="mes">Novembro</td><td>—</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Breno Felipe Amorim Gomes</td><td class="mat">19976</td><td class="mat">12/09/2023</td><td>2027</td><td class="mes">Janeiro</td><td>07/01 a 05/02/2027</td><td class="dias">30</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td><td class="dias">30</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Lílian Pastichi de Artaujo Silva</td><td class="mat">6580</td><td class="mat">03/12/2012</td><td>2027</td><td class="mes">Março</td><td>—</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td><td class="dias">20</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Penha Karine de Siqueira Truzzolino</td><td class="mat">19961</td><td class="mat">05/09/2023</td><td>2027</td><td class="mes">Novembro</td><td>—</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td><td class="dias">20</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Leonardo José da Silva Junior</td><td class="mat">20154</td><td class="mat">05/09/2023</td><td>2027</td><td class="mes">Outubro</td><td>—</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td><td class="dias">20</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Talles Roberto de Santana</td><td class="mat">19960</td><td class="mat">05/09/2023</td><td>2027</td><td class="mes">Outubro</td><td>—</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td><td class="dias">20</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Rian Welky Oliveira Barbosa</td><td class="mat">22491</td><td class="mat">—</td><td>2027</td><td class="mes">Agosto</td><td>—</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td><td class="dias">30</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Helleson Allan Borges de Sant'ana</td><td class="mat">22822</td><td class="mat">—</td><td>2027</td><td class="mes">Outubro</td><td>—</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Regina Celi de Souza Araujo</td><td class="mat">20152</td><td class="mat">02/10/2023</td><td>2027</td><td class="mes">Janeiro</td><td>04/01 a 23/01/2027</td><td class="dias">20</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td><td class="dias">20</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Thiago Felipe</td><td class="mat">24815</td><td class="mat">—</td><td>2027</td><td class="mes">Julho</td><td>—</td><td class="dias">30</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-<tr><td class="nome">Ramon Castilho</td><td class="mat">—</td><td class="mat">—</td><td>2027</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
-</tbody></table></div></div>
-
+<!-- Relativo a 2023 -->
+<div class="view active" id="t0">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr class="group-header">
+          <th class="blank" colspan="4">&nbsp;</th>
+          <th class="gtic-title" colspan="3">GTIC</th>
+          <th class="rpl-title" colspan="2">RPL</th>
+          <th class="blank" colspan="1">&nbsp;</th>
+        </tr>
+        <tr>
+          <th>Nome</th>
+          <th>Matrícula</th>
+          <th>Admissão</th>
+          <th>Ano</th>
+          <th>Mês</th>
+          <th>Período</th>
+          <th>Dias</th>
+          <th>Mês</th>
+          <th>Período</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="nome">Breno Felipe Amorim Gomes</td><td class="mat">19976</td><td class="mat">12/09/2023</td><td>2024</td><td class="mes">Janeiro</td><td>02/01 a 31/01</td><td class="dias">30</td><td class="mes">Janeiro</td><td>02/01 a 31/01</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Penha Karine de Siqueira Truzzolino</td><td class="mat">19961</td><td class="mat">05/09/2023</td><td>2024</td><td class="mes">Janeiro</td><td>13/01 a 01/02</td><td class="dias">20</td><td class="mes">Janeiro</td><td>13/01 a 01/02</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Edleuza Severiano dos Santos</td><td class="mat">7081</td><td class="mat">03/06/2013</td><td>2024</td><td class="mes">Janeiro</td><td>09/01 a 28/01</td><td class="dias">20</td><td class="mes">Janeiro</td><td>09/01 a 28/01</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Regina Celi de Souza Araujo</td><td class="mat">20152</td><td class="mat">02/10/2023</td><td>2024</td><td class="mes">Novembro</td><td>Licença maternidade 05/06/2025 a<br>02/10/2025</td><td class="dias">30</td><td class="mes">Fevereiro</td><td>Licença maternidade<br>05/06/2025 a 02/10/2025</td><td>-</td></tr>
+<tr><td class="nome">Leonardo José da Silva Junior</td><td class="mat">20154</td><td class="mat">05/09/2023</td><td>2024</td><td class="mes">Março</td><td>13/03 a 01/04</td><td class="dias">20</td><td class="mes">Março</td><td>13/03 a 01/04</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Diana Rafaela Silva de Castro</td><td class="mat">18408</td><td class="mat">20/01/2023</td><td>2024</td><td class="mes">Março</td><td>07/03 a 03/04</td><td class="dias">30</td><td class="mes">Março</td><td>07/03 a 03/04</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Vinnicius Coutinho Santos e Silva</td><td class="mat">20016</td><td class="mat">20/09/2023</td><td>2024</td><td class="mes">Outubro</td><td>16/10 a 05/11</td><td class="dias">20</td><td class="mes">Outubro</td><td>16/10 a 05/11</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Talles Roberto de Santana</td><td class="mat">19960</td><td class="mat">05/09/2023</td><td>2024</td><td class="mes">Setembro</td><td>23/09 a 22/10</td><td class="dias">20</td><td class="mes">Setembro</td><td>23/09 a 22/10</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Lílian Pastichi de Artaujo Silva</td><td class="mat">6580</td><td class="mat">03/12/2012</td><td>2024</td><td class="mes">Setembro</td><td>09/09 a 28/09</td><td class="dias">20</td><td class="mes">Setembro</td><td>09/09 a 28/09</td><td><span class="badge badge-green">Concluído</span></td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<!-- Relativo a 2024 -->
+<div class="view" id="t1">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr class="group-header">
+          <th class="blank" colspan="4">&nbsp;</th>
+          <th class="gtic-title" colspan="3">GTIC</th>
+          <th class="rpl-title" colspan="2">RPL</th>
+          <th class="blank" colspan="1">&nbsp;</th>
+        </tr>
+        <tr>
+          <th>Nome</th>
+          <th>Matrícula</th>
+          <th>Admissão</th>
+          <th>Ano</th>
+          <th>Mês</th>
+          <th>Período</th>
+          <th>Dias</th>
+          <th>Mês</th>
+          <th>Período</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="nome">Edleuza Severiano dos Santos</td><td class="mat">7081</td><td class="mat">03/06/2013</td><td>2025</td><td class="mes">Janeiro</td><td>02/01 a 31/01</td><td class="dias">30</td><td class="mes">Janeiro</td><td>02/01 a 31/01</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Vinnicius Coutinho Santos e Silva</td><td class="mat">20016</td><td class="mat">20/09/2023</td><td>2025</td><td class="mes">Novembro</td><td>11/09 a 30/09</td><td class="dias">20</td><td class="mes">Novembro</td><td>10/11 a 29/11</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Breno Felipe Amorim Gomes</td><td class="mat">19976</td><td class="mat">12/09/2023</td><td>2025</td><td class="mes">Março</td><td>03/03 a 01/04</td><td class="dias">30</td><td class="mes">Março</td><td>03/03 a 01/04</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Lílian Pastichi de Artaujo Silva</td><td class="mat">6580</td><td class="mat">03/12/2012</td><td>2025</td><td class="mes">Abril</td><td>22/04 a 11/05</td><td class="dias">20</td><td class="mes">Abril</td><td>22/04 a 11/05</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Penha Karine de Siqueira Truzzolino</td><td class="mat">19961</td><td class="mat">05/09/2023</td><td>2025</td><td class="mes">Novembro</td><td>03/11 a 02/12</td><td class="dias">20</td><td class="mes">Novembro</td><td>03/11 a 02/12</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Leonardo José da Silva Junior</td><td class="mat">20154</td><td class="mat">05/09/2023</td><td>2025</td><td class="mes">Outubro</td><td>13/10 a 03/11</td><td class="dias">20</td><td class="mes">Outubro</td><td>06/10 a 25/10</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Talles Roberto de Santana</td><td class="mat">19960</td><td class="mat">05/09/2023</td><td>2025</td><td class="mes">Setembro</td><td>22/09 a 11/10</td><td class="dias">20</td><td class="mes">Setembro</td><td>22/09 a 11/10</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Rian Welky Oliveira Barbosa</td><td class="mat">22491</td><td class="mat">05/08/2024</td><td>2025</td><td class="mes">Setembro</td><td>25/08 a 22/09</td><td class="dias">30</td><td class="mes">Setembro</td><td>01/09 a 30/09</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Diana Rafaela Silva de Castro</td><td class="mat">18408</td><td class="mat">20/01/2023</td><td>2025</td><td class="mes">Abril</td><td>22/04 a 22/05</td><td class="dias">30</td><td class="mes">Junho</td><td>12/05 a 10/06</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Helleson Allan Borges de Sant&#x27;ana</td><td class="mat">22822</td><td class="mat">01/10/2024</td><td>2025</td><td class="mes">Outubro</td><td>20/10 a 10/11</td><td class="dias">20</td><td class="mes">Outubro</td><td>20/10 a 10/11</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Regina Celi de Souza Araujo</td><td class="mat">20152</td><td class="mat">02/10/2023</td><td>2025</td><td class="mes">Outubro</td><td>07/10 a 05/11</td><td class="dias">30</td><td class="mes">Outubro</td><td>07/10 a 05/11</td><td><span class="badge badge-green">Concluído</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Relativo a 2025 -->
+<div class="view" id="t2">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr class="group-header">
+          <th class="blank" colspan="4">&nbsp;</th>
+          <th class="gtic-title" colspan="3">GTIC</th>
+          <th class="rpl-title" colspan="2">RPL</th>
+          <th class="blank" colspan="1">&nbsp;</th>
+        </tr>
+        <tr>
+          <th>Nome</th>
+          <th>Matrícula</th>
+          <th>Admissão</th>
+          <th>Ano</th>
+          <th>Mês</th>
+          <th>Período</th>
+          <th>Dias</th>
+          <th>Mês</th>
+          <th>Período</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="nome">Edleuza Severiano dos Santos</td><td class="mat">7081</td><td class="mat">03/06/2013</td><td>2026</td><td class="mes">Janeiro</td><td>08/01 a 06/02</td><td class="dias">30</td><td class="mes">Janeiro</td><td>08/01 a 06/02/2026</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Breno Felipe Amorim Gomes</td><td class="mat">19976</td><td class="mat">12/09/2023</td><td>2026</td><td class="mes">Fevereiro</td><td>23/02 a 24/03</td><td class="dias">30</td><td class="mes">Fevereiro</td><td>02/02 a 03/03/2026</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Lílian Pastichi de Artaujo Silva</td><td class="mat">6580</td><td class="mat">03/12/2012</td><td>2026</td><td class="mes">Março</td><td>23 a 25 Fev e 09 a 21/03</td><td class="dias">20</td><td class="mes">Março</td><td>23/03 a 11/04/2026</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Penha Karine de Siqueira Truzzolino</td><td class="mat">19961</td><td class="mat">05/09/2023</td><td>2026</td><td class="mes">Janeiro</td><td>05/01 a 12/01</td><td class="dias">10</td><td class="mes">Janeiro</td><td>—</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Penha Karine de Siqueira Truzzolino</td><td class="mat">19961</td><td class="mat">05/09/2023</td><td>2026</td><td class="mes">Abril</td><td>06/04 a 20/04 (5 dias pendentes)</td><td class="dias">20</td><td class="mes">Abril</td><td>—</td><td><span class="badge badge-orange">Concluído parcialmente</span></td></tr>
+<tr><td class="nome">Leonardo José da Silva Junior</td><td class="mat">19962</td><td class="mat">05/09/2023</td><td>2026</td><td class="mes">Março</td><td>30/03 a 16/04</td><td class="dias">20</td><td class="mes">Março</td><td>—</td><td><span class="badge badge-green">Concluído</span></td></tr>
+<tr><td class="nome">Talles Roberto de Santana</td><td class="mat">19960</td><td class="mat">05/09/2023</td><td>2026</td><td class="mes">Setembro</td><td>08/09 a 28/09</td><td class="dias">20</td><td class="mes">Maio</td><td>13/05 a 03/2026</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Rian Welky Oliveira Barbosa</td><td class="mat">22491</td><td class="mat">05/08/2024</td><td>2026</td><td class="mes">Agosto</td><td>10/08 a 29/08</td><td class="dias">20</td><td class="mes">Agosto</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Helleson Allan Borges de Sant&#x27;ana</td><td class="mat">22822</td><td class="mat">01/10/2024</td><td>2026</td><td class="mes">Outubro</td><td>12/10 a 31/10</td><td class="dias">20</td><td class="mes">Outubro</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Regina Celi de Souza Araujo</td><td class="mat">20152</td><td class="mat">02/10/2023</td><td>2026</td><td class="mes">Janeiro</td><td>2027</td><td class="dias">20</td><td class="mes">Janeiro</td><td>—</td><td><span class="badge badge-orange">2027</span></td></tr>
+<tr><td class="nome">Thiago Felipe</td><td class="mat">24815</td><td class="mat">12/06/2025</td><td>2026</td><td class="mes">Julho</td><td>02/07 a 31/07</td><td class="dias">30</td><td class="mes">Julho</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Ramon Castilho</td><td class="mat">26036</td><td class="mat">26/01/2026</td><td>2027</td><td class="mes">Junho</td><td>2027</td><td class="dias">30</td><td class="mes">Maio</td><td>—</td><td><span class="badge badge-orange">2027</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Relativo a 2026 -->
+<div class="view" id="t3">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr class="group-header">
+          <th class="blank" colspan="4">&nbsp;</th>
+          <th class="gtic-title" colspan="3">GTIC</th>
+          <th class="rpl-title" colspan="2">RPL</th>
+          <th class="blank" colspan="1">&nbsp;</th>
+        </tr>
+        <tr>
+          <th>Nome</th>
+          <th>Matrícula</th>
+          <th>Admissão</th>
+          <th>Ano</th>
+          <th>Mês</th>
+          <th>Período</th>
+          <th>Dias</th>
+          <th>Mês</th>
+          <th>Período</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="nome">Edleuza Severiano dos Santos</td><td class="mat">7081</td><td class="mat">03/06/2013</td><td>2027</td><td class="mes">Janeiro</td><td>—</td><td class="dias">30</td><td class="mes">13/05 a 11/06</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Breno Felipe Amorim Gomes</td><td class="mat">19976</td><td class="mat">12/09/2023</td><td>2027</td><td class="mes">Janeiro</td><td>07/01 a 05/02/2027</td><td class="dias">30</td><td class="mes">—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Lílian Pastichi de Artaujo Silva</td><td class="mat">6580</td><td class="mat">03/12/2012</td><td>2027</td><td class="mes">Março</td><td>—</td><td class="dias">20</td><td class="mes">—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Penha Karine de Siqueira Truzzolino</td><td class="mat">19961</td><td class="mat">05/09/2023</td><td>2027</td><td class="mes">Novembro</td><td>—</td><td class="dias">20</td><td class="mes">—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Leonardo José da Silva Junior</td><td class="mat">20154</td><td class="mat">05/09/2023</td><td>2027</td><td class="mes">Outubro</td><td>—</td><td class="dias">20</td><td class="mes">—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Talles Roberto de Santana</td><td class="mat">19960</td><td class="mat">05/09/2023</td><td>2027</td><td class="mes">Outubro</td><td>—</td><td class="dias">20</td><td class="mes">—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Rian Welky Oliveira Barbosa</td><td class="mat">22491</td><td class="mat">05/08/2024</td><td>2027</td><td class="mes">Agosto</td><td>—</td><td class="dias">20</td><td class="mes">—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Helleson Allan Borges de Sant&#x27;ana</td><td class="mat">22822</td><td class="mat">01/10/2024</td><td>2027</td><td class="mes">Outubro</td><td>—</td><td class="dias">20</td><td class="mes">—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Regina Celi de Souza Araujo</td><td class="mat">20152</td><td class="mat">02/10/2023</td><td>2027</td><td class="mes">Janeiro</td><td>04/01 a 23/01/2027</td><td class="dias">20</td><td class="mes">—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Thiago Felipe</td><td class="mat">24815</td><td class="mat">12/06/2025</td><td>2027</td><td class="mes">Julho</td><td>—</td><td class="dias">30</td><td class="mes">—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+<tr><td class="nome">Ramon Castilho</td><td class="mat">26036</td><td class="mat">26/01/2026</td><td>2027</td><td class="mes">—</td><td>01/05 a 30/05/2027</td><td class="dias">—</td><td class="mes">—</td><td>—</td><td><span class="badge badge-orange">Pendente</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
 <script>
 function showTab(id, btn) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
