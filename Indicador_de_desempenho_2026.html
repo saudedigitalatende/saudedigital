@@ -852,15 +852,33 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
       <div class="grid-23" style="margin-bottom:11px">
         <div class="card">
           <div class="card-title">Status dos chamados</div>
-          <div class="card-sub">Distribuição por situação</div>
-          <div style="display:flex;gap:14px;align-items:center">
-            <div><canvas id="statusDonut" width="110" height="110"></canvas></div>
-            <div style="flex:1">
-              <div class="mm"><span class="mm-label">✅ Fechado</span><span class="mm-val" id="status-fechado" style="color:var(--verde)">5.018</span></div>
-              <div class="mm"><span class="mm-label">🟢 Solucionado</span><span class="mm-val" id="status-solucionado" style="color:var(--verde)">477</span></div>
-              <div class="mm"><span class="mm-label">🟠 Em atendimento</span><span class="mm-val" id="status-atendimento" style="color:#ef6c00">903</span></div>
-              <div class="mm"><span class="mm-label">🟠 Pendente</span><span class="mm-val" id="status-pendente" style="color:#e65100">138</span></div>
-              <div class="mm"><span class="mm-label">🔴 Novo</span><span class="mm-val" id="status-novo" style="color:var(--red)">138</span></div>
+          <div class="card-sub">Distribuição por situação — Infraestrutura vs Sistemas</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap">
+            <div style="flex:1;min-width:240px">
+              <div style="font-size:10px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">🔵 Infraestrutura</div>
+              <div style="display:flex;gap:14px;align-items:center">
+                <div><canvas id="statusDonutInfra" width="100" height="100"></canvas></div>
+                <div style="flex:1">
+                  <div class="mm"><span class="mm-label">✅ Fechado</span><span class="mm-val" id="status-infra-fechado" style="color:var(--verde)">3.661</span></div>
+                  <div class="mm"><span class="mm-label">🟢 Solucionado</span><span class="mm-val" id="status-infra-solucionado" style="color:var(--verde)">348</span></div>
+                  <div class="mm"><span class="mm-label">🟠 Em atendimento</span><span class="mm-val" id="status-infra-atendimento" style="color:#ef6c00">803</span></div>
+                  <div class="mm"><span class="mm-label">🟠 Pendente</span><span class="mm-val" id="status-infra-pendente" style="color:#e65100">123</span></div>
+                  <div class="mm"><span class="mm-label">🔴 Novo</span><span class="mm-val" id="status-infra-novo" style="color:var(--red)">123</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="flex:1;min-width:240px">
+              <div style="font-size:10px;font-weight:700;color:var(--verde);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">🟢 Sistemas</div>
+              <div style="display:flex;gap:14px;align-items:center">
+                <div><canvas id="statusDonutSist" width="100" height="100"></canvas></div>
+                <div style="flex:1">
+                  <div class="mm"><span class="mm-label">✅ Fechado</span><span class="mm-val" id="status-sist-fechado" style="color:var(--verde)">1.357</span></div>
+                  <div class="mm"><span class="mm-label">🟢 Solucionado</span><span class="mm-val" id="status-sist-solucionado" style="color:var(--verde)">129</span></div>
+                  <div class="mm"><span class="mm-label">🟠 Em atendimento</span><span class="mm-val" id="status-sist-atendimento" style="color:#ef6c00">100</span></div>
+                  <div class="mm"><span class="mm-label">🟠 Pendente</span><span class="mm-val" id="status-sist-pendente" style="color:#e65100">15</span></div>
+                  <div class="mm"><span class="mm-label">🔴 Novo</span><span class="mm-val" id="status-sist-novo" style="color:var(--red)">15</span></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1338,14 +1356,24 @@ new Chart(document.getElementById('tipoMes'), { type:'bar', data:{ labels:["jan.
 
 // Status donut
 const STATUS_MES = {"jan": {"titulo": "Janeiro", "valores": [835, 17, 131, 13, 0]}, "fev": {"titulo": "Fevereiro", "valores": [929, 85, 78, 18, 1]}, "mar": {"titulo": "Março", "valores": [976, 76, 243, 31, 0]}, "abr": {"titulo": "Abril", "valores": [1008, 106, 272, 50, 108]}, "mai": {"titulo": "Maio", "valores": [1270, 193, 179, 26, 29]}, "todos": {"titulo": "Jan–Mai", "valores": [5018, 477, 903, 138, 138]}};
-const statusDonutChart = new Chart(document.getElementById('statusDonut'), { type:'doughnut', data:{ labels:['Fechado','Solucionado','Em atendimento','Pendente','Novo'], datasets:[{ data:STATUS_MES.todos.valores, backgroundColor:['#2e7d32','#4caf50','#ef6c00','#e65100','#c62828'], borderWidth:0, hoverOffset:4 }] }, options:{ responsive:false, cutout:'65%', plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } } } });
+const STATUS_MES_SPLIT = {"jan":{"infra":[625,13,130,13,0],"sistemas":[210,4,1,0,0]},"fev":{"infra":[766,70,76,18,1],"sistemas":[163,15,2,0,0]},"mar":{"infra":[728,57,241,31,0],"sistemas":[248,19,2,0,0]},"abr":{"infra":[625,66,219,40,87],"sistemas":[383,40,53,10,21]},"mai":{"infra":[919,140,147,21,24],"sistemas":[351,53,32,5,5]},"todos":{"infra":[3661,348,803,123,123],"sistemas":[1357,129,100,15,15]}};
+const statusDonutColors = ['#2e7d32','#4caf50','#ef6c00','#e65100','#c62828'];
+const statusDonutOpts = { responsive:false, cutout:'65%', plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } } };
+const statusDonutInfraChart = new Chart(document.getElementById('statusDonutInfra'), { type:'doughnut', data:{ labels:['Fechado','Solucionado','Em atendimento','Pendente','Novo'], datasets:[{ data:STATUS_MES_SPLIT.todos.infra, backgroundColor:statusDonutColors, borderWidth:0, hoverOffset:4 }] }, options:statusDonutOpts });
+const statusDonutSistChart = new Chart(document.getElementById('statusDonutSist'), { type:'doughnut', data:{ labels:['Fechado','Solucionado','Em atendimento','Pendente','Novo'], datasets:[{ data:STATUS_MES_SPLIT.todos.sistemas, backgroundColor:statusDonutColors, borderWidth:0, hoverOffset:4 }] }, options:statusDonutOpts });
 function updateStatusChart(mes='todos') {
-  const serie = STATUS_MES[mes] || STATUS_MES.todos;
-  statusDonutChart.data.datasets[0].data = serie.valores;
-  statusDonutChart.update();
-  ['status-fechado','status-solucionado','status-atendimento','status-pendente','status-novo'].forEach((id, i) => {
+  const split = STATUS_MES_SPLIT[mes] || STATUS_MES_SPLIT.todos;
+  statusDonutInfraChart.data.datasets[0].data = split.infra;
+  statusDonutInfraChart.update();
+  statusDonutSistChart.data.datasets[0].data = split.sistemas;
+  statusDonutSistChart.update();
+  ['status-infra-fechado','status-infra-solucionado','status-infra-atendimento','status-infra-pendente','status-infra-novo'].forEach((id, i) => {
     const el = document.getElementById(id);
-    if (el) el.textContent = fmt(serie.valores[i]);
+    if (el) el.textContent = fmt(split.infra[i]);
+  });
+  ['status-sist-fechado','status-sist-solucionado','status-sist-atendimento','status-sist-pendente','status-sist-novo'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = fmt(split.sistemas[i]);
   });
 }
 
