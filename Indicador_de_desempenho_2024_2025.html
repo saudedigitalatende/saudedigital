@@ -882,33 +882,32 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 
       <div class="grid-23" style="margin-bottom:11px">
         <div class="card">
-
           <div class="card-title">Status dos chamados</div>
-          <div class="card-sub">Distribuição por situação · Infraestrutura e Sistemas</div>
-          <div class="status-area-grid">
-            <div class="status-area-panel infra">
-              <div class="status-area-head"><span class="status-dot infra"></span>Infraestrutura</div>
-              <div class="status-area-body">
-                <canvas id="statusInfraDonut" width="82" height="82"></canvas>
-                <div class="status-area-list">
-                  <div class="mm"><span class="mm-label">Fechado</span><span class="mm-val" id="status-infra-fechado">--</span></div>
-                  <div class="mm"><span class="mm-label">Solucionado</span><span class="mm-val" id="status-infra-solucionado">--</span></div>
-                  <div class="mm"><span class="mm-label">Em atendimento</span><span class="mm-val" id="status-infra-atendimento">--</span></div>
-                  <div class="mm"><span class="mm-label">Pendente</span><span class="mm-val" id="status-infra-pendente">--</span></div>
-                  <div class="mm"><span class="mm-label">Novo</span><span class="mm-val" id="status-infra-novo">--</span></div>
+          <div class="card-sub">Distribuição por situação — Infraestrutura vs Sistemas</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap">
+            <div style="flex:1;min-width:240px">
+              <div style="font-size:10px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">🔵 Infraestrutura</div>
+              <div style="display:flex;gap:14px;align-items:center">
+                <div><canvas id="statusInfraDonut" width="100" height="100"></canvas></div>
+                <div style="flex:1">
+                  <div class="mm"><span class="mm-label">✅ Fechado</span><span class="mm-val" id="status-infra-fechado" style="color:var(--verde)">--</span></div>
+                  <div class="mm"><span class="mm-label">🟢 Solucionado</span><span class="mm-val" id="status-infra-solucionado" style="color:var(--verde)">--</span></div>
+                  <div class="mm"><span class="mm-label">🟠 Em atendimento</span><span class="mm-val" id="status-infra-atendimento" style="color:#ef6c00">--</span></div>
+                  <div class="mm"><span class="mm-label">🟠 Pendente</span><span class="mm-val" id="status-infra-pendente" style="color:#e65100">--</span></div>
+                  <div class="mm"><span class="mm-label">🔴 Novo</span><span class="mm-val" id="status-infra-novo" style="color:var(--red)">--</span></div>
                 </div>
               </div>
             </div>
-            <div class="status-area-panel sistemas">
-              <div class="status-area-head"><span class="status-dot sistemas"></span>Sistemas</div>
-              <div class="status-area-body">
-                <canvas id="statusSistDonut" width="82" height="82"></canvas>
-                <div class="status-area-list">
-                  <div class="mm"><span class="mm-label">Fechado</span><span class="mm-val" id="status-sist-fechado">--</span></div>
-                  <div class="mm"><span class="mm-label">Solucionado</span><span class="mm-val" id="status-sist-solucionado">--</span></div>
-                  <div class="mm"><span class="mm-label">Em atendimento</span><span class="mm-val" id="status-sist-atendimento">--</span></div>
-                  <div class="mm"><span class="mm-label">Pendente</span><span class="mm-val" id="status-sist-pendente">--</span></div>
-                  <div class="mm"><span class="mm-label">Novo</span><span class="mm-val" id="status-sist-novo">--</span></div>
+            <div style="flex:1;min-width:240px">
+              <div style="font-size:10px;font-weight:700;color:var(--verde);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">🟢 Sistemas</div>
+              <div style="display:flex;gap:14px;align-items:center">
+                <div><canvas id="statusSistDonut" width="100" height="100"></canvas></div>
+                <div style="flex:1">
+                  <div class="mm"><span class="mm-label">✅ Fechado</span><span class="mm-val" id="status-sist-fechado" style="color:var(--verde)">--</span></div>
+                  <div class="mm"><span class="mm-label">🟢 Solucionado</span><span class="mm-val" id="status-sist-solucionado" style="color:var(--verde)">--</span></div>
+                  <div class="mm"><span class="mm-label">🟠 Em atendimento</span><span class="mm-val" id="status-sist-atendimento" style="color:#ef6c00">--</span></div>
+                  <div class="mm"><span class="mm-label">🟠 Pendente</span><span class="mm-val" id="status-sist-pendente" style="color:#e65100">--</span></div>
+                  <div class="mm"><span class="mm-label">🔴 Novo</span><span class="mm-val" id="status-sist-novo" style="color:var(--red)">--</span></div>
                 </div>
               </div>
             </div>
