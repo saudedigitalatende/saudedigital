@@ -166,14 +166,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   .hero-meta{gap:14px}
   .footer-top{flex-direction:column;align-items:flex-start}
 }
-
-.fc-multi{padding-bottom:0}
-.fc-sublinks{display:flex;flex-direction:column;border-top:1px solid var(--rule)}
-.fc-subitem{display:flex;align-items:center;justify-content:space-between;padding:10px 22px;font-size:12.5px;font-weight:600;color:var(--ink2);text-decoration:none;transition:background .15s,color .15s;border-bottom:1px solid var(--rule)}
-.fc-subitem:last-child{border-bottom:none}
-.fc-subitem:hover{background:var(--amber-lt);color:var(--amber)}
-.fc-subitem:hover .fc-arrow{transform:translateX(4px);color:var(--amber-mid)}
-.fc-multi .fc-arrow{transition:transform .15s,color .15s}
 </style>
 </head>
 <body>
@@ -237,7 +229,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         </div>
       </a>
 
-      <div class="featured-card amber fc-multi">
+      <a class="featured-card amber" href="https://saudedigitalatende.github.io/saudedigital/indicadores.html" target="_blank">
         <div class="fc-bar amber"></div>
         <div class="fc-body">
           <div class="fc-icon fci-amber">📊</div>
@@ -246,20 +238,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
             <p class="fc-desc">Painel de indicadores e métricas de desempenho da GTIC.</p>
           </div>
         </div>
-        <div class="fc-sublinks">
-          <a class="fc-subitem" href="https://saudedigitalatende.github.io/saudedigital/Indicador_de_desempenho_2026.html" target="_blank">
-            <span>Indicador 2026</span>
-            <span class="fc-arrow">→</span>
-          </a>
-          <a class="fc-subitem" href="https://saudedigitalatende.github.io/saudedigital/Indicador_de_desempenho_2024_2025.html" target="_blank">
-            <span>Indicador 2024/2025</span>
-            <span class="fc-arrow">→</span>
-          </a>
-        </div>
         <div class="fc-footer">
           <span class="fc-tag fct-amber">Indicadores</span>
+          <span class="fc-arrow">→</span>
         </div>
-      </div>
+      </a>
 
     </div>
   </div>
