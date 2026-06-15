@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indicador 2024 a 2026 Saúde Digital Atende</title>
+<title>Indicador 2024/2025 Saúde Digital Atende</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
@@ -866,7 +866,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
       <div class="grid-2" style="margin-bottom:11px">
         <div class="card">
           <div class="card-title">Pico de chamados por dia da semana</div>
-          <div class="card-sub" id="weekly-peak-sub">Volume de chamados por dia da semana · 2024 a 2026</div>
+          <div class="card-sub" id="weekly-peak-sub">Volume de chamados por dia da semana</div>
           <div style="position:relative;height:185px"><canvas id="slaTrend"></canvas></div>
           <div style="display:flex;gap:8px;margin-top:9px">
             <div class="mm" style="flex:1;padding:4px 0"><span class="mm-label">Maior pico</span><span class="mm-val" id="weekly-peak-value" style="color:var(--azul)">--</span></div>
@@ -875,7 +875,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
         </div>
         <div class="card">
           <div class="card-title">Evolutivo de chamados por estrutura</div>
-          <div class="card-sub">Infraestrutura vs Sistemas — 2024 a 2026</div>
+          <div class="card-sub">Infraestrutura vs Sistemas</div>
           <div style="position:relative;height:170px"><canvas id="tipoMes"></canvas></div>
         </div>
       </div>
@@ -915,7 +915,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 </div>
         <div class="card">
           <div class="card-title">Top 5 serviços demandados</div>
-          <div class="card-sub">Volume de chamados por serviço · 2024 a 2026</div>
+          <div class="card-sub">Volume de chamados por serviço</div>
           <div style="position:relative;height:140px"><canvas id="servicosChart"></canvas></div>
         </div>
       </div>
@@ -993,7 +993,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
       <div class="section-hd" style="margin-top:0"><div class="section-title">SLA por Grupo Técnico <span class="badge-hot" id="sla-grupo-status">CRÍTICO</span><span class="sla-status-legend"><span><i style="background:#c62828"></i>Crítico &lt;60%</span><span><i style="background:#f57c00"></i>Atenção 60–84%</span><span><i style="background:#2e7d32"></i>OK ≥85%</span></span></div></div>
       <div class="card" style="margin-bottom:11px">
         <div class="card-title">Desempenho detalhado por Grupo Técnico</div>
-        <div class="card-sub">Ordenado por % de SLA · dados reais 2024 a 2026</div>
+        <div class="card-sub">Ordenado por % de SLA</div>
         <table class="tbl">
           <thead><tr><th>Grupo Técnico</th><th>Estrutura</th><th>Total</th><th>No prazo</th><th>Fora</th><th>% SLA</th><th>Distribuição</th><th>Status</th></tr></thead>
           <tbody>
@@ -1191,7 +1191,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
       <div class="grid-2">
         <div class="card">
           <div class="card-title">Top 5 serviços por volume</div>
-          <div class="card-sub">Chamados 2024 a 2026</div>
+          <div class="card-sub">Chamados no período</div>
           <div style="position:relative;height:160px"><canvas id="servicosChart2"></canvas></div>
         </div>
 
@@ -1264,7 +1264,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
       </div>
       <div class="card" style="margin-bottom:11px">
         <div class="card-title">SLA por distrito sanitário</div>
-        <div class="card-sub">Distribuição no prazo vs fora do prazo · 2024 a 2026</div>
+        <div class="card-sub">Distribuição no prazo vs fora do prazo</div>
         <div style="position:relative;height:240px"><canvas id="distritoChart"></canvas></div>
       </div>
       <div class="card">
@@ -1371,7 +1371,7 @@ function updateDayWeekPeakChart(mes='todos') {
   const sub = document.getElementById('weekly-peak-sub');
   if (peakValue) peakValue.textContent = fmt(pico);
   if (peakLabel) peakLabel.textContent = picoIdx >= 0 ? serie.labels[picoIdx] : '--';
-  if (sub) sub.textContent = 'Volume de chamados por dia da semana · ' + serie.titulo + ' 2026';
+  if (sub) sub.textContent = 'Volume de chamados por dia da semana';
   if (!dayWeekPeakChart) return;
   dayWeekPeakChart.data.labels = serie.labels;
   dayWeekPeakChart.data.datasets[0].data = valores;
