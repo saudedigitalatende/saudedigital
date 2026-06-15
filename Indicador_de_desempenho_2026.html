@@ -845,10 +845,6 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
         <div class="card">
           <div class="card-title">Evolutivo de chamados por estrutura</div>
           <div class="card-sub">Infraestrutura vs Sistemas — jan–mai 2026</div>
-          <div style="display:flex;gap:12px;margin-bottom:8px">
-            <span style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2)"><span style="width:9px;height:9px;border-radius:2px;background:var(--azul);display:inline-block"></span>Requisição</span>
-            <span style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2)"><span style="width:9px;height:9px;border-radius:2px;background:#f57c00;display:inline-block"></span>Incidente</span>
-          </div>
           <div style="position:relative;height:170px"><canvas id="tipoMes"></canvas></div>
         </div>
       </div>
@@ -1338,7 +1334,7 @@ dayWeekPeakChart = new Chart(document.getElementById('slaTrend'), { type:'bar', 
 updateDayWeekPeakChart('todos');
 
 // Evolutivo de chamados por estrutura — dados reais da planilha
-new Chart(document.getElementById('tipoMes'), { type:'bar', data:{ labels:["jan. 2026", "fev. 2026", "mar. 2026", "abr. 2026", "mai. 2026"], datasets:[ { label:'Sistemas', data:[215, 180, 269, 506, 424], backgroundColor:'#1565c0', borderRadius:4 }, { label:'Infraestrutura', data:[781, 931, 1057, 1038, 1251], backgroundColor:'#e65100', borderRadius:4 } ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:true, position:'top', labels:{ color:'#3d5166', font:{size:9}, boxWidth:10, padding:8 } }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } }, scales:{ y:{ beginAtZero:true, ticks:{ color:'#8fa3b8', font:{size:10} }, grid:{ color:'rgba(0,0,0,0.05)' } }, x:{ ticks:{ color:'#8fa3b8', font:{size:10}, autoSkip:false }, grid:{ display:false } } } } });;
+new Chart(document.getElementById('tipoMes'), { type:'bar', data:{ labels:["jan. 2026", "fev. 2026", "mar. 2026", "abr. 2026", "mai. 2026"], datasets:[ { label:'Sistemas', data:[215, 180, 269, 506, 424], backgroundColor:'#1565c0', borderRadius:4 }, { label:'Infraestrutura', data:[781, 931, 1057, 1038, 1251], backgroundColor:'#2e7d32', borderRadius:4 } ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:true, position:'top', labels:{ color:'#3d5166', font:{size:9}, boxWidth:10, padding:8 } }, tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166' } }, scales:{ y:{ beginAtZero:true, ticks:{ color:'#8fa3b8', font:{size:10} }, grid:{ color:'rgba(0,0,0,0.05)' } }, x:{ ticks:{ color:'#8fa3b8', font:{size:10}, autoSkip:false }, grid:{ display:false } } } } });;
 
 // Status donut
 const STATUS_MES = {"jan": {"titulo": "Janeiro", "valores": [835, 17, 131, 13, 0]}, "fev": {"titulo": "Fevereiro", "valores": [929, 85, 78, 18, 1]}, "mar": {"titulo": "Março", "valores": [976, 76, 243, 31, 0]}, "abr": {"titulo": "Abril", "valores": [1008, 106, 272, 50, 108]}, "mai": {"titulo": "Maio", "valores": [1270, 193, 179, 26, 29]}, "todos": {"titulo": "Jan–Mai", "valores": [5018, 477, 903, 138, 138]}};
