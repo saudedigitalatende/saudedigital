@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>POP – Resgatar Conversa com Usuário no HopChat (META) · GTIC</title>
+<title>POP – Resgatar Conversa com Usuário no HopChat · GTIC</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;--paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;--blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;--amber-mid:#c8a94a;--green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;--orange:#b85a1a;--orange-lt:#fdeee6;--amber:#b07d1a;--amber-lt:#fdf3dc}
+:root{--ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;--paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;--blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;--amber-mid:#c8a94a;--green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;--orange:#b85a1a;--orange-lt:#fdeee6;--amber:#b07d1a;--amber-lt:#fdf3dc;--red-lt:#fdeaea}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',Arial,sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
 .hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
 .hero-inner{position:relative;max-width:1100px;margin:0 auto}
-.hero h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
 .hero h1 em{color:var(--amber-mid);font-style:normal}
 .hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
 .top-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s;margin-bottom:12px}
@@ -25,7 +25,7 @@ body{font-family:'DM Sans',Arial,sans-serif;background:var(--paper);color:var(--
 .toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
 .toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
 .content .section{margin-bottom:36px;scroll-margin-top:24px}
-.section-title{font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
 .section-title span{font-family:'DM Sans',Arial,sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
 .doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px}
 .info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
@@ -40,31 +40,24 @@ body{font-family:'DM Sans',Arial,sans-serif;background:var(--paper);color:var(--
 .notif-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
 .notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
 .notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
-.activity-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:12px}
-.activity-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--ink);cursor:pointer;user-select:none}
-.activity-header:hover{background:#1a2b42}
-.activity-num{font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
-.activity-name{font-size:13px;font-weight:600;color:#fff;flex:1}
-.activity-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.activity-card:not(.open) .activity-body{display:none}
-.activity-card.open .activity-chevron{transform:rotate(180deg)}
-.activity-body{padding:20px}
-.step-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.step-item{display:flex;gap:12px;align-items:flex-start}
-.step-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-mid);flex-shrink:0;margin-top:6px}
+.step-list{display:flex;flex-direction:column;gap:16px}
+.step-item{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 18px}
+.step-header{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.step-num{min-width:28px;height:28px;border-radius:50%;background:var(--blue-mid);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .step-text{font-size:13px;color:var(--ink2);line-height:1.6}
 .step-text strong{color:var(--ink)}
-.step-code{font-family:monospace;font-size:13px;background:#1e2d3d;color:#7dd3fc;padding:6px 12px;border-radius:6px;display:inline-block;margin:4px 0;letter-spacing:.02em}
-.sub-item{font-size:12.5px;color:var(--ink3);padding:4px 12px;border-left:2px solid var(--rule);margin:4px 0 4px 20px}
+.step-code{font-family:monospace;font-size:13px;background:#1e2d3d;color:#7dd3fc;padding:8px 14px;border-radius:8px;display:inline-block;margin:8px 0;letter-spacing:.02em}
+.step-img{margin-top:12px}
+.step-img img{max-width:100%;border-radius:10px;border:1px solid var(--rule);box-shadow:0 2px 12px rgba(0,0,0,.08);display:block}
+.step-img-caption{font-size:11px;color:var(--ink3);margin-top:6px;font-style:italic}
 .alert-box{border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;line-height:1.6;border-left:4px solid}
 .alert-box.warn{background:var(--amber-lt);border-color:var(--amber-mid);color:#5a3f00}
 .alert-box.info{background:var(--blue-lt);border-color:var(--blue-mid);color:#1a4070}
 .alert-box.success{background:var(--green-lt);border-color:var(--green-mid);color:#1a5a3a}
 .alert-box.note{background:var(--orange-lt);border-color:var(--orange);color:#5a2800}
-.rocket-msg-wrap{background:#f0f4f8;border:1px solid var(--rule);border-radius:12px;padding:16px 18px;margin:12px 0}
-.rocket-msg-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:10px}
-.rocket-msg-bubble{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:14px 18px;font-size:13.5px;color:var(--ink2);line-height:1.8;max-width:500px}
-.rocket-msg-bubble .cmd{font-family:monospace;background:#e8f0fa;color:var(--blue-mid);padding:1px 6px;border-radius:4px;font-size:13px}
+.msg-rocketcat{background:#f8f9fa;border:1px solid var(--rule);border-radius:12px;padding:16px 18px;margin:12px 0}
+.msg-rocketcat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:10px}
+.msg-rocketcat img{max-width:100%;border-radius:8px;border:1px solid var(--rule);display:block}
 .page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
 .footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
 .footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
@@ -81,28 +74,24 @@ body{font-family:'DM Sans',Arial,sans-serif;background:var(--paper);color:var(--
 <header class="hero">
   <div class="hero-inner">
     <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="top-link">← Documentações</a>
-    <h1>POP — <em>Resgatar Conversa</em> com Usuário no HopChat (META)</h1>
+    <h1>POP — <em>Resgatar Conversa</em> com Usuário no HopChat</h1>
     <p>GTIC · Saúde Digital Atende · Secretaria de Saúde do Recife · Versão 1.0</p>
   </div>
 </header>
 
 <div class="layout">
-
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-title">Neste POP</div>
     <ul class="toc" id="toc">
       <li><a href="#identificacao">Identificação</a></li>
       <li><a href="#objetivo">Objetivo</a></li>
       <li><a href="#quando">Quando aplicar</a></li>
-      <li><a href="#mensagem-sistema">Mensagem do sistema</a></li>
-      <li><a href="#procedimento">Procedimento</a></li>
+      <li><a href="#procedimento">Procedimento passo a passo</a></li>
       <li><a href="#atencao">Pontos de atenção</a></li>
       <li><a href="#historico">Histórico de revisões</a></li>
     </ul>
   </aside>
 
-  <!-- CONTENT -->
   <div class="content">
 
     <!-- IDENTIFICAÇÃO -->
@@ -111,7 +100,7 @@ body{font-family:'DM Sans',Arial,sans-serif;background:var(--paper);color:var(--
       <table class="info-table">
         <tbody>
           <tr><td>Tipo</td><td>Procedimento Operacional Padrão (POP)</td></tr>
-          <tr><td>Título</td><td>Resgatar Conversa com Usuário no HopChat (META) após 24 horas</td></tr>
+          <tr><td>Título</td><td>Resgatar Conversa com Usuário no HopChat após 24 horas</td></tr>
           <tr><td>Área responsável</td><td>GTIC — Gerência de Tecnologia da Informação e Comunicação</td></tr>
           <tr><td>Setor</td><td>Saúde Digital Atende</td></tr>
           <tr><td>Sistema</td><td>HopChat</td></tr>
@@ -126,7 +115,7 @@ body{font-family:'DM Sans',Arial,sans-serif;background:var(--paper);color:var(--
     <!-- OBJETIVO -->
     <section class="section" id="objetivo">
       <h2 class="section-title">Objetivo</h2>
-      <p class="doc-p">Descrever o procedimento padrão para retomar o contato com um usuário no HopChat quando a sessão de atendimento expirou — ou seja, quando se passaram mais de <strong>24 horas</strong> desde a última interação do usuário via WhatsApp (META).</p>
+      <p class="doc-p">Descrever o procedimento padrão para retomar o contato com um usuário no HopChat quando a sessão de atendimento expirou — ou seja, quando se passaram mais de <strong>24 horas</strong> desde a última interação.</p>
     </section>
 
     <!-- QUANDO APLICAR -->
@@ -134,99 +123,112 @@ body{font-family:'DM Sans',Arial,sans-serif;background:var(--paper);color:var(--
       <h2 class="section-title">Quando aplicar</h2>
       <div class="meta-grid">
         <div class="meta-item"><strong>Situação</strong>Sessão de atendimento expirada há mais de 24h</div>
-        <div class="meta-item"><strong>Sistema</strong>HopChat</div>
         <div class="meta-item"><strong>Responsável</strong>Atendente da Central de Serviços</div>
-        
       </div>
-      <p class="doc-p">Utilize este POP sempre que o sistema exibir a mensagem de erro abaixo ao tentar enviar uma mensagem ao usuário:</p>
-      <div class="notif-list">
-        <div class="notif-item">
-          <span class="notif-icon">🔴</span>
-          <span><strong>Erro 7010 — Rocket.Cat:</strong> "Sua mensagem não pode ser entregue porque não há sessão ativa para o contato nesse atendimento. Se passaram mais de 24h desde a última mensagem do contato."</span>
-        </div>
-      <div style="margin-top:12px">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:8px">Exemplo da tela com erro:</div>
-        <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_pop_resgatar_05_erro.png" alt="Tela HopChat com erro 7010" style="max-width:100%;border-radius:10px;border:1px solid var(--rule);box-shadow:0 4px 16px rgba(0,0,0,.08);margin-top:10px;display:block">
+      <p class="doc-p">Utilize este POP sempre que ao tentar enviar uma mensagem o sistema exibir a seguinte tela de erro:</p>
+      <div class="msg-rocketcat">
+        <div class="msg-rocketcat-label">🔴 Tela de erro — sessão expirada (Erro 7010)</div>
+        <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_hopchat2_05_erro.png" alt="Tela HopChat com erro 7010 — sessão expirada">
       </div>
-      </div>
-    </section>
-
-    <!-- MENSAGEM DO SISTEMA -->
-    <section class="section" id="mensagem-sistema">
-      <h2 class="section-title">Mensagem do sistema <span>Rocket.Cat</span></h2>
-      <p class="doc-p">Quando a sessão expira, o HopChat exibe automaticamente a seguinte instrução para o atendente (apenas o atendente vê esta mensagem — o usuário não a recebe):</p>
-      <div class="rocket-msg-wrap">
-        <div class="rocket-msg-label">💬 Mensagem exibida pelo Rocket.Cat ao atendente</div>
-        <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_pop_resgatar_msg_rocketcat.png" alt="Mensagem do Rocket.Cat indicando sessão expirada com instruções para retomar" style="max-width:100%;border-radius:10px;border:1px solid var(--rule);box-shadow:0 4px 16px rgba(0,0,0,.08);display:block">
+      <div class="alert-box warn">
+        <strong>⚠️ Atenção:</strong> Quando isso ocorre, não é mais possível enviar mensagens livres. É necessário seguir os passos abaixo para reabrir a sessão.
       </div>
     </section>
 
     <!-- PROCEDIMENTO -->
     <section class="section" id="procedimento">
-      <h2 class="section-title">Procedimento</h2>
+      <h2 class="section-title">Procedimento passo a passo</h2>
 
-      <div class="activity-card open">
-        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
-          <span class="activity-num">PASSO A PASSO</span>
-          <span class="activity-name">Resgatar conversa no HopChat após 24 horas</span>
-          <span class="activity-chevron">▾</span>
-        </div>
-        <div class="activity-body">
-          <div class="step-list">
+      <div class="step-list">
 
-            <div class="step-item">
-              <span class="step-dot"></span>
-              <span class="step-text"><strong>Passo 1 —</strong> Acesse a planilha de <a href="https://docs.google.com/spreadsheets/d/1tJvs35qWmgRG8vzFeN23KQjjYHfRjWJ7Phn1SkdAxBU/edit?gid=441277476#gid=441277476" target="_blank" style="color:var(--blue-mid);font-weight:600">Relatórios WhatsApp</a>, localize o registro do usuário, copie o link da conversa e cole na barra de endereço do navegador.</span>
-            </div>
-
-            <div class="step-item">
-              <span class="step-dot"></span>
-              <span class="step-text"><strong>Passo 2 —</strong> Dentro da conversa, clique no <strong>ícone/nome do usuário</strong> no topo da tela.</span>
-              <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_pop_resgatar_06_contact.png" alt="Ícone Contact Information no HopChat" style="max-width:100%;border-radius:10px;border:1px solid var(--rule);box-shadow:0 4px 16px rgba(0,0,0,.08);margin-top:10px;display:block">
-            </div>
-
-            <div class="step-item">
-              <span class="step-dot"></span>
-              <span class="step-text"><strong>Passo 3 —</strong> Clique na opção <strong>"Entrar em contato"</strong> no menu exibido.</span>
-              <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_pop_resgatar_04_entrar.png" alt="Botão Entrar em contato" style="max-width:100%;border-radius:10px;border:1px solid var(--rule);box-shadow:0 4px 16px rgba(0,0,0,.08);margin-top:10px;display:block">
-            </div>
-
-            <div class="step-item">
-              <span class="step-dot"></span>
-              <span class="step-text"><strong>Passo 4 —</strong> Digite qualquer mensagem no campo disponível e clique em <strong>"Create"</strong>. O HopChat criará uma nova conversa em branco — <em>o usuário não receberá essa mensagem</em>.</span>
-              <div class="sub-item">Uma nova conversa (limpa) será aberta e a guia de envio de template ficará habilitada.</div>
-              <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_pop_resgatar_01_create.png" alt="Modal Enviar mensagem ao Convidado com botão Create" style="max-width:100%;border-radius:10px;border:1px solid var(--rule);box-shadow:0 4px 16px rgba(0,0,0,.08);margin-top:10px;display:block">
-            </div>
-
-            <div class="step-item">
-              <span class="step-dot"></span>
-              <span class="step-text"><strong>Passo 5 —</strong> Na nova conversa, envie o template digitando o comando abaixo e pressionando Enter:</span>
-            </div>
-            <div style="padding-left:20px">
-              <div class="step-code">/template_saude_digital_continuar_atendimento</div>
-            </div>
-            <div style="margin-top:10px;padding-left:20px">
-              <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_pop_resgatar_02_template.png" alt="Digitando o comando do template no HopChat" style="max-width:100%;border-radius:10px;border:1px solid var(--rule);box-shadow:0 4px 16px rgba(0,0,0,.08);margin-top:10px;display:block">
-            </div>
-
-            <div class="step-item">
-              <span class="step-dot"></span>
-              <span class="step-text"><strong>Passo 6 —</strong> O usuário receberá uma mensagem no WhatsApp com o botão <strong>"Continuar conversa"</strong>. Aguarde o usuário clicar.</span>
-              <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_pop_resgatar_03_continuar.png" alt="Mensagem recebida pelo usuário no WhatsApp com botão Continuar conversa" style="max-width:100%;border-radius:10px;border:1px solid var(--rule);box-shadow:0 4px 16px rgba(0,0,0,.08);margin-top:10px;display:block">
-            </div>
-
-            <div class="step-item">
-              <span class="step-dot"></span>
-              <span class="step-text"><strong>Passo 7 —</strong> Somente após a mensagem <strong>"Continuar conversa"</strong> aparecer no HopChat a sessão estará reaberta. Prossiga com o atendimento normalmente.</span>
-            </div>
-
-            <div class="step-item">
-              <span class="step-dot"></span>
-              <span class="step-text"><strong>Passo 8 —</strong> Siga o <a href="https://docs.google.com/spreadsheets/d/1_Z4_3Q8uISlnZH-47sYeUW9wAlic544XT9RyeG_XEXk/edit?gid=1190789051#gid=1190789051" target="_blank" style="color:var(--blue-mid);font-weight:600">Roteiro de Atendimento Sistemas</a> para dar continuidade ao chamado.</span>
-            </div>
-
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <div class="step-text">Acesse a planilha de <a href="https://docs.google.com/spreadsheets/d/1tJvs35qWmgRG8vzFeN23KQjjYHfRjWJ7Phn1SkdAxBU/edit?gid=441277476#gid=441277476" target="_blank" style="color:var(--blue-mid);font-weight:600">Relatórios WhatsApp</a>, localize o registro do usuário, copie o link da conversa e cole na barra de endereço do navegador para abrir a conversa no HopChat.</div>
           </div>
         </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <div class="step-text">Dentro da conversa, clique no <strong>ícone "Contact Information"</strong> no canto superior direito da tela (ícone de pessoa).</div>
+          </div>
+          <div class="step-img">
+            <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_hopchat2_03_contact.png" alt="Ícone Contact Information no HopChat">
+            <div class="step-img-caption">Clique no ícone de pessoa no topo direito da conversa</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-num">3</div>
+            <div class="step-text">No painel de informações do contato, clique em <strong>"Entrar em contato"</strong>.</div>
+          </div>
+          <div class="step-img">
+            <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_hopchat2_02_entrar.png" alt="Botão Entrar em contato no painel Contact Information">
+            <div class="step-img-caption">Botão "Entrar em co..." destacado em vermelho</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-num">4</div>
+            <div class="step-text">No modal que abrir, digite qualquer mensagem no campo <strong>"Mensagem a ser enviada"</strong> e clique em <strong>"Create"</strong>. O HopChat irá criar uma nova conversa em branco — <em>o usuário não receberá essa mensagem</em>.</div>
+          </div>
+          <div class="step-img">
+            <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_hopchat2_04_create.png" alt="Modal Enviar mensagem ao Convidado com botão Create">
+            <div class="step-img-caption">Digite qualquer mensagem e clique em "Create"</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-num">5</div>
+            <div class="step-text">Uma nova conversa (limpa) será aberta. Perceba que a guia de digitação estará habilitada para envio do template.</div>
+          </div>
+          <div class="msg-rocketcat" style="margin-top:10px">
+            <div class="msg-rocketcat-label">💬 Mensagem exibida pelo Rocket.Cat — apenas você vê</div>
+            <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_pop_resgatar_msg_rocketcat.png" alt="Mensagem do Rocket.Cat instruindo a digitar /retornar">
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-num">6</div>
+            <div class="step-text">Na nova conversa, envie o template digitando o comando abaixo e pressione <strong>Enter</strong>:</div>
+          </div>
+          <div class="step-code">/template_saude_digital_continuar_atendimento</div>
+          <div class="step-img">
+            <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_hopchat2_01_template.png" alt="Digitando o comando do template no HopChat">
+            <div class="step-img-caption">Digite o comando e pressione Enter para enviar o template</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-num">7</div>
+            <div class="step-text">O usuário receberá a seguinte mensagem no WhatsApp com o botão <strong>"Continuar conversa"</strong>. Aguarde o usuário clicar.</div>
+          </div>
+          <div class="step-img">
+            <img src="https://raw.githubusercontent.com/saudedigitalatende/saudedigital/main/documenta%C3%A7%C3%B5es/POP/imgs/img_hopchat2_06_continuar.png" alt="Mensagem recebida pelo usuário no WhatsApp com botão Continuar conversa">
+            <div class="step-img-caption">Mensagem que o usuário recebe no WhatsApp</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-num">8</div>
+            <div class="step-text">Somente após o usuário clicar em <strong>"Continuar conversa"</strong> e a mensagem de confirmação aparecer no HopChat é que a sessão estará reaberta. Prossiga com o atendimento normalmente.</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-num">9</div>
+            <div class="step-text">Siga o <a href="https://docs.google.com/spreadsheets/d/1_Z4_3Q8uISlnZH-47sYeUW9wAlic544XT9RyeG_XEXk/edit?gid=1190789051#gid=1190789051" target="_blank" style="color:var(--blue-mid);font-weight:600">Roteiro de Atendimento Sistemas</a> para dar continuidade ao chamado do usuário.</div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -234,16 +236,16 @@ body{font-family:'DM Sans',Arial,sans-serif;background:var(--paper);color:var(--
     <section class="section" id="atencao">
       <h2 class="section-title">Pontos de atenção</h2>
       <div class="alert-box warn">
-        <strong>⚠️</strong> Não tente enviar mensagens livres com a sessão expirada — o sistema bloqueará e exibirá o Erro 7010.
+        <strong>⚠️</strong> Não tente enviar mensagens livres com a sessão expirada — o sistema bloqueará com o Erro 7010.
       </div>
       <div class="alert-box note">
-        <strong>📌</strong> O template <span style="font-family:monospace;background:var(--paper);padding:1px 6px;border-radius:4px">/template_saude_digital_continuar_atendimento</span> deve ser enviado na <strong>nova conversa criada</strong> no Passo 4 — não na conversa antiga.
+        <strong>📌</strong> O template <code style="background:var(--paper);padding:1px 6px;border-radius:4px">/template_saude_digital_continuar_atendimento</code> deve ser enviado na <strong>nova conversa criada</strong> no Passo 4 — não na conversa antiga.
       </div>
       <div class="alert-box success">
-        <strong>✅</strong> O atendimento só deve ser retomado após a mensagem <strong>"Continuar conversa"</strong> aparecer — isso confirma que o usuário aceitou e a sessão está ativa.
+        <strong>✅</strong> O atendimento só deve ser retomado após a mensagem <strong>"Continuar conversa"</strong> aparecer no HopChat — isso confirma que a sessão está ativa.
       </div>
       <div class="alert-box info">
-        <strong>ℹ️</strong> A mensagem exibida pelo Rocket.Cat (⚠️ Atenção! A sessão expirou…) é visível <strong>apenas para o atendente</strong> — o usuário não a recebe.
+        <strong>ℹ️</strong> A mensagem exibida pelo Rocket.Cat no Passo 5 é visível <strong>apenas para o atendente</strong> — o usuário não a recebe.
       </div>
     </section>
 
