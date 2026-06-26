@@ -155,8 +155,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <li><a href="#definicoes">Defini&ccedil;&otilde;es</a></li>
       <div class="toc-group">Processos</div>
       <li><a href="#proc1">1 - Abertura com ativo localizado</a></li>
-      <li><a href="#proc2">2 - Ativo n&atilde;o localizado</a></li>
-      <li><a href="#proc3">3 - Atua&ccedil;&atilde;o do T&eacute;cnico N2</a></li>
+      <li><a href="#proc2">2 - Abertura com ativo n&atilde;o localizado</a></li>
+      <li><a href="#proc3">3 - Atua&ccedil;&atilde;o do T&eacute;cnico N2 Suporte</a></li>
       <div class="toc-group">Refer&ecirc;ncia</div>
       <li><a href="#atencao">Pontos de Aten&ccedil;&atilde;o</a></li>
       <li><a href="#historico">Hist&oacute;rico de Revis&otilde;es</a></li>
@@ -187,7 +187,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <!-- OBJETIVO -->
     <section class="section" id="objetivo">
       <h2 class="section-title">Objetivo</h2>
-      <p class="doc-p">Padronizar a abertura de chamados de ativos no GLPI, garantindo que o chamado principal seja registrado pela Central de Servi&ccedil;os, que o ativo seja associado sempre que localizado e que, quando o ativo n&atilde;o for encontrado, seja aberto um chamado &agrave; parte para regulariza&ccedil;&atilde;o e esse chamado seja associado ao chamado original.</p>
+      <p class="doc-p">Padronizar a abertura de chamados de ativos no GLPI, garantindo que o chamado principal seja registrado pela Central de Servi&ccedil;os, que o ativo seja associado sempre que localizado e que, quando o ativo n&atilde;o for encontrado, seja aberto um chamado vinculado/associado para regulariza&ccedil;&atilde;o e esse chamado seja vinculado ao chamado principal.</p>
       <p class="doc-p">Essa associa&ccedil;&atilde;o entre chamados mant&eacute;m tudo atrelado e permite identificar nos relat&oacute;rios quantos chamados foram abertos para determinado ativo.</p>
     </section>
 
@@ -201,9 +201,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <tr><td>Ativo</td><td>Equipamento ou item de TI cadastrado no invent&aacute;rio do GLPI, como computador, monitor, impressora, roteador ou item equivalente.</td></tr>
           <tr><td>Chamado principal</td><td>Chamado aberto pela Central de Servi&ccedil;os para registrar a solicita&ccedil;&atilde;o do usu&aacute;rio.</td></tr>
           <tr><td>Item associado</td><td>V&iacute;nculo do ativo ao chamado na aba <strong>Itens</strong> do GLPI.</td></tr>
-          <tr><td>Chamado &agrave; parte</td><td>Chamado aberto para regularizar o ativo n&atilde;o localizado e associado ao chamado original.</td></tr>
+          <tr><td>Chamado vinculado/associado</td><td>Chamado vinculado/associado aberto para regularizar o ativo n&atilde;o localizado e manter rela&ccedil;&atilde;o com o chamado principal.</td></tr>
           <tr><td>Central de Servi&ccedil;os</td><td>Equipe respons&aacute;vel pela abertura dos chamados no GLPI.</td></tr>
-          <tr><td>T&eacute;cnico N2</td><td>Equipe t&eacute;cnica respons&aacute;vel por localizar, cadastrar ou corrigir o ativo no GLPI e associ&aacute;-lo ao chamado principal.</td></tr>
+          <tr><td>T&eacute;cnico N2 Suporte</td><td>T&eacute;cnico N2 Suporte respons&aacute;vel por localizar, cadastrar, corrigir ou inventariar ativos f&iacute;sicos no GLPI e associ&aacute;-los ao chamado principal.</td></tr>
+          <tr><td>Setor de Sistemas</td><td>Equipe respons&aacute;vel por demandas de sistemas. N&atilde;o realiza invent&aacute;rio e n&atilde;o &eacute; respons&aacute;vel por qualquer tipo de ativo f&iacute;sico.</td></tr>
         </tbody>
       </table>
     </section>
@@ -242,14 +243,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
     <!-- PROCESSO 2 -->
     <section class="section" id="proc2">
-      <h2 class="section-title">Processo 2 <span>Ativo n&atilde;o localizado</span></h2>
+      <h2 class="section-title">Processo 2 <span>Abertura com ativo n&atilde;o localizado</span></h2>
       <div class="alert-box warn">
-        <strong>Importante:</strong> Se o ativo n&atilde;o for encontrado na aba <strong>Itens</strong>, a Central de Servi&ccedil;os deve prosseguir com a abertura do chamado principal e abrir um chamado &agrave; parte para regulariza&ccedil;&atilde;o do ativo. Esse chamado &agrave; parte deve ser associado ao chamado original para manter tudo atrelado.
+        <strong>Importante:</strong> Se o ativo n&atilde;o for encontrado na aba <strong>Itens</strong>, a Central de Servi&ccedil;os deve prosseguir com a abertura do chamado principal e abrir um chamado vinculado/associado para regulariza&ccedil;&atilde;o do ativo. Esse chamado vinculado/associado deve ser vinculado ao chamado principal para manter tudo atrelado.
       </div>
       <div class="process-card open">
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 2</span>
-          <span class="process-title">Abertura do Chamado &agrave; Parte</span>
+          <span class="process-title">Abertura do Chamado Vinculado/Associado</span>
           <span class="process-resp">Central de Servi&ccedil;os</span>
           <span class="process-chevron">&#9662;</span>
         </div>
@@ -257,53 +258,66 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <div class="meta-badges">
             <div class="meta-badge"><strong>Respons&aacute;vel:</strong> Central de Servi&ccedil;os</div>
             <div class="meta-badge"><strong>Quando:</strong> Ativo n&atilde;o encontrado no GLPI</div>
-            <div class="meta-badge"><strong>Destino:</strong> Time t&eacute;cnico N2</div>
+            <div class="meta-badge"><strong>Destino:</strong> T&eacute;cnico N2 Suporte</div>
           </div>
           <table class="steps-table">
             <thead><tr><th>N&ordm;</th><th>A&ccedil;&atilde;o / Descri&ccedil;&atilde;o</th><th>Respons&aacute;vel</th><th>Observa&ccedil;&atilde;o</th></tr></thead>
             <tbody>
               <tr><td class="step-num">1</td><td>Prosseguir com a abertura do chamado principal, mesmo sem localizar o ativo na aba <strong>Itens</strong>.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Registrar na descri&ccedil;&atilde;o que o ativo n&atilde;o foi localizado para associa&ccedil;&atilde;o no momento da abertura.</td></tr>
-              <tr><td class="step-num">2</td><td>No chamado principal, informar os dados dispon&iacute;veis do equipamento: patrim&ocirc;nio informado, n&uacute;mero de s&eacute;rie, unidade, setor, usu&aacute;rio respons&aacute;vel e descri&ccedil;&atilde;o do problema.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Essas informa&ccedil;&otilde;es ser&atilde;o usadas pelo N2 para localizar ou regularizar o ativo.</td></tr>
-              <tr><td class="step-num">3</td><td>Abrir um chamado &agrave; parte solicitando ao time t&eacute;cnico N2 a localiza&ccedil;&atilde;o, cadastro ou corre&ccedil;&atilde;o do ativo no GLPI.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Esse chamado deve tratar especificamente a pend&ecirc;ncia do ativo n&atilde;o encontrado.</td></tr>
-              <tr><td class="step-num">4</td><td>Escalonar o chamado &agrave; parte para o grupo t&eacute;cnico <strong>N2</strong>.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">O N2 ser&aacute; respons&aacute;vel por regularizar o ativo e associ&aacute;-lo ao chamado principal.</td></tr>
-              <tr><td class="step-num">5</td><td>No chamado &agrave; parte, acessar a se&ccedil;&atilde;o <strong>Chamado relacionado</strong> e clicar em <strong>"+ Adicionar"</strong>.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Essa se&ccedil;&atilde;o fica abaixo da &aacute;rea <strong>Itens</strong>, conforme exibido na tela do GLPI.</td></tr>
-              <tr><td class="step-num">6</td><td><strong>Associar</strong> o chamado &agrave; parte ao chamado principal em que o ativo n&atilde;o foi encontrado.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Essa associa&ccedil;&atilde;o mant&eacute;m tudo atrelado e permite identificar nos relat&oacute;rios quantos chamados foram abertos para aquele ativo.</td></tr>
-              <tr><td class="step-num">7</td><td>Registrar no acompanhamento do chamado principal o n&uacute;mero do chamado &agrave; parte aberto para N2.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Ex.: Chamado &agrave; parte aberto para regulariza&ccedil;&atilde;o do ativo n&atilde;o encontrado: n&ordm; XXXXX.</td></tr>
+              <tr><td class="step-num">2</td><td>No chamado principal, informar os dados dispon&iacute;veis do equipamento: patrim&ocirc;nio informado, n&uacute;mero de s&eacute;rie, unidade, setor, usu&aacute;rio respons&aacute;vel e descri&ccedil;&atilde;o do problema.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Essas informa&ccedil;&otilde;es ser&atilde;o usadas pelo T&eacute;cnico N2 Suporte para localizar ou regularizar o ativo.</td></tr>
+              <tr><td class="step-num">3</td><td>Abrir um chamado vinculado/associado para inventariar o ativo n&atilde;o localizado, com categoria <strong>Desktop / Inventariar</strong>.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">O chamado deve ser direcionado ao <strong>T&eacute;cnico N2 Suporte</strong> e usar o modelo de descri&ccedil;&atilde;o abaixo.</td></tr>
+              <tr>
+                <td class="step-num">3.1</td>
+                <td colspan="3">
+                  <div class="alert-box note">
+                    <strong>Modelo de descri&ccedil;&atilde;o do chamado:</strong><br>
+                    Solicito inventariar o ativo f&iacute;sico informado no chamado principal, pois o equipamento n&atilde;o foi localizado no cadastro de ativos do GLPI.<br><br>
+                    <strong>Chamado principal:</strong> n&ordm; XXXXX<br>
+                    <strong>Patrim&ocirc;nio informado:</strong> n&ordm; ou n&atilde;o informado<br>
+                    <strong>N&uacute;mero de s&eacute;rie:</strong> n&ordm; ou n&atilde;o informado<br>
+                    <strong>Motivo:</strong> ativo n&atilde;o localizado no GLPI e necess&aacute;rio para associa&ccedil;&atilde;o ao chamado principal.
+                  </div>
+                </td>
+              </tr>
+              <tr><td class="step-num">4</td><td>Escalonar o chamado vinculado/associado para o grupo t&eacute;cnico <strong>T&eacute;cnico N2 Suporte</strong>.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">O T&eacute;cnico N2 Suporte ser&aacute; respons&aacute;vel por regularizar o ativo e associ&aacute;-lo ao chamado principal.</td></tr>
             </tbody>
           </table>
         </div>
       </div>
+
+
     </section>
 
     <!-- PROCESSO 3 -->
     <section class="section" id="proc3">
-      <h2 class="section-title">Processo 3 <span>Atua&ccedil;&atilde;o do T&eacute;cnico N2</span></h2>
+      <h2 class="section-title">Processo 3 <span>Atua&ccedil;&atilde;o do T&eacute;cnico N2 Suporte</span></h2>
       <div class="process-card open">
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 3</span>
           <span class="process-title">Regulariza&ccedil;&atilde;o e Associa&ccedil;&atilde;o do Ativo</span>
-          <span class="process-resp">T&eacute;cnico N2</span>
+          <span class="process-resp">T&eacute;cnico N2 Suporte</span>
           <span class="process-chevron">&#9662;</span>
         </div>
         <div class="process-body">
           <div class="meta-badges">
-            <div class="meta-badge"><strong>Respons&aacute;vel:</strong> T&eacute;cnico N2</div>
-            <div class="meta-badge"><strong>Quando:</strong> Receber chamado &agrave; parte associado</div>
+            <div class="meta-badge"><strong>Respons&aacute;vel:</strong> T&eacute;cnico N2 Suporte</div>
+            <div class="meta-badge"><strong>Quando:</strong> Receber chamado vinculado/associado</div>
             <div class="meta-badge"><strong>Resultado:</strong> Ativo associado ao chamado principal</div>
           </div>
           <table class="steps-table">
             <thead><tr><th>N&ordm;</th><th>A&ccedil;&atilde;o / Descri&ccedil;&atilde;o</th><th>Respons&aacute;vel</th><th>Observa&ccedil;&atilde;o</th></tr></thead>
             <tbody>
-              <tr><td class="step-num">1</td><td>Acessar o chamado &agrave; parte escalonado para N2 e verificar qual &eacute; o chamado principal associado.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">Usar a associa&ccedil;&atilde;o entre chamados para manter o contexto do atendimento.</td></tr>
-              <tr><td class="step-num">2</td><td>Pesquisar o ativo no GLPI usando patrim&ocirc;nio, n&uacute;mero de s&eacute;rie, nome do equipamento, unidade e setor.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">Conferir tamb&eacute;m poss&iacute;veis diverg&ecirc;ncias de cadastro.</td></tr>
-              <tr><td class="step-num">3</td><td>Se o ativo existir, corrigir ou complementar o cadastro quando necess&aacute;rio.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">Garantir que o ativo possa ser localizado corretamente em chamados futuros.</td></tr>
-              <tr><td class="step-num">4</td><td>Se o ativo n&atilde;o for encontrado pela equipe t&eacute;cnica N2, realizar o processo de inventariar o ativo no GLPI.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">O atendimento n&atilde;o deve prosseguir sem que o ativo esteja cadastrado e regularizado no GLPI.</td></tr>
-              <tr><td class="step-num">5</td><td>Somente ap&oacute;s inventariar ou regularizar o ativo, acessar o chamado principal, ir at&eacute; a aba <strong>Itens</strong>, clicar em <strong>"+ Adicionar item"</strong> e associar o ativo ao chamado.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">O item associado deve indicar qual equipamento est&aacute; vinculado &agrave; solicita&ccedil;&atilde;o original.</td></tr>
-              <tr><td class="step-num">6</td><td>Executar o atendimento do chamado principal ap&oacute;s a associa&ccedil;&atilde;o do ativo.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">A execu&ccedil;&atilde;o do chamado deve ocorrer com o ativo j&aacute; associado para garantir rastreabilidade nos relat&oacute;rios.</td></tr>
-              <tr><td class="step-num">7</td><td>Registrar no acompanhamento dos dois chamados que o ativo foi localizado ou inventariado, associado ao chamado principal e que o atendimento foi executado.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">Informar o n&uacute;mero patrimonial ou identifica&ccedil;&atilde;o usada na associa&ccedil;&atilde;o.</td></tr>
-              <tr><td class="step-num">8</td><td>Encerrar o chamado &agrave; parte do N2, alterando o status para <strong>"Fechado"</strong>.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">O chamado &agrave; parte s&oacute; deve ser fechado ap&oacute;s o ativo estar inventariado, associado e o chamado principal executado.</td></tr>
+              <tr><td class="step-num">1</td><td>Acessar o chamado vinculado/associado escalonado para T&eacute;cnico N2 Suporte e verificar qual &eacute; o chamado principal associado.</td><td class="step-resp">T&eacute;cnico N2 Suporte</td><td class="step-obs">Usar a associa&ccedil;&atilde;o entre chamados para manter o contexto do atendimento.</td></tr>
+              <tr><td class="step-num">2</td><td>Pesquisar o ativo no GLPI usando patrim&ocirc;nio, n&uacute;mero de s&eacute;rie, nome do equipamento, unidade e setor.</td><td class="step-resp">T&eacute;cnico N2 Suporte</td><td class="step-obs">Conferir tamb&eacute;m poss&iacute;veis diverg&ecirc;ncias de cadastro.</td></tr>
+              <tr><td class="step-num">3</td><td>Se o ativo existir, corrigir ou complementar o cadastro quando necess&aacute;rio.</td><td class="step-resp">T&eacute;cnico N2 Suporte</td><td class="step-obs">Garantir que o ativo possa ser localizado corretamente em chamados futuros.</td></tr>
+              <tr><td class="step-num">4</td><td>Se o ativo n&atilde;o for encontrado pelo T&eacute;cnico N2 Suporte, dar prosseguimento ao chamado vinculado/associado de invent&aacute;rio j&aacute; aberto pela Central de Servi&ccedil;os conforme o item 3 do <strong>Processo 2</strong>.</td><td class="step-resp">T&eacute;cnico N2 Suporte</td><td class="step-obs">N&atilde;o abrir novo chamado. O atendimento n&atilde;o deve prosseguir sem que o ativo esteja cadastrado e regularizado no GLPI.</td></tr>
+              <tr><td class="step-num">5</td><td>Somente ap&oacute;s inventariar ou regularizar o ativo, acessar o chamado principal, ir at&eacute; a aba <strong>Itens</strong>, clicar em <strong>"+ Adicionar item"</strong> e associar o ativo ao chamado.</td><td class="step-resp">T&eacute;cnico N2 Suporte</td><td class="step-obs">O item associado deve indicar qual equipamento est&aacute; vinculado &agrave; solicita&ccedil;&atilde;o original.</td></tr>
+              <tr><td class="step-num">6</td><td>Executar o atendimento do chamado principal ap&oacute;s a associa&ccedil;&atilde;o do ativo.</td><td class="step-resp">T&eacute;cnico N2 Suporte</td><td class="step-obs">A execu&ccedil;&atilde;o do chamado deve ocorrer com o ativo j&aacute; associado para garantir rastreabilidade nos relat&oacute;rios.</td></tr>
+              <tr><td class="step-num">7</td><td>Registrar no acompanhamento dos dois chamados que o ativo foi localizado ou inventariado, associado ao chamado principal e que o atendimento foi executado.</td><td class="step-resp">T&eacute;cnico N2 Suporte</td><td class="step-obs">Informar o n&uacute;mero patrimonial ou identifica&ccedil;&atilde;o usada na associa&ccedil;&atilde;o.</td></tr>
+              <tr><td class="step-num">8</td><td>Encerrar o chamado vinculado/associado do T&eacute;cnico N2 Suporte, alterando o status para <strong>"Fechado"</strong>.</td><td class="step-resp">T&eacute;cnico N2 Suporte</td><td class="step-obs">O chamado vinculado/associado s&oacute; deve ser fechado ap&oacute;s o ativo estar inventariado, associado e o chamado principal executado.</td></tr>
             </tbody>
           </table>
+
         </div>
       </div>
     </section>
@@ -315,8 +329,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         <li>A Central de Servi&ccedil;os &eacute; respons&aacute;vel pela abertura do chamado principal.</li>
         <li>Quando o ativo for encontrado, ele deve ser associado ao chamado no momento da abertura.</li>
         <li>Quando o ativo n&atilde;o for encontrado, o chamado principal deve ser aberto mesmo assim.</li>
-        <li>A pend&ecirc;ncia de ativo deve gerar um chamado &agrave; parte, associado ao chamado original e escalonado para o time t&eacute;cnico N2.</li>
-        <li>O T&eacute;cnico N2 &eacute; respons&aacute;vel por localizar, cadastrar ou corrigir o ativo e associ&aacute;-lo ao chamado principal.</li>
+        <li>A pend&ecirc;ncia de ativo deve gerar um chamado vinculado/associado, vinculado ao chamado principal e escalonado para T&eacute;cnico N2 Suporte.</li>
+        <li>Se o ativo n&atilde;o existir no GLPI, deve existir chamado vinculado/associado na categoria <strong>Desktop / Inventariar</strong>, conforme item 3 do Processo 2, antes da continuidade do atendimento principal.</li>
+        <li>O setor de Sistemas n&atilde;o realiza invent&aacute;rio e n&atilde;o &eacute; respons&aacute;vel por chamados relacionados a ativos f&iacute;sicos.</li>
+        <li>O T&eacute;cnico N2 Suporte &eacute; respons&aacute;vel por localizar, cadastrar, corrigir ou inventariar o ativo e associ&aacute;-lo ao chamado principal.</li>
         <li>A associa&ccedil;&atilde;o entre chamados deve ser mantida para garantir rastreabilidade do atendimento, do invent&aacute;rio e dos relat&oacute;rios por ativo.</li>
       </ul>
     </section>
