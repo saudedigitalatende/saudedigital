@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Processo Operacional de Abertura de Chamados de Ativos no GLPI &middot; GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --red:#a01a1a;--red-lt:#fdeaea;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+
+/* HERO */
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero-actions{margin-bottom:12px}
+.hero-crumb{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.65);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s}
+.hero-crumb:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+
+/* LAYOUT */
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
+.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.toc-group{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);padding:8px 10px 2px;margin-top:6px}
+
+/* CONTENT */
+.content .section{margin-bottom:40px;scroll-margin-top:24px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
+.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:10px}
+
+/* INFO TABLE */
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
+.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even) td{background:var(--paper)}
+.info-table td:first-child{font-weight:600;color:var(--ink);width:200px}
+
+/* PROCESS CARD */
+.process-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.process-header{display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer;user-select:none;transition:background .15s}
+.process-header:hover{background:var(--paper)}
+.process-num{font-size:11px;font-weight:700;color:#fff;background:var(--blue-mid);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.process-title{font-size:13.5px;font-weight:600;color:var(--ink);flex:1}
+.process-resp{font-size:11px;color:var(--ink3);background:var(--paper);padding:2px 8px;border-radius:4px;border:1px solid var(--rule)}
+.process-chevron{font-size:11px;color:var(--ink3);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:var(--paper);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--rule)}
+.process-card:not(.open) .process-body{display:none}
+.process-card.open .process-chevron{transform:rotate(180deg)}
+.process-body{padding:20px;border-top:1px solid var(--rule)}
+
+/* META BADGES */
+.meta-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.meta-badge{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink2);background:var(--paper);padding:4px 10px;border-radius:6px;border:1px solid var(--rule)}
+.meta-badge strong{color:var(--ink);font-weight:600}
+
+/* STEPS TABLE */
+.steps-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin:12px 0}
+.steps-table thead tr{background:var(--ink)}
+.steps-table th{padding:9px 12px;text-align:left;font-size:11px;font-weight:600;color:#fff}
+.steps-table td{padding:10px 12px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+.steps-table tr:last-child td{border-bottom:none}
+.steps-table tr:nth-child(even) td{background:var(--paper)}
+.step-num{font-weight:700;color:var(--blue-mid);font-size:13px;width:36px}
+.step-obs{font-size:11.5px;color:var(--ink3);font-style:italic}
+.step-resp{font-weight:600;color:var(--ink);white-space:nowrap}
+
+/* ALERT BOXES */
+.alert-box{border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;line-height:1.6;border-left:4px solid}
+.alert-box.warn{background:var(--amber-lt);border-color:var(--amber-mid);color:#5a3f00}
+.alert-box.warn strong{color:#3a2800}
+.alert-box.info{background:var(--blue-lt);border-color:var(--blue-mid);color:#1a4070}
+.alert-box.info strong{color:#1a3050}
+.alert-box.danger{background:var(--red-lt);border-color:var(--red);color:#6a0000}
+.alert-box.danger strong{color:#4a0000}
+.alert-box.success{background:var(--green-lt);border-color:var(--green-mid);color:#1a5a3a}
+.alert-box.success strong{color:#0a3a20}
+.alert-box.note{background:var(--orange-lt);border-color:var(--orange-mid);color:#5a2800}
+
+/* STATUS TABLE */
+.status-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule)}
+.status-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.status-table td{padding:10px 14px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+.status-table tr:last-child td{border-bottom:none}
+.status-table tr:nth-child(even) td{background:var(--paper)}
+.status-badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px}
+.s-uso{background:#e6f4ee;color:#1a6644}
+.s-man{background:#fdf3dc;color:#7a5000}
+.s-con{background:#fdeaea;color:#7a1a1a}
+.s-est{background:#e8f0fa;color:#1a4f8a}
+.s-emp{background:#f0eaf8;color:#5a3aa2}
+
+/* CYCLE */
+.cycle-flow{display:flex;align-items:center;gap:8px;margin:16px 0;flex-wrap:wrap}
+.cycle-node{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;text-align:center}
+.cycle-arrow{color:var(--ink3);font-size:16px}
+.cn-uso{background:var(--green-lt);color:var(--green);border:1.5px solid var(--green-mid)}
+.cn-man{background:var(--amber-lt);color:var(--amber);border:1.5px solid var(--amber-mid)}
+.cn-con{background:var(--red-lt);color:var(--red);border:1.5px solid var(--red)}
+.cn-bai{background:var(--paper2);color:var(--ink3);border:1.5px solid var(--rule)}
+
+/* RULES LIST */
+.rules-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.rules-list li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid);line-height:1.5}
+
+/* FOOTER */
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px}
+
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-actions">
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="hero-crumb">&larr; Documenta&ccedil;&otilde;es</a>
+    </div>
+    <h1>Processo Operacional de <em>Abertura de Chamados de Ativos</em> no GLPI</h1>
+    <p>GTIC &middot; Sa&uacute;de Digital Atende &middot; Secretaria de Sa&uacute;de do Recife &middot; Vers&atilde;o 1.0</p>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Neste manual</div>
+    <ul class="toc" id="toc">
+      <li><a href="#identificacao">Identifica&ccedil;&atilde;o</a></li>
+      <li><a href="#objetivo">Objetivo</a></li>
+      <li><a href="#definicoes">Defini&ccedil;&otilde;es</a></li>
+      <div class="toc-group">Processos</div>
+      <li><a href="#proc1">1 - Abertura com ativo localizado</a></li>
+      <li><a href="#proc2">2 - Ativo n&atilde;o localizado</a></li>
+      <li><a href="#proc3">3 - Atua&ccedil;&atilde;o do T&eacute;cnico N2</a></li>
+      <div class="toc-group">Refer&ecirc;ncia</div>
+      <li><a href="#atencao">Pontos de Aten&ccedil;&atilde;o</a></li>
+      <li><a href="#historico">Hist&oacute;rico de Revis&otilde;es</a></li>
+    </ul>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- IDENTIFICACAO -->
+    <section class="section" id="identificacao">
+      <h2 class="section-title">Identifica&ccedil;&atilde;o</h2>
+      <table class="info-table">
+        <tbody>
+          <tr><td>C&oacute;digo</td><td>POP-GLPI-ATIVOS-001</td></tr>
+          <tr><td>Tipo</td><td>Processo Operacional</td></tr>
+          <tr><td>T&iacute;tulo</td><td>Abertura de Chamados de Ativos no GLPI</td></tr>
+          <tr><td>&Aacute;rea respons&aacute;vel</td><td>GTIC - Ger&ecirc;ncia de Tecnologia da Informa&ccedil;&atilde;o e Comunica&ccedil;&atilde;o</td></tr>
+          <tr><td>Setor</td><td>Sa&uacute;de Digital Atende</td></tr>
+          <tr><td>Data de cria&ccedil;&atilde;o</td><td>Junho / 2026</td></tr>
+          <tr><td>Vers&atilde;o</td><td>1.0</td></tr>
+        </tbody>
+      </table>
+      <div class="alert-box info">
+        <strong>Sobre este processo:</strong> Este documento orienta a Central de Servi&ccedil;os na abertura de chamados que envolvem ativos f&iacute;sicos no GLPI, incluindo o fluxo para quando o ativo n&atilde;o for encontrado na associa&ccedil;&atilde;o do item.
+      </div>
+    </section>
+
+    <!-- OBJETIVO -->
+    <section class="section" id="objetivo">
+      <h2 class="section-title">Objetivo</h2>
+      <p class="doc-p">Padronizar a abertura de chamados de ativos no GLPI, garantindo que o chamado principal seja registrado pela Central de Servi&ccedil;os, que o ativo seja associado sempre que localizado e que, quando o ativo n&atilde;o for encontrado, seja aberto um chamado &agrave; parte para regulariza&ccedil;&atilde;o e esse chamado seja associado ao chamado original.</p>
+      <p class="doc-p">Essa associa&ccedil;&atilde;o entre chamados mant&eacute;m tudo atrelado e permite identificar nos relat&oacute;rios quantos chamados foram abertos para determinado ativo.</p>
+    </section>
+
+    <!-- DEFINICOES -->
+    <section class="section" id="definicoes">
+      <h2 class="section-title">Defini&ccedil;&otilde;es</h2>
+      <table class="info-table">
+        <thead><tr><th>Termo</th><th>Defini&ccedil;&atilde;o</th></tr></thead>
+        <tbody>
+          <tr><td>GLPI</td><td>Sistema de gest&atilde;o de chamados e invent&aacute;rio de TI utilizado pela GTIC.</td></tr>
+          <tr><td>Ativo</td><td>Equipamento ou item de TI cadastrado no invent&aacute;rio do GLPI, como computador, monitor, impressora, roteador ou item equivalente.</td></tr>
+          <tr><td>Chamado principal</td><td>Chamado aberto pela Central de Servi&ccedil;os para registrar a solicita&ccedil;&atilde;o do usu&aacute;rio.</td></tr>
+          <tr><td>Item associado</td><td>V&iacute;nculo do ativo ao chamado na aba <strong>Itens</strong> do GLPI.</td></tr>
+          <tr><td>Chamado &agrave; parte</td><td>Chamado aberto para regularizar o ativo n&atilde;o localizado e associado ao chamado original.</td></tr>
+          <tr><td>Central de Servi&ccedil;os</td><td>Equipe respons&aacute;vel pela abertura dos chamados no GLPI.</td></tr>
+          <tr><td>T&eacute;cnico N2</td><td>Equipe t&eacute;cnica respons&aacute;vel por localizar, cadastrar ou corrigir o ativo no GLPI e associ&aacute;-lo ao chamado principal.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- PROCESSO 1 -->
+    <section class="section" id="proc1">
+      <h2 class="section-title">Processo 1 <span>Abertura com ativo localizado</span></h2>
+      <div class="process-card open">
+        <div class="process-header" onclick="toggleCard(this)">
+          <span class="process-num">PROCESSO 1</span>
+          <span class="process-title">Abertura do Chamado pela Central de Servi&ccedil;os</span>
+          <span class="process-resp">Central de Servi&ccedil;os</span>
+          <span class="process-chevron">&#9662;</span>
+        </div>
+        <div class="process-body">
+          <div class="meta-badges">
+            <div class="meta-badge"><strong>Respons&aacute;vel:</strong> Central de Servi&ccedil;os</div>
+            <div class="meta-badge"><strong>Quando:</strong> Solicita&ccedil;&atilde;o envolvendo ativo f&iacute;sico</div>
+            <div class="meta-badge"><strong>Sistema:</strong> GLPI</div>
+          </div>
+          <table class="steps-table">
+            <thead><tr><th>N&ordm;</th><th>A&ccedil;&atilde;o / Descri&ccedil;&atilde;o</th><th>Respons&aacute;vel</th><th>Observa&ccedil;&atilde;o</th></tr></thead>
+            <tbody>
+              <tr><td class="step-num">1</td><td>Receber a solicita&ccedil;&atilde;o do usu&aacute;rio por telefone, e-mail ou Rocket.Chat e coletar nome, e-mail, unidade, setor, descri&ccedil;&atilde;o da demanda e identifica&ccedil;&atilde;o do equipamento.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Solicitar n&uacute;mero patrimonial, n&uacute;mero de s&eacute;rie ou nome do equipamento, quando houver.</td></tr>
+              <tr><td class="step-num">2</td><td>Acessar o GLPI pelo caminho <strong>Assist&ecirc;ncia &rarr; Criar chamado</strong> e preencher os campos com base no template exibido na tela.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Registrar as informa&ccedil;&otilde;es coletadas e preencher os campos obrigat&oacute;rios antes de salvar.</td></tr>
+              <tr><td class="step-num">3</td><td>Preencher os campos do chamado exibidos no template: <strong>Entidade</strong>, <strong>Tipo</strong>, <strong>Categoria</strong>, <strong>Status</strong>, <strong>Origem da requisi&ccedil;&atilde;o</strong> e <strong>Localiza&ccedil;&atilde;o</strong>.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">A categoria deve seguir o cat&aacute;logo de servi&ccedil;os. O chamado inicia com status <strong>Novo</strong>.</td></tr>
+              <tr><td class="step-num">4</td><td>Preencher a se&ccedil;&atilde;o <strong>Atores</strong>, informando o <strong>Requerente</strong> e, quando necess&aacute;rio, observador ou atribu&iacute;do.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Confirmar se o requerente corresponde ao usu&aacute;rio que abriu a solicita&ccedil;&atilde;o.</td></tr>
+              <tr><td class="step-num">5</td><td>Na se&ccedil;&atilde;o <strong>Itens</strong>, clicar em <strong>"+ Adicionar"</strong> e buscar o ativo por patrim&ocirc;nio, n&uacute;mero de s&eacute;rie ou nome do equipamento.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Confirmar se o item localizado corresponde ao equipamento informado pelo usu&aacute;rio.</td></tr>
+              <tr><td class="step-num">6</td><td>Selecionar o ativo correto e confirmar a associa&ccedil;&atilde;o ao chamado.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">O chamado deve manter o hist&oacute;rico do ativo atendido.</td></tr>
+              <tr><td class="step-num">7</td><td>Salvar o chamado e conferir se o item associado ficou registrado corretamente.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Ap&oacute;s escalonamento para um grupo t&eacute;cnico, o chamado passa a ficar atribu&iacute;do conforme regra do GLPI.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESSO 2 -->
+    <section class="section" id="proc2">
+      <h2 class="section-title">Processo 2 <span>Ativo n&atilde;o localizado</span></h2>
+      <div class="alert-box warn">
+        <strong>Importante:</strong> Se o ativo n&atilde;o for encontrado na aba <strong>Itens</strong>, a Central de Servi&ccedil;os deve prosseguir com a abertura do chamado principal e abrir um chamado &agrave; parte para regulariza&ccedil;&atilde;o do ativo. Esse chamado &agrave; parte deve ser associado ao chamado original para manter tudo atrelado.
+      </div>
+      <div class="process-card open">
+        <div class="process-header" onclick="toggleCard(this)">
+          <span class="process-num">PROCESSO 2</span>
+          <span class="process-title">Abertura do Chamado &agrave; Parte</span>
+          <span class="process-resp">Central de Servi&ccedil;os</span>
+          <span class="process-chevron">&#9662;</span>
+        </div>
+        <div class="process-body">
+          <div class="meta-badges">
+            <div class="meta-badge"><strong>Respons&aacute;vel:</strong> Central de Servi&ccedil;os</div>
+            <div class="meta-badge"><strong>Quando:</strong> Ativo n&atilde;o encontrado no GLPI</div>
+            <div class="meta-badge"><strong>Destino:</strong> Time t&eacute;cnico N2</div>
+          </div>
+          <table class="steps-table">
+            <thead><tr><th>N&ordm;</th><th>A&ccedil;&atilde;o / Descri&ccedil;&atilde;o</th><th>Respons&aacute;vel</th><th>Observa&ccedil;&atilde;o</th></tr></thead>
+            <tbody>
+              <tr><td class="step-num">1</td><td>Prosseguir com a abertura do chamado principal, mesmo sem localizar o ativo na aba <strong>Itens</strong>.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Registrar na descri&ccedil;&atilde;o que o ativo n&atilde;o foi localizado para associa&ccedil;&atilde;o no momento da abertura.</td></tr>
+              <tr><td class="step-num">2</td><td>No chamado principal, informar os dados dispon&iacute;veis do equipamento: patrim&ocirc;nio informado, n&uacute;mero de s&eacute;rie, unidade, setor, usu&aacute;rio respons&aacute;vel e descri&ccedil;&atilde;o do problema.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Essas informa&ccedil;&otilde;es ser&atilde;o usadas pelo N2 para localizar ou regularizar o ativo.</td></tr>
+              <tr><td class="step-num">3</td><td>Abrir um chamado &agrave; parte solicitando ao time t&eacute;cnico N2 a localiza&ccedil;&atilde;o, cadastro ou corre&ccedil;&atilde;o do ativo no GLPI.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Esse chamado deve tratar especificamente a pend&ecirc;ncia do ativo n&atilde;o encontrado.</td></tr>
+              <tr><td class="step-num">4</td><td>Escalonar o chamado &agrave; parte para o grupo t&eacute;cnico <strong>N2</strong>.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">O N2 ser&aacute; respons&aacute;vel por regularizar o ativo e associ&aacute;-lo ao chamado principal.</td></tr>
+              <tr><td class="step-num">5</td><td>No chamado &agrave; parte, acessar a se&ccedil;&atilde;o <strong>Chamado relacionado</strong> e clicar em <strong>"+ Adicionar"</strong>.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Essa se&ccedil;&atilde;o fica abaixo da &aacute;rea <strong>Itens</strong>, conforme exibido na tela do GLPI.</td></tr>
+              <tr><td class="step-num">6</td><td><strong>Associar</strong> o chamado &agrave; parte ao chamado principal em que o ativo n&atilde;o foi encontrado.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Essa associa&ccedil;&atilde;o mant&eacute;m tudo atrelado e permite identificar nos relat&oacute;rios quantos chamados foram abertos para aquele ativo.</td></tr>
+              <tr><td class="step-num">7</td><td>Registrar no acompanhamento do chamado principal o n&uacute;mero do chamado &agrave; parte aberto para N2.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Ex.: Chamado &agrave; parte aberto para regulariza&ccedil;&atilde;o do ativo n&atilde;o encontrado: n&ordm; XXXXX.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESSO 3 -->
+    <section class="section" id="proc3">
+      <h2 class="section-title">Processo 3 <span>Atua&ccedil;&atilde;o do T&eacute;cnico N2</span></h2>
+      <div class="process-card open">
+        <div class="process-header" onclick="toggleCard(this)">
+          <span class="process-num">PROCESSO 3</span>
+          <span class="process-title">Regulariza&ccedil;&atilde;o e Associa&ccedil;&atilde;o do Ativo</span>
+          <span class="process-resp">T&eacute;cnico N2</span>
+          <span class="process-chevron">&#9662;</span>
+        </div>
+        <div class="process-body">
+          <div class="meta-badges">
+            <div class="meta-badge"><strong>Respons&aacute;vel:</strong> T&eacute;cnico N2</div>
+            <div class="meta-badge"><strong>Quando:</strong> Receber chamado &agrave; parte associado</div>
+            <div class="meta-badge"><strong>Resultado:</strong> Ativo associado ao chamado principal</div>
+          </div>
+          <table class="steps-table">
+            <thead><tr><th>N&ordm;</th><th>A&ccedil;&atilde;o / Descri&ccedil;&atilde;o</th><th>Respons&aacute;vel</th><th>Observa&ccedil;&atilde;o</th></tr></thead>
+            <tbody>
+              <tr><td class="step-num">1</td><td>Acessar o chamado &agrave; parte escalonado para N2 e verificar qual &eacute; o chamado principal associado.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">Usar a associa&ccedil;&atilde;o entre chamados para manter o contexto do atendimento.</td></tr>
+              <tr><td class="step-num">2</td><td>Pesquisar o ativo no GLPI usando patrim&ocirc;nio, n&uacute;mero de s&eacute;rie, nome do equipamento, unidade e setor.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">Conferir tamb&eacute;m poss&iacute;veis diverg&ecirc;ncias de cadastro.</td></tr>
+              <tr><td class="step-num">3</td><td>Se o ativo existir, corrigir ou complementar o cadastro quando necess&aacute;rio.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">Garantir que o ativo possa ser localizado corretamente em chamados futuros.</td></tr>
+              <tr><td class="step-num">4</td><td>Se o ativo n&atilde;o for encontrado pela equipe t&eacute;cnica N2, realizar o processo de inventariar o ativo no GLPI.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">O atendimento n&atilde;o deve prosseguir sem que o ativo esteja cadastrado e regularizado no GLPI.</td></tr>
+              <tr><td class="step-num">5</td><td>Somente ap&oacute;s inventariar ou regularizar o ativo, acessar o chamado principal, ir at&eacute; a aba <strong>Itens</strong>, clicar em <strong>"+ Adicionar item"</strong> e associar o ativo ao chamado.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">O item associado deve indicar qual equipamento est&aacute; vinculado &agrave; solicita&ccedil;&atilde;o original.</td></tr>
+              <tr><td class="step-num">6</td><td>Executar o atendimento do chamado principal ap&oacute;s a associa&ccedil;&atilde;o do ativo.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">A execu&ccedil;&atilde;o do chamado deve ocorrer com o ativo j&aacute; associado para garantir rastreabilidade nos relat&oacute;rios.</td></tr>
+              <tr><td class="step-num">7</td><td>Registrar no acompanhamento dos dois chamados que o ativo foi localizado ou inventariado, associado ao chamado principal e que o atendimento foi executado.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">Informar o n&uacute;mero patrimonial ou identifica&ccedil;&atilde;o usada na associa&ccedil;&atilde;o.</td></tr>
+              <tr><td class="step-num">8</td><td>Encerrar o chamado &agrave; parte do N2, alterando o status para <strong>"Fechado"</strong>.</td><td class="step-resp">T&eacute;cnico N2</td><td class="step-obs">O chamado &agrave; parte s&oacute; deve ser fechado ap&oacute;s o ativo estar inventariado, associado e o chamado principal executado.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PONTOS DE ATENCAO -->
+    <section class="section" id="atencao">
+      <h2 class="section-title">Pontos de Aten&ccedil;&atilde;o</h2>
+      <ul class="rules-list">
+        <li>A Central de Servi&ccedil;os &eacute; respons&aacute;vel pela abertura do chamado principal.</li>
+        <li>Quando o ativo for encontrado, ele deve ser associado ao chamado no momento da abertura.</li>
+        <li>Quando o ativo n&atilde;o for encontrado, o chamado principal deve ser aberto mesmo assim.</li>
+        <li>A pend&ecirc;ncia de ativo deve gerar um chamado &agrave; parte, associado ao chamado original e escalonado para o time t&eacute;cnico N2.</li>
+        <li>O T&eacute;cnico N2 &eacute; respons&aacute;vel por localizar, cadastrar ou corrigir o ativo e associ&aacute;-lo ao chamado principal.</li>
+        <li>A associa&ccedil;&atilde;o entre chamados deve ser mantida para garantir rastreabilidade do atendimento, do invent&aacute;rio e dos relat&oacute;rios por ativo.</li>
+      </ul>
+    </section>
+
+    <!-- HISTORICO -->
+    <section class="section" id="historico">
+      <h2 class="section-title">Hist&oacute;rico de Revis&otilde;es</h2>
+      <table class="info-table">
+        <thead><tr><th>Vers&atilde;o</th><th>Data</th><th>Respons&aacute;vel</th><th>Descri&ccedil;&atilde;o</th></tr></thead>
+        <tbody>
+          <tr><td>1.0</td><td>Junho / 2026</td><td>GTIC / Sa&uacute;de Digital Atende</td><td>Cria&ccedil;&atilde;o do documento</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div><!-- /content -->
+</div><!-- /layout -->
+
+<footer class="page-footer">
+  <span class="footer-brand">Sa&uacute;de Digital <em style="font-style:italic;color:var(--amber-mid)">Atende</em></span>
+  <div class="footer-meta">
+    <span><strong>Secretaria</strong>Secretaria de Sa&uacute;de do Recife</span>
+    <span><strong>Vers&atilde;o</strong>1.0 - Junho 2026</span>
+    <span><strong>Uso</strong>Interno &middot; Documento Operacional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar ao Portal
+  </a>
+</footer>
+
+<script>
+// Toggle process cards
+function toggleCard(header) {
+  header.closest('.process-card').classList.toggle('open');
+}
+
+// TOC active on scroll
+const sections = document.querySelectorAll('.section');
+const tocLinks = document.querySelectorAll('.toc a');
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.toc a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
