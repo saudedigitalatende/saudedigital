@@ -105,10 +105,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <ul class="toc">
       <li><a href="#historico">01. Histórico de Revisões</a></li>
       <li><a href="#objetivo">02. Objetivo</a></li>
-      <li><a href="#notificacoes">03. Notificações Automáticas</a></li>
-      <li><a href="#abertura">04. Notificação de Abertura</a></li>
-      <li><a href="#encerramento">05. Notificação de Encerramento</a></li>
-      <li><a href="#padronizacao">06. Padronização e Integração</a></li>
+      <li><a href="#notificacoes">03. Visão Geral das Notificações</a></li>
+      <li><a href="#abertura">04. Processo 1 — Abertura do Chamado</a></li>
+      <li><a href="#encerramento">05. Processo 2 — Encerramento do Chamado</a></li>
+      <li><a href="#padronizacao">06. Regras de Integração</a></li>
     </ul>
   </aside>
 
@@ -124,13 +124,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
     <div class="section" id="objetivo">
       <div class="section-title"><span>02</span> Objetivo</div>
-      <p class="doc-p">Este Processo Operacional estabelece as diretrizes para abertura, preenchimento, tratamento, escalonamento e encerramento de chamados no <strong>GLPI</strong>, garantindo padronização, rastreabilidade, transparência e melhoria contínua dos atendimentos.</p>
+      <p class="doc-p">Este Processo Operacional estabelece como os chamados devem ser abertos e encerrados no <strong>GLPI</strong> para que as notificações automáticas por e-mail sejam enviadas corretamente ao usuário final, garantindo padronização, rastreabilidade, transparência e melhoria contínua dos atendimentos.</p>
     </div>
 
     <div class="section" id="notificacoes">
-      <div class="section-title"><span>03</span> Notificações Automáticas ao Usuário</div>
-      <p class="doc-p">Os usuários receberão automaticamente notificações por e-mail durante o ciclo de vida do chamado, conforme modelos padronizados implementados através da integração entre <strong>GLPI</strong> e <strong>n8n</strong>.</p>
-      <p class="doc-p" style="margin-top:8px">As notificações serão enviadas automaticamente a cada <strong>5 minutos</strong> e contemplarão:</p>
+      <div class="section-title"><span>03</span> Visão Geral das Notificações Automáticas</div>
+      <p class="doc-p">Os usuários receberão automaticamente notificações por e-mail durante o ciclo de vida do chamado, conforme os dados registrados no <strong>GLPI</strong> e os modelos padronizados implementados através da integração com o <strong>n8n</strong>.</p>
+      <p class="doc-p" style="margin-top:8px">As notificações serão enviadas automaticamente a cada <strong>5 minutos</strong> e contemplarão dois processos principais:</p>
       <div class="notif-list">
         <div class="notif-item"><span class="notif-icon">✅</span><span>Confirmação de abertura do chamado</span></div>
         <div class="notif-item"><span class="notif-icon">🔗</span><span>Informações para acompanhamento do ticket</span></div>
@@ -140,8 +140,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </div>
 
     <div class="section" id="abertura">
-      <div class="section-title"><span>04</span> Modelo de Notificação de Abertura</div>
-      <p class="doc-p">Ao registrar um chamado no GLPI, o usuário receberá automaticamente um e-mail contendo:</p>
+      <div class="section-title"><span>04</span> Processo 1 <span>Abertura do Chamado</span></div>
+      <p class="doc-p">A abertura do chamado deve ser realizada com preenchimento completo dos campos necessários para que o GLPI registre corretamente a solicitação e envie a confirmação de abertura ao usuário final.</p>
+      <div class="notif-list">
+        <div class="notif-item"><span class="notif-icon">01</span><span>Acessar o GLPI e iniciar a criação do chamado.</span></div>
+        <div class="notif-item"><span class="notif-icon">02</span><span>Preencher os dados do usuário final, incluindo nome, unidade, setor e demais informações de identificação.</span></div>
+        <div class="notif-item"><span class="notif-icon">03</span><span>Preencher obrigatoriamente o campo de <strong>e-mail</strong> do usuário final, pois é esse campo que permite o envio da confirmação automática de abertura.</span></div>
+        <div class="notif-item"><span class="notif-icon">04</span><span>Categorizar o chamado conforme o catálogo de serviços, selecionando categoria, tipo, urgência e grupo técnico responsável quando aplicável.</span></div>
+        <div class="notif-item"><span class="notif-icon">05</span><span>Preencher título e descrição de forma clara, objetiva e suficiente para entendimento da demanda.</span></div>
+        <div class="notif-item"><span class="notif-icon">06</span><span>Salvar o chamado no GLPI e conferir se os dados essenciais foram registrados corretamente.</span></div>
+      </div>
+      <div class="alert-box info">
+        <strong>📧 E-mail obrigatório:</strong> sem o e-mail do usuário final, a confirmação automática de abertura não será enviada corretamente.
+      </div>
+      <p class="doc-p">Após o registro do chamado no GLPI, o usuário receberá automaticamente um e-mail contendo:</p>
       <div class="notif-list">
         <div class="notif-item"><span class="notif-icon">🎫</span><span>Número do ticket</span></div>
         <div class="notif-item"><span class="notif-icon">👤</span><span>Nome do usuário</span></div>
@@ -158,7 +170,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </div>
 
     <div class="section" id="encerramento">
-      <div class="section-title"><span>05</span> Modelo de Notificação de Encerramento</div>
+      <div class="section-title"><span>05</span> Processo 2 <span>Encerramento do Chamado</span></div>
+      <p class="doc-p">O encerramento do chamado deve ser realizado somente após o atendimento ser concluído e a solução estar registrada no GLPI. Ao alterar o status para <strong>FECHADO</strong>, o usuário final receberá a notificação automática de encerramento e o link da pesquisa de satisfação.</p>
+      <div class="notif-list">
+        <div class="notif-item"><span class="notif-icon">01</span><span>Confirmar que o atendimento foi concluído e que não há pendência técnica ou administrativa no chamado.</span></div>
+        <div class="notif-item"><span class="notif-icon">02</span><span>Registrar a solução no chamado, descrevendo de forma objetiva o que foi realizado e o resultado do atendimento.</span></div>
+        <div class="notif-item"><span class="notif-icon">03</span><span>Alterar o status do chamado para <strong>FECHADO</strong>.</span></div>
+        <div class="notif-item"><span class="notif-icon">04</span><span>Após o fechamento, o GLPI/n8n enviará automaticamente ao usuário final o e-mail de encerramento.</span></div>
+        <div class="notif-item"><span class="notif-icon">05</span><span>O e-mail de encerramento deverá conter também o link da pesquisa de satisfação para avaliação do atendimento.</span></div>
+      </div>
       <p class="doc-p">Após o encerramento do chamado com status <strong>FECHADO</strong>, o usuário receberá automaticamente um e-mail contendo:</p>
       <div class="notif-list">
         <div class="notif-item"><span class="notif-icon">🎫</span><span>Número do ticket</span></div>
@@ -177,8 +197,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </div>
 
     <div class="section" id="padronizacao">
-      <div class="section-title"><span>06</span> Padronização dos Scripts e Regras de Integração</div>
-      <p class="doc-p">Os scripts de <strong>Sistemas</strong> e os scripts de <strong>Infraestrutura</strong> disponíveis no GLPI encontram-se padronizados para funcionamento integrado com os fluxos automatizados do <strong>n8n</strong>.</p>
+      <div class="section-title"><span>06</span> Regras de Integração e Padronização</div>
+      <p class="doc-p">As notificações dependem da padronização dos campos do GLPI e do funcionamento integrado com os fluxos automatizados do <strong>n8n</strong>. Por isso, os campos utilizados nos processos de abertura e encerramento devem ser mantidos conforme definidos pela administração do GLPI.</p>
       <div class="alert-box danger">
         <strong>🚫 Atenção:</strong> Os campos padronizados <strong>não deverão ser alterados, removidos ou modificados</strong> sem validação prévia da administração do GLPI, pois alterações indevidas poderão comprometer o funcionamento das regras automatizadas, notificações por e-mail, categorização dos chamados e integrações implementadas no n8n.
       </div>
