@@ -262,23 +262,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 2</span>
           <span class="process-title">Execução do Chamado — Atendimento Técnico</span>
-          <span class="process-resp">Técnico N2</span>
+          <span class="process-resp">Técnico N2 Suporte</span>
           <span class="process-chevron">▾</span>
         </div>
         <div class="process-body">
           <div class="meta-badges">
-            <div class="meta-badge"><strong>Responsável:</strong> Técnico N2 / Técnico de Campo</div>
+            <div class="meta-badge"><strong>Responsável:</strong> Técnico N2 Suporte / Técnico de Campo</div>
             <div class="meta-badge"><strong>Quando:</strong> Ao receber um chamado atribuído</div>
             <div class="meta-badge"><strong>Pré-requisito:</strong> Processo 1 concluído</div>
           </div>
           <table class="steps-table">
             <thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:160px">Responsável</th><th style="width:220px">Observação</th></tr></thead>
             <tbody>
-              <tr><td class="step-num">1</td><td>Acessar o GLPI e localizar o chamado atribuído ao seu grupo.</td><td class="step-resp">Técnico N2</td><td class="step-obs">Menu: Assistência → Chamados → Meus chamados.</td></tr>
-              <tr><td class="step-num">2</td><td>Verificar se o ativo está corretamente associado ao chamado. Se não estiver, associar antes de prosseguir (ver Processo 1, Passos 4–5).</td><td class="step-resp">Técnico N2</td><td class="step-obs">Não iniciar o atendimento sem o ativo associado.</td></tr>
-              <tr><td class="step-num">3</td><td>Realizar o diagnóstico e executar o atendimento técnico (presencial ou remoto).</td><td class="step-resp">Técnico N2</td><td class="step-obs">Registrar no campo "Acompanhamento" todas as ações com data e hora.</td></tr>
-              <tr><td class="step-num">4</td><td>Registrar a solução no campo <strong>"Solução"</strong> do chamado, descrevendo o que foi feito e o resultado obtido.</td><td class="step-resp">Técnico N2</td><td class="step-obs">Ser objetivo e claro. Evitar respostas genéricas como "problema resolvido".</td></tr>
-              <tr><td class="step-num">5</td><td>Se diagnosticado que o ativo foi condenado, atribuir o chamado ao grupo <strong>Patrimônio</strong>, registrar o diagnóstico técnico e, em seguida, encerrar o chamado alterando o status para <strong>"Fechado"</strong>.</td><td class="step-resp">Técnico N2</td><td class="step-obs">O chamado encerrado será associado ao novo chamado de substituição no Processo 3.</td></tr>
+              <tr><td class="step-num">1</td><td>Acessar o GLPI e localizar o chamado atribuído ao seu grupo.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Menu: Assistência → Chamados → Meus chamados.</td></tr>
+              <tr><td class="step-num">2</td><td>Verificar se o ativo está corretamente associado ao chamado. Se não estiver, associar antes de prosseguir (ver Processo 1, Passos 4–5).</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Não iniciar o atendimento sem o ativo associado.</td></tr>
+              <tr><td class="step-num">3</td><td>Realizar o diagnóstico e executar o atendimento técnico (presencial ou remoto).</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Registrar no campo "Acompanhamento" todas as ações com data e hora.</td></tr>
+              <tr><td class="step-num">4</td><td>Registrar a solução no campo <strong>"Solução"</strong> do chamado, descrevendo o que foi feito e o resultado obtido.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Ser objetivo e claro. Evitar respostas genéricas como "problema resolvido".</td></tr>
+              <tr><td class="step-num">5</td><td>Se diagnosticado que o ativo foi condenado, atribuir o chamado ao grupo <strong>Patrimônio</strong>, registrar o diagnóstico técnico e, em seguida, encerrar o chamado alterando o status para <strong>"Fechado"</strong>.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">O chamado encerrado será associado ao novo chamado de substituição no Processo 3.</td></tr>
             </tbody>
           </table>
           <div class="alert-box warn">
@@ -298,29 +298,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 3</span>
           <span class="process-title">Abertura do Chamado de Substituição do Ativo</span>
-          <span class="process-resp">Técnico N2 + Administrativo</span>
+          <span class="process-resp">Técnico N2 Suporte + Administrativo</span>
           <span class="process-chevron">▾</span>
         </div>
         <div class="process-body">
           <div class="meta-badges">
-            <div class="meta-badge"><strong>Responsável:</strong> Técnico N2 + Setor Administrativo de Ativos</div>
+            <div class="meta-badge"><strong>Responsável:</strong> Técnico N2 Suporte + Setor Administrativo de Ativos</div>
             <div class="meta-badge"><strong>Quando:</strong> Após o chamado técnico ser encerrado com diagnóstico de ativo condenado</div>
             <div class="meta-badge"><strong>Pré-requisito:</strong> Ativos em estoque já cadastrados no GLPI</div>
           </div>
           <div class="alert-box info">
-            <strong>Pré-condição de estoque:</strong> todos os ativos disponíveis em estoque devem estar previamente incluídos no GLPI, conforme o processo de inventariar ativo. Antes de escolher o substituto, o Técnico N2 deve consultar a planilha de controle de ativos ou validar com o setor Administrativo quais equipamentos estão em estoque e podem ser utilizados para substituição.
+            <strong>Pré-condição de estoque:</strong> todos os ativos disponíveis em estoque devem estar previamente incluídos no GLPI, conforme o processo de inventariar ativo. Antes de escolher o substituto, o Técnico N2 Suporte deve consultar a planilha de controle de ativos ou validar com o setor Administrativo quais equipamentos estão em estoque e podem ser utilizados para substituição.
           </div>
           <table class="steps-table">
             <thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:180px">Responsável</th><th style="width:200px">Observação</th></tr></thead>
             <tbody>
-              <tr><td class="step-num">1</td><td>Verificar na planilha de controle de ativos quais equipamentos estão em estoque e podem ser utilizados para substituição.</td><td class="step-resp">Técnico N2 / Administrativo</td><td class="step-obs">Validar disponibilidade antes de abrir o novo chamado.</td></tr>
-              <tr><td class="step-num">2</td><td>Confirmar que o ativo substituto escolhido já está cadastrado no GLPI e apto para uso.</td><td class="step-resp">Técnico N2</td><td class="step-obs">Caso não esteja cadastrado, seguir primeiro o processo de inventariar ativo.</td></tr>
-              <tr><td class="step-num">3</td><td>Localizar o chamado encerrado anteriormente e usar seus dados para abrir um novo chamado no GLPI com categorização de <strong>Substituição</strong>, conforme o catálogo de serviços.</td><td class="step-resp">Técnico N2</td><td class="step-obs">Reaproveitar os dados do usuário, e-mail, unidade, setor e demais informações do chamado encerrado.</td></tr>
-              <tr><td class="step-num">4</td><td>Na descrição do novo chamado, informar obrigatoriamente o ativo substituído, o responsável pelo ativo, e-mail do usuário, unidade, setor, número patrimonial e motivo da substituição.</td><td class="step-resp">Técnico N2</td><td class="step-obs">Essas informações devem ser conferidas a partir do chamado encerrado anteriormente.</td></tr>
-              <tr><td class="step-num">5</td><td>Localizar o chamado encerrado anteriormente, que recebeu o diagnóstico de Patrimônio, e <strong>associá-lo</strong> ao novo chamado de substituição.</td><td class="step-resp">Técnico N2</td><td class="step-obs">O chamado encerrado é a evidência do diagnóstico técnico.</td></tr>
-              <tr><td class="step-num">6</td><td>Na aba <strong>"Itens"</strong> do novo chamado, clicar em <strong>"+ Adicionar item"</strong> e associar qual ativo será substituído.</td><td class="step-resp">Técnico N2</td><td class="step-obs">Associar o ativo condenado/substituído, não apenas citar na descrição.</td></tr>
-              <tr><td class="step-num">7</td><td>Registrar em acompanhamento o ativo substituto definido na planilha de controle de ativos e a validação do setor Administrativo.</td><td class="step-resp">Técnico N2 / Administrativo</td><td class="step-obs">Informar patrimônio, série ou identificação do equipamento substituto.</td></tr>
-              <tr><td class="step-num">8</td><td>Atribuir o chamado ao grupo responsável pela continuidade do processo de substituição, conforme catálogo de serviços.</td><td class="step-resp">Técnico N2</td><td class="step-obs">Manter a associação com o chamado encerrado até a conclusão.</td></tr>
+              <tr><td class="step-num">1</td><td>Verificar na planilha de controle de ativos quais equipamentos estão em estoque e podem ser utilizados para substituição.</td><td class="step-resp">Técnico N2 Suporte / Administrativo</td><td class="step-obs">Validar disponibilidade antes de abrir o novo chamado.</td></tr>
+              <tr><td class="step-num">2</td><td>Confirmar que o ativo substituto escolhido já está cadastrado no GLPI e apto para uso.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Caso não esteja cadastrado, seguir primeiro o processo de inventariar ativo.</td></tr>
+              <tr><td class="step-num">3</td><td>Localizar o chamado encerrado anteriormente e usar seus dados para abrir um novo chamado no GLPI com categorização de <strong>Substituição</strong>, conforme o catálogo de serviços.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Reaproveitar os dados do usuário, e-mail, unidade, setor e demais informações do chamado encerrado.</td></tr>
+              <tr><td class="step-num">4</td><td>Na descrição do novo chamado, informar obrigatoriamente o ativo substituído, o responsável pelo ativo, e-mail do usuário, unidade, setor, número patrimonial e motivo da substituição.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Essas informações devem ser conferidas a partir do chamado encerrado anteriormente.</td></tr>
+              <tr><td class="step-num">5</td><td>Localizar o chamado encerrado anteriormente, que recebeu o diagnóstico de Patrimônio, e <strong>associá-lo</strong> ao novo chamado de substituição.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">O chamado encerrado é a evidência do diagnóstico técnico.</td></tr>
+              <tr><td class="step-num">6</td><td>Na aba <strong>"Itens"</strong> do novo chamado, clicar em <strong>"+ Adicionar item"</strong> e associar qual ativo será substituído.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Associar o ativo condenado/substituído, não apenas citar na descrição.</td></tr>
+              <tr><td class="step-num">7</td><td>Registrar em acompanhamento o ativo substituto definido na planilha de controle de ativos e a validação do setor Administrativo.</td><td class="step-resp">Técnico N2 Suporte / Administrativo</td><td class="step-obs">Informar patrimônio, série ou identificação do equipamento substituto.</td></tr>
+              <tr><td class="step-num">8</td><td>Atribuir o chamado ao grupo responsável pela continuidade do processo de substituição, conforme catálogo de serviços.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Manter a associação com o chamado encerrado até a conclusão.</td></tr>
             </tbody>
           </table>
           <div class="alert-box warn">
@@ -354,23 +354,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 4</span>
           <span class="process-title">Alteração do Status do Ativo no GLPI</span>
-          <span class="process-resp">Técnico N2</span>
+          <span class="process-resp">Técnico N2 Suporte</span>
           <span class="process-chevron">▾</span>
         </div>
         <div class="process-body">
           <div class="meta-badges">
-            <div class="meta-badge"><strong>Responsável:</strong> Técnico N2</div>
+            <div class="meta-badge"><strong>Responsável:</strong> Técnico N2 Suporte</div>
             <div class="meta-badge"><strong>Quando:</strong> Após abertura do chamado de substituição</div>
             <div class="meta-badge"><strong>Pré-requisito:</strong> Ativo substituído associado ao chamado de substituição</div>
           </div>
           <table class="steps-table">
             <thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:180px">Responsável</th><th style="width:200px">Observação</th></tr></thead>
             <tbody>
-              <tr><td class="step-num">1</td><td>Acessar o GLPI no caminho <strong>Ativos</strong> → <strong>Computadores</strong>.</td><td class="step-resp">Técnico N2</td><td class="step-obs">Usar o menu de ativos, não a tela do chamado.</td></tr>
-              <tr><td class="step-num">2</td><td>Localizar o ativo que foi para o Patrimônio pelo número de patrimônio, número de série ou nome do equipamento.</td><td class="step-resp">Técnico N2</td><td class="step-obs">Confirmar unidade, setor e usuário antes de editar.</td></tr>
-              <tr><td class="step-num">3</td><td>Editar o cadastro do ativo e alterar o status para <strong>"Condenado"</strong>.</td><td class="step-resp">Técnico N2</td><td class="step-obs">O status deve refletir que o equipamento não retornará ao uso.</td></tr>
-              <tr><td class="step-num">4</td><td>Preencher <strong>Ativo Substituto</strong>, <strong>Data de Substituição</strong>, <strong>Data do Último Inventário</strong> e <strong>Inventariado</strong>, conforme os dados do atendimento e da planilha de controle de ativos.</td><td class="step-resp">Técnico N2</td><td class="step-obs">O substituto deve estar cadastrado no GLPI; esses campos correspondem ao formulário exibido no cadastro do computador.</td></tr>
-              <tr><td class="step-num">5</td><td>Salvar as alterações no ativo e registrar no chamado de substituição que o ativo enviado ao Patrimônio foi alterado para "Condenado".</td><td class="step-resp">Técnico N2</td><td class="step-obs">Informar o número patrimonial do ativo condenado e do ativo substituto.</td></tr>
+              <tr><td class="step-num">1</td><td>Acessar o GLPI no caminho <strong>Ativos</strong> → <strong>Computadores</strong>.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Usar o menu de ativos, não a tela do chamado.</td></tr>
+              <tr><td class="step-num">2</td><td>Localizar o ativo que foi para o Patrimônio pelo número de patrimônio, número de série ou nome do equipamento.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Confirmar unidade, setor e usuário antes de editar.</td></tr>
+              <tr><td class="step-num">3</td><td>Editar o cadastro do ativo e alterar o status para <strong>"Condenado"</strong>.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">O status deve refletir que o equipamento não retornará ao uso.</td></tr>
+              <tr><td class="step-num">4</td><td>Preencher <strong>Ativo Substituto</strong>, <strong>Data de Substituição</strong>, <strong>Data do Último Inventário</strong> e <strong>Inventariado</strong>, conforme os dados do atendimento e da planilha de controle de ativos.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">O substituto deve estar cadastrado no GLPI; esses campos correspondem ao formulário exibido no cadastro do computador.</td></tr>
+              <tr><td class="step-num">5</td><td>Salvar as alterações no ativo e registrar no chamado de substituição que o ativo enviado ao Patrimônio foi alterado para "Condenado".</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Informar o número patrimonial do ativo condenado e do ativo substituto.</td></tr>
             </tbody>
           </table>
           <div class="alert-box danger">
