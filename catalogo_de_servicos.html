@@ -30,11 +30,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 /* MAIN TABS — white background */
 .main-tabs{background:#fff;border-bottom:1px solid var(--rule);padding:0 60px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .main-tabs-inner{max-width:1280px;margin:0 auto;display:flex;gap:0}
-.main-tab{display:flex;align-items:center;gap:7px;padding:14px 22px;font-size:13px;font-weight:600;color:var(--ink3);cursor:pointer;border:none;background:transparent;font-family:'DM Sans',sans-serif;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap}
-.main-tab:hover{color:var(--ink)}
-.main-tab.active-sistemas{color:var(--blue);border-bottom-color:var(--blue-mid)}
-.main-tab.active-infra{color:var(--green);border-bottom-color:var(--green-mid)}
-.main-tab.active-adm{color:var(--orange);border-bottom-color:var(--orange-mid)}
+.main-tab{display:flex;align-items:center;gap:8px;padding:16px 26px;font-size:14px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink3);cursor:pointer;border:none;background:transparent;font-family:'DM Sans',sans-serif;border-bottom:4px solid transparent;transition:all .15s;white-space:nowrap}
+.main-tab:hover{color:var(--ink);background:rgba(0,0,0,.03)}
+.main-tab.active-sistemas{color:var(--blue);border-bottom-color:var(--blue-mid);background:var(--blue-lt)}
+.main-tab.active-infra{color:var(--green);border-bottom-color:var(--green-mid);background:var(--green-lt)}
+.main-tab.active-adm{color:var(--orange);border-bottom-color:var(--orange-mid);background:var(--orange-lt)}
 
 /* PANELS */
 .panel{display:none}
@@ -43,7 +43,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 /* SUB TABS */
 .sub-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
-.sub-tab{padding:7px 16px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--rule);background:#fff;color:var(--ink3);transition:all .15s;font-family:'DM Sans',sans-serif}
+.sub-tab{padding:7px 16px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--rule);background:#fff;color:var(--ink3);transition:all .15s;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.2px}
 .sub-tab.st-blue:hover{color:var(--blue-mid);border-color:var(--blue-mid)}
 .sub-tab.st-blue.active{background:var(--blue-lt);color:var(--blue-mid);border-color:var(--blue-mid)}
 .sub-tab.st-green:hover{color:var(--green-mid);border-color:var(--green-mid)}
@@ -311,15 +311,26 @@ function buildCatalog(area) {
   filterCatalog(area);
 }
 
+const CATEGORY_ICONS = {
+  'cabos': '🔌', 'cartões sim': '📶', 'computadores': '🖥️', 'conectividade': '🌐',
+  'dispositivos': '🎛️', 'dispositivos passivos': '🎧', 'dispositivos de rede': '📡',
+  'impressoras': '🖨️', 'monitores': '🖵', 'softwares': '💽', 'telefones': '☎️',
+  'gestão de acesso': '🔐',
+  'sistemas da saúde digital': '🏥', 'sistemas de gestão': '⚙️'
+};
+function categoryIcon(name) {
+  return CATEGORY_ICONS[(name||'').toLowerCase()] || '📁';
+}
+
 function buildSubTabs(area) {
   const DATA  = getData(area);
   const color = area==='sistemas' ? 'st-blue' : area==='infra' ? 'st-green' : 'st-orange';
   const keys  = Object.keys(DATA);
   const total = Object.values(DATA).reduce((a,b)=>a+b.length, 0);
 
-  let html = `<button class="sub-tab ${color} active" onclick="selectSheet('${area}','',this)">Todos (${total})</button>`;
+  let html = `<button class="sub-tab ${color} active" onclick="selectSheet('${area}','',this)">🗂️ Todos (${total})</button>`;
   keys.forEach(k => {
-    html += `<button class="sub-tab ${color}" onclick="selectSheet('${area}','${k}',this)">${k} (${DATA[k].length})</button>`;
+    html += `<button class="sub-tab ${color}" onclick="selectSheet('${area}','${k}',this)">${categoryIcon(k)} ${k} (${DATA[k].length})</button>`;
   });
   document.getElementById('subtabs-'+area).innerHTML = html;
 }
