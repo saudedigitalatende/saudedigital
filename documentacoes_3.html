@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Documentações · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+}
+html{scroll-behavior:smooth;height:100%}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto}
+
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+
+.main{flex:1;max-width:1200px;margin:0 auto;padding:36px 60px 60px}
+
+/* BREADCRUMB */
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink3);margin-bottom:20px}
+.breadcrumb a{color:var(--ink3);text-decoration:none;transition:color .15s}
+.breadcrumb a:hover{color:var(--blue-mid)}
+.breadcrumb span{color:var(--ink2);font-weight:600}
+
+/* PASTAS - VISTA DE GRID */
+.view{display:none}
+.view.active{display:block}
+
+.section-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px}
+
+.folders-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.folder-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;text-decoration:none;display:block;color:inherit;position:relative}
+.folder-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.09);transform:translateY(-2px)}
+.folder-bar{height:4px}
+.bar-blue{background:linear-gradient(90deg,var(--blue-mid),#5a9fd4)}
+.bar-green{background:linear-gradient(90deg,var(--green-mid),#5abf8a)}
+.bar-orange{background:linear-gradient(90deg,var(--orange-mid),#e8a060)}
+.bar-purple{background:linear-gradient(90deg,var(--purple-mid),#a87fdf)}
+.folder-header{display:flex;align-items:center;gap:16px;padding:22px 24px 18px}
+.folder-icon{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.fi-blue{background:var(--blue-lt)}
+.fi-green{background:var(--green-lt)}
+.fi-orange{background:var(--orange-lt)}
+.fi-purple{background:var(--purple-lt)}
+.folder-name{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink)}
+.folder-desc{font-size:12px;color:var(--ink3);margin-top:2px}
+.folder-footer{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-top:1px solid var(--rule)}
+.folder-count{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px}
+.fc-blue{background:var(--blue-lt);color:var(--blue-mid)}
+.fc-green{background:var(--green-lt);color:var(--green-mid)}
+.fc-orange{background:var(--orange-lt);color:var(--orange-mid)}
+.fc-purple{background:var(--purple-lt);color:var(--purple-mid)}
+.folder-arrow{font-size:16px;color:var(--ink3);transition:transform .2s}
+.folder-card:hover .folder-arrow{transform:translateX(4px)}
+
+/* VISTA INTERNA DA PASTA */
+.folder-view-header{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--rule);border-radius:14px;padding:20px 24px;margin-bottom:20px}
+.folder-view-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.folder-view-name{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink)}
+.folder-view-desc{font-size:12px;color:var(--ink3);margin-top:2px}
+
+.docs-list{display:flex;flex-direction:column;gap:10px}
+.doc-card{background:#fff;border:1px solid var(--rule);border-radius:12px;display:flex;align-items:center;gap:16px;padding:18px 22px;text-decoration:none;color:inherit;transition:all .2s}
+.doc-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:var(--blue-mid);transform:translateX(4px)}
+.doc-icon-wrap{width:44px;height:44px;border-radius:10px;background:var(--blue-lt);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.doc-title{font-size:14px;font-weight:700;color:var(--ink)}
+.doc-meta{font-size:11.5px;color:var(--ink3);margin-top:2px}
+.doc-arrow{margin-left:auto;font-size:18px;color:var(--ink3);transition:transform .2s}
+.doc-card:hover .doc-arrow{transform:translateX(4px);color:var(--blue-mid)}
+
+.empty-state{text-align:center;padding:48px 24px;color:var(--ink3)}
+.empty-state div{font-size:40px;margin-bottom:12px}
+.empty-state p{font-size:13px}
+
+.docs-body{flex:1}.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px;position:relative}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.hero-actions{display:flex;justify-content:flex-end;align-items:center;margin-bottom:10px}
+.hero-crumb,.hero-path{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.02em;color:rgba(255,255,255,.68);text-decoration:none;padding:5px 13px;border:1px solid rgba(255,255,255,.14);border-radius:100px;background:rgba(255,255,255,.035);transition:all .2s}
+.hero-crumb:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.075)}
+.hero-path{gap:8px;color:rgba(255,255,255,.38)}
+.hero-path a{color:rgba(255,255,255,.68);text-decoration:none;transition:color .2s}
+.hero-path a:hover{color:#fff}
+.hero-path-current{color:#fff}
+.footer-top-link{position:absolute;right:28px;bottom:18px;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);text-decoration:none;transition:all .2s}
+.footer-top-link:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.08)}
+.footer-top-link svg{width:16px;height:16px}
+/* BARRA DE PESQUISA */
+.search-wrap{position:relative;margin-bottom:28px}
+.search-input{width:100%;padding:13px 48px 13px 18px;font-family:'DM Sans',sans-serif;font-size:14px;border:1.5px solid var(--rule);border-radius:12px;background:#fff;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.search-input:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(45,111,189,.12)}
+.search-input::placeholder{color:var(--ink3)}
+.search-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none;opacity:.5}
+.search-clear{position:absolute;right:44px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--ink3);display:none;padding:2px 6px;border-radius:4px}
+.search-clear:hover{color:var(--ink)}
+
+/* RESULTADOS DE PESQUISA */
+#view-search{display:none}
+#view-search.active{display:block}
+.search-results-header{font-size:12px;color:var(--ink3);margin-bottom:16px;padding:8px 0;border-bottom:1px solid var(--rule)}
+.search-results-header strong{color:var(--ink2)}
+.result-folder-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:16px 0 8px;display:flex;align-items:center;gap:8px}
+.result-folder-label::before{content:'';display:block;width:3px;height:14px;border-radius:2px;background:var(--blue-mid)}
+.no-results{text-align:center;padding:48px 24px;color:var(--ink3)}
+.no-results div{font-size:40px;margin-bottom:12px}
+.no-results p{font-size:13px}
+
+@media(max-width:768px){.folders-grid{grid-template-columns:1fr}.hero,.main,.docs-body{flex:1}.page-footer{padding-left:24px;padding-right:24px}}
+
+.rm-group{border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.rm-group:hover{border-color:#b8a0e8}
+.rm-trigger{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:default;background:#fff;transition:background .2s}
+.rm-group:hover .rm-trigger{background:var(--purple-lt)}
+.rm-chevron{font-size:20px;color:var(--ink3);transition:transform .25s;line-height:1;margin-right:4px}
+.rm-group:hover .rm-chevron{transform:rotate(90deg);color:var(--purple-mid)}
+.rm-drawer{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.rm-drawer.open{max-height:600px}
+.rm-item{border-radius:0!important;border:none!important;border-top:1px solid var(--rule)!important}
+
+.pec-mac-group:hover{border-color:#93c5f5}
+.pec-mac-group:hover .rm-trigger{background:var(--blue-lt)}
+.pec-mac-group:hover .rm-chevron{color:var(--blue-mid)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-actions" id="heroActions">
+      <a href="https://saudedigitalatende.github.io/saudedigital/" class="hero-crumb">← Voltar ao Portal</a>
+    </div>
+    <h1><em>Documentações</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- BARRA DE PESQUISA -->
+  <div class="search-wrap">
+    <input class="search-input" id="searchInput" type="text" placeholder="🔍  Pesquisar documentos em todas as pastas..." oninput="doSearch(this.value)" autocomplete="off">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+    <span class="search-icon">⌕</span>
+  </div>
+
+  <!-- VISTA: RESULTADOS DE PESQUISA -->
+  <div class="view" id="view-search">
+    <div class="breadcrumb">
+      <a href="#" onclick="clearSearch()">Documentações</a> › <span>Pesquisa</span>
+    </div>
+    <div id="searchResultsContainer"></div>
+  </div>
+
+
+  <!-- VISTA: GRID DE PASTAS -->
+  <div class="view active" id="view-root">
+    <div class="breadcrumb"><span>Documentações</span></div>
+    <div class="section-label">Categorias de documentos</div>
+    <div class="folders-grid">
+
+      <div class="folder-card" onclick="openFolder('pop')">
+        <div class="folder-bar bar-blue"></div>
+        <div class="folder-header">
+          <div class="folder-icon fi-blue">📋</div>
+          <div>
+            <div class="folder-name">POP</div>
+            <div class="folder-desc">Procedimentos Operacionais Padrão</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count fc-blue">📂 12 documentos</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('manual')">
+        <div class="folder-bar bar-green"></div>
+        <div class="folder-header">
+          <div class="folder-icon fi-green">📖</div>
+          <div>
+            <div class="folder-name">Manual</div>
+            <div class="folder-desc">Manuais e guias de uso dos sistemas</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count fc-green">📂 12 documentos</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('processos')">
+        <div class="folder-bar bar-orange"></div>
+        <div class="folder-header">
+          <div class="folder-icon fi-orange">🗂️</div>
+          <div>
+            <div class="folder-name">Processos</div>
+            <div class="folder-desc">Documentação de processos internos da GTIC</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count fc-orange">📂 5 documentos</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('script')">
+        <div class="folder-bar bar-blue" style="background:linear-gradient(90deg,#1a6644,#5abf8a)"></div>
+        <div class="folder-header">
+          <div class="folder-icon" style="background:#e6f4ee">💬</div>
+          <div>
+            <div class="folder-name">Script</div>
+            <div class="folder-desc">Roteiros padronizados para atendimento técnico</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count fc-green">📂 1 documento</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('fluxos')">
+        <div class="folder-bar bar-purple"></div>
+        <div class="folder-header">
+          <div class="folder-icon fi-purple">🔄</div>
+          <div>
+            <div class="folder-name">Fluxos</div>
+            <div class="folder-desc">Fluxogramas e diagramas de atendimento</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count fc-purple">📂 4 documentos</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('treinamentos')">
+        <div class="folder-bar" style="background:linear-gradient(90deg,#b45309,#f59e0b)"></div>
+        <div class="folder-header">
+          <div class="folder-icon" style="background:#fef3c7">🎓</div>
+          <div>
+            <div class="folder-name">Treinamentos</div>
+            <div class="folder-desc">Materiais e conteúdos de capacitação</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count" style="background:#fef3c7;color:#b45309">📂 3 documentos</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('canais')">
+        <div class="folder-bar" style="background:linear-gradient(90deg,#0e7490,#06b6d4)"></div>
+        <div class="folder-header">
+          <div class="folder-icon" style="background:#cffafe">📡</div>
+          <div>
+            <div class="folder-name">Canais de Acesso</div>
+            <div class="folder-desc">Links e acessos aos sistemas da GTIC</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count" style="background:#cffafe;color:#0e7490">📂 1 documento</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('ferias')">
+        <div class="folder-bar" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div>
+        <div class="folder-header">
+          <div class="folder-icon" style="background:#fef3c7;font-size:20px;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center">🏖️</div>
+          <div>
+            <div class="folder-name">Férias</div>
+            <div class="folder-desc">Controle de licenças da equipe</div>
+          </div>
+        </div>
+        <div class="folder-footer">
+          <span class="folder-count" style="background:#fef3c7;color:#b45309">📂 1 documento</span>
+          <span class="folder-arrow">→</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA POP -->
+  <div class="view" id="view-pop">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>POP</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon fi-blue">📋</div>
+      <div>
+        <div class="folder-view-name">POP</div>
+        <div class="folder-view-desc">Procedimentos Operacionais Padrão</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <a class="doc-card" href="documentações/POP/pop_cadsus_web.html" target="_blank">
+        <div class="doc-icon-wrap">📋</div>
+        <div>
+          <div class="doc-title">POP – CADSUS WEB</div>
+          <div class="doc-meta">Procedimento Operacional Padrão · Versão 1.1 · 2024</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/POP/pop_colmeia.html" target="_blank">
+        <div class="doc-icon-wrap">📋</div>
+        <div>
+          <div class="doc-title">POP – Colmeia</div>
+          <div class="doc-meta">Procedimento Operacional Padrão · Sistema Colmeia</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/POP/pop_esus_territorio.html" target="_blank">
+        <div class="doc-icon-wrap">📋</div>
+        <div>
+          <div class="doc-title">POP – e-SUS Território</div>
+          <div class="doc-meta">Procedimento Operacional Padrão · Versão 1.0 · 2023</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <div class="rm-group" onmouseenter="rmExpand(this)" onmouseleave="rmCollapse(this)">
+        <div class="rm-trigger">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="doc-icon-wrap" style="background:var(--blue-lt);font-size:16px;width:36px;height:36px">📋</div>
+            <div>
+              <div class="doc-title">POP – HopChat</div>
+              <div class="doc-meta">3 documentos · passe o mouse para ver</div>
+            </div>
+          </div>
+          <span class="rm-chevron">›</span>
+        </div>
+        <div class="rm-drawer">
+          <a class="doc-card rm-item" href="documentações/POP/pop_hopchat.html" target="_blank">
+            <div class="doc-icon-wrap">📋</div>
+            <div>
+              <div class="doc-title">POP – HopChat</div>
+              <div class="doc-meta">Procedimento Operacional Padrão · HopChat</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+          <a class="doc-card rm-item" href="documentações/POP/pop_hopchat_notificacoes.html" target="_blank">
+            <div class="doc-icon-wrap">📋</div>
+            <div>
+              <div class="doc-title">POP – HopChat · Permissão de Notificações</div>
+              <div class="doc-meta">Conversas automáticas na fila · Google Chrome · Versão 1.0 · 2024</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+          <a class="doc-card rm-item" href="documentações/POP/pop_resgatar_conversa_hopchat.html" target="_blank">
+            <div class="doc-icon-wrap">📋</div>
+            <div>
+              <div class="doc-title">POP – Resgatar Conversa com o Usuário no HopChat</div>
+              <div class="doc-meta">Procedimento Operacional Padrão · HopChat</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <a class="doc-card" href="documentações/POP/pop_infosis.html" target="_blank">
+        <div class="doc-icon-wrap">📋</div>
+        <div>
+          <div class="doc-title">POP – Infosis</div>
+          <div class="doc-meta">Procedimento Operacional Padrão · Sistema Infosis</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/POP/pop_integra_ai.html" target="_blank">
+        <div class="doc-icon-wrap">📋</div>
+        <div>
+          <div class="doc-title">POP – Integra.ai</div>
+          <div class="doc-meta">Abertura de chamado Movidesk e GLPI · Versão 0.1 · 2025</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/POP/pop_locus.html" target="_blank">
+        <div class="doc-icon-wrap">📋</div>
+        <div>
+          <div class="doc-title">POP – LOCUS</div>
+          <div class="doc-meta">Procedimento Operacional Padrão · Versão 1.0 · 2023</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/POP/pop_pec_esus_ab.html" target="_blank">
+        <div class="doc-icon-wrap">📋</div>
+        <div>
+          <div class="doc-title">POP – PEC e-SUS AB</div>
+          <div class="doc-meta">Procedimento Operacional Padrão · Versão 1.0 · 2024</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/POP/pop_pec_mac_ipes.html" target="_blank">
+        <div class="doc-icon-wrap">📋</div>
+        <div>
+          <div class="doc-title">POP – PEC MAC IPES</div>
+          <div class="doc-meta">Procedimento Operacional Padrão · Versão 1.2 · 2024</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <div class="rm-group" onmouseenter="rmExpand(this)" onmouseleave="rmCollapse(this)">
+        <div class="rm-trigger">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="doc-icon-wrap" style="background:var(--blue-lt);font-size:16px;width:36px;height:36px">📋</div>
+            <div>
+              <div class="doc-title">POP – Recife Monitora</div>
+              <div class="doc-meta">2 documentos · passe o mouse para ver</div>
+            </div>
+          </div>
+          <span class="rm-chevron">›</span>
+        </div>
+        <div class="rm-drawer">
+          <a class="doc-card rm-item" href="documentações/POP/pop_recife_monitora.html" target="_blank">
+            <div class="doc-icon-wrap">📋</div>
+            <div>
+              <div class="doc-title">POP – Recife Monitora</div>
+              <div class="doc-meta">Gestão de acessos · 9 DSS · Versão 1.0 · 2024</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+          <a class="doc-card rm-item" href="documentações/POP/pop_recife_monitora_bloco_a.html" target="_blank">
+            <div class="doc-icon-wrap">📋</div>
+            <div>
+              <div class="doc-title">POP – Recife Monitora · Bloco A</div>
+              <div class="doc-meta">Autoavaliação individual · Eixo 1 · CBOs, quórum e regras de acesso</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="rm-group" onmouseenter="rmExpand(this)" onmouseleave="rmCollapse(this)">
+        <div class="rm-trigger">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="doc-icon-wrap" style="background:var(--blue-lt);font-size:16px;width:36px;height:36px">📋</div>
+            <div>
+              <div class="doc-title">POP – SEI</div>
+              <div class="doc-meta">2 documentos · passe o mouse para ver</div>
+            </div>
+          </div>
+          <span class="rm-chevron">›</span>
+        </div>
+        <div class="rm-drawer">
+          <a class="doc-card rm-item" href="documentações/POP/pop_sei.html" target="_blank">
+            <div class="doc-icon-wrap">📋</div>
+            <div>
+              <div class="doc-title">POP – SEI</div>
+              <div class="doc-meta">Procedimento Operacional Padrão · Sistema SEI</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+          <a class="doc-card rm-item" href="documentações/POP/pop_guia_administracao_setorial.html" target="_blank">
+            <div class="doc-icon-wrap">📋</div>
+            <div>
+              <div class="doc-title">POP – Guia de Administração Setorial</div>
+              <div class="doc-meta">Procedimento Operacional Padrão · Administração Setorial</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <a class="doc-card" href="documentações/POP/pop_si_pni.html" target="_blank">
+        <div class="doc-icon-wrap">📋</div>
+        <div>
+          <div class="doc-title">POP – SI-PNI</div>
+          <div class="doc-meta">Procedimento Operacional Padrão · Versão 1.18.3 · 2023</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA MANUAL -->
+  <div class="view" id="view-manual">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>Manual</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon fi-green">📖</div>
+      <div>
+        <div class="folder-view-name">Manual</div>
+        <div class="folder-view-desc">Manuais e guias de uso dos sistemas</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding:4px 0 8px;border-bottom:1px solid var(--rule);margin-bottom:4px">Manual do Usuário</div>
+      <a class="doc-card" href="documentações/Manual/manual_cadsus_web.html" target="_blank">
+        <div class="doc-icon-wrap">📄</div>
+        <div>
+          <div class="doc-title">Manual do Usuário - CADSUS WEB</div>
+          <div class="doc-meta">Versão 1.0 · Janeiro/2025</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/Manual/manual_sgop.html" target="_blank">
+        <div class="doc-icon-wrap">📄</div>
+        <div>
+          <div class="doc-title">Manual do Usuário - SGOP</div>
+          <div class="doc-meta">Versão 3.0 · Janeiro/2025</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/Manual/manual_pec_esus_aps.html" target="_blank">
+        <div class="doc-icon-wrap">📄</div>
+        <div>
+          <div class="doc-title">Manual do Usuário – PEC e-SUS APS</div>
+          <div class="doc-meta">Acesso ao sistema via Gov.br e PEC · Versão 1.0 · 2024</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <div class="rm-group pec-mac-group" onmouseenter="rmExpand(this)" onmouseleave="rmCollapse(this)">
+        <div class="rm-trigger">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="doc-icon-wrap" style="background:var(--blue-lt);font-size:16px;width:36px;height:36px">📄</div>
+            <div>
+              <div class="doc-title">Manual do Usuário – PEC MAC</div>
+              <div class="doc-meta">2 documentos · passe o mouse para ver</div>
+            </div>
+          </div>
+          <span class="rm-chevron">›</span>
+        </div>
+        <div class="rm-drawer">
+          <a class="doc-card rm-item" href="documentações/Manual/manual_pec_mac_ipes.html" target="_blank">
+            <div class="doc-icon-wrap">📄</div>
+            <div>
+              <div class="doc-title">Manual do Usuário – PEC MAC IPES Hospitalar</div>
+              <div class="doc-meta">Agenda, check-in, prontuário, internação e faturamento · Versão 1.0 · 2024</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+          <a class="doc-card rm-item" href="documentações/Manual/manual_pec_mac_faturamento.html" target="_blank">
+            <div class="doc-icon-wrap">📄</div>
+            <div>
+              <div class="doc-title">Manual do Usuário – PEC MAC Faturamento Ambulatorial</div>
+              <div class="doc-meta">Competência, XML, BPA, exportação SIA e BAM · Versão 1.0 · 2025</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="rm-group" onmouseenter="rmExpand(this)" onmouseleave="rmCollapse(this)">
+        <div class="rm-trigger">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="doc-icon-wrap" style="background:var(--purple-lt);font-size:16px;width:36px;height:36px">📄</div>
+            <div>
+              <div class="doc-title">Manual do Usuário – Recife Monitora</div>
+              <div class="doc-meta">3 documentos · passe o mouse para ver</div>
+            </div>
+          </div>
+          <span class="rm-chevron">›</span>
+        </div>
+        <div class="rm-drawer">
+          <a class="doc-card rm-item" href="documentações/Manual/manual_recife_monitora_gestores.html" target="_blank">
+            <div class="doc-icon-wrap">📄</div>
+            <div>
+              <div class="doc-title">Manual de Gestão – Recife Monitora · Gestores(as) Distritais</div>
+              <div class="doc-meta">Pacto, Avaliação e Certificação · Distritos Sanitários · 2024</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+          <a class="doc-card rm-item" href="documentações/Manual/manual_recife_monitora_avaliacao_qualidade.html" target="_blank">
+            <div class="doc-icon-wrap">📄</div>
+            <div>
+              <div class="doc-title">Manual de Avaliação de Qualidade – Recife Monitora</div>
+              <div class="doc-meta">Modelo · Eixos · Indicadores · Certificação · ESR</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+          <a class="doc-card rm-item" href="documentações/Manual/manual_recife_monitora_gestor_usf.html" target="_blank">
+            <div class="doc-icon-wrap">📄</div>
+            <div>
+              <div class="doc-title">Manual de Gestão – Recife Monitora · Gestor(a) de USF</div>
+              <div class="doc-meta">Aplicação · Análise · Planejamento Quadrimestral · 2024</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA TREINAMENTOS -->
+  <div class="view" id="view-treinamentos">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>Treinamentos</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon" style="background:#fef3c7">🎓</div>
+      <div>
+        <div class="folder-view-name">Treinamentos</div>
+        <div class="folder-view-desc">Materiais e conteúdos de capacitação</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <a class="doc-card" href="https://drive.google.com/drive/folders/1EQ7qnshGe8iYJavxg4Yyfhl_vbgxseDG" target="_blank">
+        <div class="doc-icon-wrap">🎓</div>
+        <div>
+          <div class="doc-title">Trilhas de Treinamento – PEC MAC</div>
+          <div class="doc-meta">Vídeos e materiais de capacitação · Google Drive</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="https://siplex.recife.pe.gov.br/api/treinamentos" target="_blank">
+        <div class="doc-icon-wrap">🎓</div>
+        <div>
+          <div class="doc-title">Trilhas de Treinamento – Siplex</div>
+          <div class="doc-meta">Plataforma de capacitação · siplex.recife.pe.gov.br</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="https://drive.google.com/drive/folders/1-KZXI8hAql-zCKXzohH5KE6WS9WU__Kr" target="_blank">
+        <div class="doc-icon-wrap">🎓</div>
+        <div>
+          <div class="doc-title">Trilhas de Treinamento – Prontuário Eletrônico em Rede (RES)</div>
+          <div class="doc-meta">Materiais de capacitação · Google Drive</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA FÉRIAS -->
+  <div class="view" id="view-ferias">
+    <div class="breadcrumb">
+      <a href="#" onclick="openFolder(null)">Documentações</a> › <span>Férias</span>
+    </div>
+    <div class="docs-list">
+      <a class="doc-card" href="documentações/Ferias/ferias_eq_ss.html" target="_blank">
+        <div class="doc-icon-wrap">🏖️</div>
+        <div>
+          <div class="doc-title">Controle de Férias – Equipe SS</div>
+          <div class="doc-meta">Licenças por ano · GTIC · Saúde Digital</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA CANAIS DE ACESSO -->
+  <div class="view" id="view-canais">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>Canais de Acesso</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon" style="background:#cffafe">📡</div>
+      <div>
+        <div class="folder-view-name">Canais de Acesso</div>
+        <div class="folder-view-desc">Links e acessos aos sistemas da GTIC</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <a class="doc-card" href="documentações/Canais/suporte_ipes_24h.html" target="_blank">
+        <div class="doc-icon-wrap">📡</div>
+        <div>
+          <div class="doc-title">Suporte Remoto 24h — IPES</div>
+          <div class="doc-meta">Plataforma Eletrônica da Saúde · WhatsApp e 0800</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA PROCESSOS -->
+  <div class="view" id="view-processos">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>Processos</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon fi-orange">🗂️</div>
+      <div>
+        <div class="folder-view-name">Processos</div>
+        <div class="folder-view-desc">Documentação de processos internos da GTIC</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <a class="doc-card" href="documentações/Processos/processo_substituicao_condenacao_ativos_glpi.html" target="_blank">
+        <div class="doc-icon-wrap">🗂️</div>
+        <div>
+          <div class="doc-title">Processo Operacional – Substituição e Condenação de Ativos no GLPI</div>
+          <div class="doc-meta">Processo Operacional · GLPI · GTIC · 2026</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/Processos/processo_abertura_triagem_gestao_chamados_glpi.html" target="_blank">
+        <div class="doc-icon-wrap">🗂️</div>
+        <div>
+          <div class="doc-title">Processo Operacional – Abertura, Triagem e Gestão de Chamados no GLPI</div>
+          <div class="doc-meta">Processo Operacional · GLPI · GTIC · 2026</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/Processos/processo_notificacoes_email_glpi.html" target="_blank">
+        <div class="doc-icon-wrap">🗂️</div>
+        <div>
+          <div class="doc-title">Processo Operacional – Notificações por E-mail no GLPI</div>
+          <div class="doc-meta">Processo Operacional · GLPI · GTIC · 2026</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/Processos/processo_abertura_chamados_ativos_glpi.html" target="_blank">
+        <div class="doc-icon-wrap">🗂️</div>
+        <div>
+          <div class="doc-title">Processo Operacional – Abertura de Chamados de Ativos no GLPI</div>
+          <div class="doc-meta">Processo Operacional · GLPI · GTIC · 2026</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/Processos/processo_visao_estoque_glpi.html" target="_blank">
+        <div class="doc-icon-wrap">🗂️</div>
+        <div>
+          <div class="doc-title">Processo Operacional – Implementação da Visão de Estoque no GLPI</div>
+          <div class="doc-meta">Processo Operacional · GLPI · GTIC · 2026</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA SCRIPT -->
+  <div class="view" id="view-script">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>Script</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon" style="background:#e6f4ee">💬</div>
+      <div>
+        <div class="folder-view-name">Script</div>
+        <div class="folder-view-desc">Roteiros padronizados para atendimento técnico</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <a class="doc-card" href="documentações/Script/script_atendimento.html" target="_blank">
+        <div class="doc-icon-wrap">📄</div>
+        <div>
+          <div class="doc-title">Script de Atendimento</div>
+          <div class="doc-meta">Roteiros padronizados para atendimento técnico</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- VISTA: PASTA FLUXOS -->
+  <div class="view" id="view-fluxos">
+    <div class="breadcrumb">
+      <a href="#" onclick="goRoot()">Documentações</a> › <span>Fluxos</span>
+    </div>
+    <div class="folder-view-header">
+      <div class="folder-view-icon fi-purple">🔄</div>
+      <div>
+        <div class="folder-view-name">Fluxos</div>
+        <div class="folder-view-desc">Fluxogramas e diagramas de atendimento</div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <a class="doc-card" href="documentações/Fluxos/fluxo_atendimento.html" target="_blank">
+        <div class="doc-icon-wrap">🔄</div>
+        <div>
+          <div class="doc-title">Fluxo de Atendimento Saúde Digital Atende</div>
+          <div class="doc-meta">Fluxograma de atendimento técnico</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/Fluxos/fluxo_implantacao_pec.html" target="_blank">
+        <div class="doc-icon-wrap">🔄</div>
+        <div>
+          <div class="doc-title">Fluxo de Abertura de Chamado de Implantação (PEC MAC e PEC e-SUS)</div>
+          <div class="doc-meta">Fluxograma de abertura de chamado para implantação PEC MAC e PEC e-SUS</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/Fluxos/fluxo_acompanhamento_pec.html" target="_blank">
+        <div class="doc-icon-wrap">🔄</div>
+        <div>
+          <div class="doc-title">Fluxo de Abertura de Chamado de Acompanhamento (PEC MAC e PEC e-SUS)</div>
+          <div class="doc-meta">Fluxograma de abertura de chamado de acompanhamento PEC MAC e PEC e-SUS</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+      <a class="doc-card" href="documentações/Fluxos/fluxo_treinamento_pec.html" target="_blank">
+        <div class="doc-icon-wrap">🔄</div>
+        <div>
+          <div class="doc-title">Fluxo de Solicitação de Treinamento (PEC MAC e PEC e-SUS)</div>
+          <div class="doc-meta">Fluxograma de solicitação, planejamento e execução de treinamentos</div>
+        </div>
+        <span class="doc-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>1.0 · Abril/2026</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="#" onclick="scrollTopPage(); return false;" class="footer-top-link" title="Voltar ao topo" aria-label="Voltar ao topo">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 13V3M4 7l4-4 4 4"/></svg>
+  </a>
+</footer>
+
+<script>
+
+function rmExpand(el){el.querySelector('.rm-drawer').classList.add('open')}
+function rmCollapse(el){el.querySelector('.rm-drawer').classList.remove('open')}
+
+// Índice de todos os documentos
+const docs = [
+  {
+    folder: 'Manual', folderIcon: '📖', color: 'fi-green',
+    items: [
+      { title: 'Manual do Usuário - CADSUS WEB', meta: 'Versão 1.0 · Janeiro/2025', icon: '📄', href: 'documentações/Manual/manual_cadsus_web.html' },
+      { title: 'Manual do Usuário - SGOP', meta: 'Versão 3.0 · Janeiro/2025', icon: '📄', href: 'documentações/Manual/manual_sgop.html' },
+      { title: 'Manual Operacional - Notificação de E-mail Abertura e Encerramento de Chamado', meta: 'Notificações automáticas · Versão 1.0 · 2026', icon: '📄', href: 'documentações/Manual/manual_glpi_notificacoes.html' },
+      { title: 'Manual Operacional - Atendimento, abertura, triagem e Gestão de Chamados - GLPI', meta: 'Abertura, categorização e responsabilidades · Versão 1.0 · 2026', icon: '📄', href: 'documentações/Manual/manual_abertura_chamados_glpi.html' },
+      { title: 'Manual do Usuário – PEC e-SUS APS', meta: 'Acesso ao sistema via Gov.br e PEC · Versão 1.0 · 2024', icon: '📄', href: 'documentações/Manual/manual_pec_esus_aps.html' },
+      { title: 'Manual do Usuário – PEC MAC IPES Hospitalar', meta: 'Agenda, check-in, prontuário, internação e faturamento · Versão 1.0 · 2024', icon: '📄', href: 'documentações/Manual/manual_pec_mac_ipes.html' },
+    ]
+  },
+  {
+    folder: 'Script', folderIcon: '💬', color: '',
+    items: [
+      { title: 'Script de Atendimento', meta: 'Roteiros padronizados para atendimento técnico', icon: '📄', href: 'documentações/Script/script_atendimento.html' }
+    ]
+  },
+  {
+    folder: 'Fluxos', folderIcon: '🔄', color: 'fi-purple',
+    items: [
+      { title: 'Fluxo de Atendimento Saúde Digital Atende', meta: 'Fluxograma de atendimento técnico', icon: '🔄', href: 'documentações/Fluxos/fluxo_atendimento.html' },
+      { title: 'Fluxo de Abertura de Chamado de Implantação (PEC MAC e PEC e-SUS)', meta: 'Fluxograma de abertura de chamado para implantação PEC MAC e PEC e-SUS', icon: '🔄', href: 'documentações/Fluxos/fluxo_implantacao_pec.html' },
+      { title: 'Fluxo de Abertura de Chamado de Acompanhamento (PEC MAC e PEC e-SUS)', meta: 'Fluxograma de abertura de chamado de acompanhamento PEC MAC e PEC e-SUS', icon: '🔄', href: 'documentações/Fluxos/fluxo_acompanhamento_pec.html' },
+      { title: 'Fluxo de Solicitação de Treinamento (PEC MAC e PEC e-SUS)', meta: 'Fluxograma de solicitação, planejamento e execução de treinamentos', icon: '🔄', href: 'documentações/Fluxos/fluxo_treinamento_pec.html' }
+    ]
+  },
+  {
+    folder: 'POP', folderIcon: '📋', color: 'fi-blue',
+    items: [
+      { title: 'POP – CADSUS WEB', meta: 'Procedimento Operacional Padrão · Versão 1.1 · 2024', icon: '📋', href: 'documentações/POP/pop_cadsus_web.html' },
+      { title: 'POP – Colmeia', meta: 'Procedimento Operacional Padrão · Sistema Colmeia', icon: '📋', href: 'documentações/POP/pop_colmeia.html' },
+      { title: 'POP – e-SUS Território', meta: 'Procedimento Operacional Padrão · Versão 1.0 · 2023', icon: '📋', href: 'documentações/POP/pop_esus_territorio.html' },
+      { title: 'POP – HopChat', meta: 'Procedimento Operacional Padrão · HopChat', icon: '📋', href: 'documentações/POP/pop_hopchat.html' },
+      { title: 'POP – HopChat · Permissão de Notificações', meta: 'Conversas automáticas na fila · Google Chrome · Versão 1.0 · 2024', icon: '📋', href: 'documentações/POP/pop_hopchat_notificacoes.html' },
+      { title: 'POP – Resgatar Conversa com o Usuário no HopChat', meta: 'Procedimento Operacional Padrão · HopChat', icon: '📋', href: 'documentações/POP/pop_resgatar_conversa_hopchat.html' },
+      { title: 'POP – Guia de Administração Setorial', meta: 'Procedimento Operacional Padrão · SEI', icon: '📋', href: 'documentações/POP/pop_guia_administracao_setorial.html' },
+      { title: 'POP – Infosis', meta: 'Procedimento Operacional Padrão · Sistema Infosis', icon: '📋', href: 'documentações/POP/pop_infosis.html' },
+      { title: 'POP – Integra.ai', meta: 'Abertura de chamado Movidesk e GLPI · Versão 0.1 · 2025', icon: '📋', href: 'documentações/POP/pop_integra_ai.html' },
+      { title: 'POP – LOCUS', meta: 'Procedimento Operacional Padrão · Versão 1.0 · 2023', icon: '📋', href: 'documentações/POP/pop_locus.html' },
+      { title: 'POP – PEC e-SUS AB', meta: 'Procedimento Operacional Padrão · Versão 1.0 · 2024', icon: '📋', href: 'documentações/POP/pop_pec_esus_ab.html' },
+      { title: 'POP – PEC MAC IPES', meta: 'Procedimento Operacional Padrão · Versão 1.2 · 2024', icon: '📋', href: 'documentações/POP/pop_pec_mac_ipes.html' },
+      { title: 'POP – Recife Monitora', meta: 'Gestão de acessos · 9 DSS · Versão 1.0 · 2024', icon: '📋', href: 'documentações/POP/pop_recife_monitora.html' },
+      { title: 'POP – Recife Monitora · Bloco A', meta: 'Autoavaliação individual · Eixo 1 · CBOs, quórum e regras de acesso', icon: '📋', href: 'documentações/POP/pop_recife_monitora_bloco_a.html' },
+      { title: 'POP – SEI', meta: 'Procedimento Operacional Padrão · Sistema SEI', icon: '📋', href: 'documentações/POP/pop_sei.html' },
+      { title: 'POP – SI-PNI', meta: 'Procedimento Operacional Padrão · Versão 1.18.3 · 2023', icon: '📋', href: 'documentações/POP/pop_si_pni.html' }
+    ]
+  }
+];
+
+function setHeroNav(mode) {
+  const actions = document.getElementById('heroActions');
+  if (!actions) return;
+  if (mode === 'section') {
+    actions.innerHTML = `<nav class="hero-path" aria-label="Navegação principal">
+      <a href="https://saudedigitalatende.github.io/saudedigital/">Portal</a>
+      <span>/</span>
+      <a href="#" onclick="goRoot(); return false;" class="hero-path-current">Documentações</a>
+    </nav>`;
+    return;
+  }
+  actions.innerHTML = `<a href="https://saudedigitalatende.github.io/saudedigital/" class="hero-crumb">← Voltar ao Portal</a>`;
+}
+
+function openFolder(id) {
+  clearSearchInput();
+  setHeroNav('section');
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function goRoot() {
+  clearSearchInput();
+  setHeroNav('root');
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-root').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  return false;
+}
+
+function scrollTopPage() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  return false;
+}
+
+function clearSearchInput() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchClear').style.display = 'none';
+}
+
+function clearSearch() {
+  clearSearchInput();
+  setHeroNav('root');
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-root').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  return false;
+}
+
+function doSearch(q) {
+  const clear = document.getElementById('searchClear');
+  clear.style.display = q.trim() ? 'block' : 'none';
+
+  if (!q.trim()) {
+    setHeroNav('root');
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-root').classList.add('active');
+    return;
+  }
+
+  setHeroNav('section');
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-search').classList.add('active');
+
+  const term = q.toLowerCase().trim();
+  const container = document.getElementById('searchResultsContainer');
+  let totalFound = 0;
+  let html = '';
+
+  docs.forEach(folder => {
+    const matches = folder.items.filter(doc =>
+      doc.title.toLowerCase().includes(term) ||
+      doc.meta.toLowerCase().includes(term) ||
+      folder.folder.toLowerCase().includes(term)
+    );
+    if (matches.length > 0) {
+      totalFound += matches.length;
+      html += `<div class="result-folder-label">${folder.folderIcon} ${folder.folder}</div>`;
+      matches.forEach(doc => {
+        html += `
+          <a class="doc-card" href="${doc.href}" target="_blank">
+            <div class="doc-icon-wrap">${doc.icon}</div>
+            <div>
+              <div class="doc-title">${highlight(doc.title, term)}</div>
+              <div class="doc-meta">${highlight(doc.meta, term)}</div>
+            </div>
+            <span class="doc-arrow">→</span>
+          </a>`;
+      });
+    }
+  });
+
+  const header = `<div class="search-results-header">
+    ${totalFound > 0
+      ? `Encontrado(s) <strong>${totalFound} resultado(s)</strong> para "<strong>${escHtml(q)}</strong>"`
+      : `Nenhum resultado para "<strong>${escHtml(q)}</strong>"`}
+  </div>`;
+
+  if (totalFound === 0) {
+    html = `<div class="no-results"><div>🔍</div><p>Nenhum documento encontrado para "<strong>${escHtml(q)}</strong>".<br>Tente outro termo.</p></div>`;
+  }
+
+  container.innerHTML = header + html;
+}
+
+function highlight(text, term) {
+  if (!term) return escHtml(text);
+  const re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return escHtml(text).replace(re, '<mark style="background:#fdf3dc;color:#b07d1a;border-radius:2px;padding:0 2px">$1</mark>');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+
+</body>
+</html>
