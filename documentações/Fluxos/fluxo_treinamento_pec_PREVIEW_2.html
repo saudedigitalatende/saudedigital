@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Fluxo de Solicitação de Treinamento · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --purple:#5a3aa2;--purple-lt:#f0eaf8;--purple-mid:#7a5ac0;
+}
+html{scroll-behavior:smooth}
+body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
+.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.content .section{margin-bottom:36px;scroll-margin-top:24px}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
+.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:8px}
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
+.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even) td{background:var(--paper)}
+.rules-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.rules-list li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid);line-height:1.5}
+.activity-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:12px}
+.activity-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--ink);cursor:pointer;user-select:none}
+.activity-header:hover{background:#1a2b42}
+.activity-num{font-size:11px;font-weight:700;color:var(--amber-mid);background:rgba(200,169,74,.15);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.activity-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.activity-chevron{font-size:11px;color:rgba(255,255,255,.5);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.activity-card:not(.open) .activity-
+.activity-card.open .activity-chevron{transform:rotate(180deg)}
+.activity-
+.step-list{counter-reset:step;display:flex;flex-direction:column;gap:8px}
+.step-item{counter-increment:step;position:relative;display:flex;align-items:flex-start;gap:12px;padding:10px 14px 10px 48px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid)}
+.step-dot{position:absolute;left:14px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--blue-lt);border:1px solid rgba(45,111,189,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin:0}
+.step-dot::after{content:counter(step);font-size:11px;font-weight:700;color:var(--blue-mid);line-height:1}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.55}
+.sub-item{font-size:12.5px;color:var(--ink3);padding:4px 12px;border-left:2px solid var(--rule);margin:4px 0 4px 20px}
+.fluxo-img{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-align:center;padding:24px}
+.fluxo-img img{max-width:100%;height:auto;border-radius:8px}
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html"
+        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
+        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
+        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+        ← Voltar às Documentações
+      </a>
+    </div>
+    <h1>Fluxo de Solicitação de Treinamento<br><em>PEC MAC e PEC e-SUS</em></h1>
+    <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sumário</div>
+    <ul class="toc">
+      <li><a href="#historico">01. Histórico de Revisões</a></li>
+      <li><a href="#objetivo">02. Objetivo</a></li>
+      <li><a href="#escopo">03. Escopo</a></li>
+      <li><a href="#atores">04. Atores Envolvidos</a></li>
+      <li><a href="#regras">05. Regras de Negócio</a></li>
+      <li><a href="#fluxo">06. Fluxo do Processo</a></li>
+      <li><a href="#desenho">07. Desenho do Fluxo</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+
+    <div class="section" id="historico">
+      <div class="section-title"><span>01</span> Histórico de Revisões</div>
+      <table class="info-table">
+        <thead><tr><th>Versão</th><th>Última Atualização</th><th>Autor</th></tr></thead>
+        <tbody><tr><td>1.0</td><td>2026</td><td>GTIC</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="section" id="objetivo">
+      <div class="section-title"><span>02</span> Objetivo</div>
+      <p class="doc-p">Padronizar o fluxo de solicitação, planejamento e execução de treinamentos de usuários, garantindo organização, rastreabilidade e alinhamento entre as equipes envolvidas.</p>
+    </div>
+
+    <div class="section" id="escopo">
+      <div class="section-title"><span>03</span> Escopo</div>
+      <p class="doc-p">Aplica-se aos chamados de treinamento solicitados pelos usuários por meio da <strong>Central de Serviços</strong>, envolvendo as equipes de <strong>Sistemas Nível 2 Remoto, Sistemas Nível 3 e Sistemas Nível 2 Campo</strong>.</p>
+    </div>
+
+    <div class="section" id="atores">
+      <div class="section-title"><span>04</span> Atores Envolvidos</div>
+      <table class="info-table">
+        <thead><tr><th>Ator</th><th>Responsabilidade</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Usuário Final</strong></td><td>Solicita o treinamento</td></tr>
+          <tr><td><strong>Central de Serviços</strong></td><td>Realiza o atendimento inicial, abre o chamado no GLPI, coleta as informações básicas da solicitação e escalona o chamado para <strong>Sistemas Nível 2 Remoto</strong></td></tr>
+          <tr><td><strong>Sistemas Nível 2 Remoto</strong></td><td>Recebe a conversa transferida pela Central de Serviços, alimenta a planilha de controle, contata o suporte de Sistemas Nível 3, valida data, horário e treinador, registra as informações no chamado, encerra a conversa após concluir o processo e encaminha para Sistemas Nível 2 Campo</td></tr>
+          <tr><td><strong>Sistemas Nível 3</strong></td><td>Apoia a validação de disponibilidade, definição do treinador e viabilidade da data</td></tr>
+          <tr><td><strong>Sistemas Nível 2 Campo</strong></td><td>Recebe o chamado encaminhado por Sistemas Nível 2 Remoto, executa o treinamento e realiza o encerramento do chamado</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section" id="regras">
+      <div class="section-title"><span>05</span> Regras de Negócio</div>
+      <ul class="rules-list">
+        <li>Toda solicitação de treinamento deve ser registrada via <strong>Central de Serviços</strong>, com abertura do chamado no GLPI.</li>
+        <li>A Central de Serviços deve coletar obrigatoriamente: <strong>data sugerida</strong>, <strong>horário sugerido</strong> e <strong>descrição da necessidade</strong>.</li>
+        <li>A equipe de <strong>Sistemas Nível 2 Remoto</strong> deve registrar a solicitação na <a href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit" target="_blank" style="color:var(--blue-mid)">planilha de controle</a>.</li>
+        <li>A validação de disponibilidade deve ser realizada por <strong>Sistemas Nível 2 Remoto</strong> junto ao <strong>suporte de Sistemas Nível 3</strong>, responsável por apoiar a definição do treinador e a viabilidade da data.</li>
+        <li>Após validação, <strong>Sistemas Nível 2 Remoto</strong> deve atualizar a descrição do chamado e encaminhá-lo para <strong>Sistemas Nível 2 Campo</strong>, responsável pela execução.</li>
+        <li>O treinador responsável deve ser informado previamente, incluindo <strong>número do chamado</strong>, <strong>data</strong>, <strong>hora</strong>, local/unidade e solicitante.</li>
+        <li>O chamado deve ser <strong>encerrado por Sistemas Nível 2 Campo</strong> após a execução do treinamento.</li>
+      </ul>
+
+      <div class="alert-box info" style="margin-top:14px">
+        <strong>Observação importante:</strong> Após a identificação do treinador responsável e a confirmação da data e horário, essas informações devem ficar registradas na <strong>descrição do chamado</strong> e também devem ser comunicadas ao <strong>treinador</strong> e ao <strong>usuário solicitante</strong>. A comunicação deve conter, no mínimo: número do chamado, nome do treinador, data, hora, local/unidade e objetivo do treinamento.
+      </div>
+
+    </div>
+
+    <div class="section" id="fluxo">
+      <div class="section-title"><span>06</span> Fluxo do Processo</div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">ATIVIDADE 1</span>
+          <span class="activity-name">Solicitação do Treinamento — Usuário Final</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Usuário entra em contato com a Central de Serviços</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Solicita treinamento para o sistema PEC MAC ou PEC e-SUS</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">ATIVIDADE 2</span>
+          <span class="activity-name">Abertura do Chamado — Central de Serviços</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Registrar chamado no sistema <strong>GLPI</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Coletar data e horário sugeridos pelo usuário</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Descrever a necessidade de treinamento</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Após o preenchimento das informações, transferir a conversa para a equipe <strong>Sistemas Nível 2 Remoto</strong> dar andamento à solicitação</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Garantir que data sugerida, horário sugerido e descrição da necessidade estejam no chamado</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">ATIVIDADE 3</span>
+          <span class="activity-name">Registro, Planilha e Validação — Sistemas Nível 2 Remoto</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Sistemas Nível 2 Remoto recebe a conversa transferida pela <strong>Central de Serviços</strong> para dar andamento à solicitação</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Sistemas Nível 2 Remoto registra a solicitação na <a href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit" target="_blank" style="color:var(--blue-mid)">planilha de controle de treinamentos</a></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Sistemas Nível 2 Remoto contata o <strong>suporte de Sistemas Nível 3</strong> para verificar disponibilidade e definição do treinador</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Validar data, horário, treinador responsável e viabilidade da execução</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se NÃO disponível:</strong> Sistemas Nível 2 Remoto ajusta nova data com o usuário solicitante, atualiza planilha e chamado, e retorna para validação</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text"><strong>Se DISPONÍVEL:</strong> prosseguir com o fluxo</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Após concluir o processo na conversa, <strong>Sistemas Nível 2 Remoto</strong> deve encerrar a conversa</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">ATIVIDADE 4</span>
+          <span class="activity-name">Encaminhamento para Execução — Sistemas Nível 2 Remoto</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Direcionar chamado para <strong>Sistemas Nível 2 Campo</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Informar o treinador responsável pela execução</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Informar ao treinador o número do chamado, data, hora e dados do solicitante</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">ATIVIDADE 5</span>
+          <span class="activity-name">Execução do Treinamento — Sistemas Nível 2 Campo</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Recebe o encaminhamento do chamado de Sistemas Nível 2 Remoto</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Realizar treinamento no local</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Apoiar e orientar os usuários</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Esclarecer dúvidas sobre o sistema</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card open">
+        <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
+          <span class="activity-num">ATIVIDADE 6</span>
+          <span class="activity-name">Registro e Encerramento — Sistemas Nível 2 Campo</span>
+          <span class="activity-chevron">▾</span>
+        </div>
+        <div class="activity-body">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Registrar atividades realizadas no chamado</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Inserir evidências, se necessário</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Validar conclusão do treinamento</div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Encerrar o chamado no GLPI</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section" id="desenho">
+      <div class="section-title"><span>07</span> Desenho do Fluxo</div>
+      <div class="fluxo-img" style="padding:24px;background:#fff;border:1px solid #d4cfc5;border-radius:14px;overflow:hidden;text-align:center;">
+        <svg width="100%" viewBox="0 0 680 1160" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .n-gray rect { fill:#f1f5f9;stroke:#94a3b8; }
+  .n-blue rect { fill:#e8f0fa;stroke:#2d6fbd; }
+  .n-purple rect { fill:#ede9f6;stroke:#7c3aed; }
+  .n-teal rect { fill:#e6f4f1;stroke:#0d9488; }
+  .n-orange rect { fill:#fff7ed;stroke:#ea7d2a; }
+  .n-amber rect { fill:#fdf3dc;stroke:#c8a94a; }
+  .th { font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;fill:#0f172a; }
+  .ts { font-family:'DM Sans',sans-serif;font-size:11px;fill:#475569; }
+  .arr { stroke:#64748b;stroke-width:1.5;fill:none; }
+  rect { stroke-width:1.5; }
+</style>
+<defs>
+  <marker id="arw2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- INÍCIO -->
+<g class="n-gray"><rect x="240" y="20" width="200" height="44" rx="22"/>
+<text class="th" x="340" y="42" text-anchor="middle" dominant-baseline="central">Início</text></g>
+<line x1="340" y1="64" x2="340" y2="96" class="arr" marker-end="url(#arw2)"/>
+
+<!-- AT1 Usuário -->
+<g class="n-gray"><rect x="140" y="96" width="400" height="54" rx="8"/>
+<text class="th" x="340" y="115" text-anchor="middle" dominant-baseline="central">Atividade 1 — Solicitação do treinamento</text>
+<text class="ts" x="340" y="135" text-anchor="middle" dominant-baseline="central">Usuário entra em contato com a Central de Serviços</text></g>
+<line x1="340" y1="150" x2="340" y2="182" class="arr" marker-end="url(#arw2)"/>
+
+<!-- AT2 Central -->
+<g class="n-blue"><rect x="100" y="182" width="480" height="100" rx="8"/>
+<text class="th" x="340" y="204" text-anchor="middle" dominant-baseline="central">Atividade 2 — Abertura do chamado</text>
+<text class="ts" x="340" y="224" text-anchor="middle" dominant-baseline="central">Central de Serviços registra no GLPI</text>
+<text class="ts" x="340" y="242" text-anchor="middle" dominant-baseline="central">Coleta data, horário e descrição da necessidade</text>
+<text class="ts" x="340" y="260" text-anchor="middle" dominant-baseline="central">Transfere a conversa para Sistemas Nível 2 Remoto</text></g>
+<line x1="340" y1="282" x2="340" y2="314" class="arr" marker-end="url(#arw2)"/>
+
+<!-- AT3 N2 Remoto -->
+<g class="n-purple"><rect x="100" y="314" width="480" height="82" rx="8"/>
+<text class="th" x="340" y="336" text-anchor="middle" dominant-baseline="central">Atividade 3 — Registro e controle</text>
+<text class="ts" x="340" y="356" text-anchor="middle" dominant-baseline="central">Recebe conversa da Central de Serviços</text>
+<text class="ts" x="340" y="374" text-anchor="middle" dominant-baseline="central">Registra na planilha e atualiza o chamado</text>
+<text class="ts" x="340" y="392" text-anchor="middle" dominant-baseline="central">Encerra a conversa após concluir</text></g>
+<line x1="340" y1="396" x2="340" y2="428" class="arr" marker-end="url(#arw2)"/>
+
+<!-- AT4 Validação -->
+<g class="n-purple"><rect x="100" y="428" width="480" height="82" rx="8"/>
+<text class="th" x="340" y="450" text-anchor="middle" dominant-baseline="central">Atividade 4 — Validação de disponibilidade</text>
+<text class="ts" x="340" y="470" text-anchor="middle" dominant-baseline="central">Sistemas Nível 2 Remoto contata Sistemas Nível 3</text>
+<text class="ts" x="340" y="488" text-anchor="middle" dominant-baseline="central">Valida data, horário e treinador disponível</text></g>
+<line x1="340" y1="510" x2="340" y2="542" class="arr" marker-end="url(#arw2)"/>
+
+<!-- Decisão -->
+<polygon points="340,542 500,592 340,642 180,592" fill="#fff7ed" stroke="#ea7d2a" stroke-width="1.5"/>
+<text class="th" x="340" y="588" text-anchor="middle" dominant-baseline="central">Data disponível?</text>
+
+<!-- NÃO - loop de volta -->
+<text class="ts" x="158" y="592" text-anchor="middle" dominant-baseline="central">NÃO</text>
+<path d="M180 592 L80 592 L80 469 L98 469" fill="none" class="arr" marker-end="url(#arw2)"/>
+<text class="ts" x="52" y="535" text-anchor="middle" dominant-baseline="central" transform="rotate(-90,52,535)" style="font-size:10px">Ajustar data</text>
+
+<!-- SIM -->
+<text class="ts" x="522" y="592" text-anchor="middle" dominant-baseline="central">SIM</text>
+<path d="M500 592 L560 592 L560 672" fill="none" class="arr" marker-end="url(#arw2)"/>
+<path d="M560 672 L420 672" fill="none" class="arr" marker-end="url(#arw2)"/>
+
+<!-- AT5 Encaminhar Sistemas Nível 2 Campo -->
+<g class="n-amber"><rect x="100" y="650" width="480" height="82" rx="8"/>
+<text class="th" x="340" y="672" text-anchor="middle" dominant-baseline="central">Atividade 5 — Encaminhamento para Sistemas Nível 2 Campo</text>
+<text class="ts" x="340" y="692" text-anchor="middle" dominant-baseline="central">Sistemas Nível 2 Remoto direciona para Sistemas Nível 2 Campo</text>
+<text class="ts" x="340" y="710" text-anchor="middle" dominant-baseline="central">Informa treinador, solicitante, data e hora</text></g>
+<line x1="340" y1="732" x2="340" y2="764" class="arr" marker-end="url(#arw2)"/>
+
+<!-- AT6 Execução -->
+<g class="n-orange"><rect x="100" y="764" width="480" height="82" rx="8"/>
+<text class="th" x="340" y="786" text-anchor="middle" dominant-baseline="central">Atividade 6 — Execução do treinamento</text>
+<text class="ts" x="340" y="806" text-anchor="middle" dominant-baseline="central">Sistemas Nível 2 Campo realiza treinamento no local</text>
+<text class="ts" x="340" y="824" text-anchor="middle" dominant-baseline="central">Apoia usuários e esclarece dúvidas</text></g>
+<line x1="340" y1="846" x2="340" y2="878" class="arr" marker-end="url(#arw2)"/>
+
+<!-- AT7 Registro e encerramento -->
+<g class="n-teal"><rect x="100" y="878" width="480" height="100" rx="8"/>
+<text class="th" x="340" y="900" text-anchor="middle" dominant-baseline="central">Atividade 7 — Registro e encerramento</text>
+<text class="ts" x="340" y="920" text-anchor="middle" dominant-baseline="central">Sistemas Nível 2 Campo registra atividades e evidências no chamado</text>
+<text class="ts" x="340" y="938" text-anchor="middle" dominant-baseline="central">Valida conclusão do treinamento</text>
+<text class="ts" x="340" y="956" text-anchor="middle" dominant-baseline="central">Encerra o chamado no GLPI</text></g>
+<line x1="340" y1="978" x2="340" y2="1010" class="arr" marker-end="url(#arw2)"/>
+
+<!-- FIM -->
+<g class="n-gray"><rect x="220" y="1010" width="240" height="44" rx="22"/>
+<text class="th" x="340" y="1032" text-anchor="middle" dominant-baseline="central">Chamado encerrado</text></g>
+
+<!-- LEGENDA -->
+<rect x="50" y="1078" width="18" height="14" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text class="ts" x="76" y="1085" dominant-baseline="central">Usuário Final</text>
+<rect x="200" y="1078" width="18" height="14" rx="3" fill="#e8f0fa" stroke="#2d6fbd" stroke-width="1.5"/>
+<text class="ts" x="226" y="1085" dominant-baseline="central">Central de Serviços</text>
+<rect x="390" y="1078" width="18" height="14" rx="3" fill="#ede9f6" stroke="#7c3aed" stroke-width="1.5"/>
+<text class="ts" x="416" y="1085" dominant-baseline="central">Sistemas Nível 2 Remoto / Sistemas Nível 3</text>
+
+<rect x="50" y="1102" width="18" height="14" rx="3" fill="#fdf3dc" stroke="#c8a94a" stroke-width="1.5"/>
+<text class="ts" x="76" y="1109" dominant-baseline="central">Encaminhamento</text>
+<rect x="200" y="1102" width="18" height="14" rx="3" fill="#fff7ed" stroke="#ea7d2a" stroke-width="1.5"/>
+<text class="ts" x="226" y="1109" dominant-baseline="central">Sistemas Nível 2 Campo — Execução</text>
+<rect x="390" y="1102" width="18" height="14" rx="3" fill="#e6f4f1" stroke="#0d9488" stroke-width="1.5"/>
+<text class="ts" x="416" y="1109" dominant-baseline="central">Sistemas Nível 2 Campo — Encerramento</text>
+        </svg>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="page-footer">
+  <div class="footer-brand">GTIC · Saúde Digital</div>
+  <div class="footer-meta">
+    <span><strong>Secretaria de Saúde do Recife</strong>Gerência de Tecnologia da Informação e Comunicação</span>
+    <span><strong>Versão</strong>1.0 · 2026</span>
+    <span><strong>Uso</strong>Interno · Documento Institucional</span>
+  </div>
+  <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html" class="back-portal">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    Voltar às Documentações
+  </a>
+</footer>
+
+<script>
+document.querySelectorAll('.activity-header').forEach(h => {
+  h.addEventListener('click', () => h.closest('.activity-card').classList.toggle('open'));
+});
+const links = document.querySelectorAll('.toc a');
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+});
+</script>
+
+</body>
+</html>
