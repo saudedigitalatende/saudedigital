@@ -520,21 +520,64 @@ const indexDocs = [
   ]}
 ];
 
+function normalizeIndexText(text) {
+  return (text || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
+async function loadAllDocumentationIntoHomeSearch() {
+  try {
+    const response = await fetch('documentacoes.html');
+    if (!response.ok) return;
+    const page = new DOMParser().parseFromString(await response.text(), 'text/html');
+
+    page.querySelectorAll('.view[id^="view-"]:not(#view-root):not(#view-search)').forEach(view => {
+      const folderName = view.querySelector('.folder-view-name')?.textContent.trim()
+        || view.querySelector('.breadcrumb span:last-child')?.textContent.trim()
+        || 'Documentações';
+      const folderIcon = view.querySelector('.folder-view-icon')?.textContent.trim() || '📁';
+      let folder = indexDocs.find(item => item.folder === folderName);
+      if (!folder) {
+        folder = { folder: folderName, icon: folderIcon, items: [] };
+        indexDocs.push(folder);
+      }
+
+      view.querySelectorAll('.docs-list a.doc-card[href]').forEach(card => {
+        const relativeHref = card.getAttribute('href');
+        if (!relativeHref) return;
+        const href = new URL(relativeHref, window.location.href).href;
+        const title = card.querySelector('.doc-title')?.textContent.trim() || relativeHref.split('/').pop();
+        const meta = card.querySelector('.doc-meta')?.textContent.trim() || '';
+        const icon = card.querySelector('.doc-icon-wrap')?.textContent.trim() || '📄';
+        const existingIndex = folder.items.findIndex(item =>
+          item.href === href || item.href === relativeHref || item.title === title
+        );
+        const documentItem = { title, meta, icon, href };
+        if (existingIndex >= 0) folder.items[existingIndex] = documentItem;
+        else folder.items.push(documentItem);
+      });
+    });
+
+    const input = document.getElementById('indexSearchInput');
+    if (input?.value.trim()) indexSearch(input.value);
+  } catch (error) {
+    console.warn('Não foi possível atualizar o índice de documentações da Home.', error);
+  }
+}
 function indexSearch(q) {
   const clear = document.getElementById('indexSearchClear');
   const results = document.getElementById('indexSearchResults');
   clear.style.display = q.trim() ? 'block' : 'none';
   if (!q.trim()) { results.classList.remove('open'); return; }
 
-  const term = q.toLowerCase().trim();
+  const term = normalizeIndexText(q.trim());
   let totalFound = 0;
   let html = '';
 
   indexDocs.forEach(folder => {
     const matches = folder.items.filter(d =>
-      d.title.toLowerCase().includes(term) ||
-      d.meta.toLowerCase().includes(term) ||
-      folder.folder.toLowerCase().includes(term)
+      normalizeIndexText(d.title).includes(term) ||
+      normalizeIndexText(d.meta).includes(term) ||
+      normalizeIndexText(folder.folder).includes(term)
     );
     if (matches.length > 0) {
       totalFound += matches.length;
@@ -570,6 +613,7 @@ function hlIdx(text, term) {
 function escIdx(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
+loadAllDocumentationIntoHomeSearch();
 </script>
 
 </body>
