@@ -890,7 +890,32 @@ const docs = [
     ]
   }
 ];
-
+// Índice criado a partir de todos os cartões da página.
+const searchIndex = [];
+function normalizeSearchText(text) {
+  return (text || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+function buildSearchIndex() {
+  const knownDocs = new Map();
+  docs.forEach(folder => folder.items.forEach(doc => knownDocs.set(doc.href, { ...doc, folder: folder.folder, folderIcon: folder.folderIcon })));
+  document.querySelectorAll('.view:not(#view-search) a.doc-card[href]').forEach(card => {
+    const href = card.getAttribute('href');
+    if (!href || searchIndex.some(doc => doc.href === href)) return;
+    const view = card.closest('.view');
+    const folderName = view?.querySelector('.folder-view-title')?.textContent.trim() || view?.querySelector('.breadcrumb span:last-child')?.textContent.trim() || 'Documentações';
+    const known = knownDocs.get(href);
+    const doc = known || { title: card.querySelector('.doc-title')?.textContent.trim() || href.split('/').pop(), meta: card.querySelector('.doc-meta')?.textContent.trim() || '', icon: card.querySelector('.doc-icon-wrap')?.textContent.trim() || '📄', href, folder: folderName, folderIcon: '📁' };
+    searchIndex.push({ ...doc, folder: doc.folder || folderName, content: '' });
+  });
+  knownDocs.forEach(doc => { if (!searchIndex.some(item => item.href === doc.href)) searchIndex.push({ ...doc, content: '' }); });
+  Promise.allSettled(searchIndex.map(async doc => {
+    const response = await fetch(doc.href);
+    if (!response.ok) return;
+    const parsed = new DOMParser().parseFromString(await response.text(), 'text/html');
+    parsed.querySelectorAll('script, style, noscript, svg').forEach(el => el.remove());
+    doc.content = parsed.body?.textContent || '';
+  })).then(() => { const input = document.getElementById('searchInput'); if (input?.value.trim()) doSearch(input.value); });
+}
 function setHeroNav(mode) {
   const actions = document.getElementById('heroActions');
   if (!actions) return;
@@ -956,16 +981,24 @@ function doSearch(q) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-search').classList.add('active');
 
-  const term = q.toLowerCase().trim();
+  const term = normalizeSearchText(q.trim());
   const container = document.getElementById('searchResultsContainer');
   let totalFound = 0;
   let html = '';
 
-  docs.forEach(folder => {
+  const folders = new Map();
+  searchIndex.forEach(doc => {
+    const folder = doc.folder || 'Documentações';
+    if (!folders.has(folder)) folders.set(folder, { folder, folderIcon: doc.folderIcon || '📁', items: [] });
+    folders.get(folder).items.push(doc);
+  });
+
+  folders.forEach(folder => {
     const matches = folder.items.filter(doc =>
-      doc.title.toLowerCase().includes(term) ||
-      doc.meta.toLowerCase().includes(term) ||
-      folder.folder.toLowerCase().includes(term)
+      normalizeSearchText(doc.title).includes(term) ||
+      normalizeSearchText(doc.meta).includes(term) ||
+      normalizeSearchText(folder.folder).includes(term) ||
+      normalizeSearchText(doc.content).includes(term)
     );
     if (matches.length > 0) {
       totalFound += matches.length;
@@ -1006,6 +1039,8 @@ function highlight(text, term) {
 function escHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
+buildSearchIndex();
 </script>
 
 </body>
