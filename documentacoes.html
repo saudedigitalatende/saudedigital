@@ -916,6 +916,28 @@ function buildSearchIndex() {
     doc.content = parsed.body?.textContent || '';
   })).then(() => { const input = document.getElementById('searchInput'); if (input?.value.trim()) doSearch(input.value); });
 }
+function collectSearchDocuments() {
+  const indexedContent = new Map(searchIndex.map(doc => [doc.href, doc.content || '']));
+  const collected = [];
+  document.querySelectorAll('.view[id^="view-"]:not(#view-search)').forEach(view => {
+    const folder = view.querySelector('.folder-view-name')?.textContent.trim()
+      || view.querySelector('.breadcrumb span:last-child')?.textContent.trim()
+      || 'Documentações';
+    const folderIcon = view.querySelector('.folder-view-icon')?.textContent.trim() || '📁';
+    view.querySelectorAll('.docs-list a.doc-card[href]').forEach(card => {
+      const href = card.getAttribute('href');
+      if (!href || collected.some(doc => doc.href === href)) return;
+      collected.push({
+        title: card.querySelector('.doc-title')?.textContent.trim() || href.split('/').pop(),
+        meta: card.querySelector('.doc-meta')?.textContent.trim() || '',
+        icon: card.querySelector('.doc-icon-wrap')?.textContent.trim() || '📄',
+        href, folder, folderIcon,
+        content: indexedContent.get(href) || ''
+      });
+    });
+  });
+  return collected;
+}
 function setHeroNav(mode) {
   const actions = document.getElementById('heroActions');
   if (!actions) return;
@@ -987,7 +1009,7 @@ function doSearch(q) {
   let html = '';
 
   const folders = new Map();
-  searchIndex.forEach(doc => {
+  collectSearchDocuments().forEach(doc => {
     const folder = doc.folder || 'Documentações';
     if (!folders.has(folder)) folders.set(folder, { folder, folderIcon: doc.folderIcon || '📁', items: [] });
     folders.get(folder).items.push(doc);
