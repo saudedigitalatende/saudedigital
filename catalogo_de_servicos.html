@@ -139,12 +139,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 <div class="main-tabs">
   <div class="main-tabs-inner">
-    <button class="main-tab active-sistemas" id="tab-sistemas" onclick="switchMain('sistemas',this)">💻 Sistemas</button>
-    <button class="main-tab" id="tab-infra" onclick="switchMain('infra',this)">🖧 Infraestrutura</button>
+    <button class="main-tab active-infra" id="tab-infra" onclick="switchMain('infra',this)">🖧 Infraestrutura</button>
+    <button class="main-tab" id="tab-sistemas" onclick="switchMain('sistemas',this)">💻 Sistemas</button>
   </div>
 </div>
 
-<div class="panel active" id="panel-sistemas">
+<div class="panel" id="panel-sistemas">
   <div class="main">
     <div class="sub-tabs" id="subtabs-sistemas"></div>
     <div class="toolbar">
@@ -161,7 +161,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   </div>
 </div>
 
-<div class="panel" id="panel-infra">
+<div class="panel active" id="panel-infra">
   <div class="main">
     <div class="sub-tabs" id="subtabs-infra"></div>
     <div class="toolbar">
