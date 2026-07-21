@@ -120,7 +120,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
 
     <div class="section" id="escopo">
       <div class="section-title"><span>03</span> Escopo</div>
-      <p class="doc-p">Aplica-se às implantações planejadas por Sistemas Nível 3, sendo executadas pela equipe de Sistemas Nível 2 Campo nas unidades de saúde do Recife.</p>
+      <p class="doc-p">Aplica-se às implantações planejadas por Sistemas Nível 3, sendo executadas pela equipe de Sistemas Campo nas unidades de saúde do Recife.</p>
     </div>
 
     <div class="section" id="atores">
@@ -129,8 +129,8 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
         <thead><tr><th>Ator</th><th>Responsabilidade</th></tr></thead>
         <tbody>
           <tr><td><strong>Sistemas Nível 3</strong></td><td>Planejamento das implantações</td></tr>
-          <tr><td><strong>Central de Serviços</strong></td><td>Abertura do chamado e escalonamento para Sistemas Nível 2 Campo</td></tr>
-          <tr><td><strong>Sistemas Nível 2 Campo</strong></td><td>Execução da implantação, registro das ações e encerramento do chamado</td></tr>
+          <tr><td><strong>Central de Serviços</strong></td><td>Abertura do chamado e escalonamento para Sistemas Campo</td></tr>
+          <tr><td><strong>Sistemas Campo</strong></td><td>Execução da implantação, registro das ações e encerramento do chamado</td></tr>
         </tbody>
       </table>
     </div>
@@ -141,10 +141,10 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
         <li>Todas as implantações devem ser previamente definidas em cronograma por Sistemas Nível 3.</li>
         <li>A abertura do chamado deve ser realizada exclusivamente pela Central de Serviços.</li>
         <li>O chamado deve ser corretamente preenchido com: <strong>Entidade</strong>, <strong>Categoria de implantação</strong> e <strong>Descrição da atividade</strong>.</li>
-        <li>Após a abertura, o chamado deve ser escalonado para o grupo solucionador: <strong>Sistemas Nível 2 Campo</strong>.</li>
-        <li>A execução técnica da implantação (local, configuração e validação com o usuário) é de responsabilidade da equipe de Sistemas Nível 2 Campo.</li>
-        <li>O registro das ações no chamado, incluindo evidências, é etapa distinta da execução técnica e também de responsabilidade da equipe de Sistemas Nível 2 Campo.</li>
-        <li>O chamado deve ser respondido e encerrado pela própria equipe de Sistemas Nível 2 Campo após a conclusão da implantação.</li>
+        <li>Após a abertura, o chamado deve ser escalonado para o grupo solucionador: <strong>Sistemas Campo</strong>.</li>
+        <li>A execução técnica da implantação (local, configuração e validação com o usuário) é de responsabilidade da equipe de Sistemas Campo.</li>
+        <li>O registro das ações no chamado, incluindo evidências, é etapa distinta da execução técnica e também de responsabilidade da equipe de Sistemas Campo.</li>
+        <li>O chamado deve ser respondido e encerrado pela própria equipe de Sistemas Campo após a conclusão da implantação.</li>
       </ul>
     </div>
 
@@ -179,7 +179,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
             <div class="sub-item">Entidade</div>
             <div class="sub-item">Categoria correta (Implantação)</div>
             <div class="sub-item">Descrição da atividade</div>
-            <div class="step-item"><div class="step-dot"></div><div class="step-text">Escalonar o chamado para o grupo solucionador: <strong>Sistemas Nível 2 Campo</strong></div></div>
+            <div class="step-item"><div class="step-dot"></div><div class="step-text">Escalonar o chamado para o grupo solucionador: <strong>Sistemas Campo</strong></div></div>
           </div>
         </div>
       </div>
@@ -187,7 +187,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">ATIVIDADE 3</span>
-          <span class="activity-name">Execução da Implantação — Sistemas Nível 2 Campo</span>
+          <span class="activity-name">Execução da Implantação — Sistemas Campo</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
@@ -202,7 +202,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
           <span class="activity-num">ATIVIDADE 4</span>
-          <span class="activity-name">Registro e Encerramento do Chamado — Sistemas Nível 2 Campo</span>
+          <span class="activity-name">Registro e Encerramento do Chamado — Sistemas Campo</span>
           <span class="activity-chevron">▾</span>
         </div>
         <div class="activity-body">
@@ -260,7 +260,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
   <text class="th" x="340" y="218" text-anchor="middle" dominant-baseline="central">Atividade 2 — Abertura e escalonamento</text>
   <text class="ts" x="340" y="237" text-anchor="middle" dominant-baseline="central">Central de Serviços consulta cronograma e abre no GLPI</text>
   <text class="ts" x="340" y="255" text-anchor="middle" dominant-baseline="central">Preenche: entidade, categoria e descrição</text>
-  <text class="ts" x="340" y="273" text-anchor="middle" dominant-baseline="central">Escalona o chamado para Sistemas Nível 2 Campo</text>
+  <text class="ts" x="340" y="273" text-anchor="middle" dominant-baseline="central">Escalona o chamado para Sistemas Campo</text>
   <text class="ts" x="340" y="291" text-anchor="middle" dominant-baseline="central">Central de Serviços</text>
 </g>
 <line x1="340" y1="298" x2="340" y2="332" class="arr" marker-end="url(#arrow2)"/>
@@ -272,7 +272,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
   <text class="ts" x="340" y="371" text-anchor="middle" dominant-baseline="central">Realiza implantação no local</text>
   <text class="ts" x="340" y="389" text-anchor="middle" dominant-baseline="central">Configura o sistema</text>
   <text class="ts" x="340" y="407" text-anchor="middle" dominant-baseline="central">Valida funcionamento com o usuário responsável</text>
-  <text class="ts" x="340" y="425" text-anchor="middle" dominant-baseline="central">Sistemas Nível 2 Campo</text>
+  <text class="ts" x="340" y="425" text-anchor="middle" dominant-baseline="central">Sistemas Campo</text>
 </g>
 <line x1="340" y1="432" x2="340" y2="466" class="arr" marker-end="url(#arrow2)"/>
 
@@ -285,7 +285,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
   <text class="ts" x="340" y="541" text-anchor="middle" dominant-baseline="central">Valida conclusão da implantação</text>
   <text class="ts" x="340" y="559" text-anchor="middle" dominant-baseline="central">Registra informações finais</text>
   <text class="ts" x="340" y="577" text-anchor="middle" dominant-baseline="central">Encerra o chamado no GLPI</text>
-  <text class="ts" x="340" y="595" text-anchor="middle" dominant-baseline="central">Sistemas Nível 2 Campo</text>
+  <text class="ts" x="340" y="595" text-anchor="middle" dominant-baseline="central">Sistemas Campo</text>
 </g>
 <line x1="340" y1="616" x2="340" y2="650" class="arr" marker-end="url(#arrow2)"/>
 
@@ -301,7 +301,7 @@ body{margin-bottom:0;padding-bottom:0;font-family:'DM Sans',sans-serif;backgroun
 <rect x="50" y="762" width="18" height="18" rx="3" fill="#fef2ec" stroke="#e05c1b"/>
 <text class="ts" x="76" y="771" dominant-baseline="central">Central de Serviços</text>
 <rect x="50" y="790" width="18" height="18" rx="3" fill="#e6f4f1" stroke="#0d9488"/>
-<text class="ts" x="76" y="799" dominant-baseline="central">Sistemas Nível 2 Campo</text>
+<text class="ts" x="76" y="799" dominant-baseline="central">Sistemas Campo</text>
 </svg>
       </div>
     </div>
