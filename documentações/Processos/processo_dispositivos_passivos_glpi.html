@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Processo Operacional de Dispositivos Passivos no GLPI · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;--paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;--blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;--green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;--amber:#7a5000;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;--red:#7a1a1a;--red-lt:#fdeaea;--purple:#6239a6;--purple-lt:#f1ebfb}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 90% at 82% 50%,rgba(45,111,189,.2),transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:auto}.hero-actions{margin-bottom:12px}
+.hero-crumb{display:inline-flex;color:rgba(255,255,255,.7);text-decoration:none;font-size:11px;font-weight:600;padding:4px 12px;border:1px solid rgba(255,255,255,.2);border-radius:100px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(23px,3vw,36px);line-height:1.12;margin-bottom:5px}.hero h1 em{color:var(--amber-mid);font-style:normal}.hero p{font-size:12.5px;color:rgba(255,255,255,.5)}
+.layout{max-width:1100px;margin:auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}.toc{list-style:none}.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent}.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}.toc-group{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);padding:10px 10px 2px}
+.section{margin-bottom:40px;scroll-margin-top:24px}.section-title{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:10px}
+.info-table,.steps-table{width:100%;border-collapse:collapse;font-size:12.5px;border:1px solid var(--rule);margin:12px 0;background:#fff}.info-table th,.steps-table th{background:var(--ink);color:#fff;padding:9px 12px;text-align:left;font-size:11px}.info-table td,.steps-table td{padding:10px 12px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}.info-table tr:last-child td,.steps-table tr:last-child td{border-bottom:0}.info-table tr:nth-child(even) td,.steps-table tr:nth-child(even) td{background:var(--paper)}.info-table td:first-child{font-weight:600;color:var(--ink);width:190px}.step-num{font-weight:700;color:var(--blue-mid);width:38px}.step-resp{font-weight:600;color:var(--ink);white-space:nowrap}.step-obs{font-size:11.5px;color:var(--ink3);font-style:italic}
+.alert{border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;line-height:1.6;border-left:4px solid}.alert.info{background:var(--blue-lt);border-color:var(--blue-mid);color:#1a4070}.alert.warn{background:var(--amber-lt);border-color:var(--amber-mid);color:#5a3f00}.alert.danger{background:var(--red-lt);border-color:#a01a1a;color:#6a0000}.alert.success{background:var(--green-lt);border-color:var(--green-mid);color:#1a5a3a}
+.device-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.device{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:13px 14px;font-weight:600;color:var(--ink2)}.device small{display:block;color:var(--ink3);font-weight:400}
+.flow{display:flex;align-items:stretch;gap:8px;margin:18px 0;flex-wrap:wrap}.flow-node{flex:1;min-width:130px;padding:12px;border-radius:9px;border:1px solid var(--rule);background:#fff;font-size:12px}.flow-node strong{display:block;color:var(--ink);margin-bottom:3px}.flow-arrow{align-self:center;color:var(--ink3);font-size:18px}
+.process-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:16px}.process-header{display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer}.process-header:hover{background:var(--paper)}.process-num{font-size:11px;font-weight:700;color:#fff;background:var(--blue-mid);padding:3px 10px;border-radius:6px}.process-title{font-size:13.5px;font-weight:600;flex:1}.process-resp{font-size:11px;color:var(--ink3);background:var(--paper);padding:2px 8px;border:1px solid var(--rule);border-radius:4px}.process-chevron{font-size:11px;color:var(--ink3);transition:.2s}.process-card:not(.open) .process-body{display:none}.process-card.open .process-chevron{transform:rotate(180deg)}.process-body{padding:20px;border-top:1px solid var(--rule)}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.badge{font-size:11.5px;color:var(--ink2);background:var(--paper);padding:4px 10px;border:1px solid var(--rule);border-radius:6px}.badge strong{color:var(--ink)}
+.glpi-figure{margin:18px 0;border:1px solid #bfc8d4;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(13,26,46,.08)}.glpi-bar{background:#22354b;color:#fff;padding:10px 16px;font-size:12px;font-weight:600;display:flex;justify-content:space-between}.glpi-body{display:grid;grid-template-columns:150px 1fr;min-height:290px}.glpi-menu{background:#f0f3f6;border-right:1px solid #d6dde5;padding:14px 10px}.glpi-menu div{padding:7px 10px;border-radius:5px;font-size:11px;color:#536273}.glpi-menu .active{background:#dceafb;color:#174f8a;font-weight:700}.glpi-content{padding:20px}.glpi-title{font-size:16px;font-weight:700;margin-bottom:15px}.glpi-row{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin-bottom:11px;font-size:12px}.glpi-label{font-weight:600;color:#42526a;text-align:right}.glpi-field{border:1px solid #bfc8d4;background:#fafbfd;border-radius:5px;padding:8px 10px;color:#26384d}.glpi-field.highlight{border:2px solid var(--blue-mid);background:var(--blue-lt);font-weight:700}.glpi-button{display:inline-block;margin:5px 0 0 162px;background:var(--blue-mid);color:#fff;border-radius:5px;padding:8px 16px;font-size:12px;font-weight:700}.figure-caption{padding:10px 14px;background:#f4f6f8;border-top:1px solid #d6dde5;color:var(--ink3);font-size:11.5px}
+.rules{list-style:none}.rules li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--blue-mid);border-radius:9px;margin-bottom:8px}
+.page-footer{padding:18px 60px;background:var(--ink);color:rgba(255,255,255,.55);font-size:12px;display:flex;align-items:center;gap:40px;flex-wrap:wrap}.footer-brand{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}.footer-meta{display:flex;gap:24px;flex-wrap:wrap}.footer-meta span{display:flex;flex-direction:column}.footer-meta strong{color:rgba(255,255,255,.85)}.back{margin-left:auto;color:rgba(255,255,255,.75);text-decoration:none}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.layout,.hero,.page-footer{padding-left:24px;padding-right:24px}.device-grid{grid-template-columns:repeat(2,1fr)}.glpi-body{grid-template-columns:1fr}.glpi-menu{display:none}.glpi-row{grid-template-columns:1fr;gap:3px}.glpi-label{text-align:left}.glpi-button{margin-left:0}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="hero-inner">
+  <div class="hero-actions"><a class="hero-crumb" href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html">← Documentações</a></div>
+  <h1>Processo Operacional de <em>Dispositivos Passivos</em> no GLPI</h1>
+  <p>GTIC · Saúde Digital Atende · Secretaria de Saúde do Recife · Versão 1.0</p>
+</div></header>
+
+<div class="layout">
+<aside class="sidebar">
+  <div class="sidebar-title">Neste processo</div>
+  <ul class="toc">
+    <li><a href="#identificacao">Identificação</a></li>
+    <li><a href="#objetivo">Objetivo e escopo</a></li>
+    <li><a href="#fluxo">Fluxo resumido</a></li>
+    <div class="toc-group">Etapas</div>
+    <li><a href="#proc1">1 — Diagnóstico técnico</a></li>
+    <li><a href="#proc2">2 — Subchamado relacionado</a></li>
+    <li><a href="#proc3">3 — Liberação administrativa</a></li>
+    <li><a href="#proc4">4 — Entrega do dispositivo</a></li>
+    <div class="toc-group">Referência</div>
+    <li><a href="#regras">Regras obrigatórias</a></li>
+    <li><a href="#historico">Histórico</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+<section class="section" id="identificacao">
+  <h2 class="section-title">Identificação</h2>
+  <table class="info-table"><tbody>
+    <tr><td>Tipo</td><td>Processo Operacional</td></tr>
+    <tr><td>Título</td><td>Abertura, Liberação e Entrega de Dispositivos Passivos no GLPI</td></tr>
+    <tr><td>Áreas envolvidas</td><td>Setor de Infraestrutura e Setor Administrativo</td></tr>
+    <tr><td>Sistema</td><td>GLPI</td></tr>
+    <tr><td>Data de criação</td><td>Julho / 2026</td></tr>
+    <tr><td>Versão</td><td>1.0</td></tr>
+  </tbody></table>
+  <div class="alert info"><strong>Aplicação:</strong> este processo é utilizado quando a Infraestrutura classifica a demanda como <strong>manutenção corretiva</strong> e identifica a necessidade de liberar ou transferir um dispositivo passivo.</div>
+</section>
+
+<section class="section" id="objetivo">
+  <h2 class="section-title">Objetivo e escopo</h2>
+  <p class="doc-p">Padronizar o encerramento do chamado técnico e a abertura de um <strong>subchamado relacionado ao chamado anterior</strong>, assegurando a consulta ao estoque, a liberação da transferência de responsabilidade pelo Setor Administrativo e a entrega do dispositivo pelo Setor de Infraestrutura.</p>
+  <div class="device-grid">
+    <div class="device">Caixa de som<small>Dispositivo de áudio externo</small></div>
+    <div class="device">Fonte externa<small>Fonte ou adaptador de alimentação</small></div>
+    <div class="device">Headphone<small>Fone de ouvido com ou sem microfone</small></div>
+    <div class="device">Mouse<small>Dispositivo apontador</small></div>
+    <div class="device">Teclado<small>Dispositivo de entrada</small></div>
+    <div class="device">Webcam<small>Dispositivo externo de vídeo</small></div>
+  </div>
+</section>
+
+<section class="section" id="fluxo">
+  <h2 class="section-title">Fluxo resumido</h2>
+  <div class="flow">
+    <div class="flow-node"><strong>1. Infraestrutura</strong>Diagnostica, registra a manutenção corretiva e encerra o chamado original.</div><span class="flow-arrow">→</span>
+    <div class="flow-node"><strong>2. Subchamado</strong>Abre o novo registro relacionado, com categoria e grupo corretos.</div><span class="flow-arrow">→</span>
+    <div class="flow-node"><strong>3. Administrativo</strong>Consulta o estoque e libera a transferência de responsabilidade.</div><span class="flow-arrow">→</span>
+    <div class="flow-node"><strong>4. Infraestrutura</strong>Recebe o chamado e realiza a entrega ao usuário.</div>
+  </div>
+</section>
+
+<section class="section" id="proc1">
+  <h2 class="section-title">Processo 1 <span>Diagnóstico e encerramento</span></h2>
+  <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 1</span><span class="process-title">Tratamento do chamado de manutenção corretiva</span><span class="process-resp">Infraestrutura</span><span class="process-chevron">▼</span></div>
+  <div class="process-body">
+    <div class="meta"><span class="badge"><strong>Responsável:</strong> Setor de Infraestrutura</span><span class="badge"><strong>Condição:</strong> Manutenção corretiva</span></div>
+    <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
+      <tr><td class="step-num">1</td><td>Acessar o chamado e confirmar que a solicitação envolve um dispositivo passivo.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Identificar: caixa de som, fonte externa, headphone, mouse, teclado ou webcam.</td></tr>
+      <tr><td class="step-num">2</td><td>Realizar o diagnóstico e categorizar o atendimento como <strong>Manutenção corretiva</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Registrar testes, falha identificada e conclusão técnica.</td></tr>
+      <tr><td class="step-num">3</td><td>Registrar na solução que será necessário prosseguir com a liberação ou transferência de outro dispositivo.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">A solução deve citar o tipo de dispositivo.</td></tr>
+      <tr><td class="step-num">4</td><td>Encerrar o chamado original após concluir e documentar o atendimento técnico.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Guardar o número do chamado para criar o relacionamento.</td></tr>
+    </tbody></table>
+  </div></div>
+</section>
+
+<section class="section" id="proc2">
+  <h2 class="section-title">Processo 2 <span>Abertura do subchamado relacionado</span></h2>
+  <div class="alert warn"><strong>Obrigatório:</strong> o novo chamado deve ficar relacionado ao número do chamado original encerrado. No campo <strong>Grupo atribuído</strong>, selecione <strong>Setor Administrativo</strong>.</div>
+  <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 2</span><span class="process-title">Criar o subchamado e encaminhar ao Administrativo</span><span class="process-resp">Infraestrutura</span><span class="process-chevron">▼</span></div>
+  <div class="process-body">
+    <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
+      <tr><td class="step-num">1</td><td>No chamado original, acessar a área de <strong>Chamados relacionados</strong> e escolher a opção para <strong>adicionar/criar um chamado relacionado</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O número do chamado original deve permanecer visível no relacionamento.</td></tr>
+      <tr><td class="step-num">2</td><td>Na categorização, informar o dispositivo passivo específico: <strong>caixa de som, fonte externa, headphone, mouse, teclado ou webcam</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Não utilizar uma descrição genérica como “periférico”.</td></tr>
+      <tr><td class="step-num">3</td><td>No campo <strong>Solicitação</strong>, selecionar <strong>Transferência / Liberação</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Esta solicitação inicia a análise administrativa.</td></tr>
+      <tr><td class="step-num">4</td><td>No campo <strong>Grupo atribuído</strong>, selecionar obrigatoriamente <strong>Setor Administrativo</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Conferir o grupo antes de salvar.</td></tr>
+      <tr><td class="step-num">5</td><td>Preencher a descrição com usuário, unidade, setor, dispositivo solicitado, justificativa, número do chamado original e diagnóstico registrado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">As informações devem permitir a análise sem novo contato com o usuário.</td></tr>
+      <tr><td class="step-num">6</td><td>Salvar o subchamado e conferir se o vínculo com o chamado anterior foi criado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Não concluir a etapa sem validar o relacionamento.</td></tr>
+    </tbody></table>
+
+    <figure class="glpi-figure" aria-label="Exemplo ilustrativo da criação de um chamado relacionado no GLPI">
+      <div class="glpi-bar"><span>GLPI · Assistência · Chamados</span><span>Chamado original #000123</span></div>
+      <div class="glpi-body">
+        <div class="glpi-menu"><div>Chamado</div><div>Acompanhamentos</div><div class="active">Chamados relacionados</div><div>Itens</div><div>Histórico</div></div>
+        <div class="glpi-content">
+          <div class="glpi-title">Adicionar chamado relacionado</div>
+          <div class="glpi-row"><div class="glpi-label">Relação</div><div class="glpi-field highlight">Subchamado de #000123</div></div>
+          <div class="glpi-row"><div class="glpi-label">Dispositivo passivo</div><div class="glpi-field">Mouse (exemplo)</div></div>
+          <div class="glpi-row"><div class="glpi-label">Solicitação</div><div class="glpi-field highlight">Transferência / Liberação</div></div>
+          <div class="glpi-row"><div class="glpi-label">Grupo atribuído</div><div class="glpi-field highlight">Setor Administrativo</div></div>
+          <span class="glpi-button">Adicionar / Salvar</span>
+        </div>
+      </div>
+      <figcaption class="figure-caption"><strong>Figura 1 — Exemplo ilustrativo.</strong> Abra a área de chamados relacionados no chamado original, crie o subchamado e confira os três campos destacados antes de salvar. Os nomes dos menus podem variar conforme a versão do GLPI.</figcaption>
+    </figure>
+  </div></div>
+</section>
+
+<section class="section" id="proc3">
+  <h2 class="section-title">Processo 3 <span>Estoque e liberação</span></h2>
+  <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 3</span><span class="process-title">Análise e transferência de responsabilidade</span><span class="process-resp">Administrativo</span><span class="process-chevron">▼</span></div>
+  <div class="process-body">
+    <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
+      <tr><td class="step-num">1</td><td>Receber o chamado atribuído ao <strong>Setor Administrativo</strong> e conferir o relacionamento com o chamado técnico anterior.</td><td class="step-resp">Administrativo</td><td class="step-obs">Validar usuário, unidade e dispositivo solicitado.</td></tr>
+      <tr><td class="step-num">2</td><td>Consultar o estoque e verificar a disponibilidade do dispositivo passivo solicitado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Registrar no acompanhamento o resultado da consulta.</td></tr>
+      <tr><td class="step-num">3</td><td>Identificar e separar fisicamente o item disponível.</td><td class="step-resp">Administrativo</td><td class="step-obs">Internamente, o Administrativo entrega o dispositivo em mãos à Infraestrutura.</td></tr>
+      <tr><td class="step-num">4</td><td>Dar prosseguimento à <strong>liberação da transferência de responsabilidade</strong> e registrar no chamado o item liberado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Manter a rastreabilidade da liberação.</td></tr>
+      <tr><td class="step-num">5</td><td>Atribuir o chamado ao <strong>Setor de Infraestrutura</strong> para realização da entrega ao usuário.</td><td class="step-resp">Administrativo</td><td class="step-obs">O chamado deve permanecer aberto até a confirmação da entrega final.</td></tr>
+    </tbody></table>
+    <div class="alert danger"><strong>Sem estoque:</strong> registrar a indisponibilidade no chamado, manter o usuário informado e seguir a orientação administrativa vigente. Não encaminhar para entrega sem um item efetivamente liberado.</div>
+  </div></div>
+</section>
+
+<section class="section" id="proc4">
+  <h2 class="section-title">Processo 4 <span>Entrega e conclusão</span></h2>
+  <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 4</span><span class="process-title">Entrega do dispositivo ao usuário</span><span class="process-resp">Infraestrutura</span><span class="process-chevron">▼</span></div>
+  <div class="process-body">
+    <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
+      <tr><td class="step-num">1</td><td>Receber do Setor Administrativo, em mãos, o dispositivo passivo liberado e conferir o item.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Confirmar que corresponde ao registrado no chamado.</td></tr>
+      <tr><td class="step-num">2</td><td>Agendar ou realizar a entrega do dispositivo ao usuário ou à unidade solicitante.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Quando aplicável, testar o funcionamento no local.</td></tr>
+      <tr><td class="step-num">3</td><td>Registrar no acompanhamento a data, o item entregue, o destinatário e a confirmação de recebimento.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Este registro comprova a conclusão da transferência.</td></tr>
+      <tr><td class="step-num">4</td><td>Inserir a solução e encerrar o subchamado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O histórico deve demonstrar diagnóstico, liberação administrativa e entrega.</td></tr>
+    </tbody></table>
+    <div class="alert success"><strong>Resultado esperado:</strong> dispositivo liberado pelo Administrativo, entregue pela Infraestrutura e processo integralmente rastreável por meio do relacionamento entre os chamados.</div>
+  </div></div>
+</section>
+
+<section class="section" id="regras">
+  <h2 class="section-title">Regras obrigatórias</h2>
+  <ul class="rules">
+    <li>O chamado técnico original de manutenção corretiva deve ser encerrado antes da continuidade administrativa.</li>
+    <li>O novo registro deve ser criado como <strong>subchamado relacionado</strong> ao número do chamado anterior.</li>
+    <li>A categorização deve identificar expressamente o dispositivo: caixa de som, fonte externa, headphone, mouse, teclado ou webcam.</li>
+    <li>A solicitação deve ser <strong>Transferência / Liberação</strong> e o primeiro grupo atribuído deve ser o <strong>Setor Administrativo</strong>.</li>
+    <li>O Administrativo consulta o estoque, libera a transferência e entrega internamente o dispositivo em mãos à Infraestrutura.</li>
+    <li>A Infraestrutura realiza a entrega final, registra a evidência e encerra o subchamado.</li>
+  </ul>
+</section>
+
+<section class="section" id="historico">
+  <h2 class="section-title">Histórico de Revisões</h2>
+  <table class="info-table"><thead><tr><th>Versão</th><th>Data</th><th>Responsável</th><th>Descrição</th></tr></thead><tbody><tr><td>1.0</td><td>Julho / 2026</td><td>GTIC / Saúde Digital Atende</td><td>Criação do processo</td></tr></tbody></table>
+</section>
+</main>
+</div>
+
+<footer class="page-footer"><span class="footer-brand">Saúde Digital <em style="color:var(--amber-mid)">Atende</em></span><div class="footer-meta"><span><strong>Secretaria</strong>Secretaria de Saúde do Recife</span><span><strong>Versão</strong>1.0 — Julho 2026</span><span><strong>Uso</strong>Interno · Processo Operacional</span></div><a class="back" href="https://saudedigitalatende.github.io/saudedigital/">← Voltar ao Portal</a></footer>
+<script>
+function toggleCard(header){header.closest('.process-card').classList.toggle('open')}
+const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.toc a');
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){links.forEach(link=>link.classList.remove('active'));const current=document.querySelector(`.toc a[href="#${entry.target.id}"]`);if(current)current.classList.add('active')}}),{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(section=>observer.observe(section));
+</script>
+</body>
+</html>
