@@ -135,7 +135,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .doc-image-link img{width:100%;border:1px solid var(--rule);border-radius:10px;display:block;transition:box-shadow .2s,transform .2s}
 .doc-image-link:hover img{box-shadow:0 6px 22px rgba(13,26,46,.18);transform:translateY(-1px)}
 .doc-image-link::after{content:'🔍 Clique para ampliar';position:absolute;right:12px;bottom:12px;background:rgba(13,26,46,.88);color:#fff;font-size:11px;font-weight:600;padding:6px 10px;border-radius:7px;letter-spacing:.01em}
-</style>
+
+/* FLUXO RESUMIDO */
+.summary-flow{display:flex;align-items:stretch;gap:8px;margin:18px 0;flex-wrap:wrap}
+.summary-node{flex:1;min-width:135px;padding:12px;border-radius:9px;border:1px solid var(--rule);background:#fff;font-size:12px;color:var(--ink2)}
+.summary-node strong{display:block;color:var(--ink);margin-bottom:3px}
+.summary-arrow{align-self:center;color:var(--ink3);font-size:18px}
+@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}</style>
 </head>
 <body>
 
@@ -208,6 +214,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </section>
 
+    <section class="section" id="fluxo-resumido">
+      <h2 class="section-title">Fluxo resumido <span>Visão rápida</span></h2>
+      <div class="summary-flow">
+        <div class="summary-node"><strong>1. Receber</strong>A solicitação chega pelo canal institucional correto e os dados do usuário são conferidos.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>2. Identificar</strong>A Central distingue a demanda de usuário interno ou externo e aplica o template adequado.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>3. Registrar</strong>O chamado é categorizado no GLPI com as informações e os documentos necessários.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>4. Encaminhar</strong>O chamado segue para a equipe responsável pelo SEI, com histórico completo para tratamento.</div>
+      </div>
+    </section>
     <!-- PROCESSO 1 -->
     <section class="section" id="proc1">
       <h2 class="section-title">Processo 1 <span>Abertura do chamado com o e-mail correto</span></h2>

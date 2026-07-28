@@ -130,7 +130,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .back-portal svg{width:14px;height:14px}
 
 @media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
-</style>
+
+/* FLUXO RESUMIDO */
+.summary-flow{display:flex;align-items:stretch;gap:8px;margin:18px 0;flex-wrap:wrap}
+.summary-node{flex:1;min-width:135px;padding:12px;border-radius:9px;border:1px solid var(--rule);background:#fff;font-size:12px;color:var(--ink2)}
+.summary-node strong{display:block;color:var(--ink);margin-bottom:3px}
+.summary-arrow{align-self:center;color:var(--ink3);font-size:18px}
+@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}</style>
 </head>
 <body>
 
@@ -209,6 +215,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </table>
     </section>
 
+    <section class="section" id="fluxo-resumido">
+      <h2 class="section-title">Fluxo resumido <span>Visão rápida</span></h2>
+      <div class="summary-flow">
+        <div class="summary-node"><strong>1. Registrar</strong>A Central de Serviços recebe a solicitação e abre o chamado no GLPI.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>2. Associar o ativo</strong>Localiza o equipamento e o vincula ao chamado pela área de Itens.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>3. Regularizar</strong>Se o ativo não for localizado, abre um chamado vinculado para cadastro ou correção.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>4. Atender</strong>O Técnico N2 Suporte regulariza o ativo, mantém o vínculo e executa o atendimento.</div>
+      </div>
+    </section>
     <!-- PROCESSO 1 -->
     <section class="section" id="proc1">
       <h2 class="section-title">Processo 1 <span>Abertura com ativo localizado</span></h2>

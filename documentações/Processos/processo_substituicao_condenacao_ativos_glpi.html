@@ -130,7 +130,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .back-portal svg{width:14px;height:14px}
 
 @media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
-</style>
+
+/* FLUXO RESUMIDO */
+.summary-flow{display:flex;align-items:stretch;gap:8px;margin:18px 0;flex-wrap:wrap}
+.summary-node{flex:1;min-width:135px;padding:12px;border-radius:9px;border:1px solid var(--rule);background:#fff;font-size:12px;color:var(--ink2)}
+.summary-node strong{display:block;color:var(--ink);margin-bottom:3px}
+.summary-arrow{align-self:center;color:var(--ink3);font-size:18px}
+@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}</style>
 </head>
 <body>
 
@@ -211,6 +217,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </section>
 
     <!-- ══════════════════════════════════════════════ -->
+    <section class="section" id="fluxo-resumido">
+      <h2 class="section-title">Fluxo resumido <span>Visão rápida</span></h2>
+      <div class="summary-flow">
+        <div class="summary-node"><strong>1. Abrir e associar</strong>A Central registra o chamado e associa o ativo físico no GLPI.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>2. Diagnosticar</strong>O Técnico N2 executa o atendimento e registra se o ativo foi condenado.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>3. Substituir</strong>É aberto um novo chamado de substituição, relacionado ao anterior e com o ativo associado.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>4. Atualizar o inventário</strong>O ativo substituído recebe status Condenado e permanece no GLPI para rastreabilidade.</div>
+      </div>
+    </section>
     <!-- PROCESSO 1 -->
     <!-- ══════════════════════════════════════════════ -->
     <section class="section" id="proc1">
