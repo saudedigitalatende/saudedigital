@@ -39,7 +39,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 /* PANELS */
 .panel{display:none}
-.panel.active{display:flex;flex-direction:column;flex:1;width:100%}
+.panel.active{display:flex;flex-direction:column;flex:1;width:100%}.panel.global-search-result{display:flex;flex-direction:column;flex:1;width:100%}.global-area-title{display:none;max-width:1180px;width:calc(100% - 36px);margin:22px auto 0;padding:10px 14px;border-radius:9px;font-size:14px;font-weight:700;color:var(--ink)}.panel.global-search-result .global-area-title{display:block}#panel-infra .global-area-title{background:var(--green-lt);color:var(--green)}#panel-sistemas .global-area-title{background:var(--blue-lt);color:var(--blue)}
 .main{max-width:1280px;margin:0 auto;padding:28px 60px 60px;flex:1;width:100%}
 
 /* SUB TABS */
@@ -144,11 +144,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   </div>
 </div>
 
-<div class="panel" id="panel-sistemas">
+<div class="panel" id="panel-sistemas"><div class="global-area-title">Resultados em Sistemas</div>
   <div class="main">
     <div class="sub-tabs" id="subtabs-sistemas"></div>
     <div class="toolbar">
-      <div class="search-wrap"><input type="text" id="search-sistemas" placeholder="Buscar sistema, solicitação ou descrição..." oninput="filterCatalog('sistemas')"></div>
+      <div class="search-wrap"><input type="text" id="search-sistemas" placeholder="Buscar em Sistemas e Infraestrutura..." oninput="filterCatalog('sistemas')"></div>
       <select class="filter-tipo" id="tipo-sistemas" onchange="filterCatalog('sistemas')">
         <option value="">Todos os tipos</option>
         <option value="REQUISIÇÃO">Requisição</option>
@@ -161,11 +161,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   </div>
 </div>
 
-<div class="panel active" id="panel-infra">
+<div class="panel active" id="panel-infra"><div class="global-area-title">Resultados em Infraestrutura</div>
   <div class="main">
     <div class="sub-tabs" id="subtabs-infra"></div>
     <div class="toolbar">
-      <div class="search-wrap"><input type="text" id="search-infra" placeholder="Buscar equipamento ou solicitação..." oninput="filterCatalog('infra')"></div>
+      <div class="search-wrap"><input type="text" id="search-infra" placeholder="Buscar em Sistemas e Infraestrutura..." oninput="filterCatalog('infra')"></div>
       <select class="filter-tipo" id="tipo-infra" onchange="filterCatalog('infra')">
         <option value="">Todos os tipos</option>
         <option value="REQUISIÇÃO">Requisição</option>
@@ -216,6 +216,8 @@ const state = {
   infra:    {sheet: '', search:'', tipo:''},
   adm:      {sheet: '', search:'', tipo:''},
 };
+let activeMainArea = 'infra';
+let globalSearchRunning = false;
 
 function getData(area) {
   return area==='sistemas' ? SISTEMAS : INFRA;
@@ -364,9 +366,7 @@ function selectSheet(area, sheet, el) {
   buildCatalog(area);
 }
 
-function filterCatalog(area) {
-  const search = (document.getElementById('search-'+area).value||'').toLowerCase().trim();
-  const tipo   = (document.getElementById('tipo-'+area).value||'').toUpperCase();
+function applyCatalogFilter(area, search, tipo) {
   let total = 0;
 
   document.querySelectorAll(`#list-${area} .service-block`).forEach(block => {
@@ -389,7 +389,55 @@ function filterCatalog(area) {
   document.getElementById('count-'+area).textContent = total+' item(ns)';
 }
 
+function activateAllSheet(area) {
+  if (state[area].sheet === '') return;
+  state[area].sheet = '';
+  document.querySelectorAll(`#subtabs-${area} .sub-tab`).forEach((button, index) => {
+    button.classList.toggle('active', index === 0);
+  });
+  buildCatalog(area);
+}
+
+function showGlobalResults(search) {
+  globalSearchRunning = true;
+  ['infra','sistemas'].forEach(area => {
+    activateAllSheet(area);
+    document.getElementById('search-'+area).value = search;
+    document.getElementById('tipo-'+area).value = '';
+    state[area].search = search;
+    state[area].tipo = '';
+    applyCatalogFilter(area, search, '');
+    document.getElementById('panel-'+area).classList.add('global-search-result');
+  });
+  globalSearchRunning = false;
+}
+
+function clearGlobalResults() {
+  ['infra','sistemas'].forEach(area => {
+    document.getElementById('search-'+area).value = '';
+    document.getElementById('panel-'+area).classList.remove('global-search-result');
+    const tipo = (document.getElementById('tipo-'+area).value||'').toUpperCase();
+    applyCatalogFilter(area, '', tipo);
+  });
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+activeMainArea).classList.add('active');
+}
+
+function filterCatalog(area) {
+  if (globalSearchRunning) return;
+  const search = (document.getElementById('search-'+area).value||'').toLowerCase().trim();
+  const tipo   = (document.getElementById('tipo-'+area).value||'').toUpperCase();
+  if (area !== 'adm' && search) {
+    showGlobalResults(search);
+    return;
+  }
+  if (area !== 'adm') clearGlobalResults();
+  applyCatalogFilter(area, search, tipo);
+}
+
 function switchMain(area, el) {
+  activeMainArea = area;
+  clearGlobalResults();
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+area).classList.add('active');
   document.querySelectorAll('.main-tab').forEach(t=>t.className='main-tab');
