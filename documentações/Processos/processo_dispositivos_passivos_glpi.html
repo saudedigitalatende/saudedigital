@@ -140,20 +140,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   </div></div>
 </section>
 <section class="section" id="proc3">
-  <h2 class="section-title">Processo 3 <span>Estoque e Transferência / Liberação</span></h2>
-  <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 3</span><span class="process-title">Análise para Transferência / Liberação</span><span class="process-resp">Administrativo</span><span class="process-chevron">▼</span></div>
+  <h2 class="section-title">Processo 3 <span>Estoque, Transferência / Liberação e retorno</span></h2>
+  <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 3</span><span class="process-title">Resposta do Administrativo e escalonamento de volta à Infraestrutura</span><span class="process-resp">Administrativo</span><span class="process-chevron">▼</span></div>
   <div class="process-body">
     <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
-      <tr><td class="step-num">1</td><td>Receber o chamado atribuído ao <strong>Setor Administrativo</strong> e conferir o relacionamento com o chamado técnico anterior.</td><td class="step-resp">Administrativo</td><td class="step-obs">Validar usuário, unidade e dispositivo solicitado.</td></tr>
-      <tr><td class="step-num">2</td><td>Consultar o estoque e verificar a disponibilidade do dispositivo passivo solicitado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Registrar no acompanhamento o resultado da consulta.</td></tr>
-      <tr><td class="step-num">3</td><td>Identificar e separar fisicamente o item disponível.</td><td class="step-resp">Administrativo</td><td class="step-obs">Internamente, o Administrativo entrega o dispositivo em mãos à Infraestrutura.</td></tr>
-      <tr><td class="step-num">4</td><td>Dar prosseguimento à solicitação de <strong>Transferência / Liberação</strong> e registrar no chamado o item liberado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Manter a rastreabilidade da solicitação.</td></tr>
-      <tr><td class="step-num">5</td><td>Atribuir o chamado ao <strong>Setor de Infraestrutura</strong> para realização da entrega ao usuário.</td><td class="step-resp">Administrativo</td><td class="step-obs">O chamado deve permanecer aberto até a confirmação da entrega final.</td></tr>
+      <tr><td class="step-num">1</td><td>Receber o chamado atribuído ao <strong>Setor Administrativo</strong> e conferir o relacionamento com o chamado técnico anterior encerrado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Validar usuário, unidade, dispositivo e diagnóstico.</td></tr>
+      <tr><td class="step-num">2</td><td>Consultar o estoque, identificar o dispositivo disponível e separar fisicamente o item solicitado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Registrar o resultado da consulta no acompanhamento.</td></tr>
+      <tr><td class="step-num">3</td><td>Registrar uma resposta no chamado informando: <strong>“Transferência / Liberação autorizada. Dispositivo disponível em estoque e separado para entrega.”</strong></td><td class="step-resp">Administrativo</td><td class="step-obs">A resposta deve identificar o dispositivo liberado.</td></tr>
+      <tr><td class="step-num">4</td><td>Dar prosseguimento à <strong>Transferência / Liberação</strong> e entregar internamente, em mãos, o dispositivo ao Setor de Infraestrutura.</td><td class="step-resp">Administrativo</td><td class="step-obs">Manter no chamado a rastreabilidade do item entregue.</td></tr>
+      <tr><td class="step-num">5</td><td>No campo <strong>Grupo atribuído</strong>, <strong>manter o Setor Administrativo</strong> e acrescentar o <strong>Setor de Infraestrutura</strong> por último.</td><td class="step-resp">Administrativo</td><td class="step-obs">Não remover o Administrativo. Ao final, os dois grupos devem permanecer visíveis: Administrativo primeiro e Infraestrutura por último.</td></tr>
+      <tr><td class="step-num">6</td><td>Salvar a alteração para escalonar o chamado de volta à Infraestrutura, que realizará a entrega ao usuário.</td><td class="step-resp">Administrativo</td><td class="step-obs">O chamado permanece aberto até a confirmação da entrega final.</td></tr>
     </tbody></table>
-    <div class="alert danger"><strong>Sem estoque:</strong> registrar a indisponibilidade no chamado, manter o usuário informado e seguir a orientação administrativa vigente. Não encaminhar para entrega sem um item efetivamente liberado.</div>
+    <figure class="process-figure">
+      <img src="assets/glpi_subchamado_resposta_administrativo.png" alt="Exemplo de subchamado preenchido e resposta do Setor Administrativo autorizando Transferência / Liberação">
+      <figcaption class="figure-caption"><strong>Figura 4 — Exemplo de registro e resposta.</strong> O cartão verde apresenta um exemplo de abertura do subchamado relacionado; a caixa branca mostra a resposta do Setor Administrativo confirmando a <strong>Transferência / Liberação</strong>.</figcaption>
+    </figure>
+    <figure class="process-figure">
+      <img src="assets/glpi_grupos_administrativo_infraestrutura.png" alt="Campo Atribuído do GLPI com Setor Administrativo e Setor de Infraestrutura">
+      <figcaption class="figure-caption"><strong>Figura 5 — Grupos atribuídos após o retorno.</strong> Mantenha <strong>Setor Administrativo</strong> e acrescente <strong>Setor de Infraestrutura</strong> por último, representando o escalonamento de volta.</figcaption>
+    </figure>
+    <div class="alert info"><strong>Grupos atribuídos:</strong> ao final da atuação administrativa, devem constar simultaneamente <strong>Setor Administrativo</strong> e <strong>Setor de Infraestrutura</strong>, nesta ordem. A Infraestrutura é adicionada por último para receber o chamado de volta e efetuar a entrega.</div>
+    <div class="alert danger"><strong>Sem estoque:</strong> registrar a indisponibilidade no chamado, manter o usuário informado e seguir a orientação administrativa vigente. Não encaminhar para entrega sem um item efetivamente disponibilizado.</div>
   </div></div>
 </section>
-
 <section class="section" id="proc4">
   <h2 class="section-title">Processo 4 <span>Entrega e conclusão</span></h2>
   <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 4</span><span class="process-title">Entrega do dispositivo ao usuário</span><span class="process-resp">Infraestrutura</span><span class="process-chevron">▼</span></div>
@@ -175,7 +184,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <li>O novo registro deve ser criado como <strong>subchamado relacionado</strong> ao número do chamado anterior.</li>
     <li>A categorização deve identificar expressamente o dispositivo: caixa de som, fonte externa, headphone, mouse, teclado ou webcam.</li>
     <li>A solicitação deve ser <strong>Transferência / Liberação</strong> e o primeiro grupo atribuído deve ser o <strong>Setor Administrativo</strong>.</li>
-    <li>O Administrativo consulta o estoque, realiza a Transferência / Liberação e entrega internamente o dispositivo em mãos à Infraestrutura.</li>
+    <li>O Administrativo consulta o estoque, realiza a Transferência / Liberação, entrega internamente o dispositivo em mãos à Infraestrutura e, no GLPI, mantém o grupo Administrativo enquanto acrescenta Infraestrutura por último.</li>
     <li>A Infraestrutura realiza a entrega final, registra a evidência e encerra o subchamado.</li>
   </ul>
 </section>
