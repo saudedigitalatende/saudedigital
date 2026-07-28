@@ -115,27 +115,28 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   </div></div>
 </section>
 <section class="section" id="proc2">
-  <h2 class="section-title">Processo 2 <span>Abertura do chamado relacionado</span></h2>
-  <div class="alert warn"><strong>Pré-requisito obrigatório:</strong> confirme que o chamado original está com status <strong>Fechado</strong>. Somente depois abra o novo chamado, relacione-o ao número do chamado encerrado e selecione <strong>Setor Administrativo</strong> no campo <strong>Grupo atribuído</strong>.</div>
-  <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 2</span><span class="process-title">Abrir o chamado relacionado e encaminhar ao Administrativo</span><span class="process-resp">Infraestrutura</span><span class="process-chevron">▼</span></div>
+  <h2 class="section-title">Processo 2 <span>Abertura e relacionamento do novo chamado</span></h2>
+  <div class="alert warn"><strong>Pré-requisito obrigatório:</strong> confirme que o chamado original está com status <strong>Fechado</strong>. Primeiro abra e salve o novo chamado de <strong>Transferência / Liberação</strong>; somente depois relacione-o ao número do chamado anterior encerrado.</div>
+  <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 2</span><span class="process-title">Abrir o novo chamado e depois relacioná-lo ao chamado anterior</span><span class="process-resp">Infraestrutura</span><span class="process-chevron">▼</span></div>
   <div class="process-body">
     <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
-      <tr><td class="step-num">1</td><td>Acessar o chamado original encerrado e abrir a seção <strong>Chamado relacionado</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O vínculo será criado com o número do chamado anterior.</td></tr>
-      <tr><td class="step-num">2</td><td>Selecionar <strong>Relacionado a</strong> e, na lista suspensa exibida como <strong>“-----”</strong>, digitar o número do chamado anterior encerrado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Conferir se o número informado corresponde ao chamado original com status Fechado.</td></tr>
-      <tr><td class="step-num">3</td><td>Abrir o novo chamado no GLPI e preencher os campos de entidade, origem, localização, requerente e descrição com base no chamado anterior.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Citar o número do incidente original e o diagnóstico técnico.</td></tr>
-      <tr><td class="step-num">4</td><td>No campo <strong>Categoria</strong>, selecionar o caminho do dispositivo e a solicitação. Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Transferência / Liberação</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” pelo dispositivo solicitado.</td></tr>
-      <tr><td class="step-num">5</td><td>No campo <strong>Grupo atribuído</strong>, selecionar obrigatoriamente <strong>Setor Administrativo</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Conferir o grupo antes de salvar.</td></tr>
-      <tr><td class="step-num">6</td><td>Salvar o chamado e validar se o relacionamento com o chamado original foi registrado corretamente.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Não concluir a etapa sem confirmar o vínculo.</td></tr>
+      <tr><td class="step-num">1</td><td>Após confirmar o encerramento do incidente original, acessar <strong>Assistência → Criar chamado</strong> para abrir o novo chamado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O chamado anterior deve estar com status Fechado.</td></tr>
+      <tr><td class="step-num">2</td><td>Preencher os campos de entidade, tipo, origem, localização, requerente e descrição com base nas informações do chamado anterior.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Citar na descrição o número do incidente original e o diagnóstico técnico.</td></tr>
+      <tr><td class="step-num">3</td><td>No campo <strong>Categoria</strong>, selecionar o caminho do dispositivo e da solicitação. Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Transferência / Liberação</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” pelo dispositivo solicitado.</td></tr>
+      <tr><td class="step-num">4</td><td>No campo <strong>Grupo atribuído</strong>, selecionar obrigatoriamente <strong>Setor Administrativo</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Conferir o grupo antes de salvar.</td></tr>
+      <tr><td class="step-num">5</td><td><strong>Salvar o novo chamado</strong> e anotar o número gerado pelo GLPI.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O relacionamento só será realizado depois que o novo chamado estiver criado.</td></tr>
+      <tr><td class="step-num">6</td><td>No novo chamado, abrir a seção <strong>Chamado relacionado</strong>, selecionar <strong>Relacionado a</strong> e, na lista suspensa <strong>“-----”</strong>, digitar o número do chamado anterior encerrado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Informar o número do chamado original, que deve estar com status Fechado.</td></tr>
+      <tr><td class="step-num">7</td><td>Salvar e conferir se o relacionamento entre o novo chamado e o chamado anterior foi registrado corretamente.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Não encaminhar ao Administrativo sem validar o vínculo.</td></tr>
     </tbody></table>
-    <figure class="process-figure related">
-      <img src="assets/glpi_chamado_relacionado.png" alt="Seção Chamado relacionado do GLPI com a opção Relacionado a">
-      <figcaption class="figure-caption"><strong>Figura 2 — Chamado relacionado.</strong> Selecione <strong>Relacionado a</strong> e use a lista suspensa indicada por <strong>“-----”</strong> para informar o número do chamado anterior encerrado.</figcaption>
-    </figure>
-    <div class="alert info"><strong>Observação:</strong> na lista suspensa <strong>“-----”</strong>, digite o número do chamado anterior já encerrado. Antes de continuar, confirme que o chamado informado está com status <strong>Fechado</strong>.</div>
     <figure class="process-figure">
       <img src="assets/glpi_categoria_transferencia_liberacao.png" alt="Campo Categoria do GLPI preenchido com Dispositivos Passivos, Mouse e Transferência / Liberação">
-      <figcaption class="figure-caption"><strong>Figura 3 — Categorização do chamado relacionado.</strong> Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Transferência / Liberação</strong>. Depois, atribua o chamado ao <strong>Setor Administrativo</strong>.</figcaption>
+      <figcaption class="figure-caption"><strong>Figura 2 — Primeiro, abra e categorize o novo chamado.</strong> Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Transferência / Liberação</strong>. Atribua ao <strong>Setor Administrativo</strong> e salve o chamado.</figcaption>
     </figure>
+    <figure class="process-figure related">
+      <img src="assets/glpi_chamado_relacionado.png" alt="Seção Chamado relacionado do GLPI com a opção Relacionado a">
+      <figcaption class="figure-caption"><strong>Figura 3 — Depois, crie o relacionamento.</strong> Selecione <strong>Relacionado a</strong> e use a lista suspensa indicada por <strong>“-----”</strong> para informar o número do chamado anterior encerrado.</figcaption>
+    </figure>
+    <div class="alert info"><strong>Observação:</strong> a tela de categorização de <strong>Transferência / Liberação</strong> vem primeiro. Somente depois de salvar o novo chamado, acesse <strong>Chamado relacionado</strong> e, na lista suspensa <strong>“-----”</strong>, digite o número do chamado anterior já encerrado.</div>
   </div></div>
 </section>
 <section class="section" id="proc3">
