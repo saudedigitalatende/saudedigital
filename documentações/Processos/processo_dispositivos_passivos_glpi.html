@@ -86,7 +86,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <h2 class="section-title">Fluxo resumido</h2>
   <div class="flow">
     <div class="flow-node"><strong>1. Infraestrutura</strong>Diagnostica, registra a manutenção corretiva e encerra o chamado original.</div><span class="flow-arrow">→</span>
-    <div class="flow-node"><strong>2. Subchamado</strong>Abre o novo registro relacionado, com categoria e grupo corretos.</div><span class="flow-arrow">→</span>
+    <div class="flow-node"><strong>2. Subchamado</strong>Somente após o encerramento, abre o novo registro relacionado, com categoria e grupo corretos.</div><span class="flow-arrow">→</span>
     <div class="flow-node"><strong>3. Administrativo</strong>Consulta o estoque e realiza a Transferência / Liberação.</div><span class="flow-arrow">→</span>
     <div class="flow-node"><strong>4. Infraestrutura</strong>Recebe o chamado e realiza a entrega ao usuário.</div>
   </div>
@@ -104,8 +104,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <tr><td class="step-num">4</td><td>No campo <strong>Categoria</strong>, selecionar o caminho correspondente ao dispositivo. Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Manutenção Corretiva</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” pelo dispositivo efetivamente atendido.</td></tr>
       <tr><td class="step-num">5</td><td>Preencher requerente, descrição detalhada do defeito e grupo atribuído <strong>Setor de Infraestrutura</strong>; depois, salvar o chamado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Registrar todas as informações necessárias ao diagnóstico.</td></tr>
       <tr><td class="step-num">6</td><td>Realizar o diagnóstico técnico e registrar testes, falha identificada e conclusão no acompanhamento.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Manter o histórico técnico completo.</td></tr>
-      <tr><td class="step-num">7</td><td>Quando for necessária a substituição, registrar na solução que será aberto um chamado relacionado para Transferência / Liberação e encerrar o chamado original.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Guardar o número do chamado encerrado para criar o relacionamento.</td></tr>
+      <tr><td class="step-num">7</td><td>Quando for necessária a substituição, registrar no campo <strong>Solução</strong> o diagnóstico, o dispositivo atendido, as ações realizadas e a necessidade de continuidade por meio de Transferência / Liberação.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">A solução deve explicar claramente por que o incidente técnico está sendo concluído.</td></tr>
+      <tr><td class="step-num">8</td><td><strong>Encerrar o chamado original</strong>, alterando seu status para <strong>Fechado</strong>, e confirmar que o encerramento foi registrado no GLPI.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Guardar o número do chamado encerrado. Somente após esta etapa deve ser aberto o chamado relacionado.</td></tr>
     </tbody></table>
+    <div class="alert danger"><strong>Sequência obrigatória:</strong> primeiro registre a solução e <strong>encerre o chamado original</strong>. O chamado relacionado de <strong>Transferência / Liberação</strong> só pode ser aberto depois que o chamado original estiver com status <strong>Fechado</strong>.</div>
     <figure class="process-figure">
       <img src="assets/glpi_categoria_manutencao_corretiva.png" alt="Campo Categoria do GLPI preenchido com Dispositivos Passivos, Mouse e Manutenção Corretiva">
       <figcaption class="figure-caption"><strong>Figura 1 — Categorização do incidente pela Infraestrutura.</strong> Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Manutenção Corretiva</strong>.</figcaption>
@@ -114,7 +116,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </section>
 <section class="section" id="proc2">
   <h2 class="section-title">Processo 2 <span>Abertura do chamado relacionado</span></h2>
-  <div class="alert warn"><strong>Obrigatório:</strong> o novo chamado deve ficar relacionado ao número do chamado original encerrado. No campo <strong>Grupo atribuído</strong>, selecione <strong>Setor Administrativo</strong>.</div>
+  <div class="alert warn"><strong>Pré-requisito obrigatório:</strong> confirme que o chamado original está com status <strong>Fechado</strong>. Somente depois abra o novo chamado, relacione-o ao número do chamado encerrado e selecione <strong>Setor Administrativo</strong> no campo <strong>Grupo atribuído</strong>.</div>
   <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 2</span><span class="process-title">Abrir o chamado relacionado e encaminhar ao Administrativo</span><span class="process-resp">Infraestrutura</span><span class="process-chevron">▼</span></div>
   <div class="process-body">
     <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
