@@ -47,7 +47,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <div class="toc-group">Etapas</div>
     <li><a href="#proc1">1 — Diagnóstico técnico</a></li>
     <li><a href="#proc2">2 — Subchamado relacionado</a></li>
-    <li><a href="#proc3">3 — Liberação administrativa</a></li>
+    <li><a href="#proc3">3 — Transferência / Liberação</a></li>
     <li><a href="#proc4">4 — Entrega do dispositivo</a></li>
     <div class="toc-group">Referência</div>
     <li><a href="#regras">Regras obrigatórias</a></li>
@@ -71,7 +71,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 <section class="section" id="objetivo">
   <h2 class="section-title">Objetivo e escopo</h2>
-  <p class="doc-p">Padronizar o encerramento do chamado técnico e a abertura de um <strong>subchamado relacionado ao chamado anterior</strong>, assegurando a consulta ao estoque, a liberação da transferência de responsabilidade pelo Setor Administrativo e a entrega do dispositivo pelo Setor de Infraestrutura.</p>
+  <p class="doc-p">Padronizar o encerramento do chamado técnico e a abertura de um <strong>subchamado relacionado ao chamado anterior</strong>, assegurando a consulta ao estoque, o prosseguimento da Transferência / Liberação pelo Setor Administrativo e a entrega do dispositivo pelo Setor de Infraestrutura.</p>
   <div class="device-grid">
     <div class="device">Caixa de som<small>Dispositivo de áudio externo</small></div>
     <div class="device">Fonte externa<small>Fonte ou adaptador de alimentação</small></div>
@@ -87,7 +87,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <div class="flow">
     <div class="flow-node"><strong>1. Infraestrutura</strong>Diagnostica, registra a manutenção corretiva e encerra o chamado original.</div><span class="flow-arrow">→</span>
     <div class="flow-node"><strong>2. Subchamado</strong>Abre o novo registro relacionado, com categoria e grupo corretos.</div><span class="flow-arrow">→</span>
-    <div class="flow-node"><strong>3. Administrativo</strong>Consulta o estoque e libera a transferência de responsabilidade.</div><span class="flow-arrow">→</span>
+    <div class="flow-node"><strong>3. Administrativo</strong>Consulta o estoque e realiza a Transferência / Liberação.</div><span class="flow-arrow">→</span>
     <div class="flow-node"><strong>4. Infraestrutura</strong>Recebe o chamado e realiza a entrega ao usuário.</div>
   </div>
 </section>
@@ -104,7 +104,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <tr><td class="step-num">4</td><td>No campo <strong>Categoria</strong>, selecionar o caminho correspondente ao dispositivo. Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Manutenção Corretiva</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” pelo dispositivo efetivamente atendido.</td></tr>
       <tr><td class="step-num">5</td><td>Preencher requerente, descrição detalhada do defeito e grupo atribuído <strong>Setor de Infraestrutura</strong>; depois, salvar o chamado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Registrar todas as informações necessárias ao diagnóstico.</td></tr>
       <tr><td class="step-num">6</td><td>Realizar o diagnóstico técnico e registrar testes, falha identificada e conclusão no acompanhamento.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Manter o histórico técnico completo.</td></tr>
-      <tr><td class="step-num">7</td><td>Quando for necessária a substituição, registrar na solução que será aberto um chamado relacionado para transferência/liberação e encerrar o chamado original.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Guardar o número do chamado encerrado para criar o relacionamento.</td></tr>
+      <tr><td class="step-num">7</td><td>Quando for necessária a substituição, registrar na solução que será aberto um chamado relacionado para Transferência / Liberação e encerrar o chamado original.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Guardar o número do chamado encerrado para criar o relacionamento.</td></tr>
     </tbody></table>
     <figure class="process-figure">
       <img src="assets/glpi_categoria_manutencao_corretiva.png" alt="Campo Categoria do GLPI preenchido com Dispositivos Passivos, Mouse e Manutenção Corretiva">
@@ -121,7 +121,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <tr><td class="step-num">1</td><td>Acessar o chamado original encerrado e abrir a seção <strong>Chamado relacionado</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O vínculo será criado com o número do chamado anterior.</td></tr>
       <tr><td class="step-num">2</td><td>Selecionar <strong>Relacionado a</strong> e informar o número do chamado que dará continuidade ao atendimento.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Conferir o número antes de salvar o relacionamento.</td></tr>
       <tr><td class="step-num">3</td><td>Abrir o novo chamado no GLPI e preencher os campos de entidade, origem, localização, requerente e descrição com base no chamado anterior.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Citar o número do incidente original e o diagnóstico técnico.</td></tr>
-      <tr><td class="step-num">4</td><td>No campo <strong>Categoria</strong>, selecionar o caminho do dispositivo e a solicitação. Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Transferência / Liberação</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” pelo dispositivo que será liberado.</td></tr>
+      <tr><td class="step-num">4</td><td>No campo <strong>Categoria</strong>, selecionar o caminho do dispositivo e a solicitação. Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Transferência / Liberação</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” pelo dispositivo solicitado.</td></tr>
       <tr><td class="step-num">5</td><td>No campo <strong>Grupo atribuído</strong>, selecionar obrigatoriamente <strong>Setor Administrativo</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Conferir o grupo antes de salvar.</td></tr>
       <tr><td class="step-num">6</td><td>Salvar o chamado e validar se o relacionamento com o chamado original foi registrado corretamente.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Não concluir a etapa sem confirmar o vínculo.</td></tr>
     </tbody></table>
@@ -130,20 +130,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <figcaption class="figure-caption"><strong>Figura 2 — Chamado relacionado.</strong> Utilize a opção <strong>Relacionado a</strong> para vincular o novo chamado ao número do chamado original.</figcaption>
     </figure>
     <figure class="process-figure">
-      <img src="assets/glpi_categoria_transferencia_liberacao.png" alt="Campo Categoria do GLPI preenchido com Dispositivos Passivos, Mouse e Transferência ou Liberação">
+      <img src="assets/glpi_categoria_transferencia_liberacao.png" alt="Campo Categoria do GLPI preenchido com Dispositivos Passivos, Mouse e Transferência / Liberação">
       <figcaption class="figure-caption"><strong>Figura 3 — Categorização do chamado relacionado.</strong> Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Transferência / Liberação</strong>. Depois, atribua o chamado ao <strong>Setor Administrativo</strong>.</figcaption>
     </figure>
   </div></div>
 </section>
 <section class="section" id="proc3">
-  <h2 class="section-title">Processo 3 <span>Estoque e liberação</span></h2>
-  <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 3</span><span class="process-title">Análise e transferência de responsabilidade</span><span class="process-resp">Administrativo</span><span class="process-chevron">▼</span></div>
+  <h2 class="section-title">Processo 3 <span>Estoque e Transferência / Liberação</span></h2>
+  <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 3</span><span class="process-title">Análise para Transferência / Liberação</span><span class="process-resp">Administrativo</span><span class="process-chevron">▼</span></div>
   <div class="process-body">
     <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
       <tr><td class="step-num">1</td><td>Receber o chamado atribuído ao <strong>Setor Administrativo</strong> e conferir o relacionamento com o chamado técnico anterior.</td><td class="step-resp">Administrativo</td><td class="step-obs">Validar usuário, unidade e dispositivo solicitado.</td></tr>
       <tr><td class="step-num">2</td><td>Consultar o estoque e verificar a disponibilidade do dispositivo passivo solicitado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Registrar no acompanhamento o resultado da consulta.</td></tr>
       <tr><td class="step-num">3</td><td>Identificar e separar fisicamente o item disponível.</td><td class="step-resp">Administrativo</td><td class="step-obs">Internamente, o Administrativo entrega o dispositivo em mãos à Infraestrutura.</td></tr>
-      <tr><td class="step-num">4</td><td>Dar prosseguimento à <strong>liberação da transferência de responsabilidade</strong> e registrar no chamado o item liberado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Manter a rastreabilidade da liberação.</td></tr>
+      <tr><td class="step-num">4</td><td>Dar prosseguimento à solicitação de <strong>Transferência / Liberação</strong> e registrar no chamado o item liberado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Manter a rastreabilidade da solicitação.</td></tr>
       <tr><td class="step-num">5</td><td>Atribuir o chamado ao <strong>Setor de Infraestrutura</strong> para realização da entrega ao usuário.</td><td class="step-resp">Administrativo</td><td class="step-obs">O chamado deve permanecer aberto até a confirmação da entrega final.</td></tr>
     </tbody></table>
     <div class="alert danger"><strong>Sem estoque:</strong> registrar a indisponibilidade no chamado, manter o usuário informado e seguir a orientação administrativa vigente. Não encaminhar para entrega sem um item efetivamente liberado.</div>
@@ -157,8 +157,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
       <tr><td class="step-num">1</td><td>Receber do Setor Administrativo, em mãos, o dispositivo passivo liberado e conferir o item.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Confirmar que corresponde ao registrado no chamado.</td></tr>
       <tr><td class="step-num">2</td><td>Agendar ou realizar a entrega do dispositivo ao usuário ou à unidade solicitante.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Quando aplicável, testar o funcionamento no local.</td></tr>
-      <tr><td class="step-num">3</td><td>Registrar no acompanhamento a data, o item entregue, o destinatário e a confirmação de recebimento.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Este registro comprova a conclusão da transferência.</td></tr>
-      <tr><td class="step-num">4</td><td>Inserir a solução e encerrar o subchamado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O histórico deve demonstrar diagnóstico, liberação administrativa e entrega.</td></tr>
+      <tr><td class="step-num">3</td><td>Registrar no acompanhamento a data, o item entregue, o destinatário e a confirmação de recebimento.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Este registro comprova a conclusão do atendimento.</td></tr>
+      <tr><td class="step-num">4</td><td>Inserir a solução e encerrar o subchamado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O histórico deve demonstrar diagnóstico, Transferência / Liberação e entrega.</td></tr>
     </tbody></table>
     <div class="alert success"><strong>Resultado esperado:</strong> dispositivo liberado pelo Administrativo, entregue pela Infraestrutura e processo integralmente rastreável por meio do relacionamento entre os chamados.</div>
   </div></div>
@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <li>O novo registro deve ser criado como <strong>subchamado relacionado</strong> ao número do chamado anterior.</li>
     <li>A categorização deve identificar expressamente o dispositivo: caixa de som, fonte externa, headphone, mouse, teclado ou webcam.</li>
     <li>A solicitação deve ser <strong>Transferência / Liberação</strong> e o primeiro grupo atribuído deve ser o <strong>Setor Administrativo</strong>.</li>
-    <li>O Administrativo consulta o estoque, libera a transferência e entrega internamente o dispositivo em mãos à Infraestrutura.</li>
+    <li>O Administrativo consulta o estoque, realiza a Transferência / Liberação e entrega internamente o dispositivo em mãos à Infraestrutura.</li>
     <li>A Infraestrutura realiza a entrega final, registra a evidência e encerra o subchamado.</li>
   </ul>
 </section>
