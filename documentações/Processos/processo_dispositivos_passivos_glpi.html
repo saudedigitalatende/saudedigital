@@ -79,6 +79,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <div class="device">Mouse<small>Dispositivo apontador</small></div>
     <div class="device">Teclado<small>Dispositivo de entrada</small></div>
     <div class="device">Webcam<small>Dispositivo externo de vídeo</small></div>
+    <div class="device">Leitor de código de barras<small>Dispositivo para leitura de códigos de barras</small></div>
   </div>
 </section>
 
@@ -98,7 +99,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <div class="process-body">
     <div class="meta"><span class="badge"><strong>Responsável:</strong> Setor de Infraestrutura</span><span class="badge"><strong>Tipo:</strong> Incidente</span><span class="badge"><strong>Categoria:</strong> Manutenção corretiva</span></div>
     <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
-      <tr><td class="step-num">1</td><td>Receber a demanda e confirmar que o incidente envolve um dispositivo passivo: <strong>caixa de som, fonte externa, headphone, mouse, teclado ou webcam</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Identificar usuário, unidade, setor e dispositivo.</td></tr>
+      <tr><td class="step-num">1</td><td>Receber a demanda e confirmar que o incidente envolve um dispositivo passivo: <strong>caixa de som, fonte externa, headphone, mouse, teclado, webcam ou leitor de código de barras</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Identificar usuário, unidade, setor e dispositivo.</td></tr>
       <tr><td class="step-num">2</td><td>Acessar o GLPI pelo caminho <strong>Assistência → Criar chamado</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Iniciar um novo chamado para registrar o incidente.</td></tr>
       <tr><td class="step-num">3</td><td>Preencher <strong>Entidade</strong>, selecionar o tipo <strong>Incidente</strong> e informar a origem da requisição e a localização.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Conferir os dados antes de continuar.</td></tr>
       <tr><td class="step-num">4</td><td>No campo <strong>Categoria</strong>, selecionar o caminho correspondente ao dispositivo. Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Manutenção Corretiva</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” pelo dispositivo efetivamente atendido.</td></tr>
@@ -182,7 +183,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <ul class="rules">
     <li>O chamado técnico original de manutenção corretiva deve ser encerrado antes da continuidade administrativa.</li>
     <li>O novo registro deve ser criado como <strong>subchamado relacionado</strong> ao número do chamado anterior.</li>
-    <li>A categorização deve identificar expressamente o dispositivo: caixa de som, fonte externa, headphone, mouse, teclado ou webcam.</li>
+    <li>A categorização deve identificar expressamente o dispositivo: caixa de som, fonte externa, headphone, mouse, teclado, webcam ou leitor de código de barras.</li>
     <li>A solicitação deve ser <strong>Transferência / Liberação</strong> e o primeiro grupo atribuído deve ser o <strong>Setor Administrativo</strong>.</li>
     <li>O Administrativo consulta o estoque, realiza a Transferência / Liberação, entrega internamente o dispositivo em mãos à Infraestrutura e, no GLPI, mantém o grupo Administrativo enquanto acrescenta Infraestrutura por último.</li>
     <li>Quando não houver estoque, o chamado deve permanecer <strong>aberto até a solução</strong>, sem encerramento, enquanto o usuário é mantido informado.</li>
