@@ -313,6 +313,9 @@ function documentationLinks(srvName) {
     docs.push(['pop', url+'documenta%C3%A7%C3%B5es/POP/pop_guia_administracao_setorial.html', 'POP - Guia de Administração Setorial SEI']);
     docs.push(['process', url+'documenta%C3%A7%C3%B5es/Processos/processo_abertura_chamados_sei.html', 'Processo Operacional – Abertura de Chamados Relacionados ao SEI']);
   }
+  if (srvName.includes('TABLET')) {
+    docs.push(['process', url+'documenta%C3%A7%C3%B5es/Processos/processo_entrega_garantia_devolucao_tablets_glpi.html', 'Processo Operacional – Atendimento Administrativo de Tablets no GLPI']);
+  }
   if (srvName.includes('DESKTOP') || srvName.includes('NOTEBOOK')) {
     docs.push(['process', url+'documenta%C3%A7%C3%B5es/Processos/processo_abertura_chamados_ativos_glpi.html', 'Processo Operacional – Abertura de Chamados com Associação de Ativos no GLPI']);
     docs.push(['process', url+'documenta%C3%A7%C3%B5es/Processos/processo_dispositivos_passivos_glpi.html', 'Processo Operacional – Manutenção, Transferência e Liberação de Ativos e Dispositivos passivos no GLPI']);
