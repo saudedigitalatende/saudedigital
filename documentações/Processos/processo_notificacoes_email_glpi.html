@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Processo Operacional de Notificações por E-mail no GLPI · GTIC</title>
+<title>Processo Operacional – Notificação de e-mail no GLPI para abertura e encerramento de chamado · GTIC</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 
@@ -100,7 +100,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         ← Voltar às Documentações
       </a>
     </div>
-    <h1>Processo Operacional<br><em>Notificações por E-mail no GLPI</em></h1>
+    <h1>Processo Operacional<br><em>Notificação de e-mail no GLPI para abertura e encerramento de chamado</em></h1>
     <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Saúde Digital Atende</p>
   </div>
 </header>
@@ -135,7 +135,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
     <div class="section" id="notificacoes">
       <div class="section-title"><span>03</span> Visão Geral das Notificações Automáticas</div>
-      <p class="doc-p">Os usuários receberão automaticamente notificações por e-mail durante o ciclo de vida do chamado, conforme os dados registrados no <strong>GLPI</strong> e os modelos padronizados implementados através da integração com o <strong>n8n</strong>.</p>
+      <p class="doc-p">Os usuários receberão automaticamente notificação de e-mail para abertura e encerramento de chamado durante o ciclo de vida do chamado, conforme os dados registrados no <strong>GLPI</strong> e os modelos padronizados implementados através da integração com o <strong>n8n</strong>.</p>
       <p class="doc-p" style="margin-top:8px">As notificações serão enviadas automaticamente a cada <strong>5 minutos</strong> e contemplarão dois processos principais:</p>
       <div class="notif-list">
         <div class="notif-item"><span class="notif-icon">✅</span><span>Confirmação de abertura do chamado</span></div>
@@ -215,7 +215,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <div class="section-title"><span>06</span> Regras de Integração e Padronização</div>
       <p class="doc-p">As notificações dependem da padronização dos campos do GLPI e do funcionamento integrado com os fluxos automatizados. Por isso, os campos utilizados nos processos de abertura e encerramento devem ser mantidos conforme definidos pela administração do GLPI.</p>
       <div class="alert-box danger">
-        <strong>🚫 Atenção:</strong> Os campos padronizados <strong>não deverão ser alterados, removidos ou modificados</strong> sem validação prévia da administração do GLPI, pois alterações indevidas poderão comprometer o funcionamento das regras automatizadas, notificações por e-mail, categorização dos chamados e integrações implementadas no n8n.
+        <strong>🚫 Atenção:</strong> Os campos padronizados <strong>não deverão ser alterados, removidos ou modificados</strong> sem validação prévia da administração do GLPI, pois alterações indevidas poderão comprometer o funcionamento das regras automatizadas, notificação de e-mail para abertura e encerramento de chamado, categorização dos chamados e integrações implementadas no n8n.
       </div>
       <div class="alert-box info">
         <strong>📧 Campo de e-mail obrigatório:</strong> O campo de e-mail do usuário deverá obrigatoriamente ser preenchido durante a abertura do chamado, pois somente através desse campo será possível realizar o disparo das notificações automáticas de abertura, encerramento e pesquisa de satisfação.
