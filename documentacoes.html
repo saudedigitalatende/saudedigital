@@ -967,22 +967,34 @@ function setHeroNav(mode) {
   actions.innerHTML = `<a href="https://saudedigitalatende.github.io/saudedigital/" class="hero-crumb">← Voltar ao Portal</a>`;
 }
 
-function openFolder(id) {
+function openFolder(id, updateHash = true) {
+  if (!id) return goRoot(updateHash);
+  const view = document.getElementById('view-' + id);
+  if (!view) return goRoot(updateHash);
   clearSearchInput();
   setHeroNav('section');
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-' + id).classList.add('active');
+  view.classList.add('active');
+  if (updateHash) history.replaceState(null, '', '#' + id);
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-function goRoot() {
+function goRoot(updateHash = true) {
   clearSearchInput();
   setHeroNav('root');
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-root').classList.add('active');
+  if (updateHash) history.replaceState(null, '', location.pathname);
   window.scrollTo({top: 0, behavior: 'smooth'});
   return false;
 }
+
+function openFolderFromHash() {
+  const folder = (location.hash || '').replace('#', '').trim();
+  if (folder && document.getElementById('view-' + folder)) openFolder(folder, false);
+}
+window.addEventListener('DOMContentLoaded', openFolderFromHash);
+window.addEventListener('hashchange', openFolderFromHash);
 
 function scrollTopPage() {
   window.scrollTo({top: 0, behavior: 'smooth'});
