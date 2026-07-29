@@ -92,7 +92,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .td-sol{font-weight:600;color:var(--ink)}
 .td-n{font-size:12px;color:var(--ink3)}
 .td-desc{font-size:12px;color:var(--ink3);line-height:1.5;word-wrap:break-word;overflow-wrap:break-word}
-.td-sol{word-wrap:break-word;overflow-wrap:break-word}
+.td-sol{word-wrap:normal;overflow-wrap:normal;word-break:normal;line-height:1.45}
 .td-n{word-wrap:break-word;overflow-wrap:break-word}
 
 /* TAGS */
@@ -245,6 +245,10 @@ function slaTag(sla) {
   return `<span class="sla-tag ${cls}">${sla}</span>`;
 }
 
+function formatSolicitacao(str) {
+  if (!str) return '';
+  return String(str).replace(/\//g, '/<br>');
+}
 function toSentence(str) {
   if (!str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -298,7 +302,7 @@ function buildCatalog(area) {
     srv.rows.forEach(r => {
       trs += `<tr data-sol="${r.solicitacao}" data-tipo="${r.tipo}" data-desc="${r.descricao||''}">
         <td style="width:145px">${tipoTag(r.tipo)}</td>
-        <td><span class="td-sol">${r.solicitacao}</span></td>
+        <td><span class="td-sol">${formatSolicitacao(r.solicitacao)}</span></td>
         <td style="width:145px">${slaTag(r.sla)}</td>
         <td class="td-n" style="width:130px">${r.n1}</td>
         <td class="td-n" style="width:130px">${r.n2}</td>
