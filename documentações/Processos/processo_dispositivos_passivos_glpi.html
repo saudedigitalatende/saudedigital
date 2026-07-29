@@ -33,7 +33,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 <body>
 <header class="hero"><div class="hero-inner">
   <div class="hero-actions"><a class="hero-crumb" href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html">← Documentações</a></div>
-  <h1>Processo Operacional de <em>Incidentes de Dispositivos Passivos</em> no GLPI</h1>
+  <h1>Processo Operacional de <em>Manutenção corretiva e Transferencia/liberação de ativos e dispositivos passivos</em> no GLPI</h1>
   <p>GTIC · Saúde Digital Atende · Secretaria de Saúde do Recife · Versão 1.0</p>
 </div></header>
 
@@ -66,12 +66,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <tr><td>Data de criação</td><td>Julho / 2026</td></tr>
     <tr><td>Versão</td><td>1.0</td></tr>
   </tbody></table>
-  <div class="alert info"><strong>Aplicação:</strong> este processo é utilizado quando a Infraestrutura classifica a demanda como <strong>manutenção corretiva</strong> e identifica a necessidade de liberar ou transferir um dispositivo passivo.</div>
+  <div class="alert info"><strong>Aplicação:</strong> este processo é utilizado quando a Infraestrutura classifica a demanda como <strong>manutenção corretiva</strong> e identifica a necessidade de liberar ou transferir um dispositivo passivo ou ativo físico, incluindo <strong>computador</strong> e <strong>notebook</strong>.</div>
 </section>
 
 <section class="section" id="objetivo">
   <h2 class="section-title">Objetivo e escopo</h2>
-  <p class="doc-p">Padronizar o encerramento do chamado técnico e a abertura de um <strong>subchamado relacionado ao chamado anterior</strong>, assegurando a consulta ao estoque, o prosseguimento da Transferência / Liberação pelo Setor Administrativo e a entrega do dispositivo pelo Setor de Infraestrutura.</p>
+  <p class="doc-p">Padronizar o encerramento do chamado técnico e a abertura de um <strong>subchamado relacionado ao chamado anterior</strong>, assegurando a consulta ao estoque, o prosseguimento da Transferência / Liberação pelo Setor Administrativo e a entrega do dispositivo passivo ou ativo físico pelo Setor de Infraestrutura. Além dos dispositivos passivos, este fluxo também contempla ativos como <strong>computador</strong> e <strong>notebook</strong>.</p>
   <div class="device-grid">
     <div class="device">Caixa de som<small>Dispositivo de áudio externo</small></div>
     <div class="device">Fonte externa<small>Fonte ou adaptador de alimentação</small></div>
@@ -80,6 +80,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <div class="device">Teclado<small>Dispositivo de entrada</small></div>
     <div class="device">Webcam<small>Dispositivo externo de vídeo</small></div>
     <div class="device">Leitor de código de barras<small>Dispositivo para leitura de códigos de barras</small></div>
+    <div class="device">Computador<small>Ativo físico cadastrado ou controlado no GLPI</small></div>
+    <div class="device">Notebook<small>Ativo físico portátil cadastrado ou controlado no GLPI</small></div>
   </div>
 </section>
 
@@ -99,10 +101,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <div class="process-body">
     <div class="meta"><span class="badge"><strong>Responsável:</strong> Setor de Infraestrutura</span><span class="badge"><strong>Tipo:</strong> Incidente</span><span class="badge"><strong>Categoria:</strong> Manutenção corretiva</span></div>
     <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
-      <tr><td class="step-num">1</td><td>Receber a demanda e confirmar que o incidente envolve um dispositivo passivo: <strong>caixa de som, fonte externa, headphone, mouse, teclado, webcam ou leitor de código de barras</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Identificar usuário, unidade, setor e dispositivo.</td></tr>
+      <tr><td class="step-num">1</td><td>Receber a demanda e confirmar que o incidente envolve um dispositivo passivo ou ativo físico: <strong>caixa de som, fonte externa, headphone, mouse, teclado, webcam, leitor de código de barras, computador ou notebook</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Identificar usuário, unidade, setor e dispositivo.</td></tr>
       <tr><td class="step-num">2</td><td>Acessar o GLPI pelo caminho <strong>Assistência → Criar chamado</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Iniciar um novo chamado para registrar o incidente.</td></tr>
       <tr><td class="step-num">3</td><td>Preencher <strong>Entidade</strong>, selecionar o tipo <strong>Incidente</strong> e informar a origem da requisição e a localização.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Conferir os dados antes de continuar.</td></tr>
-      <tr><td class="step-num">4</td><td>No campo <strong>Categoria</strong>, selecionar o caminho correspondente ao dispositivo. Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Manutenção Corretiva</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” pelo dispositivo efetivamente atendido.</td></tr>
+      <tr><td class="step-num">4</td><td>No campo <strong>Categoria</strong>, selecionar o caminho correspondente ao dispositivo ou ativo. Exemplos: <strong>Dispositivos Passivos &gt; Mouse &gt; Manutenção Corretiva</strong> ou <strong>Ativos &gt; Computador &gt; Manutenção Corretiva</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” ou “Computador” pelo item efetivamente atendido.</td></tr>
       <tr><td class="step-num">5</td><td>Preencher requerente, descrição detalhada do defeito e grupo atribuído <strong>Setor de Infraestrutura</strong>; depois, salvar o chamado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Registrar todas as informações necessárias ao diagnóstico.</td></tr>
       <tr><td class="step-num">6</td><td>Realizar o diagnóstico técnico e registrar testes, falha identificada e conclusão no acompanhamento.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Manter o histórico técnico completo.</td></tr>
       <tr><td class="step-num">7</td><td>Quando for necessária a substituição, registrar no campo <strong>Solução</strong> o diagnóstico, o dispositivo atendido, as ações realizadas e a necessidade de continuidade por meio de Transferência / Liberação.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">A solução deve explicar claramente por que o incidente técnico está sendo concluído.</td></tr>
@@ -123,7 +125,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
       <tr><td class="step-num">1</td><td>Após confirmar o encerramento do incidente original, acessar <strong>Assistência → Criar chamado</strong> para abrir o novo chamado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O chamado anterior deve estar com status Fechado.</td></tr>
       <tr><td class="step-num">2</td><td>Preencher os campos de entidade, tipo, origem, localização, requerente e descrição com base nas informações do chamado anterior.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Citar na descrição o número do incidente original e o diagnóstico técnico.</td></tr>
-      <tr><td class="step-num">3</td><td>No campo <strong>Categoria</strong>, selecionar o caminho do dispositivo e da solicitação. Exemplo: <strong>Dispositivos Passivos &gt; Mouse &gt; Transferência / Liberação</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” pelo dispositivo solicitado.</td></tr>
+      <tr><td class="step-num">3</td><td>No campo <strong>Categoria</strong>, selecionar o caminho do dispositivo ou ativo e da solicitação. Exemplos: <strong>Dispositivos Passivos &gt; Mouse &gt; Transferência / Liberação</strong> ou <strong>Ativos &gt; Computador &gt; Transferência / Liberação</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Substituir “Mouse” ou “Computador” pelo item solicitado.</td></tr>
       <tr><td class="step-num">4</td><td>No campo <strong>Grupo atribuído</strong>, selecionar obrigatoriamente <strong>Setor Administrativo</strong>.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Conferir o grupo antes de salvar.</td></tr>
       <tr><td class="step-num">5</td><td><strong>Salvar o novo chamado</strong> e anotar o número gerado pelo GLPI.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O relacionamento só será realizado depois que o novo chamado estiver criado.</td></tr>
       <tr><td class="step-num">6</td><td>No novo chamado, abrir a seção <strong>Chamado relacionado</strong>, selecionar <strong>Relacionado a</strong> e, na lista suspensa <strong>“-----”</strong>, digitar o número do chamado anterior encerrado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Informar o número do chamado original, que deve estar com status Fechado.</td></tr>
@@ -145,9 +147,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 3</span><span class="process-title">Resposta do Administrativo e escalonamento de volta à Infraestrutura</span><span class="process-resp">Administrativo</span><span class="process-chevron">▼</span></div>
   <div class="process-body">
     <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
-      <tr><td class="step-num">1</td><td>Receber o chamado atribuído ao <strong>Setor Administrativo</strong> e conferir o relacionamento com o chamado técnico anterior encerrado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Validar usuário, unidade, dispositivo e diagnóstico.</td></tr>
-      <tr><td class="step-num">2</td><td>Consultar o estoque, identificar o dispositivo disponível e separar fisicamente o item solicitado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Registrar o resultado da consulta no acompanhamento.</td></tr>
-      <tr><td class="step-num">3</td><td>Registrar uma resposta no chamado informando: <strong>“Transferência / Liberação autorizada. Dispositivo disponível em estoque e separado para entrega.”</strong></td><td class="step-resp">Administrativo</td><td class="step-obs">A resposta deve identificar o dispositivo liberado.</td></tr>
+      <tr><td class="step-num">1</td><td>Receber o chamado atribuído ao <strong>Setor Administrativo</strong> e conferir o relacionamento com o chamado técnico anterior encerrado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Validar usuário, unidade, dispositivo passivo ou ativo físico e diagnóstico.</td></tr>
+      <tr><td class="step-num">2</td><td>Consultar o estoque, identificar o dispositivo passivo ou ativo físico disponível e separar fisicamente o item solicitado.</td><td class="step-resp">Administrativo</td><td class="step-obs">Registrar o resultado da consulta no acompanhamento.</td></tr>
+      <tr><td class="step-num">3</td><td>Registrar uma resposta no chamado informando: <strong>“Transferência / Liberação autorizada. Dispositivo disponível em estoque e separado para entrega.”</strong></td><td class="step-resp">Administrativo</td><td class="step-obs">A resposta deve identificar o dispositivo ou ativo liberado.</td></tr>
       <tr><td class="step-num">4</td><td>Dar prosseguimento à <strong>Transferência / Liberação</strong> e entregar internamente, em mãos, o dispositivo ao Setor de Infraestrutura.</td><td class="step-resp">Administrativo</td><td class="step-obs">Manter no chamado a rastreabilidade do item entregue.</td></tr>
       <tr><td class="step-num">5</td><td>No campo <strong>Grupo atribuído</strong>, <strong>manter o Setor Administrativo</strong> e acrescentar o <strong>Setor de Infraestrutura</strong> por último.</td><td class="step-resp">Administrativo</td><td class="step-obs">Não remover o Administrativo. Ao final, os dois grupos devem permanecer visíveis: Administrativo primeiro e Infraestrutura por último.</td></tr>
       <tr><td class="step-num">6</td><td>Salvar a alteração para escalonar o chamado de volta à Infraestrutura, que realizará a entrega ao usuário.</td><td class="step-resp">Administrativo</td><td class="step-obs">O chamado permanece aberto até a confirmação da entrega final.</td></tr>
@@ -169,12 +171,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 4</span><span class="process-title">Entrega do dispositivo ao usuário</span><span class="process-resp">Infraestrutura</span><span class="process-chevron">▼</span></div>
   <div class="process-body">
     <table class="steps-table"><thead><tr><th>Nº</th><th>Ação / Descrição</th><th>Responsável</th><th>Observação</th></tr></thead><tbody>
-      <tr><td class="step-num">1</td><td>Receber do Setor Administrativo, em mãos, o dispositivo passivo liberado e conferir o item.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Confirmar que corresponde ao registrado no chamado.</td></tr>
-      <tr><td class="step-num">2</td><td>Agendar ou realizar a entrega do dispositivo ao usuário ou à unidade solicitante.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Quando aplicável, testar o funcionamento no local.</td></tr>
+      <tr><td class="step-num">1</td><td>Receber do Setor Administrativo, em mãos, o dispositivo passivo ou ativo físico liberado e conferir o item.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Confirmar que corresponde ao registrado no chamado.</td></tr>
+      <tr><td class="step-num">2</td><td>Agendar ou realizar a entrega do dispositivo passivo ou ativo físico ao usuário ou à unidade solicitante.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Quando aplicável, testar o funcionamento no local.</td></tr>
       <tr><td class="step-num">3</td><td>Registrar no acompanhamento a data, o item entregue, o destinatário e a confirmação de recebimento.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">Este registro comprova a conclusão do atendimento.</td></tr>
       <tr><td class="step-num">4</td><td>Inserir a solução e encerrar o subchamado.</td><td class="step-resp">Infraestrutura</td><td class="step-obs">O histórico deve demonstrar diagnóstico, Transferência / Liberação e entrega.</td></tr>
     </tbody></table>
-    <div class="alert success"><strong>Resultado esperado:</strong> dispositivo liberado pelo Administrativo, entregue pela Infraestrutura e processo integralmente rastreável por meio do relacionamento entre os chamados.</div>
+    <div class="alert success"><strong>Resultado esperado:</strong> dispositivo ou ativo liberado pelo Administrativo, entregue pela Infraestrutura e processo integralmente rastreável por meio do relacionamento entre os chamados.</div>
   </div></div>
 </section>
 
@@ -183,11 +185,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <ul class="rules">
     <li>O chamado técnico original de manutenção corretiva deve ser encerrado antes da continuidade administrativa.</li>
     <li>O novo registro deve ser criado como <strong>subchamado relacionado</strong> ao número do chamado anterior.</li>
-    <li>A categorização deve identificar expressamente o dispositivo: caixa de som, fonte externa, headphone, mouse, teclado, webcam ou leitor de código de barras.</li>
+    <li>A categorização deve identificar expressamente o dispositivo passivo ou ativo físico: caixa de som, fonte externa, headphone, mouse, teclado, webcam, leitor de código de barras, computador ou notebook.</li>
     <li>A solicitação deve ser <strong>Transferência / Liberação</strong> e o primeiro grupo atribuído deve ser o <strong>Setor Administrativo</strong>.</li>
-    <li>O Administrativo consulta o estoque, realiza a Transferência / Liberação, entrega internamente o dispositivo em mãos à Infraestrutura e, no GLPI, mantém o grupo Administrativo enquanto acrescenta Infraestrutura por último.</li>
+    <li>O Administrativo consulta o estoque, realiza a Transferência / Liberação, entrega internamente o dispositivo ou ativo em mãos à Infraestrutura e, no GLPI, mantém o grupo Administrativo enquanto acrescenta Infraestrutura por último.</li>
     <li>Quando não houver estoque, o chamado deve permanecer <strong>aberto até a solução</strong>, sem encerramento, enquanto o usuário é mantido informado.</li>
-    <li>A Infraestrutura realiza a entrega final, registra a evidência e encerra o subchamado.</li>
+    <li>A Infraestrutura realiza a entrega final do dispositivo ou ativo, registra a evidência e encerra o subchamado.</li>
   </ul>
 </section>
 
