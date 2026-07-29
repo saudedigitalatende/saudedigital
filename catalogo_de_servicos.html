@@ -83,7 +83,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .service-body{display:none;border-top:1px solid var(--rule)}
 .service-block.open .service-body{display:block}
 
-.docs-associated{position:relative;margin-top:12px;margin-left:22px;padding:10px 0 0 16px;border-top:1px solid var(--rule);border-left:2px solid var(--rule);max-width:760px}
+.docs-associated{position:relative;margin-top:12px;margin-left:32px;padding:10px 0 0 20px;border-top:1px solid var(--rule);border-left:2px solid var(--rule);max-width:760px}
 .docs-associated-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
 .docs-associated-list{display:flex;flex-direction:column;gap:6px;padding-left:2px}
 .docs-associated a{display:inline-flex;align-items:flex-start;gap:7px;width:fit-content;max-width:100%;font-size:11.5px;font-weight:600;line-height:1.35;color:var(--blue-mid);text-decoration:none;background:transparent;border-radius:6px;padding:2px 4px}
@@ -94,7 +94,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .docs-associated .doc-manual:hover{background:var(--green-lt)}
 .docs-associated .doc-training{color:#b45309}
 .docs-associated .doc-training:hover{background:#fef3c7}
-.docs-toggle{position:absolute;left:-31px;top:10px;width:22px;height:22px;border:0;border-radius:50%;background:var(--paper2);color:var(--ink3);display:flex;align-items:center;justify-content:center;font-size:10px;line-height:1;cursor:pointer;transition:background .15s,transform .15s;color:transparent}
+.docs-toggle{position:absolute;left:-33px;top:10px;width:22px;height:22px;border:0;border-radius:50%;background:var(--paper2);color:var(--ink3);display:flex;align-items:center;justify-content:center;font-size:10px;line-height:1;cursor:pointer;transition:background .15s,transform .15s;color:transparent}
 .docs-toggle::before{content:'▾';color:var(--ink3)}
 .docs-toggle:hover{background:var(--rule);color:transparent}
 .docs-associated.collapsed .docs-toggle{transform:rotate(-90deg)}
@@ -136,6 +136,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
 .back-portal svg{width:14px;height:14px;flex-shrink:0}
 @media(max-width:768px){.page-footer{padding-left:24px;padding-right:24px}}
+@media(max-width:768px){.docs-associated{margin-left:12px;padding-left:14px}.docs-toggle{left:-24px}}
 </style>
 </head>
 <body>
