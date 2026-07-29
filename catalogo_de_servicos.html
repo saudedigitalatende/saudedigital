@@ -83,7 +83,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .service-body{display:none;border-top:1px solid var(--rule)}
 .service-block.open .service-body{display:block}
 
-.docs-associated{margin-top:12px;margin-left:22px;padding:10px 0 0 16px;border-top:1px solid var(--rule);border-left:2px solid var(--rule);max-width:760px}
+.docs-associated{position:relative;margin-top:12px;margin-left:22px;padding:10px 0 0 16px;border-top:1px solid var(--rule);border-left:2px solid var(--rule);max-width:760px}
 .docs-associated-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
 .docs-associated-list{display:flex;flex-direction:column;gap:6px;padding-left:2px}
 .docs-associated a{display:inline-flex;align-items:flex-start;gap:7px;width:fit-content;max-width:100%;font-size:11.5px;font-weight:600;line-height:1.35;color:var(--blue-mid);text-decoration:none;background:transparent;border-radius:6px;padding:2px 4px}
@@ -94,6 +94,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .docs-associated .doc-manual:hover{background:var(--green-lt)}
 .docs-associated .doc-training{color:#b45309}
 .docs-associated .doc-training:hover{background:#fef3c7}
+.docs-toggle{position:absolute;left:-31px;top:10px;width:22px;height:22px;border:0;border-radius:50%;background:var(--paper2);color:var(--ink3);display:flex;align-items:center;justify-content:center;font-size:10px;line-height:1;cursor:pointer;transition:background .15s,transform .15s;color:transparent}
+.docs-toggle::before{content:'▾';color:var(--ink3)}
+.docs-toggle:hover{background:var(--rule);color:transparent}
+.docs-associated.collapsed .docs-toggle{transform:rotate(-90deg)}
+.docs-associated.collapsed .docs-associated-list{display:none}
+.docs-associated.collapsed{padding-bottom:2px}
 
 /* TABLE */
 .cat-table{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed}
@@ -309,7 +315,7 @@ function documentationBlock(srvName) {
   const docs = documentationLinks(srvName);
   if (!docs.length) return '';
   const links = docs.map(([kind, href, label]) => makeDocLink(kind, href, label)).join('');
-  return `<div class="docs-associated"><div class="docs-associated-title">📚 Documentos associados</div><div class="docs-associated-list">${links}</div></div>`;
+  return `<div class="docs-associated"><button type="button" class="docs-toggle" title="Recolher documentos associados" onclick="toggleDocs(event,this)"></button><div class="docs-associated-title">📚 Documentos associados</div><div class="docs-associated-list">${links}</div></div>`;
 }
 function formatSolicitacao(str) {
   if (!str) return '';
@@ -509,6 +515,13 @@ function filterCatalog(area) {
   applyCatalogFilter(area, search, tipo);
 }
 
+function toggleDocs(event, button) {
+  event.stopPropagation();
+  const box = button.closest('.docs-associated');
+  if (!box) return;
+  box.classList.toggle('collapsed');
+  button.title = box.classList.contains('collapsed') ? 'Expandir documentos associados' : 'Recolher documentos associados';
+}
 function switchMain(area, el) {
   activeMainArea = area;
   clearGlobalResults();
