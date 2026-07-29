@@ -241,6 +241,15 @@ const state = {
 let activeMainArea = 'infra';
 let globalSearchRunning = false;
 
+function serviceNumber(name) {
+  const match = String(name || '').match(/^\s*(\d+)\./);
+  return match ? parseInt(match[1], 10) : Number.MAX_SAFE_INTEGER;
+}
+
+function categoryFirstNumber(rows) {
+  if (!rows || !rows.length) return Number.MAX_SAFE_INTEGER;
+  return rows.reduce((min, row) => Math.min(min, serviceNumber(row.servico)), Number.MAX_SAFE_INTEGER);
+}
 function getData(area) {
   return area==='sistemas' ? SISTEMAS : area==='infra' ? INFRA : ADMINISTRATIVO;
 }
@@ -350,8 +359,8 @@ function buildCatalog(area) {
     seen[r.servico].rows.push(r);
   });
 
-  // Na aba "Todos" (sheet === ''), ordenar por número do serviço
-  if (sheet === '') {
+  // Ordenar por número do serviço. No Administrativo, aplicar também dentro de cada aba.
+  if (sheet === '' || area === 'adm') {
     const EXCECOES_FINAL = ['42. ACESSO A SITE'];
     services.sort((a, b) => {
       const aExc = EXCECOES_FINAL.includes(a);
@@ -359,11 +368,9 @@ function buildCatalog(area) {
       if (aExc && !bExc) return 1;
       if (bExc && !aExc) return -1;
       if (aExc && bExc) return 0;
-      const na = parseInt((a.match(/^\s*(\d+)\./) || [])[1], 10);
-      const nb = parseInt((b.match(/^\s*(\d+)\./) || [])[1], 10);
-      if (isNaN(na) && isNaN(nb)) return 0;
-      if (isNaN(na)) return 1;
-      if (isNaN(nb)) return -1;
+      const na = serviceNumber(a);
+      const nb = serviceNumber(b);
+      if (na === nb) return String(a).localeCompare(String(b), 'pt-BR');
       return na - nb;
     });
   }
@@ -425,7 +432,7 @@ function categoryIcon(name) {
 function buildSubTabs(area) {
   const DATA  = getData(area);
   const color = area==='sistemas' ? 'st-blue' : area==='infra' ? 'st-green' : 'st-orange';
-  const keys  = Object.keys(DATA);
+  const keys  = Object.keys(DATA).sort((a, b) => area === 'adm' ? categoryFirstNumber(DATA[a]) - categoryFirstNumber(DATA[b]) || a.localeCompare(b, 'pt-BR') : 0);
   const total = Object.values(DATA).reduce((a,b)=>a+b.length, 0);
 
   let html = `<button class="sub-tab ${color} active" onclick="selectSheet('${area}','',this)">🗂️ Todos (${total})</button>`;
