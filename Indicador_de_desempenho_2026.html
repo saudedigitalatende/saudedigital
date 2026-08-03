@@ -2204,25 +2204,26 @@ function updateBacklogKpis(mes, d) {
 function updateBacklogBars(d) {
   const infraTotal = INFRA_GRUPOS.reduce((sum, g) => sum + (d.backlog[g] || 0), 0);
   const sistTotal = SIST_GRUPOS.reduce((sum, g) => sum + (d.backlog[g] || 0), 0);
-  const maxValue = Math.max(1, ...[...INFRA_GRUPOS, ...SIST_GRUPOS].map(g => d.backlog[g] || 0));
-  const headers = document.querySelectorAll('#tab-backlog .card div[style*="display:inline-block"]');
-  if (headers[0]) headers[0].innerHTML = '&#128309; Infraestrutura — ' + fmt(infraTotal) + ' em aberto';
-  if (headers[1]) headers[1].innerHTML = '&#128994; Sistemas — ' + fmt(sistTotal) + ' em aberto';
-  const rows = document.querySelectorAll('#tab-backlog .card .hbar');
-  const grupos = [...INFRA_GRUPOS, ...SIST_GRUPOS];
-  grupos.forEach((grupo, i) => {
-    const row = rows[i];
-    if (!row) return;
+  const allGroups = [...INFRA_GRUPOS, ...SIST_GRUPOS];
+  const maxValue = Math.max(1, ...allGroups.map(g => d.backlog[g] || 0));
+  const card = [...document.querySelectorAll('#tab-backlog .card')]
+    .find(item => item.querySelector('.card-title')?.textContent.trim() === 'Backlog por Grupo Técnico');
+  if (!card) return;
+
+  const renderRows = (groups, color) => groups.map(grupo => {
     const value = d.backlog[grupo] || 0;
-    const fill = row.querySelector('.hbar-fill');
-    const val = row.querySelector('.hbar-val');
-    row.querySelector('.hbar-label').textContent = grupo;
-    if (fill) fill.style.width = Math.max(value ? 2 : 0, value / maxValue * 100) + '%';
-    if (val) {
-      val.textContent = fmt(value);
-      val.style.color = value >= maxValue * 0.2 ? 'var(--red)' : value >= maxValue * 0.05 ? '#e65100' : 'var(--text3)';
-    }
-  });
+    const width = Math.max(value ? 2 : 0, value / maxValue * 100);
+    const valueColor = value >= maxValue * 0.2 ? 'var(--red)' : value >= maxValue * 0.05 ? '#e65100' : 'var(--text3)';
+    return '<div class="hbar"><div class="hbar-label" title="' + grupo + '">' + grupo + '</div>' +
+      '<div class="hbar-track"><div class="hbar-fill" style="width:' + width + '%;background:' + color + '"></div></div>' +
+      '<div class="hbar-val" style="color:' + valueColor + '">' + fmt(value) + '</div></div>';
+  }).join('');
+
+  card.innerHTML = '<div class="card-title">Backlog por Grupo Técnico</div>' +
+    '<div style="font-size:9px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.07em;padding:4px 8px;background:var(--azul-claro);border-radius:5px;margin-bottom:7px;display:inline-block">&#128309; Infraestrutura — ' + fmt(infraTotal) + ' em aberto</div>' +
+    renderRows(INFRA_GRUPOS, '#1565c0') +
+    '<div style="font-size:9px;font-weight:700;color:var(--verde);text-transform:uppercase;letter-spacing:.07em;padding:4px 8px;background:var(--verde-claro);border-radius:5px;margin-bottom:7px;margin-top:10px;display:inline-block">&#128994; Sistemas — ' + fmt(sistTotal) + ' em aberto</div>' +
+    renderRows(SIST_GRUPOS, '#2e7d32');
 }
 function updateBacklogInsight(mes, d) {
   const pairs = Object.entries(d.backlog || {}).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]);
@@ -2235,6 +2236,8 @@ function updateBacklogInsight(mes, d) {
   insight.innerHTML = '<strong>' + top1[0] + ' (' + fmt(top1[1]) + ')' + (top2[1] ? ' + ' + top2[0] + ' (' + fmt(top2[1]) + ')' : '') + ' = ' + pct + '% do backlog do período.</strong>Concentração crítica recalculada para ' + MESES_LABEL[mes] + '. Priorize os grupos com maior volume em aberto.';
 }
 function updateBacklogTab(mes, d) {
+  const navCount = document.querySelector('.nav-item[onclick*="backlog"] .nav-count');
+  if (navCount) navCount.textContent = fmt(d.ab);
   updateBacklogBars(d);
   updateBacklogInsight(mes, d);
   updateBacklogCategoriaCard(mes);
@@ -2439,14 +2442,15 @@ function filtrarMes(mes) {
   });
 
   // ── Gráfico Backlog por grupo ──
-  const bkGrupos = ["Garantia","Rede e Conectividade","Laboratório Técnico","Suporte a Dispositivos","Saída de Equipamentos","Patrimônio","─── Sistemas ───","Atendimento Remoto","Atend. Especialista","Campo - Op. Assistida","Campo - Treinamento","Campo - Implantação","Central de Serviços"];
-  const bkData = bkGrupos.map(g => g ? (d.backlog[g]||0) : null);
-  if(backlogGrupoChart){ backlogGrupoChart.data.labels = ["Garantia","Rede e Conectividade","Laboratório Técnico","Suporte a Dispositivos","Saída de Equipamentos","Patrimônio","─── Sistemas ───","Atendimento Remoto","Atend. Especialista","Campo - Op. Assistida","Campo - Treinamento","Campo - Implantação","Central de Serviços"]; backlogGrupoChart.data.datasets[0].data=bkData; backlogGrupoChart.update(); }
-  if(backlogGrupoSLAChart){ backlogGrupoSLAChart.data.labels = ["Garantia","Rede e Conectividade","Laboratório Técnico","Suporte a Dispositivos","Saída de Equipamentos","Patrimônio","─── Sistemas ───","Atendimento Remoto","Atend. Especialista","Campo - Op. Assistida","Campo - Treinamento","Campo - Implantação","Central de Serviços"]; backlogGrupoSLAChart.data.datasets[0].data=bkData; backlogGrupoSLAChart.update('none'); }
+  const separator = '─── Sistemas ───';
+  const bkGrupos = [...INFRA_GRUPOS, separator, ...SIST_GRUPOS];
+  const bkData = bkGrupos.map(g => g === separator ? null : (d.backlog[g] || 0));
+  if(backlogGrupoChart){ backlogGrupoChart.data.labels=bkGrupos; backlogGrupoChart.data.datasets[0].data=bkData; backlogGrupoChart.update(); }
+  if(backlogGrupoSLAChart){ backlogGrupoSLAChart.data.labels=bkGrupos; backlogGrupoSLAChart.data.datasets[0].data=bkData; backlogGrupoSLAChart.update('none'); }
 
   // ── Donut backlog ──
-  const donutGrupos = ["Garantia","Rede e Conectividade","Laboratório Técnico","Suporte a Dispositivos","Saída de Equipamentos","Patrimônio","Atendimento Remoto","Atend. Especialista","Campo - Op. Assistida","Campo - Treinamento","Campo - Implantação","Central de Serviços"];
-  if(backlogDonutChart){ backlogDonutChart.data.labels = donutGrupos; backlogDonutChart.data.datasets[0].data=donutGrupos.map(g=>d.backlog[g]||0); backlogDonutChart.update(); }
+  const donutGrupos = [...INFRA_GRUPOS, ...SIST_GRUPOS].filter(g => (d.backlog[g] || 0) > 0);
+  if(backlogDonutChart){ backlogDonutChart.data.labels=donutGrupos; backlogDonutChart.data.datasets[0].data=donutGrupos.map(g => d.backlog[g] || 0); backlogDonutChart.update(); }
   updateSlaTab(mes, d);
   updateBacklogTab(mes, d);
 
