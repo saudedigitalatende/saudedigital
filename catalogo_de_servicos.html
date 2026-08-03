@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- Catálogo com área administrativa -->
 <html lang="pt-BR">
 <head>
@@ -328,7 +328,7 @@ function documentationBlock(srvName) {
   const docs = documentationLinks(srvName);
   if (!docs.length) return '';
   const links = docs.map(([kind, href, label]) => makeDocLink(kind, href, label)).join('');
-  return `<div class="docs-associated"><button type="button" class="docs-toggle" title="Recolher documentos associados" onclick="toggleDocs(event,this)"></button><div class="docs-associated-title">📚 Documentos associados</div><div class="docs-associated-list">${links}</div></div>`;
+  return `<div class="docs-associated collapsed"><button type="button" class="docs-toggle" title="Expandir documentos associados" onclick="toggleDocs(event,this)"></button><div class="docs-associated-title">📚 Documentos associados</div><div class="docs-associated-list">${links}</div></div>`;
 }
 function formatSolicitacao(str) {
   if (!str) return '';
