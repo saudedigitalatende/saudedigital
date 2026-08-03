@@ -557,6 +557,8 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 .status-dot.fechado{background:#4fcf8b}.status-dot.solucionado{background:#55c98a}.status-dot.atendimento,.status-dot.pendente{background:#ff7a3d}.status-dot.novo{background:#d73755}
 .status-value{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600}.status-value.fechado,.status-value.solucionado{color:#2e7d32}.status-value.atendimento,.status-value.pendente{color:#e65100}.status-value.novo{color:#c62828}
 @media(max-width:1100px){.status-model-grid,.status-model-body{grid-template-columns:1fr}.status-model-body canvas{justify-self:start}}
+#tab-backlog .status-model-grid{grid-template-columns:1fr;gap:16px}
+#tab-backlog .status-model-section+.status-model-section{border-top:1px solid rgba(0,0,0,.08);padding-top:16px}
 #tab-backlog{padding-bottom:0}
 #tab-backlog .backlog-risk-layout{min-height:0;align-items:start}
 #tab-backlog .backlog-risk-layout>.card{display:flex;flex-direction:column;height:auto;padding:18px 20px}
