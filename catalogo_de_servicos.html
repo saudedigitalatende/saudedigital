@@ -387,7 +387,7 @@ function buildCatalog(area) {
         <td style="width:145px">${tipoTag(r.tipo)}</td>
         <td><span class="td-sol">${formatSolicitacao(r.solicitacao)}</span></td>
         <td style="width:145px">${slaTag(r.sla)}</td>
-        <td class="td-n" style="width:130px">${r.n1}</td>
+        <td class="td-n" style="width:130px">${String(r.n1 || "").replace(/<br><span class='resp-group'>.*?<\/span>/g, "")}</td>
         <td class="td-n" style="width:130px">${String(r.n2 || "").replace(/<br><span class='resp-group'>.*?<\/span>/g, "")}</td>
         <td class="td-n" style="width:120px">${String(r.n3 || "").replace(/<br><span class='resp-group'>.*?<\/span>/g, "")}</td>
         <td class="td-desc">${toSentence(r.descricao)}</td>
@@ -557,5 +557,6 @@ window.addEventListener('message', e => {
 </script>
 </body>
 </html> 
+
 
 
