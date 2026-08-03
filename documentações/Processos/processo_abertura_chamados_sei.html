@@ -80,6 +80,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .step-num{font-weight:700;color:var(--blue-mid);font-size:13px;width:36px}
 .step-obs{font-size:11.5px;color:var(--ink3);font-style:italic}
 .step-resp{font-weight:600;color:var(--ink);white-space:nowrap}
+.step-evidence td{padding:16px;background:#fff}
+.step-evidence-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:10px}
+.step-evidence img{width:100%;border:1px solid var(--rule);border-radius:10px;display:block}
+.step-evidence-caption{text-align:center;font-size:11.5px;color:var(--ink3);font-style:italic;margin:4px 0 16px}
+.step-evidence-caption:last-child{margin-bottom:0}
 
 /* ALERT BOXES */
 .alert-box{border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;line-height:1.6;border-left:4px solid}
@@ -151,7 +156,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" class="hero-crumb">&larr; Processos</a>
     </div>
     <h1>Processo Operacional – <em>Abertura de Chamados Relacionados ao SEI</em></h1>
-    <p>GTIC &middot; Sa&uacute;de Digital Atende &middot; Secretaria de Sa&uacute;de do Recife &middot; Vers&atilde;o 1.5</p>
+    <p>GTIC &middot; Sa&uacute;de Digital Atende &middot; Secretaria de Sa&uacute;de do Recife &middot; Vers&atilde;o 1.6</p>
   </div>
 </header>
 
@@ -187,7 +192,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <tr><td>&Aacute;rea respons&aacute;vel</td><td>GTIC - Ger&ecirc;ncia de Tecnologia da Informa&ccedil;&atilde;o e Comunica&ccedil;&atilde;o</td></tr>
           <tr><td>Setor</td><td>Sa&uacute;de Digital Atende</td></tr>
           <tr><td>Data de cria&ccedil;&atilde;o</td><td>Julho / 2026</td></tr>
-          <tr><td>Vers&atilde;o</td><td>1.5</td></tr>
+          <tr><td>Vers&atilde;o</td><td>1.6</td></tr>
         </tbody>
       </table>
       <div class="alert-box info">
@@ -356,12 +361,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
               <tr><td class="step-num">6</td><td>Criar o chamado e conferir se todas as informa&ccedil;&otilde;es foram preenchidas corretamente, principalmente os dados do solicitante e as informa&ccedil;&otilde;es registradas na descri&ccedil;&atilde;o da solicita&ccedil;&atilde;o.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">Realizar a confer&ecirc;ncia antes de concluir a abertura.</td></tr>
               <tr><td class="step-num">7</td><td>Ap&oacute;s salvar o chamado, confirmar que ele foi encaminhado para <strong>SISTEMAS REMOTO</strong> e encaminhar tamb&eacute;m a conversa do atendimento pelo <strong>Rocket.Chat</strong>.</td><td class="step-resp">Central de Servi&ccedil;os</td><td class="step-obs">O chamado e a conversa devem chegar &agrave; equipe Sistemas Remoto para continuidade do atendimento.</td></tr>
               <tr><td class="step-num">8</td><td>Registrar o n&uacute;mero do chamado gerado no <strong>bloco de notas (anota&ccedil;&otilde;es)</strong> do respectivo processo no SEI, para que os t&eacute;cnicos identifiquem que o chamado foi atendido e para manter a rastreabilidade entre o processo e o atendimento.</td><td class="step-resp">Sistemas Remoto</td><td class="step-obs">Realizar o registro ap&oacute;s o atendimento, mantendo o n&uacute;mero do chamado vinculado ao processo de origem.</td></tr>
+              <tr class="step-evidence"><td colspan="4">
+                <div class="step-evidence-title">Evid&ecirc;ncia visual da Etapa 8</div>
+          <img src="assets/processo_sei_controle_processos_desfocado.png" alt="Tela Controle de Processos do SEI com identificadores pessoais desfocados" >
+          <p class="step-evidence-caption" >Figura 5 &ndash; Localiza&ccedil;&atilde;o do processo no Controle de Processos do SEI. Identificadores pessoais desfocados.</p>
+          <img src="assets/processo_sei_anotacoes_chamado_desfocado.png" alt="Tela de anotações do processo SEI com nome e sigla desfocados e número do chamado registrado" >
+          <p class="step-evidence-caption" >Figura 6 &ndash; Registro do n&uacute;mero do chamado no bloco de notas (anota&ccedil;&otilde;es) do processo SEI. Dados pessoais desfocados.</p>
+              </td></tr>
             </tbody>
           </table>
-          <img src="assets/processo_sei_controle_processos_desfocado.png" alt="Tela Controle de Processos do SEI com identificadores pessoais desfocados" style="width:100%;border:1px solid var(--rule);border-radius:10px;margin:16px 0 4px;display:block;">
-          <p style="text-align:center;font-size:11.5px;color:var(--ink3);font-style:italic;margin-bottom:16px;">Figura 5 &ndash; Localiza&ccedil;&atilde;o do processo no Controle de Processos do SEI. Identificadores pessoais desfocados.</p>
-          <img src="assets/processo_sei_anotacoes_chamado_desfocado.png" alt="Tela de anotações do processo SEI com nome e sigla desfocados e número do chamado registrado" style="width:100%;border:1px solid var(--rule);border-radius:10px;margin:12px 0 4px;display:block;">
-          <p style="text-align:center;font-size:11.5px;color:var(--ink3);font-style:italic;margin-bottom:16px;">Figura 6 &ndash; Registro do n&uacute;mero do chamado no bloco de notas (anota&ccedil;&otilde;es) do processo SEI. Dados pessoais desfocados.</p>
           <div class="alert-box success"><strong>Rastreabilidade:</strong> O atendimento somente &eacute; conclu&iacute;do ap&oacute;s a equipe Sistemas Remoto registrar o n&uacute;mero do chamado no bloco de notas (anota&ccedil;&otilde;es) do processo no SEI.</div>
         </div>
       </div>
@@ -393,6 +401,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           <tr><td>1.3</td><td>Agosto / 2026</td><td>GTIC / Sa&uacute;de Digital Atende</td><td>Corre&ccedil;&atilde;o do tipo para Requisi&ccedil;&atilde;o e inclus&atilde;o do encaminhamento ao Sistemas Remoto e da conversa no Rocket.Chat</td></tr>
           <tr><td>1.4</td><td>Agosto / 2026</td><td>GTIC / Sa&uacute;de Digital Atende</td><td>Atribui&ccedil;&atilde;o do registro do n&uacute;mero do chamado no processo SEI &agrave; equipe Sistemas Remoto</td></tr>
           <tr><td>1.5</td><td>Agosto / 2026</td><td>GTIC / Sa&uacute;de Digital Atende</td><td>Inclus&atilde;o de imagens do registro no SEI com dados pessoais desfocados</td></tr>
+          <tr><td>1.6</td><td>Agosto / 2026</td><td>GTIC / Sa&uacute;de Digital Atende</td><td>Reposicionamento das evid&ecirc;ncias visuais na Etapa 8</td></tr>
         </tbody>
       </table>
     </section>
@@ -404,7 +413,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <span class="footer-brand">Sa&uacute;de Digital <em style="font-style:italic;color:var(--amber-mid)">Atende</em></span>
   <div class="footer-meta">
     <span><strong>Secretaria</strong>Secretaria de Sa&uacute;de do Recife</span>
-    <span><strong>Vers&atilde;o</strong>1.5 - Agosto 2026</span>
+    <span><strong>Vers&atilde;o</strong>1.6 - Agosto 2026</span>
     <span><strong>Uso</strong>Interno &middot; Documento Operacional</span>
   </div>
   <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
@@ -438,3 +447,4 @@ sections.forEach(s => obs.observe(s));
 
 </body>
 </html>
+
