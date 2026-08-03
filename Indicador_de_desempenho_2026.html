@@ -255,6 +255,12 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 .csat-pie-name{line-height:1.25}
 .csat-pie-val{font-family:'JetBrains Mono',monospace;color:var(--text);font-weight:600;white-space:nowrap}
 .csat-pie-empty{font-size:10px;color:var(--text3);font-style:italic}
+.csat-question-card{border-top:3px solid #1565c0}
+.csat-question-card .card-title{font-size:16px;font-weight:800;color:#0d1b2a;line-height:1.3;margin-bottom:5px}
+.csat-question-card .card-sub{font-size:10px;font-weight:600;color:#7890a8;margin-bottom:10px}
+.csat-question-card .csat-pie-wrap{display:block;margin-top:0}
+.csat-question-card .csat-pie-legend{display:none}
+.csat-question-card .csat-pie-wrap>div:last-child{height:220px!important}
 .csat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .csat-item{position:relative;border-radius:8px;padding:12px 8px 10px;text-align:center;border:1px solid rgba(255,255,255,.24);box-shadow:0 4px 12px rgba(0,0,0,.12);overflow:hidden}
 .csat-item:nth-child(1){background:rgba(165,214,167,.18);border-top:3px solid #a5d6a7}
@@ -1039,25 +1045,25 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
         </div>
       </div>
       <div class="grid-2" style="margin-top:11px">
-        <div class="card">
-          <div class="card-title">Solicitação resolvida - Sistemas</div>
+        <div class="card csat-question-card">
+          <div class="card-title">Sua solicitação foi resolvida?</div>
           <div class="card-sub">Sistemas · Jan–Jun 2026</div>
           <div class="csat-pie-wrap"><div class="csat-pie-legend" data-pie-legend="csatResolvidaSistemas"></div><div style="position:relative;height:240px"><canvas id="csatResolvidaSistemas"></canvas></div></div>
         </div>
-        <div class="card">
-          <div class="card-title">Solicitação resolvida - Infraestrutura</div>
+        <div class="card csat-question-card">
+          <div class="card-title">Sua solicitação foi resolvida?</div>
           <div class="card-sub">Infraestrutura · Jan–Jun 2026</div>
           <div class="csat-pie-wrap"><div class="csat-pie-legend" data-pie-legend="csatResolvidaInfra"></div><div style="position:relative;height:240px"><canvas id="csatResolvidaInfra"></canvas></div></div>
         </div>
       </div>
       <div class="grid-2" style="margin-top:11px">
-        <div class="card">
-          <div class="card-title">Instruções fáceis - Sistemas</div>
+        <div class="card csat-question-card">
+          <div class="card-title">As instruções foram fáceis de entender?</div>
           <div class="card-sub">Sistemas · Jan–Jun 2026</div>
           <div class="csat-pie-wrap"><div class="csat-pie-legend" data-pie-legend="csatInstrucoesSistemas"></div><div style="position:relative;height:240px"><canvas id="csatInstrucoesSistemas"></canvas></div></div>
         </div>
-        <div class="card">
-          <div class="card-title">Instruções fáceis - Infraestrutura</div>
+        <div class="card csat-question-card">
+          <div class="card-title">As instruções foram fáceis de entender?</div>
           <div class="card-sub">Infraestrutura · Jan–Jun 2026</div>
           <div class="csat-pie-wrap"><div class="csat-pie-legend" data-pie-legend="csatInstrucoesInfra"></div><div style="position:relative;height:240px"><canvas id="csatInstrucoesInfra"></canvas></div></div>
         </div>
@@ -1649,18 +1655,23 @@ function csatQuestionChartConfig(items) {
 function csatTotal(items) {
   return (items || []).reduce((sum, item) => sum + (item.total || 0), 0);
 }
-function csatDoughnutOptions(items) {
+function csatQuestionBarOptions(items) {
   return {
+    indexAxis:'y',
     responsive:true,
     maintainAspectRatio:false,
-    cutout:'58%',
+    layout:{ padding:{ right:36 } },
     plugins:{
       legend:{ display:false },
-      tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166', titleFont:{ family:'Sora', size:11, weight:'600' }, bodyFont:{ family:'JetBrains Mono', size:10 }, callbacks:{ label: ctx => {
+      tooltip:{ backgroundColor:'#fff', borderColor:'rgba(0,0,0,0.1)', borderWidth:1, titleColor:'#0d1b2a', bodyColor:'#3d5166', titleFont:{ family:'Sora', size:11, weight:'700' }, bodyFont:{ family:'JetBrains Mono', size:10 }, callbacks:{ label: ctx => {
         const total = csatTotal(items);
         const pct = total ? (ctx.raw / total * 100).toFixed(1).replace('.', ',') : '0,0';
-        return ' ' + ctx.label + ': ' + ctx.raw + ' respostas (' + pct + '%)';
+        return ' ' + ctx.raw + ' respostas (' + pct + '%)';
       } } }
+    },
+    scales:{
+      x:{ beginAtZero:true, ticks:{ precision:0, color:'#7890a8', font:{size:9,family:'Sora'} }, grid:{ color:'rgba(0,0,0,.05)' } },
+      y:{ afterFit:scale=>{scale.width=175}, ticks:{ color:'#3d5166', font:{size:11,family:'Sora',weight:'600'} }, grid:{ display:false } }
     }
   };
 }
@@ -1672,7 +1683,7 @@ function updateCsatAreaDoughnut(canvasId, chart, items, area, mes) {
     const sub = card.querySelector('.card-sub');
     if (sub) sub.textContent = area + ' · ' + fmt(total) + ' respostas · ' + (CSAT_MESES_LABEL[mes] || CSAT_MESES_LABEL.todos);
   }
-  updateCsatDoughnut(chart, safeItems, csatQuestionColor);
+  updateCsatQuestionBar(chart, safeItems, csatQuestionColor);
   updateCsatPieLegend(canvasId, safeItems);
 }
 function updateCsatPieLegend(canvasId, items) {
@@ -1693,11 +1704,11 @@ function updateCsatPieLegend(canvasId, items) {
   }).join('');
 }
 
-function updateCsatDoughnut(chart, items, colorFn) {
+function updateCsatQuestionBar(chart, items, colorFn) {
   chart.data.labels = items.map(item => item.nome);
   chart.data.datasets[0].data = items.map(item => item.total);
   chart.data.datasets[0].backgroundColor = items.map(item => colorFn(item.nome));
-  chart.options = csatDoughnutOptions(items);
+  chart.options = csatQuestionBarOptions(items);
   chart.update();
 }
 
@@ -1723,24 +1734,24 @@ function csatAreaColor(nome) {
 
 
 const csatResolvidaSistemasChart = new Chart(document.getElementById('csatResolvidaSistemas'), {
-  type:'doughnut',
-  data:{ labels:CSAT_DATA.todos.resolvedAreaItems.Sistemas.map(item => item.nome), datasets:[{ label:'Respostas', data:CSAT_DATA.todos.resolvedAreaItems.Sistemas.map(item => item.total), backgroundColor:CSAT_DATA.todos.resolvedAreaItems.Sistemas.map(item => csatQuestionColor(item.nome)), borderWidth:2, borderColor:'#fff', hoverOffset:8 }] },
-  options:csatDoughnutOptions(CSAT_DATA.todos.resolvedAreaItems.Sistemas)
+  type:'bar',
+  data:csatQuestionChartConfig(CSAT_DATA.todos.resolvedAreaItems.Sistemas),
+  options:csatQuestionBarOptions(CSAT_DATA.todos.resolvedAreaItems.Sistemas)
 });
 const csatResolvidaInfraChart = new Chart(document.getElementById('csatResolvidaInfra'), {
-  type:'doughnut',
-  data:{ labels:CSAT_DATA.todos.resolvedAreaItems.Infraestrutura.map(item => item.nome), datasets:[{ label:'Respostas', data:CSAT_DATA.todos.resolvedAreaItems.Infraestrutura.map(item => item.total), backgroundColor:CSAT_DATA.todos.resolvedAreaItems.Infraestrutura.map(item => csatQuestionColor(item.nome)), borderWidth:2, borderColor:'#fff', hoverOffset:8 }] },
-  options:csatDoughnutOptions(CSAT_DATA.todos.resolvedAreaItems.Infraestrutura)
+  type:'bar',
+  data:csatQuestionChartConfig(CSAT_DATA.todos.resolvedAreaItems.Infraestrutura),
+  options:csatQuestionBarOptions(CSAT_DATA.todos.resolvedAreaItems.Infraestrutura)
 });
 const csatInstrucoesSistemasChart = new Chart(document.getElementById('csatInstrucoesSistemas'), {
-  type:'doughnut',
-  data:{ labels:CSAT_DATA.todos.understandAreaItems.Sistemas.map(item => item.nome), datasets:[{ label:'Respostas', data:CSAT_DATA.todos.understandAreaItems.Sistemas.map(item => item.total), backgroundColor:CSAT_DATA.todos.understandAreaItems.Sistemas.map(item => csatQuestionColor(item.nome)), borderWidth:2, borderColor:'#fff', hoverOffset:8 }] },
-  options:csatDoughnutOptions(CSAT_DATA.todos.understandAreaItems.Sistemas)
+  type:'bar',
+  data:csatQuestionChartConfig(CSAT_DATA.todos.understandAreaItems.Sistemas),
+  options:csatQuestionBarOptions(CSAT_DATA.todos.understandAreaItems.Sistemas)
 });
 const csatInstrucoesInfraChart = new Chart(document.getElementById('csatInstrucoesInfra'), {
-  type:'doughnut',
-  data:{ labels:CSAT_DATA.todos.understandAreaItems.Infraestrutura.map(item => item.nome), datasets:[{ label:'Respostas', data:CSAT_DATA.todos.understandAreaItems.Infraestrutura.map(item => item.total), backgroundColor:CSAT_DATA.todos.understandAreaItems.Infraestrutura.map(item => csatQuestionColor(item.nome)), borderWidth:2, borderColor:'#fff', hoverOffset:8 }] },
-  options:csatDoughnutOptions(CSAT_DATA.todos.understandAreaItems.Infraestrutura)
+  type:'bar',
+  data:csatQuestionChartConfig(CSAT_DATA.todos.understandAreaItems.Infraestrutura),
+  options:csatQuestionBarOptions(CSAT_DATA.todos.understandAreaItems.Infraestrutura)
 });
 
 // Backlog grupo (tab backlog)
