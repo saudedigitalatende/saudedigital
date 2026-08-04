@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Processo Operacional – Gestão e Consulta de Estoque no GLPI · GTIC</title>
+<title>Processo Operacional â€“ GestÃ£o e Consulta de Estoque no GLPI Â· GTIC</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -136,17 +136,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .summary-node{flex:1;min-width:135px;padding:12px;border-radius:9px;border:1px solid var(--rule);background:#fff;font-size:12px;color:var(--ink2)}
 .summary-node strong{display:block;color:var(--ink);margin-bottom:3px}
 .summary-arrow{align-self:center;color:var(--ink3);font-size:18px}
-@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}</style>
+@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}.word-download-row{display:flex;justify-content:flex-end;margin:0 0 10px}.word-download{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(255,255,255,.35);border-radius:6px;color:#fff;text-decoration:none;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.08)}.word-download:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.65)}@media(max-width:768px){.word-download-row{justify-content:flex-start}}</style>
 </head>
 <body>
 
 <header class="hero">
   <div class="hero-inner">
     <div class="hero-actions">
-      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" class="hero-crumb">← Processos</a>
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" class="hero-crumb">â† Processos</a>
     </div>
-    <h1>Processo Operacional – <em>Gestão e Consulta de Estoque</em> no GLPI</h1>
-    <p>GTIC · Saúde Digital Atende · Secretaria de Saúde do Recife · Versão 1.0</p>
+    <div class="word-download-row"><a class="word-download" href="docx/processo_visao_estoque_glpi.docx" download>Baixar em Word</a></div>
+    <h1>Processo Operacional â€“ <em>GestÃ£o e Consulta de Estoque</em> no GLPI</h1>
+    <p>GTIC Â· SaÃºde Digital Atende Â· Secretaria de SaÃºde do Recife Â· VersÃ£o 1.0</p>
   </div>
 </header>
 
@@ -156,205 +157,205 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <aside class="sidebar">
     <div class="sidebar-title">Neste manual</div>
     <ul class="toc" id="toc">
-      <li><a href="#identificacao">Identificação</a></li>
+      <li><a href="#identificacao">IdentificaÃ§Ã£o</a></li>
       <li><a href="#objetivo">Objetivo</a></li>
-      <li><a href="#definicoes">Definições</a></li>
+      <li><a href="#definicoes">DefiniÃ§Ãµes</a></li>
       <div class="toc-group">Processos</div>
-      <li><a href="#proc1">1 — Critério de Classificação por Localização</a></li>
-      <li><a href="#proc2">2 — Construção da Visão de Estoque</a></li>
-      <div class="toc-group">Referência</div>
-      <li><a href="#atencao">Pontos de Atenção</a></li>
-      <li><a href="#historico">Histórico de Revisões</a></li>
+      <li><a href="#proc1">1 â€” CritÃ©rio de ClassificaÃ§Ã£o por LocalizaÃ§Ã£o</a></li>
+      <li><a href="#proc2">2 â€” ConstruÃ§Ã£o da VisÃ£o de Estoque</a></li>
+      <div class="toc-group">ReferÃªncia</div>
+      <li><a href="#atencao">Pontos de AtenÃ§Ã£o</a></li>
+      <li><a href="#historico">HistÃ³rico de RevisÃµes</a></li>
     </ul>
   </aside>
 
   <!-- CONTENT -->
   <div class="content">
 
-    <!-- IDENTIFICAÇÃO -->
+    <!-- IDENTIFICAÃ‡ÃƒO -->
     <section class="section" id="identificacao">
-      <h2 class="section-title">Identificação</h2>
+      <h2 class="section-title">IdentificaÃ§Ã£o</h2>
       <table class="info-table">
         <tbody>
           <tr><td>Tipo</td><td>Processo Operacional</td></tr>
-          <tr><td>Título</td><td>Gestão e Consulta de Estoque no GLPI</td></tr>
-          <tr><td>Área responsável</td><td>GTIC — Gerência de Tecnologia da Informação e Comunicação</td></tr>
-          <tr><td>Setor</td><td>Saúde Digital Atende</td></tr>
-          <tr><td>Data de criação</td><td>Julho / 2026</td></tr>
-          <tr><td>Versão</td><td>1.0</td></tr>
+          <tr><td>TÃ­tulo</td><td>GestÃ£o e Consulta de Estoque no GLPI</td></tr>
+          <tr><td>Ãrea responsÃ¡vel</td><td>GTIC â€” GerÃªncia de Tecnologia da InformaÃ§Ã£o e ComunicaÃ§Ã£o</td></tr>
+          <tr><td>Setor</td><td>SaÃºde Digital Atende</td></tr>
+          <tr><td>Data de criaÃ§Ã£o</td><td>Julho / 2026</td></tr>
+          <tr><td>VersÃ£o</td><td>1.0</td></tr>
         </tbody>
       </table>
       <div class="alert-box info">
-        <strong>ℹ️ Sobre este manual:</strong> Este documento descreve o planejamento e os procedimentos operacionais para a implementação da Visão de Estoque no GLPI, iniciando pela etapa de validação com os ativos classificados na localização de Descarte. O cumprimento deste manual garante a rastreabilidade dos ativos em estoque da Secretaria de Saúde do Recife.
+        <strong>â„¹ï¸ Sobre este manual:</strong> Este documento descreve o planejamento e os procedimentos operacionais para a implementaÃ§Ã£o da VisÃ£o de Estoque no GLPI, iniciando pela etapa de validaÃ§Ã£o com os ativos classificados na localizaÃ§Ã£o de Descarte. O cumprimento deste manual garante a rastreabilidade dos ativos em estoque da Secretaria de SaÃºde do Recife.
       </div>
     </section>
 
     <!-- OBJETIVO -->
     <section class="section" id="objetivo">
       <h2 class="section-title">Objetivo</h2>
-      <p class="doc-p">Disponibilizar, no GLPI, uma Visão de Estoque que permita consultar de forma organizada os ativos que não estão em uso ativo, agrupados pelas localizações de estoque já existentes.</p>
+      <p class="doc-p">Disponibilizar, no GLPI, uma VisÃ£o de Estoque que permita consultar de forma organizada os ativos que nÃ£o estÃ£o em uso ativo, agrupados pelas localizaÃ§Ãµes de estoque jÃ¡ existentes.</p>
     </section>
 
-    <!-- DEFINIÇÕES -->
+    <!-- DEFINIÃ‡Ã•ES -->
     <section class="section" id="definicoes">
-      <h2 class="section-title">Definições</h2>
+      <h2 class="section-title">DefiniÃ§Ãµes</h2>
       <table class="info-table">
-        <thead><tr><th>Termo</th><th>Definição</th></tr></thead>
+        <thead><tr><th>Termo</th><th>DefiniÃ§Ã£o</th></tr></thead>
         <tbody>
-          <tr><td>GLPI</td><td>Sistema de gestão de chamados e inventário de TI utilizado pela GTIC.</td></tr>
-          <tr><td>Visão de Estoque</td><td><strong>Conceito:</strong> uma forma organizada de consultar, dentro do GLPI, todos os ativos que estão fora de uso ativo — reunindo em um único lugar o que hoje está disperso entre diferentes localizações de estoque.</td></tr>
-          <tr><td>Localização (GLPI)</td><td><strong>Conceito:</strong> campo do cadastro do ativo que indica fisicamente/logicamente onde ele se encontra. É esse campo que classifica um ativo como pertencente a um dos estoques.</td></tr>
-          <tr><td>Estoque Manutenção</td><td><strong>Conceito:</strong> localização que representa ativos temporariamente fora de uso porque estão aguardando reparo, revisão ou peças — ainda com expectativa de retorno ao uso.</td></tr>
-          <tr><td>Estoque Temporário</td><td><strong>Conceito:</strong> localização que representa ativos disponíveis e funcionais, mas sem usuário ou destino definido no momento — aguardando remanejamento.</td></tr>
-          <tr><td>Estoque Descarte</td><td><strong>Conceito:</strong> localização que representa ativos condenados ou sem condição de reaproveitamento, sem expectativa de retorno ao uso, aguardando baixa patrimonial.</td></tr>
+          <tr><td>GLPI</td><td>Sistema de gestÃ£o de chamados e inventÃ¡rio de TI utilizado pela GTIC.</td></tr>
+          <tr><td>VisÃ£o de Estoque</td><td><strong>Conceito:</strong> uma forma organizada de consultar, dentro do GLPI, todos os ativos que estÃ£o fora de uso ativo â€” reunindo em um Ãºnico lugar o que hoje estÃ¡ disperso entre diferentes localizaÃ§Ãµes de estoque.</td></tr>
+          <tr><td>LocalizaÃ§Ã£o (GLPI)</td><td><strong>Conceito:</strong> campo do cadastro do ativo que indica fisicamente/logicamente onde ele se encontra. Ã‰ esse campo que classifica um ativo como pertencente a um dos estoques.</td></tr>
+          <tr><td>Estoque ManutenÃ§Ã£o</td><td><strong>Conceito:</strong> localizaÃ§Ã£o que representa ativos temporariamente fora de uso porque estÃ£o aguardando reparo, revisÃ£o ou peÃ§as â€” ainda com expectativa de retorno ao uso.</td></tr>
+          <tr><td>Estoque TemporÃ¡rio</td><td><strong>Conceito:</strong> localizaÃ§Ã£o que representa ativos disponÃ­veis e funcionais, mas sem usuÃ¡rio ou destino definido no momento â€” aguardando remanejamento.</td></tr>
+          <tr><td>Estoque Descarte</td><td><strong>Conceito:</strong> localizaÃ§Ã£o que representa ativos condenados ou sem condiÃ§Ã£o de reaproveitamento, sem expectativa de retorno ao uso, aguardando baixa patrimonial.</td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- ══════════════════════════════════════════════ -->
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <section class="section" id="fluxo-resumido">
-      <h2 class="section-title">Fluxo resumido <span>Visão rápida</span></h2>
+      <h2 class="section-title">Fluxo resumido <span>VisÃ£o rÃ¡pida</span></h2>
       <div class="summary-flow">
-        <div class="summary-node"><strong>1. Classificar</strong>Os ativos são organizados pela localização e pela condição registrada no GLPI.</div><span class="summary-arrow">→</span>
-        <div class="summary-node"><strong>2. Filtrar</strong>A equipe cria a visão de estoque com os critérios definidos para cada finalidade.</div><span class="summary-arrow">→</span>
-        <div class="summary-node"><strong>3. Conferir</strong>Os itens exibidos são validados com o estoque físico e as inconsistências são corrigidas.</div><span class="summary-arrow">→</span>
-        <div class="summary-node"><strong>4. Manter</strong>A localização e o status são atualizados para preservar uma visão confiável e auditável.</div>
+        <div class="summary-node"><strong>1. Classificar</strong>Os ativos sÃ£o organizados pela localizaÃ§Ã£o e pela condiÃ§Ã£o registrada no GLPI.</div><span class="summary-arrow">â†’</span>
+        <div class="summary-node"><strong>2. Filtrar</strong>A equipe cria a visÃ£o de estoque com os critÃ©rios definidos para cada finalidade.</div><span class="summary-arrow">â†’</span>
+        <div class="summary-node"><strong>3. Conferir</strong>Os itens exibidos sÃ£o validados com o estoque fÃ­sico e as inconsistÃªncias sÃ£o corrigidas.</div><span class="summary-arrow">â†’</span>
+        <div class="summary-node"><strong>4. Manter</strong>A localizaÃ§Ã£o e o status sÃ£o atualizados para preservar uma visÃ£o confiÃ¡vel e auditÃ¡vel.</div>
       </div>
     </section>
     <!-- PROCESSO 1 -->
-    <!-- ══════════════════════════════════════════════ -->
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <section class="section" id="proc1">
-      <h2 class="section-title">Processo 1 <span>Critério de Classificação por Localização</span></h2>
+      <h2 class="section-title">Processo 1 <span>CritÃ©rio de ClassificaÃ§Ã£o por LocalizaÃ§Ã£o</span></h2>
 
       <div class="alert-box info">
-        <strong>ℹ️ Contexto:</strong> As três localizações de estoque já existem no GLPI: <strong>Estoque Manutenção</strong>, <strong>Estoque Temporário</strong> e <strong>Estoque Descarte</strong>. Este processo define <strong>quando</strong> cada uma delas deve ser aplicada no campo Localização dos ativos do tipo <strong>Computador</strong> e <strong>Monitor</strong>, já que é essa classificação que alimenta a Visão de Estoque.
+        <strong>â„¹ï¸ Contexto:</strong> As trÃªs localizaÃ§Ãµes de estoque jÃ¡ existem no GLPI: <strong>Estoque ManutenÃ§Ã£o</strong>, <strong>Estoque TemporÃ¡rio</strong> e <strong>Estoque Descarte</strong>. Este processo define <strong>quando</strong> cada uma delas deve ser aplicada no campo LocalizaÃ§Ã£o dos ativos do tipo <strong>Computador</strong> e <strong>Monitor</strong>, jÃ¡ que Ã© essa classificaÃ§Ã£o que alimenta a VisÃ£o de Estoque.
       </div>
 
       <div class="process-card open">
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 1</span>
-          <span class="process-title">Quando Aplicar Cada Localização de Estoque</span>
+          <span class="process-title">Quando Aplicar Cada LocalizaÃ§Ã£o de Estoque</span>
           <span class="process-resp">GTIC</span>
-          <span class="process-chevron">▾</span>
+          <span class="process-chevron">â–¾</span>
         </div>
         <div class="process-body">
           <div class="meta-badges">
-            <div class="meta-badge"><strong>Responsável:</strong> GTIC</div>
+            <div class="meta-badge"><strong>ResponsÃ¡vel:</strong> GTIC</div>
             <div class="meta-badge"><strong>Aplica-se a:</strong> Ativos Computador e Monitor</div>
             <div class="meta-badge"><strong>Sistema:</strong> GLPI</div>
           </div>
           <table class="steps-table">
-            <thead><tr><th style="width:170px">Localização</th><th>Quando atribuir ao ativo (Computador / Monitor)</th><th style="width:220px">Observação</th></tr></thead>
+            <thead><tr><th style="width:170px">LocalizaÃ§Ã£o</th><th>Quando atribuir ao ativo (Computador / Monitor)</th><th style="width:220px">ObservaÃ§Ã£o</th></tr></thead>
             <tbody>
-              <tr><td class="step-resp">Estoque Manutenção</td><td>Atribuir quando o Computador ou Monitor for retirado de uso por estar aguardando reparo, revisão ou peças, com expectativa de retorno ao uso.</td><td class="step-obs">Ainda não é descarte — o ativo deve voltar a circular.</td></tr>
-              <tr><td class="step-resp">Estoque Temporário</td><td>Atribuir quando o Computador ou Monitor estiver funcional e disponível, mas sem usuário ou unidade de destino definida no momento.</td><td class="step-obs">Ativo pronto para uso, apenas aguardando remanejamento.</td></tr>
-              <tr><td class="step-resp">Estoque Descarte</td><td>Atribuir quando o Computador ou Monitor for condenado, sem condição de reaproveitamento, aguardando baixa patrimonial.</td><td class="step-obs">Sem expectativa de retorno ao uso.</td></tr>
+              <tr><td class="step-resp">Estoque ManutenÃ§Ã£o</td><td>Atribuir quando o Computador ou Monitor for retirado de uso por estar aguardando reparo, revisÃ£o ou peÃ§as, com expectativa de retorno ao uso.</td><td class="step-obs">Ainda nÃ£o Ã© descarte â€” o ativo deve voltar a circular.</td></tr>
+              <tr><td class="step-resp">Estoque TemporÃ¡rio</td><td>Atribuir quando o Computador ou Monitor estiver funcional e disponÃ­vel, mas sem usuÃ¡rio ou unidade de destino definida no momento.</td><td class="step-obs">Ativo pronto para uso, apenas aguardando remanejamento.</td></tr>
+              <tr><td class="step-resp">Estoque Descarte</td><td>Atribuir quando o Computador ou Monitor for condenado, sem condiÃ§Ã£o de reaproveitamento, aguardando baixa patrimonial.</td><td class="step-obs">Sem expectativa de retorno ao uso.</td></tr>
             </tbody>
           </table>
           <div class="alert-box warn">
-            <strong>⚠️ Importante:</strong> A localização deve ser atualizada no cadastro do ativo (Ativos → Computadores / Monitores) sempre que sua condição mudar. É esse campo que determina em qual grupo da Visão de Estoque o ativo vai aparecer.
+            <strong>âš ï¸ Importante:</strong> A localizaÃ§Ã£o deve ser atualizada no cadastro do ativo (Ativos â†’ Computadores / Monitores) sempre que sua condiÃ§Ã£o mudar. Ã‰ esse campo que determina em qual grupo da VisÃ£o de Estoque o ativo vai aparecer.
           </div>
 
-          <h3 style="font-family:'DM Serif Display',serif;font-size:16px;margin:24px 0 10px">Regras de Negócio — Estoque Manutenção</h3>
+          <h3 style="font-family:'DM Serif Display',serif;font-size:16px;margin:24px 0 10px">Regras de NegÃ³cio â€” Estoque ManutenÃ§Ã£o</h3>
           <ul class="rules-list">
-            <li>Só entra em Estoque Manutenção o ativo com <strong>diagnóstico técnico registrado</strong> confirmando possibilidade de reparo — nunca por suposição.</li>
-            <li>Toda entrada em Estoque Manutenção deve estar vinculada a um chamado no GLPI com o diagnóstico descrito.</li>
-            <li>Enquanto estiver em Manutenção, o ativo <strong>não pode ser reservado</strong> para nenhuma unidade — só retorna ao ciclo de uso após o reparo confirmado.</li>
-            <li>Se a unidade de saúde de origem ficar sem equipamento por causa da manutenção, avaliar substituição imediata usando um ativo do Estoque Temporário, para não impactar o atendimento ao paciente.</li>
-            <li>Ativo sem retorno em prazo razoável deve ser reavaliado: ou é reparado, ou é reclassificado para Estoque Descarte.</li>
+            <li>SÃ³ entra em Estoque ManutenÃ§Ã£o o ativo com <strong>diagnÃ³stico tÃ©cnico registrado</strong> confirmando possibilidade de reparo â€” nunca por suposiÃ§Ã£o.</li>
+            <li>Toda entrada em Estoque ManutenÃ§Ã£o deve estar vinculada a um chamado no GLPI com o diagnÃ³stico descrito.</li>
+            <li>Enquanto estiver em ManutenÃ§Ã£o, o ativo <strong>nÃ£o pode ser reservado</strong> para nenhuma unidade â€” sÃ³ retorna ao ciclo de uso apÃ³s o reparo confirmado.</li>
+            <li>Se a unidade de saÃºde de origem ficar sem equipamento por causa da manutenÃ§Ã£o, avaliar substituiÃ§Ã£o imediata usando um ativo do Estoque TemporÃ¡rio, para nÃ£o impactar o atendimento ao paciente.</li>
+            <li>Ativo sem retorno em prazo razoÃ¡vel deve ser reavaliado: ou Ã© reparado, ou Ã© reclassificado para Estoque Descarte.</li>
           </ul>
 
-          <h3 style="font-family:'DM Serif Display',serif;font-size:16px;margin:24px 0 10px">Regras de Negócio — Estoque Temporário</h3>
+          <h3 style="font-family:'DM Serif Display',serif;font-size:16px;margin:24px 0 10px">Regras de NegÃ³cio â€” Estoque TemporÃ¡rio</h3>
           <ul class="rules-list">
-            <li>Só entra em Estoque Temporário o ativo <strong>funcional e testado</strong> — nunca um ativo com pendência técnica em aberto.</li>
-            <li><strong>Prioridade de saída:</strong> ativos do Estoque Temporário devem ser direcionados preferencialmente para substituir, com urgência, equipamentos em Manutenção ou Descarte em unidades de saúde — o objetivo é não deixar uma unidade sem equipamento disponível para atendimento ao paciente.</li>
-            <li>Ativo parado no Estoque Temporário por muito tempo sem demanda deve ser revisado proativamente pela GTIC, em vez de aguardar solicitação.</li>
-            <li>Todo ativo em Estoque Temporário deve ter a data de entrada e a situação (revisado / pronto para uso) registradas.</li>
+            <li>SÃ³ entra em Estoque TemporÃ¡rio o ativo <strong>funcional e testado</strong> â€” nunca um ativo com pendÃªncia tÃ©cnica em aberto.</li>
+            <li><strong>Prioridade de saÃ­da:</strong> ativos do Estoque TemporÃ¡rio devem ser direcionados preferencialmente para substituir, com urgÃªncia, equipamentos em ManutenÃ§Ã£o ou Descarte em unidades de saÃºde â€” o objetivo Ã© nÃ£o deixar uma unidade sem equipamento disponÃ­vel para atendimento ao paciente.</li>
+            <li>Ativo parado no Estoque TemporÃ¡rio por muito tempo sem demanda deve ser revisado proativamente pela GTIC, em vez de aguardar solicitaÃ§Ã£o.</li>
+            <li>Todo ativo em Estoque TemporÃ¡rio deve ter a data de entrada e a situaÃ§Ã£o (revisado / pronto para uso) registradas.</li>
           </ul>
 
-          <h3 style="font-family:'DM Serif Display',serif;font-size:16px;margin:24px 0 10px">Regras de Negócio — Estoque Descarte</h3>
+          <h3 style="font-family:'DM Serif Display',serif;font-size:16px;margin:24px 0 10px">Regras de NegÃ³cio â€” Estoque Descarte</h3>
           <ul class="rules-list">
-            <li>Só entra em Estoque Descarte o ativo com <strong>laudo técnico</strong> confirmando inviabilidade de reparo (dano irreversível ou custo de reparo superior ao valor residual do equipamento).</li>
-            <li>A classificação como Descarte exige <strong>autorização formal</strong> da Coordenação GTIC antes de seguir para a baixa patrimonial.</li>
-            <li>O ativo <strong>nunca deve ser removido do GLPI, em nenhuma hipótese</strong> — nem antes, nem depois da baixa patrimonial. O cadastro é mantido permanentemente para preservar o histórico do ativo.</li>
-            <li>Ativo em Estoque Descarte <strong>não pode ser reaproveitado</strong> para atender unidades de saúde, mesmo em caráter emergencial.</li>
+            <li>SÃ³ entra em Estoque Descarte o ativo com <strong>laudo tÃ©cnico</strong> confirmando inviabilidade de reparo (dano irreversÃ­vel ou custo de reparo superior ao valor residual do equipamento).</li>
+            <li>A classificaÃ§Ã£o como Descarte exige <strong>autorizaÃ§Ã£o formal</strong> da CoordenaÃ§Ã£o GTIC antes de seguir para a baixa patrimonial.</li>
+            <li>O ativo <strong>nunca deve ser removido do GLPI, em nenhuma hipÃ³tese</strong> â€” nem antes, nem depois da baixa patrimonial. O cadastro Ã© mantido permanentemente para preservar o histÃ³rico do ativo.</li>
+            <li>Ativo em Estoque Descarte <strong>nÃ£o pode ser reaproveitado</strong> para atender unidades de saÃºde, mesmo em carÃ¡ter emergencial.</li>
           </ul>
           <div class="alert-box info">
-            <strong>🔗 Continuidade do processo:</strong> A partir do momento em que um ativo é classificado como Estoque Descarte, o fluxo de condenação e baixa patrimonial segue o <a href="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Processos/processo_substituicao_condenacao_ativos_glpi.html" target="_blank" style="color:var(--blue-mid);font-weight:600">Processo Operacional – Substituição e Condenação de Computadores e Notebooks no GLPI</a>, que já detalha a abertura do chamado, o diagnóstico técnico, a substituição do ativo e a atualização do status para "Condenado".
+            <strong>ðŸ”— Continuidade do processo:</strong> A partir do momento em que um ativo Ã© classificado como Estoque Descarte, o fluxo de condenaÃ§Ã£o e baixa patrimonial segue o <a href="https://saudedigitalatende.github.io/saudedigital/documenta%C3%A7%C3%B5es/Processos/processo_substituicao_condenacao_ativos_glpi.html" target="_blank" style="color:var(--blue-mid);font-weight:600">Processo Operacional â€“ SubstituiÃ§Ã£o e CondenaÃ§Ã£o de Computadores e Notebooks no GLPI</a>, que jÃ¡ detalha a abertura do chamado, o diagnÃ³stico tÃ©cnico, a substituiÃ§Ã£o do ativo e a atualizaÃ§Ã£o do status para "Condenado".
           </div>
 
           <h3 style="font-family:'DM Serif Display',serif;font-size:16px;margin:24px 0 10px">Regras Gerais</h3>
           <ul class="rules-list">
-            <li>Chamados envolvendo ativos vinculados a atendimento direto ao paciente em unidades de saúde do SUS têm <strong>prioridade</strong> sobre ativos de uso administrativo, na fila de manutenção e na fila de substituição.</li>
-            <li>Toda mudança de localização de um ativo deve ser registrada no chamado do GLPI correspondente, para manter a rastreabilidade.</li>
-            <li>A classificação inicial é responsabilidade do técnico que realiza o diagnóstico (N2); a GTIC valida os casos de reclassificação para Descarte.</li>
-            <li>Nenhum ativo pode permanecer classificado em uma localização de estoque sem estar de fato armazenado fisicamente nesse local.</li>
+            <li>Chamados envolvendo ativos vinculados a atendimento direto ao paciente em unidades de saÃºde do SUS tÃªm <strong>prioridade</strong> sobre ativos de uso administrativo, na fila de manutenÃ§Ã£o e na fila de substituiÃ§Ã£o.</li>
+            <li>Toda mudanÃ§a de localizaÃ§Ã£o de um ativo deve ser registrada no chamado do GLPI correspondente, para manter a rastreabilidade.</li>
+            <li>A classificaÃ§Ã£o inicial Ã© responsabilidade do tÃ©cnico que realiza o diagnÃ³stico (N2); a GTIC valida os casos de reclassificaÃ§Ã£o para Descarte.</li>
+            <li>Nenhum ativo pode permanecer classificado em uma localizaÃ§Ã£o de estoque sem estar de fato armazenado fisicamente nesse local.</li>
           </ul>
           <div class="alert-box note">
-            <strong>📌 A confirmar:</strong> prazos específicos (ex.: quantos dias um ativo pode ficar em Manutenção ou Temporário antes de reavaliação obrigatória) não foram informados — sugiro a GTIC definir esses limites antes da publicação final deste documento.
+            <strong>ðŸ“Œ A confirmar:</strong> prazos especÃ­ficos (ex.: quantos dias um ativo pode ficar em ManutenÃ§Ã£o ou TemporÃ¡rio antes de reavaliaÃ§Ã£o obrigatÃ³ria) nÃ£o foram informados â€” sugiro a GTIC definir esses limites antes da publicaÃ§Ã£o final deste documento.
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════ -->
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <!-- PROCESSO 2 -->
-    <!-- ══════════════════════════════════════════════ -->
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <section class="section" id="proc2">
-      <h2 class="section-title">Processo 2 <span>Construção da Visão de Estoque — Etapa 1: Descarte</span></h2>
+      <h2 class="section-title">Processo 2 <span>ConstruÃ§Ã£o da VisÃ£o de Estoque â€” Etapa 1: Descarte</span></h2>
 
       <div class="alert-box note">
-        <strong>📌 Primeira etapa:</strong> A construção da Visão de Estoque começa apenas com os ativos classificados na localização <strong>Estoque Descarte</strong>. Esse recorte permite validar o modelo de dados e a forma de apresentação das informações antes de estender a visão às demais localizações (Estoque Manutenção e Estoque Temporário).
+        <strong>ðŸ“Œ Primeira etapa:</strong> A construÃ§Ã£o da VisÃ£o de Estoque comeÃ§a apenas com os ativos classificados na localizaÃ§Ã£o <strong>Estoque Descarte</strong>. Esse recorte permite validar o modelo de dados e a forma de apresentaÃ§Ã£o das informaÃ§Ãµes antes de estender a visÃ£o Ã s demais localizaÃ§Ãµes (Estoque ManutenÃ§Ã£o e Estoque TemporÃ¡rio).
       </div>
 
       <div class="process-card open">
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 2</span>
-          <span class="process-title">Construção da Visão de Estoque (Etapa 1 — Descarte)</span>
+          <span class="process-title">ConstruÃ§Ã£o da VisÃ£o de Estoque (Etapa 1 â€” Descarte)</span>
           <span class="process-resp">GTIC</span>
-          <span class="process-chevron">▾</span>
+          <span class="process-chevron">â–¾</span>
         </div>
         <div class="process-body">
           <div class="meta-badges">
-            <div class="meta-badge"><strong>Responsável:</strong> GTIC</div>
-            <div class="meta-badge"><strong>Quando:</strong> Primeira etapa de implementação</div>
-            <div class="meta-badge"><strong>Pré-requisito:</strong> Processo 1 concluído</div>
+            <div class="meta-badge"><strong>ResponsÃ¡vel:</strong> GTIC</div>
+            <div class="meta-badge"><strong>Quando:</strong> Primeira etapa de implementaÃ§Ã£o</div>
+            <div class="meta-badge"><strong>PrÃ©-requisito:</strong> Processo 1 concluÃ­do</div>
           </div>
           <table class="steps-table">
-            <thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:160px">Responsável</th><th style="width:220px">Observação</th></tr></thead>
+            <thead><tr><th style="width:40px">NÂ°</th><th>AÃ§Ã£o / DescriÃ§Ã£o</th><th style="width:160px">ResponsÃ¡vel</th><th style="width:220px">ObservaÃ§Ã£o</th></tr></thead>
             <tbody>
-              <tr><td class="step-num">1</td><td>Levantar, no GLPI, todos os ativos atualmente classificados na localização <strong>Estoque Descarte</strong>.</td><td class="step-resp">GTIC</td><td class="step-obs">Menu: Ativos → filtrar por Localização = Estoque Descarte.</td></tr>
-              <tr><td class="step-num">2</td><td>Definir quais campos do ativo serão exibidos na Visão de Estoque (ex.: patrimônio, tipo, modelo, data de entrada, status).</td><td class="step-resp">GTIC</td><td class="step-obs">Campo base para validar o modelo de apresentação.</td></tr>
-              <tr><td class="step-num">3</td><td>Construir a visão (busca salva, dashboard ou relatório) filtrando ativos pela localização Estoque Descarte.</td><td class="step-resp">GTIC</td><td class="step-obs">Formato final (busca salva x dashboard) a definir conforme validação.</td></tr>
-              <tr><td class="step-num">4</td><td>Validar internamente se a visão reflete corretamente os ativos em Descarte e se as informações apresentadas são suficientes.</td><td class="step-resp">GTIC</td><td class="step-obs">Ajustar campos e filtros conforme necessário.</td></tr>
-              <tr><td class="step-num">5</td><td>Registrar os ajustes necessários identificados na validação, para aplicação nas próximas etapas (Manutenção e Temporário).</td><td class="step-resp">GTIC</td><td class="step-obs">Base para o Processo 3 (a ser criado quando as próximas etapas iniciarem).</td></tr>
+              <tr><td class="step-num">1</td><td>Levantar, no GLPI, todos os ativos atualmente classificados na localizaÃ§Ã£o <strong>Estoque Descarte</strong>.</td><td class="step-resp">GTIC</td><td class="step-obs">Menu: Ativos â†’ filtrar por LocalizaÃ§Ã£o = Estoque Descarte.</td></tr>
+              <tr><td class="step-num">2</td><td>Definir quais campos do ativo serÃ£o exibidos na VisÃ£o de Estoque (ex.: patrimÃ´nio, tipo, modelo, data de entrada, status).</td><td class="step-resp">GTIC</td><td class="step-obs">Campo base para validar o modelo de apresentaÃ§Ã£o.</td></tr>
+              <tr><td class="step-num">3</td><td>Construir a visÃ£o (busca salva, dashboard ou relatÃ³rio) filtrando ativos pela localizaÃ§Ã£o Estoque Descarte.</td><td class="step-resp">GTIC</td><td class="step-obs">Formato final (busca salva x dashboard) a definir conforme validaÃ§Ã£o.</td></tr>
+              <tr><td class="step-num">4</td><td>Validar internamente se a visÃ£o reflete corretamente os ativos em Descarte e se as informaÃ§Ãµes apresentadas sÃ£o suficientes.</td><td class="step-resp">GTIC</td><td class="step-obs">Ajustar campos e filtros conforme necessÃ¡rio.</td></tr>
+              <tr><td class="step-num">5</td><td>Registrar os ajustes necessÃ¡rios identificados na validaÃ§Ã£o, para aplicaÃ§Ã£o nas prÃ³ximas etapas (ManutenÃ§Ã£o e TemporÃ¡rio).</td><td class="step-resp">GTIC</td><td class="step-obs">Base para o Processo 3 (a ser criado quando as prÃ³ximas etapas iniciarem).</td></tr>
             </tbody>
           </table>
           <div class="alert-box warn">
-            <strong>⚠️ Escopo desta etapa:</strong> Nesta primeira etapa, a Visão de Estoque contempla <strong>apenas</strong> os ativos da localização Descarte. A extensão para Estoque Manutenção e Estoque Temporário será tratada em processo específico, após a validação do modelo.
+            <strong>âš ï¸ Escopo desta etapa:</strong> Nesta primeira etapa, a VisÃ£o de Estoque contempla <strong>apenas</strong> os ativos da localizaÃ§Ã£o Descarte. A extensÃ£o para Estoque ManutenÃ§Ã£o e Estoque TemporÃ¡rio serÃ¡ tratada em processo especÃ­fico, apÃ³s a validaÃ§Ã£o do modelo.
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PONTOS DE ATENÇÃO -->
+    <!-- PONTOS DE ATENÃ‡ÃƒO -->
     <section class="section" id="atencao">
-      <h2 class="section-title">Pontos de Atenção</h2>
+      <h2 class="section-title">Pontos de AtenÃ§Ã£o</h2>
       <ul class="rules-list">
-        <li>A Visão de Estoque, nesta primeira etapa, cobre <strong>apenas</strong> os ativos classificados como Estoque Descarte — não deve ser interpretada como visão completa do estoque.</li>
-        <li>O modelo de apresentação (campos exibidos, formato de busca salva ou dashboard) ainda está em validação e pode mudar antes da extensão às demais localizações.</li>
-        <li>As localizações Estoque Manutenção e Estoque Temporário já existem no GLPI, mas ainda não fazem parte da Visão de Estoque.</li>
-        <li>Qualquer ajuste identificado durante a validação da Etapa 1 deve ser documentado para reaproveitamento nas próximas etapas.</li>
+        <li>A VisÃ£o de Estoque, nesta primeira etapa, cobre <strong>apenas</strong> os ativos classificados como Estoque Descarte â€” nÃ£o deve ser interpretada como visÃ£o completa do estoque.</li>
+        <li>O modelo de apresentaÃ§Ã£o (campos exibidos, formato de busca salva ou dashboard) ainda estÃ¡ em validaÃ§Ã£o e pode mudar antes da extensÃ£o Ã s demais localizaÃ§Ãµes.</li>
+        <li>As localizaÃ§Ãµes Estoque ManutenÃ§Ã£o e Estoque TemporÃ¡rio jÃ¡ existem no GLPI, mas ainda nÃ£o fazem parte da VisÃ£o de Estoque.</li>
+        <li>Qualquer ajuste identificado durante a validaÃ§Ã£o da Etapa 1 deve ser documentado para reaproveitamento nas prÃ³ximas etapas.</li>
       </ul>
     </section>
 
-    <!-- HISTÓRICO -->
+    <!-- HISTÃ“RICO -->
     <section class="section" id="historico">
-      <h2 class="section-title">Histórico de Revisões</h2>
+      <h2 class="section-title">HistÃ³rico de RevisÃµes</h2>
       <table class="info-table">
-        <thead><tr><th>Versão</th><th>Data</th><th>Responsável</th><th>Descrição</th></tr></thead>
+        <thead><tr><th>VersÃ£o</th><th>Data</th><th>ResponsÃ¡vel</th><th>DescriÃ§Ã£o</th></tr></thead>
         <tbody>
-          <tr><td>1.0</td><td>Julho / 2026</td><td>GTIC / Saúde Digital Atende</td><td>Criação do documento</td></tr>
+          <tr><td>1.0</td><td>Julho / 2026</td><td>GTIC / SaÃºde Digital Atende</td><td>CriaÃ§Ã£o do documento</td></tr>
         </tbody>
       </table>
     </section>
@@ -363,11 +364,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </div><!-- /layout -->
 
 <footer class="page-footer">
-  <span class="footer-brand">Saúde Digital <em style="font-style:italic;color:var(--amber-mid)">Atende</em></span>
+  <span class="footer-brand">SaÃºde Digital <em style="font-style:italic;color:var(--amber-mid)">Atende</em></span>
   <div class="footer-meta">
-    <span><strong>Secretaria</strong>Secretaria de Saúde do Recife</span>
-    <span><strong>Versão</strong>1.0 — Julho 2026</span>
-    <span><strong>Uso</strong>Interno · Documento Operacional</span>
+    <span><strong>Secretaria</strong>Secretaria de SaÃºde do Recife</span>
+    <span><strong>VersÃ£o</strong>1.0 â€” Julho 2026</span>
+    <span><strong>Uso</strong>Interno Â· Documento Operacional</span>
   </div>
   <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
@@ -400,3 +401,4 @@ sections.forEach(s => obs.observe(s));
 
 </body>
 </html>
+
