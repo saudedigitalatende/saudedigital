@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Processo Operacional – Notificações de e-mail de Abertura e Encerramento de Chamados no GLPI · GTIC</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -86,17 +86,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .summary-node{flex:1;min-width:135px;padding:12px;border-radius:9px;border:1px solid var(--rule);background:#fff;font-size:12px;color:var(--ink2)}
 .summary-node strong{display:block;color:var(--ink);margin-bottom:3px}
 .summary-arrow{align-self:center;color:var(--ink3);font-size:18px}
-@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}.word-download-row{display:flex;justify-content:flex-end;margin:0 0 10px}.word-download{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(255,255,255,.35);border-radius:6px;color:#fff;text-decoration:none;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.08)}.word-download:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.65)}@media(max-width:768px){.word-download-row{justify-content:flex-start}}</style>
+@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}.word-download-row{display:flex;justify-content:flex-end;margin:0 0 10px}.word-download{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(255,255,255,.35);border-radius:6px;color:#fff;text-decoration:none;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.08)}.word-download:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.65)}@media(max-width:768px){.word-download-row{justify-content:flex-start}}
+.processes-label{font-family:'DM Sans',Arial,sans-serif;font-size:22px;font-weight:700;color:var(--ink);margin:28px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--rule)}.section h3{font-family:'DM Sans',Arial,sans-serif;font-size:15px;font-weight:700;color:var(--blue-mid);margin:18px 0 8px}</style>
 </head>
 <body>
 
 <header class="hero">
   <div class="hero-inner">
     <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
-      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos"
-        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
-        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
-        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
         ← Processos
       </a>
     </div>
@@ -110,33 +108,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <aside class="sidebar">
     <div class="sidebar-title">Sumário</div>
     <ul class="toc">
-      <li><a href="#historico">01. Histórico de Revisões</a></li>
-      <li><a href="#objetivo">02. Objetivo</a></li>
-      <li><a href="#notificacoes">03. Visão Geral das Notificações</a></li>
-      <li><a href="#abertura">04. Processo 1 — Abertura do Chamado</a></li>
-      <li><a href="#encerramento">05. Processo 2 — Encerramento do Chamado</a></li>
-      <li><a href="#padronizacao">06. Regras de Integração</a></li>
-    </ul>
+      <li><a href="#identificacao">Identificação</a></li><li><a href="#objetivo">Objetivo</a></li><li><a href="#fluxo-resumido">Fluxo resumido</a></li><div class="toc-group">Processos</div><li><a href="#proc1">Processo 1 - Abertura do Chamado</a></li><li><a href="#proc2">Processo 2 - Encerramento do Chamado</a></li><li><a href="#proc3">Processo 3 - Regras de Integração e Padronização</a></li><div class="toc-group">Revisão</div><li><a href="#historico">Histórico de Revisão</a></li></ul>
   </aside>
 
   <main class="content">
 
-    <div class="section" id="historico">
-      <div class="section-title"><span>01</span> Histórico de Revisões</div>
-      <table class="info-table">
-        <thead><tr><th>Versão</th><th>Última Atualização</th><th>Autor</th></tr></thead>
-        <tbody><tr><td>1.0</td><td>2026</td><td>GTIC</td></tr></tbody>
-      </table>
-    </div>
-
-    <div class="section" id="objetivo">
-      <div class="section-title"><span>02</span> Objetivo</div>
+    <div class="section" id="identificacao">
+      <h2 class="section-title">Identificação</h2>
+      <table class="info-table"><tbody>
+        <tr><td>Tipo</td><td>Processo Operacional</td></tr>
+        <tr><td>Título</td><td>Processo Operacional – Notificações de e-mail de Abertura e Encerramento de Chamados no GLPI</td></tr>
+        <tr><td>Área responsável</td><td>Sistemas</td></tr>
+        <tr><td>Versão</td><td>2026</td></tr>
+      </tbody></table>
+    </div><div class="section" id="objetivo">
+      <div class="section-title">Objetivo</div>
       <p class="doc-p">Este Processo Operacional estabelece como os chamados devem ser abertos e encerrados no <strong>GLPI</strong> para que as notificações automáticas por e-mail sejam enviadas corretamente ao usuário final, garantindo padronização, rastreabilidade, transparência e melhoria contínua dos atendimentos.</p>
-    </div>
-
-    <div class="section" id="notificacoes">
-      <div class="section-title"><span>03</span> Visão Geral das Notificações Automáticas</div>
-      <p class="doc-p">Os usuários receberão automaticamente notificação de e-mail para abertura e encerramento de chamado durante o ciclo de vida do chamado, conforme os dados registrados no <strong>GLPI</strong> e os modelos padronizados implementados através da integração com o <strong>n8n</strong>.</p>
+    <h3>03 Visão Geral das Notificações Automáticas</h3><p class="doc-p">Os usuários receberão automaticamente notificação de e-mail para abertura e encerramento de chamado durante o ciclo de vida do chamado, conforme os dados registrados no <strong>GLPI</strong> e os modelos padronizados implementados através da integração com o <strong>n8n</strong>.</p>
       <p class="doc-p" style="margin-top:8px">As notificações serão enviadas automaticamente a cada <strong>5 minutos</strong> e contemplarão dois processos principais:</p>
       <div class="notif-list">
         <div class="notif-item"><span class="notif-icon">✅</span><span>Confirmação de abertura do chamado</span></div>
@@ -147,7 +135,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </div>
 
     <div class="section" id="fluxo-resumido">
-    <div class="section-title"><span>FLUXO</span> Fluxo resumido das notificações</div>
+    <div class="section-title">Fluxo resumido</div>
     <div class="summary-flow">
       <div class="summary-node"><strong>1. Abrir</strong>O chamado é registrado no GLPI com o e-mail correto do usuário.</div><span class="summary-arrow">→</span>
       <div class="summary-node"><strong>2. Processar</strong>A automação consulta os eventos do GLPI e prepara a comunicação padronizada.</div><span class="summary-arrow">→</span>
@@ -155,8 +143,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <div class="summary-node"><strong>4. Concluir</strong>Na solução ou no fechamento, é enviada a confirmação com o link da pesquisa de satisfação.</div>
     </div>
   </div>
-  <div class="section" id="abertura">
-      <div class="section-title"><span>04</span> Processo 1 <span>Abertura do Chamado</span></div>
+  <div class="processes-label">Processos</div><div class="section" id="proc1">
+      <div class="section-title">Processo 1 - Abertura do Chamado</div>
       <p class="doc-p">A abertura do chamado deve ser realizada com preenchimento completo dos campos necessários para que o GLPI registre corretamente a solicitação e envie a confirmação de abertura ao usuário final.</p>
       <div class="notif-list">
         <div class="notif-item"><span class="notif-icon">01</span><span>Acessar o GLPI e iniciar a criação do chamado.</span></div>
@@ -185,8 +173,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </div>
 
-    <div class="section" id="encerramento">
-      <div class="section-title"><span>05</span> Processo 2 <span>Encerramento do Chamado</span></div>
+    <div class="section" id="proc2">
+      <div class="section-title">Processo 2 - Encerramento do Chamado</div>
       <p class="doc-p">O encerramento do chamado deve ser realizado somente após o atendimento ser concluído e a solução estar registrada no GLPI. Ao alterar o status para <strong>SOLUCIONADO</strong> ou <strong>FECHADO</strong>, o usuário final receberá a notificação automática de encerramento e o link da pesquisa de satisfação.</p>
       <div class="notif-list">
         <div class="notif-item"><span class="notif-icon">01</span><span>Confirmar que o atendimento foi concluído e que não há pendência técnica ou administrativa no chamado.</span></div>
@@ -212,8 +200,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </div>
 
-    <div class="section" id="padronizacao">
-      <div class="section-title"><span>06</span> Regras de Integração e Padronização</div>
+    <div class="section" id="proc3">
+      <div class="section-title">Processo 3 - Regras de Integração e Padronização</div>
       <p class="doc-p">As notificações dependem da padronização dos campos do GLPI e do funcionamento integrado com os fluxos automatizados. Por isso, os campos utilizados nos processos de abertura e encerramento devem ser mantidos conforme definidos pela administração do GLPI.</p>
       <div class="alert-box danger">
         <strong>🚫 Atenção:</strong> Os campos padronizados <strong>não deverão ser alterados, removidos ou modificados</strong> sem validação prévia da administração do GLPI, pois alterações indevidas poderão comprometer o funcionamento das regras automatizadas, notificação de e-mail para abertura e encerramento de chamado, categorização dos chamados e integrações implementadas no n8n.
@@ -224,7 +212,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <p class="doc-p">Caso haja necessidade de inclusão, ajuste ou alteração nos scripts padronizados, a solicitação deverá ser encaminhada à <strong>equipe responsável pela administração e governança do GLPI</strong>.</p>
     </div>
 
-  </main>
+  <div class="section" id="historico">
+      <div class="section-title">Histórico de Revisão</div>
+      <table class="info-table">
+        <thead><tr><th>Versão</th><th>Última Atualização</th><th>Autor</th></tr></thead>
+        <tbody><tr><td>1.0</td><td>2026</td><td>GTIC</td></tr></tbody>
+      </table>
+    </div>
+
+    </main>
 </div>
 
 <footer class="page-footer">
@@ -235,7 +231,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <span><strong>Uso</strong>Interno · Documento Institucional</span>
   </div>
   <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" class="back-portal">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    <svg viewbox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"></path></svg>
     Voltar às Documentações
   </a>
 </footer>
