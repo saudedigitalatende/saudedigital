@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Processo Operacional – Abertura de Chamados com Associação de Ativos no GLPI &middot; GTIC</title>
+<title>Processo Operacional â€“ Abertura de Chamados com AssociaÃ§Ã£o de Ativos no GLPI &middot; GTIC</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -136,7 +136,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .summary-node{flex:1;min-width:135px;padding:12px;border-radius:9px;border:1px solid var(--rule);background:#fff;font-size:12px;color:var(--ink2)}
 .summary-node strong{display:block;color:var(--ink);margin-bottom:3px}
 .summary-arrow{align-self:center;color:var(--ink3);font-size:18px}
-@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}</style>
+@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}.word-download-row{display:flex;justify-content:flex-end;margin:0 0 10px}.word-download{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(255,255,255,.35);border-radius:6px;color:#fff;text-decoration:none;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.08)}.word-download:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.65)}@media(max-width:768px){.word-download-row{justify-content:flex-start}}</style>
 </head>
 <body>
 
@@ -145,7 +145,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <div class="hero-actions">
       <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" class="hero-crumb">&larr; Processos</a>
     </div>
-    <h1>Processo Operacional – <em>Abertura de Chamados com Associação de Ativos</em> no GLPI</h1>
+    <div class="word-download-row"><a class="word-download" href="docx/processo_abertura_chamados_ativos_glpi.docx" download>Baixar em Word</a></div>
+    <h1>Processo Operacional â€“ <em>Abertura de Chamados com AssociaÃ§Ã£o de Ativos</em> no GLPI</h1>
     <p>GTIC &middot; Sa&uacute;de Digital Atende &middot; Secretaria de Sa&uacute;de do Recife &middot; Vers&atilde;o 1.0</p>
   </div>
 </header>
@@ -178,7 +179,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <table class="info-table">
         <tbody>
           <tr><td>Tipo</td><td>Processo Operacional</td></tr>
-          <tr><td>T&iacute;tulo</td><td>Abertura de Chamados com Associação de Ativos no GLPI</td></tr>
+          <tr><td>T&iacute;tulo</td><td>Abertura de Chamados com AssociaÃ§Ã£o de Ativos no GLPI</td></tr>
           <tr><td>&Aacute;rea respons&aacute;vel</td><td>GTIC - Ger&ecirc;ncia de Tecnologia da Informa&ccedil;&atilde;o e Comunica&ccedil;&atilde;o</td></tr>
           <tr><td>Setor</td><td>Sa&uacute;de Digital Atende</td></tr>
           <tr><td>Data de cria&ccedil;&atilde;o</td><td>Junho / 2026</td></tr>
@@ -193,7 +194,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <!-- OBJETIVO -->
     <section class="section" id="objetivo">
       <h2 class="section-title">Objetivo</h2>
-      <p class="doc-p">Padronizar a abertura de chamados com associação de ativos no GLPI, garantindo que o chamado principal seja registrado pela Central de Servi&ccedil;os, que o ativo seja associado sempre que localizado e que, quando o ativo n&atilde;o for encontrado, seja aberto um chamado vinculado/associado para regulariza&ccedil;&atilde;o e esse chamado seja vinculado ao chamado principal.</p>
+      <p class="doc-p">Padronizar a abertura de chamados com associaÃ§Ã£o de ativos no GLPI, garantindo que o chamado principal seja registrado pela Central de Servi&ccedil;os, que o ativo seja associado sempre que localizado e que, quando o ativo n&atilde;o for encontrado, seja aberto um chamado vinculado/associado para regulariza&ccedil;&atilde;o e esse chamado seja vinculado ao chamado principal.</p>
       <p class="doc-p">Essa associa&ccedil;&atilde;o entre chamados mant&eacute;m tudo atrelado e permite identificar nos relat&oacute;rios quantos chamados foram abertos para determinado ativo.</p>
     </section>
 
@@ -216,12 +217,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </section>
 
     <section class="section" id="fluxo-resumido">
-      <h2 class="section-title">Fluxo resumido <span>Visão rápida</span></h2>
+      <h2 class="section-title">Fluxo resumido <span>VisÃ£o rÃ¡pida</span></h2>
       <div class="summary-flow">
-        <div class="summary-node"><strong>1. Registrar</strong>A Central de Serviços recebe a solicitação e abre o chamado no GLPI.</div><span class="summary-arrow">→</span>
-        <div class="summary-node"><strong>2. Associar o ativo</strong>Localiza o equipamento e o vincula ao chamado pela área de Itens.</div><span class="summary-arrow">→</span>
-        <div class="summary-node"><strong>3. Regularizar</strong>Se o ativo não for localizado, abre um chamado vinculado para cadastro ou correção.</div><span class="summary-arrow">→</span>
-        <div class="summary-node"><strong>4. Atender</strong>O Técnico N2 Suporte regulariza o ativo, mantém o vínculo e executa o atendimento.</div>
+        <div class="summary-node"><strong>1. Registrar</strong>A Central de ServiÃ§os recebe a solicitaÃ§Ã£o e abre o chamado no GLPI.</div><span class="summary-arrow">â†’</span>
+        <div class="summary-node"><strong>2. Associar o ativo</strong>Localiza o equipamento e o vincula ao chamado pela Ã¡rea de Itens.</div><span class="summary-arrow">â†’</span>
+        <div class="summary-node"><strong>3. Regularizar</strong>Se o ativo nÃ£o for localizado, abre um chamado vinculado para cadastro ou correÃ§Ã£o.</div><span class="summary-arrow">â†’</span>
+        <div class="summary-node"><strong>4. Atender</strong>O TÃ©cnico N2 Suporte regulariza o ativo, mantÃ©m o vÃ­nculo e executa o atendimento.</div>
       </div>
     </section>
     <!-- PROCESSO 1 -->
@@ -253,8 +254,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
             </tbody>
           </table>
                     <figure class="process-figure">
-              <img src="assets/glpi_associar_ativo_chamado.png" alt="Tela do GLPI na aba Itens mostrando a seleção Computador e o botão Adicionar para associar ativo ao chamado">
-              <figcaption class="figure-caption"><strong>Figura — Associação do ativo ao chamado.</strong> Na aba <strong>Itens</strong>, selecione o tipo do ativo, como <strong>Computador</strong>, localize o equipamento e clique em <strong>+ Adicionar</strong> para vincular o ativo ao chamado que está sendo aberto.</figcaption>
+              <img src="assets/glpi_associar_ativo_chamado.png" alt="Tela do GLPI na aba Itens mostrando a seleÃ§Ã£o Computador e o botÃ£o Adicionar para associar ativo ao chamado">
+              <figcaption class="figure-caption"><strong>Figura â€” AssociaÃ§Ã£o do ativo ao chamado.</strong> Na aba <strong>Itens</strong>, selecione o tipo do ativo, como <strong>Computador</strong>, localize o equipamento e clique em <strong>+ Adicionar</strong> para vincular o ativo ao chamado que estÃ¡ sendo aberto.</figcaption>
             </figure></div>
       </div>
     </section>
@@ -407,3 +408,4 @@ sections.forEach(s => obs.observe(s));
 
 </body>
 </html>
+
