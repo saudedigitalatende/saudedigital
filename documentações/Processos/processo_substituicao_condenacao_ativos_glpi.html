@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Processo Operacional – Substituição e Condenação de Computadores e Notebooks no GLPI · GTIC</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -136,7 +136,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .summary-node{flex:1;min-width:135px;padding:12px;border-radius:9px;border:1px solid var(--rule);background:#fff;font-size:12px;color:var(--ink2)}
 .summary-node strong{display:block;color:var(--ink);margin-bottom:3px}
 .summary-arrow{align-self:center;color:var(--ink3);font-size:18px}
-@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}.word-download-row{display:flex;justify-content:flex-end;margin:0 0 10px}.word-download{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(255,255,255,.35);border-radius:6px;color:#fff;text-decoration:none;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.08)}.word-download:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.65)}@media(max-width:768px){.word-download-row{justify-content:flex-start}}</style>
+@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}.word-download-row{display:flex;justify-content:flex-end;margin:0 0 10px}.word-download{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(255,255,255,.35);border-radius:6px;color:#fff;text-decoration:none;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.08)}.word-download:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.65)}@media(max-width:768px){.word-download-row{justify-content:flex-start}}
+.processes-label{font-family:'DM Sans',Arial,sans-serif;font-size:22px;font-weight:700;color:var(--ink);margin:28px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--rule)}.section h3{font-family:'DM Sans',Arial,sans-serif;font-size:15px;font-weight:700;color:var(--blue-mid);margin:18px 0 8px}</style>
 </head>
 <body>
 
@@ -157,25 +158,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <aside class="sidebar">
     <div class="sidebar-title">Neste manual</div>
     <ul class="toc" id="toc">
-      <li><a href="#identificacao">Identificação</a></li>
-      <li><a href="#objetivo">Objetivo</a></li>
-      <li><a href="#definicoes">Definições</a></li>
-      <div class="toc-group">Processos</div>
-      <li><a href="#proc1">1 — Abertura do Chamado</a></li>
-      <li><a href="#proc2">2 — Execução / Atendimento</a></li>
-      <li><a href="#proc3">3 — Condenação do Ativo</a></li>
-      <li><a href="#proc4">4 — Chamado de Substituição</a></li>
-      <div class="toc-group">Referência</div>
-      <li><a href="#status">Status dos Ativos</a></li>
-      <li><a href="#atencao">Pontos de Atenção</a></li>
-      <li><a href="#historico">Histórico de Revisões</a></li>
-    </ul>
+      <li><a href="#identificacao">Identificação</a></li><li><a href="#objetivo">Objetivo</a></li><li><a href="#fluxo-resumido">Fluxo resumido</a></li><div class="toc-group">Processos</div><li><a href="#proc1">Processo 1 - Abertura do Chamado</a></li><li><a href="#proc2">Processo 2 - Execução / Atendimento Técnico</a></li><li><a href="#proc3">Processo 3 - Condenação do Ativo</a></li><li><a href="#proc4">Processo 4 - Abertura do Chamado de Substituição</a></li><div class="toc-group">Revisão</div><li><a href="#historico">Histórico de Revisão</a></li></ul>
   </aside>
 
   <!-- CONTENT -->
   <div class="content">
 
     <!-- IDENTIFICAÇÃO -->
+    <!-- OBJETIVO -->
+    <!-- DEFINIÇÕES -->
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- PROCESSO 1 -->
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- PROCESSO 2 -->
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- PROCESSO 3 -->
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- STATUS -->
+    <!-- PONTOS DE ATENÇÃO -->
+    <!-- HISTÓRICO -->
     <section class="section" id="identificacao">
       <h2 class="section-title">Identificação</h2>
       <table class="info-table">
@@ -193,33 +196,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </section>
 
-    <!-- OBJETIVO -->
     <section class="section" id="objetivo">
       <h2 class="section-title">Objetivo</h2>
       <p class="doc-p">Padronizar os procedimentos operacionais de abertura de chamados com associação de ativos, execução do atendimento técnico, identificação do ativo encaminhado ao patrimônio, comunicação com o setor administrativo de ativos e atualização do status de ciclo de vida no GLPI, garantindo a rastreabilidade e integridade do inventário de TI da Secretaria de Saúde do Recife.</p>
     </section>
 
-    <!-- DEFINIÇÕES -->
-    <section class="section" id="definicoes">
-      <h2 class="section-title">Definições</h2>
-      <table class="info-table">
-        <thead><tr><th>Termo</th><th>Definição</th></tr></thead>
-        <tbody>
-          <tr><td>GLPI</td><td>Sistema de gestão de chamados e inventário de TI utilizado pela GTIC.</td></tr>
-          <tr><td>Ativo</td><td>Equipamento ou item de TI cadastrado no inventário do GLPI (computador, impressora, monitor, roteador, etc.).</td></tr>
-          <tr><td>Chamado</td><td>Registro de solicitação, incidente ou requisição aberto no GLPI.</td></tr>
-          <tr><td>Patrimônio</td><td>Setor responsável pelo controle patrimonial dos bens da Secretaria de Saúde do Recife.</td></tr>
-          <tr><td>Ciclo de vida do ativo</td><td>Conjunto de status que um ativo percorre ao longo de sua existência: Em uso → Em manutenção → Condenado / Baixado.</td></tr>
-          <tr><td>Condenado</td><td>Status do ativo quando está inoperante e aprovado formalmente para descarte ou baixa patrimonial.</td></tr>
-          <tr><td>Central de Serviços</td><td>Equipe responsável pela abertura de todos os chamados no GLPI (N1).</td></tr>
-          <tr><td>N2</td><td>Técnico de suporte de segundo nível, responsável pelo atendimento presencial ou remoto avançado.</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- ══════════════════════════════════════════════ -->
     <section class="section" id="fluxo-resumido">
-      <h2 class="section-title">Fluxo resumido <span>Visão rápida</span></h2>
+      <h2 class="section-title">Fluxo resumido</h2>
       <div class="summary-flow">
         <div class="summary-node"><strong>1. Abrir e associar</strong>A Central registra o chamado e associa o ativo físico no GLPI.</div><span class="summary-arrow">→</span>
         <div class="summary-node"><strong>2. Diagnosticar</strong>O Técnico N2 executa o atendimento e confirma tecnicamente a condenação.</div><span class="summary-arrow">→</span>
@@ -227,10 +210,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         <div class="summary-node"><strong>4. Abrir a substituição</strong>O Administrativo é consultado sobre disponibilidade; o chamado é aberto em qualquer cenário e mantido como Pendente.</div>
       </div>
     </section>
-    <!-- PROCESSO 1 -->
-    <!-- ══════════════════════════════════════════════ -->
-    <section class="section" id="proc1">
-      <h2 class="section-title">Processo 1 <span>Abertura do Chamado</span></h2>
+    <div class="processes-label">Processos</div><section class="section" id="proc1">
+      <h2 class="section-title">Processo 1 - Abertura do Chamado</h2>
 
       <div class="alert-box warn">
         <strong>⚠️ OBRIGATÓRIO:</strong> Todo chamado que envolva um ativo físico (computador, impressora, monitor, roteador, etc.) <strong>DEVE ter o ativo associado no momento da abertura</strong>. Chamados sem ativo associado comprometem o inventário e impossibilitam o histórico do equipamento.
@@ -268,11 +249,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- PROCESSO 2 -->
-    <!-- ══════════════════════════════════════════════ -->
     <section class="section" id="proc2">
-      <h2 class="section-title">Processo 2 <span>Execução / Atendimento Técnico</span></h2>
+      <h2 class="section-title">Processo 2 - Execução / Atendimento Técnico</h2>
 
       <div class="process-card open">
         <div class="process-header" onclick="toggleCard(this)">
@@ -304,11 +282,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- PROCESSO 3 -->
-    <!-- ══════════════════════════════════════════════ -->
     <section class="section" id="proc3">
-      <h2 class="section-title">Processo 3 <span>Condenação do Ativo</span></h2>
+      <h2 class="section-title">Processo 3 - Condenação do Ativo</h2>
 
       <div class="alert-box info">
         <strong>ℹ️ Ciclo de vida do ativo:</strong> O status "Condenado" encerra oficialmente o ciclo de vida ativo do equipamento no GLPI. Este passo é obrigatório para que o inventário reflita a realidade do parque tecnológico e para que os processos de baixa patrimonial possam ser iniciados.
@@ -355,7 +330,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     </section>
 
     <section class="section" id="proc4">
-      <h2 class="section-title">Processo 4 <span>Abertura do Chamado de Substituição</span></h2>
+      <h2 class="section-title">Processo 4 - Abertura do Chamado de Substituição</h2>
 
       <div class="process-card open">
         <div class="process-header" onclick="toggleCard(this)">
@@ -393,7 +368,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </section>
 
-    <!-- STATUS -->
+    <section class="section" id="definicoes">
+      <h2 class="section-title">Definições</h2>
+      <table class="info-table">
+        <thead><tr><th>Termo</th><th>Definição</th></tr></thead>
+        <tbody>
+          <tr><td>GLPI</td><td>Sistema de gestão de chamados e inventário de TI utilizado pela GTIC.</td></tr>
+          <tr><td>Ativo</td><td>Equipamento ou item de TI cadastrado no inventário do GLPI (computador, impressora, monitor, roteador, etc.).</td></tr>
+          <tr><td>Chamado</td><td>Registro de solicitação, incidente ou requisição aberto no GLPI.</td></tr>
+          <tr><td>Patrimônio</td><td>Setor responsável pelo controle patrimonial dos bens da Secretaria de Saúde do Recife.</td></tr>
+          <tr><td>Ciclo de vida do ativo</td><td>Conjunto de status que um ativo percorre ao longo de sua existência: Em uso → Em manutenção → Condenado / Baixado.</td></tr>
+          <tr><td>Condenado</td><td>Status do ativo quando está inoperante e aprovado formalmente para descarte ou baixa patrimonial.</td></tr>
+          <tr><td>Central de Serviços</td><td>Equipe responsável pela abertura de todos os chamados no GLPI (N1).</td></tr>
+          <tr><td>N2</td><td>Técnico de suporte de segundo nível, responsável pelo atendimento presencial ou remoto avançado.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <section class="section" id="status">
       <h2 class="section-title">Tabela de Status dos Ativos <span>Referência rápida</span></h2>
       <table class="status-table">
@@ -433,7 +424,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </table>
     </section>
 
-    <!-- PONTOS DE ATENÇÃO -->
     <section class="section" id="atencao">
       <h2 class="section-title">Pontos de Atenção</h2>
       <div class="alert-box danger">
@@ -448,9 +438,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </ul>
     </section>
 
-    <!-- HISTÓRICO -->
     <section class="section" id="historico">
-      <h2 class="section-title">Histórico de Revisões</h2>
+      <h2 class="section-title">Histórico de Revisão</h2>
       <table class="info-table">
         <thead><tr><th>Versão</th><th>Data</th><th>Responsável</th><th>Descrição</th></tr></thead>
         <tbody>
@@ -470,7 +459,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <span><strong>Uso</strong>Interno · Documento Operacional</span>
   </div>
   <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    <svg viewbox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"></path></svg>
     Voltar ao Portal
   </a>
 </footer>
