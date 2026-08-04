@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Processo Operacional â€“ SubstituiÃ§Ã£o e CondenaÃ§Ã£o de Computadores e Notebooks no GLPI Â· GTIC</title>
+<title>Processo Operacional – Substituição e Condenação de Computadores e Notebooks no GLPI · GTIC</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -143,11 +143,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 <header class="hero">
   <div class="hero-inner">
     <div class="hero-actions">
-      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" class="hero-crumb">â† Processos</a>
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" class="hero-crumb">← Processos</a>
     </div>
     <div class="word-download-row"><a class="word-download" href="docx/processo_substituicao_condenacao_ativos_glpi.docx" download>Baixar em Word</a></div>
-    <h1>Processo Operacional â€“ <em>SubstituiÃ§Ã£o e CondenaÃ§Ã£o de Computadores e Notebooks</em> no GLPI</h1>
-    <p>GTIC Â· SaÃºde Digital Atende Â· Secretaria de SaÃºde do Recife Â· VersÃ£o 1.0</p>
+    <h1>Processo Operacional – <em>Substituição e Condenação de Computadores e Notebooks</em> no GLPI</h1>
+    <p>GTIC · Saúde Digital Atende · Secretaria de Saúde do Recife · Versão 1.0</p>
   </div>
 </header>
 
@@ -157,240 +157,240 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <aside class="sidebar">
     <div class="sidebar-title">Neste manual</div>
     <ul class="toc" id="toc">
-      <li><a href="#identificacao">IdentificaÃ§Ã£o</a></li>
+      <li><a href="#identificacao">Identificação</a></li>
       <li><a href="#objetivo">Objetivo</a></li>
-      <li><a href="#definicoes">DefiniÃ§Ãµes</a></li>
+      <li><a href="#definicoes">Definições</a></li>
       <div class="toc-group">Processos</div>
-      <li><a href="#proc1">1 â€” Abertura do Chamado</a></li>
-      <li><a href="#proc2">2 â€” ExecuÃ§Ã£o / Atendimento</a></li>
-      <li><a href="#proc3">3 â€” Chamado de SubstituiÃ§Ã£o</a></li>
-      <li><a href="#proc4">4 â€” Ativo Condenado</a></li>
-      <div class="toc-group">ReferÃªncia</div>
+      <li><a href="#proc1">1 — Abertura do Chamado</a></li>
+      <li><a href="#proc2">2 — Execução / Atendimento</a></li>
+      <li><a href="#proc3">3 — Chamado de Substituição</a></li>
+      <li><a href="#proc4">4 — Ativo Condenado</a></li>
+      <div class="toc-group">Referência</div>
       <li><a href="#status">Status dos Ativos</a></li>
-      <li><a href="#atencao">Pontos de AtenÃ§Ã£o</a></li>
-      <li><a href="#historico">HistÃ³rico de RevisÃµes</a></li>
+      <li><a href="#atencao">Pontos de Atenção</a></li>
+      <li><a href="#historico">Histórico de Revisões</a></li>
     </ul>
   </aside>
 
   <!-- CONTENT -->
   <div class="content">
 
-    <!-- IDENTIFICAÃ‡ÃƒO -->
+    <!-- IDENTIFICAÇÃO -->
     <section class="section" id="identificacao">
-      <h2 class="section-title">IdentificaÃ§Ã£o</h2>
+      <h2 class="section-title">Identificação</h2>
       <table class="info-table">
         <tbody>
           <tr><td>Tipo</td><td>Processo Operacional</td></tr>
-          <tr><td>TÃ­tulo</td><td>SubstituiÃ§Ã£o e CondenaÃ§Ã£o de Computadores e Notebooks no GLPI</td></tr>
-          <tr><td>Ãrea responsÃ¡vel</td><td>GTIC â€” GerÃªncia de Tecnologia da InformaÃ§Ã£o e ComunicaÃ§Ã£o</td></tr>
-          <tr><td>Setor</td><td>SaÃºde Digital Atende</td></tr>
-          <tr><td>Data de criaÃ§Ã£o</td><td>Junho / 2026</td></tr>
-          <tr><td>VersÃ£o</td><td>1.0</td></tr>
+          <tr><td>Título</td><td>Substituição e Condenação de Computadores e Notebooks no GLPI</td></tr>
+          <tr><td>Área responsável</td><td>GTIC — Gerência de Tecnologia da Informação e Comunicação</td></tr>
+          <tr><td>Setor</td><td>Saúde Digital Atende</td></tr>
+          <tr><td>Data de criação</td><td>Junho / 2026</td></tr>
+          <tr><td>Versão</td><td>1.0</td></tr>
         </tbody>
       </table>
       <div class="alert-box info">
-        <strong>â„¹ï¸ Sobre este manual:</strong> Este documento descreve os procedimentos operacionais obrigatÃ³rios para abertura de chamados com associaÃ§Ã£o de ativos, execuÃ§Ã£o do atendimento tÃ©cnico, identificaÃ§Ã£o de ativos encaminhados ao patrimÃ´nio e atualizaÃ§Ã£o do ciclo de vida no GLPI. O cumprimento deste manual garante a fidedignidade do inventÃ¡rio de TI da Secretaria de SaÃºde do Recife.
+        <strong>ℹ️ Sobre este manual:</strong> Este documento descreve os procedimentos operacionais obrigatórios para abertura de chamados com associação de ativos, execução do atendimento técnico, identificação de ativos encaminhados ao patrimônio e atualização do ciclo de vida no GLPI. O cumprimento deste manual garante a fidedignidade do inventário de TI da Secretaria de Saúde do Recife.
       </div>
     </section>
 
     <!-- OBJETIVO -->
     <section class="section" id="objetivo">
       <h2 class="section-title">Objetivo</h2>
-      <p class="doc-p">Padronizar os procedimentos operacionais de abertura de chamados com associaÃ§Ã£o de ativos, execuÃ§Ã£o do atendimento tÃ©cnico, identificaÃ§Ã£o do ativo encaminhado ao patrimÃ´nio, comunicaÃ§Ã£o com o setor administrativo de ativos e atualizaÃ§Ã£o do status de ciclo de vida no GLPI, garantindo a rastreabilidade e integridade do inventÃ¡rio de TI da Secretaria de SaÃºde do Recife.</p>
+      <p class="doc-p">Padronizar os procedimentos operacionais de abertura de chamados com associação de ativos, execução do atendimento técnico, identificação do ativo encaminhado ao patrimônio, comunicação com o setor administrativo de ativos e atualização do status de ciclo de vida no GLPI, garantindo a rastreabilidade e integridade do inventário de TI da Secretaria de Saúde do Recife.</p>
     </section>
 
-    <!-- DEFINIÃ‡Ã•ES -->
+    <!-- DEFINIÇÕES -->
     <section class="section" id="definicoes">
-      <h2 class="section-title">DefiniÃ§Ãµes</h2>
+      <h2 class="section-title">Definições</h2>
       <table class="info-table">
-        <thead><tr><th>Termo</th><th>DefiniÃ§Ã£o</th></tr></thead>
+        <thead><tr><th>Termo</th><th>Definição</th></tr></thead>
         <tbody>
-          <tr><td>GLPI</td><td>Sistema de gestÃ£o de chamados e inventÃ¡rio de TI utilizado pela GTIC.</td></tr>
-          <tr><td>Ativo</td><td>Equipamento ou item de TI cadastrado no inventÃ¡rio do GLPI (computador, impressora, monitor, roteador, etc.).</td></tr>
-          <tr><td>Chamado</td><td>Registro de solicitaÃ§Ã£o, incidente ou requisiÃ§Ã£o aberto no GLPI.</td></tr>
-          <tr><td>PatrimÃ´nio</td><td>Setor responsÃ¡vel pelo controle patrimonial dos bens da Secretaria de SaÃºde do Recife.</td></tr>
-          <tr><td>Ciclo de vida do ativo</td><td>Conjunto de status que um ativo percorre ao longo de sua existÃªncia: Em uso â†’ Em manutenÃ§Ã£o â†’ Condenado / Baixado.</td></tr>
-          <tr><td>Condenado</td><td>Status do ativo quando estÃ¡ inoperante e aprovado formalmente para descarte ou baixa patrimonial.</td></tr>
-          <tr><td>Central de ServiÃ§os</td><td>Equipe responsÃ¡vel pela abertura de todos os chamados no GLPI (N1).</td></tr>
-          <tr><td>N2</td><td>TÃ©cnico de suporte de segundo nÃ­vel, responsÃ¡vel pelo atendimento presencial ou remoto avanÃ§ado.</td></tr>
+          <tr><td>GLPI</td><td>Sistema de gestão de chamados e inventário de TI utilizado pela GTIC.</td></tr>
+          <tr><td>Ativo</td><td>Equipamento ou item de TI cadastrado no inventário do GLPI (computador, impressora, monitor, roteador, etc.).</td></tr>
+          <tr><td>Chamado</td><td>Registro de solicitação, incidente ou requisição aberto no GLPI.</td></tr>
+          <tr><td>Patrimônio</td><td>Setor responsável pelo controle patrimonial dos bens da Secretaria de Saúde do Recife.</td></tr>
+          <tr><td>Ciclo de vida do ativo</td><td>Conjunto de status que um ativo percorre ao longo de sua existência: Em uso → Em manutenção → Condenado / Baixado.</td></tr>
+          <tr><td>Condenado</td><td>Status do ativo quando está inoperante e aprovado formalmente para descarte ou baixa patrimonial.</td></tr>
+          <tr><td>Central de Serviços</td><td>Equipe responsável pela abertura de todos os chamados no GLPI (N1).</td></tr>
+          <tr><td>N2</td><td>Técnico de suporte de segundo nível, responsável pelo atendimento presencial ou remoto avançado.</td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ══════════════════════════════════════════════ -->
     <section class="section" id="fluxo-resumido">
-      <h2 class="section-title">Fluxo resumido <span>VisÃ£o rÃ¡pida</span></h2>
+      <h2 class="section-title">Fluxo resumido <span>Visão rápida</span></h2>
       <div class="summary-flow">
-        <div class="summary-node"><strong>1. Abrir e associar</strong>A Central registra o chamado e associa o ativo fÃ­sico no GLPI.</div><span class="summary-arrow">â†’</span>
-        <div class="summary-node"><strong>2. Diagnosticar</strong>O TÃ©cnico N2 executa o atendimento e registra se o ativo foi condenado.</div><span class="summary-arrow">â†’</span>
-        <div class="summary-node"><strong>3. Substituir</strong>Ã‰ aberto um novo chamado de substituiÃ§Ã£o, relacionado ao anterior e com o ativo associado.</div><span class="summary-arrow">â†’</span>
-        <div class="summary-node"><strong>4. Atualizar o inventÃ¡rio</strong>O ativo substituÃ­do recebe status Condenado e permanece no GLPI para rastreabilidade.</div>
+        <div class="summary-node"><strong>1. Abrir e associar</strong>A Central registra o chamado e associa o ativo físico no GLPI.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>2. Diagnosticar</strong>O Técnico N2 executa o atendimento e registra se o ativo foi condenado.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>3. Substituir</strong>É aberto um novo chamado de substituição, relacionado ao anterior e com o ativo associado.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>4. Atualizar o inventário</strong>O ativo substituído recebe status Condenado e permanece no GLPI para rastreabilidade.</div>
       </div>
     </section>
     <!-- PROCESSO 1 -->
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ══════════════════════════════════════════════ -->
     <section class="section" id="proc1">
       <h2 class="section-title">Processo 1 <span>Abertura do Chamado</span></h2>
 
       <div class="alert-box warn">
-        <strong>âš ï¸ OBRIGATÃ“RIO:</strong> Todo chamado que envolva um ativo fÃ­sico (computador, impressora, monitor, roteador, etc.) <strong>DEVE ter o ativo associado no momento da abertura</strong>. Chamados sem ativo associado comprometem o inventÃ¡rio e impossibilitam o histÃ³rico do equipamento.
+        <strong>⚠️ OBRIGATÓRIO:</strong> Todo chamado que envolva um ativo físico (computador, impressora, monitor, roteador, etc.) <strong>DEVE ter o ativo associado no momento da abertura</strong>. Chamados sem ativo associado comprometem o inventário e impossibilitam o histórico do equipamento.
       </div>
 
       <div class="process-card open">
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 1</span>
-          <span class="process-title">Abertura do Chamado com AssociaÃ§Ã£o do Ativo</span>
-          <span class="process-resp">Central de ServiÃ§os</span>
-          <span class="process-chevron">â–¾</span>
+          <span class="process-title">Abertura do Chamado com Associação do Ativo</span>
+          <span class="process-resp">Central de Serviços</span>
+          <span class="process-chevron">▾</span>
         </div>
         <div class="process-body">
           <div class="meta-badges">
-            <div class="meta-badge"><strong>ResponsÃ¡vel:</strong> Central de ServiÃ§os</div>
+            <div class="meta-badge"><strong>Responsável:</strong> Central de Serviços</div>
             <div class="meta-badge"><strong>Quando:</strong> A cada novo chamado com ativo de TI envolvido</div>
             <div class="meta-badge"><strong>Sistema:</strong> GLPI</div>
           </div>
           <table class="steps-table">
-            <thead><tr><th style="width:40px">NÂ°</th><th>AÃ§Ã£o / DescriÃ§Ã£o</th><th style="width:160px">ResponsÃ¡vel</th><th style="width:220px">ObservaÃ§Ã£o</th></tr></thead>
+            <thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:160px">Responsável</th><th style="width:220px">Observação</th></tr></thead>
             <tbody>
-              <tr><td class="step-num">1</td><td>Receber a solicitaÃ§Ã£o do usuÃ¡rio por telefone ou Rocket.Chat e coletar as informaÃ§Ãµes iniciais: nome, setor, unidade e descriÃ§Ã£o do problema.</td><td class="step-resp">Central de ServiÃ§os</td><td class="step-obs">Anotar tambÃ©m o nÃºmero patrimonial ou nome do equipamento informado pelo usuÃ¡rio.</td></tr>
-              <tr><td class="step-num">2</td><td>Acessar o GLPI, clicar em <strong>"Criar chamado"</strong> e registrar as informaÃ§Ãµes coletadas na solicitaÃ§Ã£o.</td><td class="step-resp">Central de ServiÃ§os</td><td class="step-obs">Menu: AssistÃªncia â†’ Chamados â†’ + Criar.</td></tr>
-              <tr><td class="step-num">3</td><td>Preencher todos os campos obrigatÃ³rios: TÃ­tulo, Categoria, Tipo (RequisiÃ§Ã£o/Incidente), UrgÃªncia e DescriÃ§Ã£o detalhada do problema.</td><td class="step-resp">Central de ServiÃ§os</td><td class="step-obs">Todos os campos marcados com * sÃ£o obrigatÃ³rios.</td></tr>
-              <tr><td class="step-num">4</td><td>Na aba <strong>"Itens"</strong>, clicar em <strong>"+ Adicionar item"</strong> e buscar o ativo pelo nÃºmero de patrimÃ´nio ou nome do equipamento.</td><td class="step-resp">Central de ServiÃ§os</td><td class="step-obs">Se o ativo nÃ£o for encontrado, informar ao tÃ©cnico N2 antes de salvar o chamado.</td></tr>
-              <tr><td class="step-num">5</td><td>Selecionar o ativo correto na lista e confirmar a associaÃ§Ã£o.</td><td class="step-resp">Central de ServiÃ§os</td><td class="step-obs">Verificar se o nÃºmero de sÃ©rie e localizaÃ§Ã£o estÃ£o corretos.</td></tr>
-              <tr><td class="step-num">6</td><td>Atribuir o chamado ao grupo tÃ©cnico responsÃ¡vel conforme a categoria selecionada no catÃ¡logo de serviÃ§os.</td><td class="step-resp">Central de ServiÃ§os</td><td class="step-obs">Grupo: conforme catÃ¡logo de serviÃ§os e categoria selecionada no passo 3.</td></tr>
-              <tr><td class="step-num">7</td><td>Salvar o chamado. O chamado Ã© criado com status <strong>"Novo"</strong>; ao ser escalonado para um grupo tÃ©cnico, passa automaticamente para o status <strong>"AtribuÃ­do"</strong>. Confirmar que o ativo aparece associado antes de fechar a tela.</td><td class="step-resp">Central de ServiÃ§os</td><td class="step-obs">Verificar visualmente o ativo na aba "Itens" do chamado criado.</td></tr>
+              <tr><td class="step-num">1</td><td>Receber a solicitação do usuário por telefone ou Rocket.Chat e coletar as informações iniciais: nome, setor, unidade e descrição do problema.</td><td class="step-resp">Central de Serviços</td><td class="step-obs">Anotar também o número patrimonial ou nome do equipamento informado pelo usuário.</td></tr>
+              <tr><td class="step-num">2</td><td>Acessar o GLPI, clicar em <strong>"Criar chamado"</strong> e registrar as informações coletadas na solicitação.</td><td class="step-resp">Central de Serviços</td><td class="step-obs">Menu: Assistência → Chamados → + Criar.</td></tr>
+              <tr><td class="step-num">3</td><td>Preencher todos os campos obrigatórios: Título, Categoria, Tipo (Requisição/Incidente), Urgência e Descrição detalhada do problema.</td><td class="step-resp">Central de Serviços</td><td class="step-obs">Todos os campos marcados com * são obrigatórios.</td></tr>
+              <tr><td class="step-num">4</td><td>Na aba <strong>"Itens"</strong>, clicar em <strong>"+ Adicionar item"</strong> e buscar o ativo pelo número de patrimônio ou nome do equipamento.</td><td class="step-resp">Central de Serviços</td><td class="step-obs">Se o ativo não for encontrado, informar ao técnico N2 antes de salvar o chamado.</td></tr>
+              <tr><td class="step-num">5</td><td>Selecionar o ativo correto na lista e confirmar a associação.</td><td class="step-resp">Central de Serviços</td><td class="step-obs">Verificar se o número de série e localização estão corretos.</td></tr>
+              <tr><td class="step-num">6</td><td>Atribuir o chamado ao grupo técnico responsável conforme a categoria selecionada no catálogo de serviços.</td><td class="step-resp">Central de Serviços</td><td class="step-obs">Grupo: conforme catálogo de serviços e categoria selecionada no passo 3.</td></tr>
+              <tr><td class="step-num">7</td><td>Salvar o chamado. O chamado é criado com status <strong>"Novo"</strong>; ao ser escalonado para um grupo técnico, passa automaticamente para o status <strong>"Atribuído"</strong>. Confirmar que o ativo aparece associado antes de fechar a tela.</td><td class="step-resp">Central de Serviços</td><td class="step-obs">Verificar visualmente o ativo na aba "Itens" do chamado criado.</td></tr>
             </tbody>
           </table>
           <div class="alert-box note">
-            <strong>ðŸ“Œ Ativo nÃ£o cadastrado:</strong> Se o ativo nÃ£o estiver cadastrado no GLPI, prosseguir com a abertura do chamado e abrir um chamado separado para o tÃ©cnico N2 realizar o cadastro do ativo. ApÃ³s o cadastro, associar o ativo ao chamado original.
+            <strong>📌 Ativo não cadastrado:</strong> Se o ativo não estiver cadastrado no GLPI, prosseguir com a abertura do chamado e abrir um chamado separado para o técnico N2 realizar o cadastro do ativo. Após o cadastro, associar o ativo ao chamado original.
           </div>
         </div>
       </div>
     </section>
 
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ══════════════════════════════════════════════ -->
     <!-- PROCESSO 2 -->
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ══════════════════════════════════════════════ -->
     <section class="section" id="proc2">
-      <h2 class="section-title">Processo 2 <span>ExecuÃ§Ã£o / Atendimento TÃ©cnico</span></h2>
+      <h2 class="section-title">Processo 2 <span>Execução / Atendimento Técnico</span></h2>
 
       <div class="process-card open">
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 2</span>
-          <span class="process-title">ExecuÃ§Ã£o do Chamado â€” Atendimento TÃ©cnico</span>
-          <span class="process-resp">TÃ©cnico N2 Suporte</span>
-          <span class="process-chevron">â–¾</span>
+          <span class="process-title">Execução do Chamado — Atendimento Técnico</span>
+          <span class="process-resp">Técnico N2 Suporte</span>
+          <span class="process-chevron">▾</span>
         </div>
         <div class="process-body">
           <div class="meta-badges">
-            <div class="meta-badge"><strong>ResponsÃ¡vel:</strong> TÃ©cnico N2 Suporte / TÃ©cnico de Campo</div>
-            <div class="meta-badge"><strong>Quando:</strong> Ao receber um chamado atribuÃ­do</div>
-            <div class="meta-badge"><strong>PrÃ©-requisito:</strong> Processo 1 concluÃ­do</div>
+            <div class="meta-badge"><strong>Responsável:</strong> Técnico N2 Suporte / Técnico de Campo</div>
+            <div class="meta-badge"><strong>Quando:</strong> Ao receber um chamado atribuído</div>
+            <div class="meta-badge"><strong>Pré-requisito:</strong> Processo 1 concluído</div>
           </div>
           <table class="steps-table">
-            <thead><tr><th style="width:40px">NÂ°</th><th>AÃ§Ã£o / DescriÃ§Ã£o</th><th style="width:160px">ResponsÃ¡vel</th><th style="width:220px">ObservaÃ§Ã£o</th></tr></thead>
+            <thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:160px">Responsável</th><th style="width:220px">Observação</th></tr></thead>
             <tbody>
-              <tr><td class="step-num">1</td><td>Acessar o GLPI e localizar o chamado atribuÃ­do ao seu grupo.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Menu: AssistÃªncia â†’ Chamados â†’ Meus chamados.</td></tr>
-              <tr><td class="step-num">2</td><td>Verificar se o ativo estÃ¡ corretamente associado ao chamado. Se nÃ£o estiver, associar antes de prosseguir (ver Processo 1, Passos 4â€“5).</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">NÃ£o iniciar o atendimento sem o ativo associado.</td></tr>
-              <tr><td class="step-num">3</td><td>Realizar o diagnÃ³stico e executar o atendimento tÃ©cnico (presencial ou remoto).</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Registrar no campo "Acompanhamento" todas as aÃ§Ãµes com data e hora.</td></tr>
-              <tr><td class="step-num">4</td><td>Registrar a soluÃ§Ã£o no campo <strong>"SoluÃ§Ã£o"</strong> do chamado, descrevendo o que foi feito e o resultado obtido.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Ser objetivo e claro. Evitar respostas genÃ©ricas como "problema resolvido".</td></tr>
-              <tr><td class="step-num">5</td><td>Se diagnosticado que o ativo foi condenado, atribuir o chamado ao grupo <strong>PatrimÃ´nio</strong>, registrar o diagnÃ³stico tÃ©cnico e, em seguida, encerrar o chamado alterando o status para <strong>"Fechado"</strong>.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">O chamado encerrado serÃ¡ associado ao novo chamado de substituiÃ§Ã£o no Processo 3.</td></tr>
+              <tr><td class="step-num">1</td><td>Acessar o GLPI e localizar o chamado atribuído ao seu grupo.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Menu: Assistência → Chamados → Meus chamados.</td></tr>
+              <tr><td class="step-num">2</td><td>Verificar se o ativo está corretamente associado ao chamado. Se não estiver, associar antes de prosseguir (ver Processo 1, Passos 4–5).</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Não iniciar o atendimento sem o ativo associado.</td></tr>
+              <tr><td class="step-num">3</td><td>Realizar o diagnóstico e executar o atendimento técnico (presencial ou remoto).</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Registrar no campo "Acompanhamento" todas as ações com data e hora.</td></tr>
+              <tr><td class="step-num">4</td><td>Registrar a solução no campo <strong>"Solução"</strong> do chamado, descrevendo o que foi feito e o resultado obtido.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Ser objetivo e claro. Evitar respostas genéricas como "problema resolvido".</td></tr>
+              <tr><td class="step-num">5</td><td>Se diagnosticado que o ativo foi condenado, atribuir o chamado ao grupo <strong>Patrimônio</strong>, registrar o diagnóstico técnico e, em seguida, encerrar o chamado alterando o status para <strong>"Fechado"</strong>.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">O chamado encerrado será associado ao novo chamado de substituição no Processo 3.</td></tr>
             </tbody>
           </table>
           <div class="alert-box warn">
-            <strong>âš ï¸ Registro obrigatÃ³rio:</strong> Toda aÃ§Ã£o realizada no atendimento deve ser registrada no campo "Acompanhamento" do GLPI. Atendimentos sem registro nÃ£o sÃ£o rastreÃ¡veis e impactam os indicadores de desempenho da equipe.
+            <strong>⚠️ Registro obrigatório:</strong> Toda ação realizada no atendimento deve ser registrada no campo "Acompanhamento" do GLPI. Atendimentos sem registro não são rastreáveis e impactam os indicadores de desempenho da equipe.
           </div>
         </div>
       </div>
     </section>
 
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ══════════════════════════════════════════════ -->
     <!-- PROCESSO 3 -->
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ══════════════════════════════════════════════ -->
     <section class="section" id="proc3">
-      <h2 class="section-title">Processo 3 <span>Abrir Novo Chamado de SubstituiÃ§Ã£o</span></h2>
+      <h2 class="section-title">Processo 3 <span>Abrir Novo Chamado de Substituição</span></h2>
 
       <div class="process-card open">
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 3</span>
-          <span class="process-title">Abertura do Chamado de SubstituiÃ§Ã£o do Ativo</span>
-          <span class="process-resp">TÃ©cnico N2 Suporte + Administrativo</span>
-          <span class="process-chevron">â–¾</span>
+          <span class="process-title">Abertura do Chamado de Substituição do Ativo</span>
+          <span class="process-resp">Técnico N2 Suporte + Administrativo</span>
+          <span class="process-chevron">▾</span>
         </div>
         <div class="process-body">
           <div class="meta-badges">
-            <div class="meta-badge"><strong>ResponsÃ¡vel:</strong> TÃ©cnico N2 Suporte + Setor Administrativo de Ativos</div>
-            <div class="meta-badge"><strong>Quando:</strong> ApÃ³s o chamado tÃ©cnico ser encerrado com diagnÃ³stico de ativo condenado</div>
-            <div class="meta-badge"><strong>PrÃ©-requisito:</strong> Ativos em estoque jÃ¡ cadastrados no GLPI</div>
+            <div class="meta-badge"><strong>Responsável:</strong> Técnico N2 Suporte + Setor Administrativo de Ativos</div>
+            <div class="meta-badge"><strong>Quando:</strong> Após o chamado técnico ser encerrado com diagnóstico de ativo condenado</div>
+            <div class="meta-badge"><strong>Pré-requisito:</strong> Ativos em estoque já cadastrados no GLPI</div>
           </div>
           <div class="alert-box info">
-            <strong>PrÃ©-condiÃ§Ã£o de estoque:</strong> todos os ativos disponÃ­veis em estoque devem estar previamente incluÃ­dos no GLPI, conforme o processo de inventariar ativo. Antes de escolher o substituto, o TÃ©cnico N2 Suporte deve consultar a planilha de controle de ativos ou validar com o setor Administrativo quais equipamentos estÃ£o em estoque e podem ser utilizados para substituiÃ§Ã£o.
+            <strong>Pré-condição de estoque:</strong> todos os ativos disponíveis em estoque devem estar previamente incluídos no GLPI, conforme o processo de inventariar ativo. Antes de escolher o substituto, o Técnico N2 Suporte deve consultar a planilha de controle de ativos ou validar com o setor Administrativo quais equipamentos estão em estoque e podem ser utilizados para substituição.
           </div>
           <table class="steps-table">
-            <thead><tr><th style="width:40px">NÂ°</th><th>AÃ§Ã£o / DescriÃ§Ã£o</th><th style="width:180px">ResponsÃ¡vel</th><th style="width:200px">ObservaÃ§Ã£o</th></tr></thead>
+            <thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:180px">Responsável</th><th style="width:200px">Observação</th></tr></thead>
             <tbody>
-              <tr><td class="step-num">1</td><td>Verificar na planilha de controle de ativos quais equipamentos estÃ£o em estoque e podem ser utilizados para substituiÃ§Ã£o.</td><td class="step-resp">TÃ©cnico N2 Suporte / Administrativo</td><td class="step-obs">Validar disponibilidade antes de abrir o novo chamado.</td></tr>
-              <tr><td class="step-num">2</td><td>Confirmar que o ativo substituto escolhido jÃ¡ estÃ¡ cadastrado no GLPI e apto para uso.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Caso nÃ£o esteja cadastrado, seguir primeiro o processo de inventariar ativo.</td></tr>
-              <tr><td class="step-num">3</td><td>Localizar o chamado encerrado anteriormente e usar seus dados para abrir um novo chamado no GLPI com categorizaÃ§Ã£o de <strong>SubstituiÃ§Ã£o</strong>, conforme o catÃ¡logo de serviÃ§os.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Reaproveitar os dados do usuÃ¡rio, e-mail, unidade, setor e demais informaÃ§Ãµes do chamado encerrado.</td></tr>
-              <tr><td class="step-num">4</td><td>Na descriÃ§Ã£o do novo chamado, informar obrigatoriamente o ativo substituÃ­do, o responsÃ¡vel pelo ativo, e-mail do usuÃ¡rio, unidade, setor, nÃºmero patrimonial e motivo da substituiÃ§Ã£o.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Essas informaÃ§Ãµes devem ser conferidas a partir do chamado encerrado anteriormente.</td></tr>
-              <tr><td class="step-num">5</td><td>Localizar o chamado encerrado anteriormente, que recebeu o diagnÃ³stico de PatrimÃ´nio, e <strong>associÃ¡-lo</strong> ao novo chamado de substituiÃ§Ã£o.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">O chamado encerrado Ã© a evidÃªncia do diagnÃ³stico tÃ©cnico.</td></tr>
-              <tr><td class="step-num">6</td><td>Na aba <strong>"Itens"</strong> do novo chamado, clicar em <strong>"+ Adicionar item"</strong> e associar qual ativo serÃ¡ substituÃ­do.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Associar o ativo condenado/substituÃ­do, nÃ£o apenas citar na descriÃ§Ã£o.</td></tr>
-              <tr><td class="step-num">7</td><td>Registrar em acompanhamento o ativo substituto definido na planilha de controle de ativos e a validaÃ§Ã£o do setor Administrativo.</td><td class="step-resp">TÃ©cnico N2 Suporte / Administrativo</td><td class="step-obs">Informar patrimÃ´nio, sÃ©rie ou identificaÃ§Ã£o do equipamento substituto.</td></tr>
-              <tr><td class="step-num">8</td><td>Atribuir o chamado ao grupo responsÃ¡vel pela continuidade do processo de substituiÃ§Ã£o, conforme catÃ¡logo de serviÃ§os.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Manter a associaÃ§Ã£o com o chamado encerrado atÃ© a conclusÃ£o.</td></tr>
+              <tr><td class="step-num">1</td><td>Verificar na planilha de controle de ativos quais equipamentos estão em estoque e podem ser utilizados para substituição.</td><td class="step-resp">Técnico N2 Suporte / Administrativo</td><td class="step-obs">Validar disponibilidade antes de abrir o novo chamado.</td></tr>
+              <tr><td class="step-num">2</td><td>Confirmar que o ativo substituto escolhido já está cadastrado no GLPI e apto para uso.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Caso não esteja cadastrado, seguir primeiro o processo de inventariar ativo.</td></tr>
+              <tr><td class="step-num">3</td><td>Localizar o chamado encerrado anteriormente e usar seus dados para abrir um novo chamado no GLPI com categorização de <strong>Substituição</strong>, conforme o catálogo de serviços.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Reaproveitar os dados do usuário, e-mail, unidade, setor e demais informações do chamado encerrado.</td></tr>
+              <tr><td class="step-num">4</td><td>Na descrição do novo chamado, informar obrigatoriamente o ativo substituído, o responsável pelo ativo, e-mail do usuário, unidade, setor, número patrimonial e motivo da substituição.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Essas informações devem ser conferidas a partir do chamado encerrado anteriormente.</td></tr>
+              <tr><td class="step-num">5</td><td>Localizar o chamado encerrado anteriormente, que recebeu o diagnóstico de Patrimônio, e <strong>associá-lo</strong> ao novo chamado de substituição.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">O chamado encerrado é a evidência do diagnóstico técnico.</td></tr>
+              <tr><td class="step-num">6</td><td>Na aba <strong>"Itens"</strong> do novo chamado, clicar em <strong>"+ Adicionar item"</strong> e associar qual ativo será substituído.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Associar o ativo condenado/substituído, não apenas citar na descrição.</td></tr>
+              <tr><td class="step-num">7</td><td>Registrar em acompanhamento o ativo substituto definido na planilha de controle de ativos e a validação do setor Administrativo.</td><td class="step-resp">Técnico N2 Suporte / Administrativo</td><td class="step-obs">Informar patrimônio, série ou identificação do equipamento substituto.</td></tr>
+              <tr><td class="step-num">8</td><td>Atribuir o chamado ao grupo responsável pela continuidade do processo de substituição, conforme catálogo de serviços.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Manter a associação com o chamado encerrado até a conclusão.</td></tr>
             </tbody>
           </table>
           <div class="alert-box warn">
-            <strong>âš ï¸ Registro obrigatÃ³rio:</strong> O chamado de substituiÃ§Ã£o DEVE conter o ativo substituÃ­do, o responsÃ¡vel pelo ativo, o ativo substituto definido, a associaÃ§Ã£o com o chamado encerrado anteriormente e a categoria de SubstituiÃ§Ã£o conforme catÃ¡logo de serviÃ§os.
+            <strong>⚠️ Registro obrigatório:</strong> O chamado de substituição DEVE conter o ativo substituído, o responsável pelo ativo, o ativo substituto definido, a associação com o chamado encerrado anteriormente e a categoria de Substituição conforme catálogo de serviços.
           </div>
         </div>
       </div>
     </section>
 
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ══════════════════════════════════════════════ -->
     <!-- PROCESSO 4 -->
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ══════════════════════════════════════════════ -->
     <section class="section" id="proc4">
-      <h2 class="section-title">Processo 4 <span>AtualizaÃ§Ã£o do Ativo Condenado</span></h2>
+      <h2 class="section-title">Processo 4 <span>Atualização do Ativo Condenado</span></h2>
 
       <div class="alert-box info">
-        <strong>â„¹ï¸ Ciclo de vida do ativo:</strong> O status "Condenado" encerra oficialmente o ciclo de vida ativo do equipamento no GLPI. Este passo Ã© obrigatÃ³rio para que o inventÃ¡rio reflita a realidade do parque tecnolÃ³gico e para que os processos de baixa patrimonial possam ser iniciados.
+        <strong>ℹ️ Ciclo de vida do ativo:</strong> O status "Condenado" encerra oficialmente o ciclo de vida ativo do equipamento no GLPI. Este passo é obrigatório para que o inventário reflita a realidade do parque tecnológico e para que os processos de baixa patrimonial possam ser iniciados.
       </div>
 
       <div class="cycle-flow">
         <div class="cycle-node cn-uso">Ativo</div>
-        <span class="cycle-arrow">â†’</span>
-        <div class="cycle-node cn-man">Em manutenÃ§Ã£o</div>
-        <span class="cycle-arrow">â†’</span>
+        <span class="cycle-arrow">→</span>
+        <div class="cycle-node cn-man">Em manutenção</div>
+        <span class="cycle-arrow">→</span>
         <div class="cycle-node cn-con">Condenado</div>
-        <span class="cycle-arrow">â†’</span>
+        <span class="cycle-arrow">→</span>
         <div class="cycle-node cn-bai">Baixa / Descarte</div>
       </div>
 
       <div class="process-card open">
         <div class="process-header" onclick="toggleCard(this)">
           <span class="process-num">PROCESSO 4</span>
-          <span class="process-title">AlteraÃ§Ã£o do Status do Ativo no GLPI</span>
-          <span class="process-resp">TÃ©cnico N2 Suporte</span>
-          <span class="process-chevron">â–¾</span>
+          <span class="process-title">Alteração do Status do Ativo no GLPI</span>
+          <span class="process-resp">Técnico N2 Suporte</span>
+          <span class="process-chevron">▾</span>
         </div>
         <div class="process-body">
           <div class="meta-badges">
-            <div class="meta-badge"><strong>ResponsÃ¡vel:</strong> TÃ©cnico N2 Suporte</div>
-            <div class="meta-badge"><strong>Quando:</strong> ApÃ³s abertura do chamado de substituiÃ§Ã£o</div>
-            <div class="meta-badge"><strong>PrÃ©-requisito:</strong> Ativo substituÃ­do associado ao chamado de substituiÃ§Ã£o</div>
+            <div class="meta-badge"><strong>Responsável:</strong> Técnico N2 Suporte</div>
+            <div class="meta-badge"><strong>Quando:</strong> Após abertura do chamado de substituição</div>
+            <div class="meta-badge"><strong>Pré-requisito:</strong> Ativo substituído associado ao chamado de substituição</div>
           </div>
           <table class="steps-table">
-            <thead><tr><th style="width:40px">NÂ°</th><th>AÃ§Ã£o / DescriÃ§Ã£o</th><th style="width:180px">ResponsÃ¡vel</th><th style="width:200px">ObservaÃ§Ã£o</th></tr></thead>
+            <thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:180px">Responsável</th><th style="width:200px">Observação</th></tr></thead>
             <tbody>
-              <tr><td class="step-num">1</td><td>Acessar o GLPI no caminho <strong>Ativos</strong> â†’ <strong>Computadores</strong>.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Usar o menu de ativos, nÃ£o a tela do chamado.</td></tr>
-              <tr><td class="step-num">2</td><td>Localizar o ativo que foi para o PatrimÃ´nio pelo nÃºmero de patrimÃ´nio, nÃºmero de sÃ©rie ou nome do equipamento.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Confirmar unidade, setor e usuÃ¡rio antes de editar.</td></tr>
-              <tr><td class="step-num">3</td><td>Editar o cadastro do ativo e alterar o status para <strong>"Condenado"</strong>.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">O status deve refletir que o equipamento nÃ£o retornarÃ¡ ao uso.</td></tr>
-              <tr><td class="step-num">4</td><td>Preencher <strong>Ativo Substituto</strong>, <strong>Data de SubstituiÃ§Ã£o</strong>, <strong>Data do Ãšltimo InventÃ¡rio</strong> e <strong>Inventariado</strong>, conforme os dados do atendimento e da planilha de controle de ativos.</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">O substituto deve estar cadastrado no GLPI; esses campos correspondem ao formulÃ¡rio exibido no cadastro do computador.</td></tr>
-              <tr><td class="step-num">5</td><td>Salvar as alteraÃ§Ãµes no ativo e registrar no chamado de substituiÃ§Ã£o que o ativo enviado ao PatrimÃ´nio foi alterado para "Condenado".</td><td class="step-resp">TÃ©cnico N2 Suporte</td><td class="step-obs">Informar o nÃºmero patrimonial do ativo condenado e do ativo substituto.</td></tr>
+              <tr><td class="step-num">1</td><td>Acessar o GLPI no caminho <strong>Ativos</strong> → <strong>Computadores</strong>.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Usar o menu de ativos, não a tela do chamado.</td></tr>
+              <tr><td class="step-num">2</td><td>Localizar o ativo que foi para o Patrimônio pelo número de patrimônio, número de série ou nome do equipamento.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Confirmar unidade, setor e usuário antes de editar.</td></tr>
+              <tr><td class="step-num">3</td><td>Editar o cadastro do ativo e alterar o status para <strong>"Condenado"</strong>.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">O status deve refletir que o equipamento não retornará ao uso.</td></tr>
+              <tr><td class="step-num">4</td><td>Preencher <strong>Ativo Substituto</strong>, <strong>Data de Substituição</strong>, <strong>Data do Último Inventário</strong> e <strong>Inventariado</strong>, conforme os dados do atendimento e da planilha de controle de ativos.</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">O substituto deve estar cadastrado no GLPI; esses campos correspondem ao formulário exibido no cadastro do computador.</td></tr>
+              <tr><td class="step-num">5</td><td>Salvar as alterações no ativo e registrar no chamado de substituição que o ativo enviado ao Patrimônio foi alterado para "Condenado".</td><td class="step-resp">Técnico N2 Suporte</td><td class="step-obs">Informar o número patrimonial do ativo condenado e do ativo substituto.</td></tr>
             </tbody>
           </table>
           <div class="alert-box danger">
-            <strong>ðŸ”´ ATENÃ‡ÃƒO:</strong> O ativo condenado <strong>nunca deve ser removido do GLPI, em nenhuma hipÃ³tese</strong> â€” nem antes, nem depois da baixa patrimonial. Ele permanece cadastrado permanentemente com status "Condenado", para preservar o histÃ³rico e permitir auditoria a qualquer momento.
+            <strong>🔴 ATENÇÃO:</strong> O ativo condenado <strong>nunca deve ser removido do GLPI, em nenhuma hipótese</strong> — nem antes, nem depois da baixa patrimonial. Ele permanece cadastrado permanentemente com status "Condenado", para preservar o histórico e permitir auditoria a qualquer momento.
           </div>
         </div>
       </div>
@@ -398,66 +398,66 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
     <!-- STATUS -->
     <section class="section" id="status">
-      <h2 class="section-title">Tabela de Status dos Ativos <span>ReferÃªncia rÃ¡pida</span></h2>
+      <h2 class="section-title">Tabela de Status dos Ativos <span>Referência rápida</span></h2>
       <table class="status-table">
-        <thead><tr><th>Status</th><th>Quando usar</th><th>AÃ§Ã£o no GLPI</th><th>PrÃ³ximo status</th></tr></thead>
+        <thead><tr><th>Status</th><th>Quando usar</th><th>Ação no GLPI</th><th>Próximo status</th></tr></thead>
         <tbody>
           <tr>
             <td><span class="status-badge s-uso">Ativo</span></td>
-            <td>Ativo operacional em uso pelo usuÃ¡rio.</td>
-            <td>Manter. Atualizar usuÃ¡rio e localizaÃ§Ã£o se houver mudanÃ§a.</td>
-            <td>Em manutenÃ§Ã£o / Condenado</td>
+            <td>Ativo operacional em uso pelo usuário.</td>
+            <td>Manter. Atualizar usuário e localização se houver mudança.</td>
+            <td>Em manutenção / Condenado</td>
           </tr>
           <tr>
-            <td><span class="status-badge s-man">Em manutenÃ§Ã£o</span></td>
-            <td>Ativo retirado para reparo ou aguardando peÃ§as.</td>
-            <td>Atualizar ao retirar o ativo do usuÃ¡rio e enviar para reparo.</td>
+            <td><span class="status-badge s-man">Em manutenção</span></td>
+            <td>Ativo retirado para reparo ou aguardando peças.</td>
+            <td>Atualizar ao retirar o ativo do usuário e enviar para reparo.</td>
             <td>Em uso (se reparado) / Condenado</td>
           </tr>
           <tr>
             <td><span class="status-badge s-con">Condenado</span></td>
             <td>Ativo inoperante, aprovado para descarte patrimonial.</td>
-            <td>Atualizar somente apÃ³s autorizaÃ§Ã£o formal da CoordenaÃ§Ã£o GTIC.</td>
+            <td>Atualizar somente após autorização formal da Coordenação GTIC.</td>
             <td>Aguarda baixa patrimonial</td>
           </tr>
           <tr>
             <td><span class="status-badge s-est">Em estoque</span></td>
-            <td>Ativo disponÃ­vel, sem usuÃ¡rio alocado no momento.</td>
-            <td>Atualizar ao receber novo equipamento ou apÃ³s retorno de manutenÃ§Ã£o.</td>
+            <td>Ativo disponível, sem usuário alocado no momento.</td>
+            <td>Atualizar ao receber novo equipamento ou após retorno de manutenção.</td>
             <td>Em uso</td>
           </tr>
           <tr>
             <td><span class="status-badge s-emp">Emprestado</span></td>
-            <td>Ativo temporariamente com outro usuÃ¡rio ou setor.</td>
-            <td>Registrar no chamado o local de destino e prazo de devoluÃ§Ã£o.</td>
+            <td>Ativo temporariamente com outro usuário ou setor.</td>
+            <td>Registrar no chamado o local de destino e prazo de devolução.</td>
             <td>Em uso</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <!-- PONTOS DE ATENÃ‡ÃƒO -->
+    <!-- PONTOS DE ATENÇÃO -->
     <section class="section" id="atencao">
-      <h2 class="section-title">Pontos de AtenÃ§Ã£o</h2>
+      <h2 class="section-title">Pontos de Atenção</h2>
       <div class="alert-box danger">
-        <strong>ðŸ”´ SituaÃ§Ã£o identificada:</strong> A Central de ServiÃ§os Ã© a equipe que atualmente abre todos os chamados, mas <strong>nÃ£o recebeu treinamento formal</strong> para associar ativos no GLPI. Ã‰ necessÃ¡rio capacitar essa equipe â€” responsabilidade da CoordenaÃ§Ã£o GTIC, pendente de autorizaÃ§Ã£o da gestÃ£o.
+        <strong>🔴 Situação identificada:</strong> A Central de Serviços é a equipe que atualmente abre todos os chamados, mas <strong>não recebeu treinamento formal</strong> para associar ativos no GLPI. É necessário capacitar essa equipe — responsabilidade da Coordenação GTIC, pendente de autorização da gestão.
       </div>
       <ul class="rules-list">
-        <li>A associaÃ§Ã£o do ativo ao chamado Ã© <strong>OBRIGATÃ“RIA</strong> em todas as etapas: abertura, atendimento, chamado de substituiÃ§Ã£o e condenaÃ§Ã£o.</li>
-        <li>Chamados sem ativo associado devem ser identificados e corrigidos retroativamente sempre que possÃ­vel.</li>
-        <li>O status do ativo no GLPI deve refletir <strong>sempre</strong> a situaÃ§Ã£o real do equipamento.</li>
-        <li>A nÃ£o atualizaÃ§Ã£o do status impede relatÃ³rios precisos e pode causar inconsistÃªncias em auditorias patrimoniais.</li>
-        <li>Em caso de dÃºvida sobre qual status usar, consultar a tabela de referÃªncia acima ou acionar a CoordenaÃ§Ã£o GTIC.</li>
+        <li>A associação do ativo ao chamado é <strong>OBRIGATÓRIA</strong> em todas as etapas: abertura, atendimento, chamado de substituição e condenação.</li>
+        <li>Chamados sem ativo associado devem ser identificados e corrigidos retroativamente sempre que possível.</li>
+        <li>O status do ativo no GLPI deve refletir <strong>sempre</strong> a situação real do equipamento.</li>
+        <li>A não atualização do status impede relatórios precisos e pode causar inconsistências em auditorias patrimoniais.</li>
+        <li>Em caso de dúvida sobre qual status usar, consultar a tabela de referência acima ou acionar a Coordenação GTIC.</li>
       </ul>
     </section>
 
-    <!-- HISTÃ“RICO -->
+    <!-- HISTÓRICO -->
     <section class="section" id="historico">
-      <h2 class="section-title">HistÃ³rico de RevisÃµes</h2>
+      <h2 class="section-title">Histórico de Revisões</h2>
       <table class="info-table">
-        <thead><tr><th>VersÃ£o</th><th>Data</th><th>ResponsÃ¡vel</th><th>DescriÃ§Ã£o</th></tr></thead>
+        <thead><tr><th>Versão</th><th>Data</th><th>Responsável</th><th>Descrição</th></tr></thead>
         <tbody>
-          <tr><td>1.0</td><td>Junho / 2026</td><td>GTIC / SaÃºde Digital Atende</td><td>CriaÃ§Ã£o do documento</td></tr>
+          <tr><td>1.0</td><td>Junho / 2026</td><td>GTIC / Saúde Digital Atende</td><td>Criação do documento</td></tr>
         </tbody>
       </table>
     </section>
@@ -466,11 +466,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 </div><!-- /layout -->
 
 <footer class="page-footer">
-  <span class="footer-brand">SaÃºde Digital <em style="font-style:italic;color:var(--amber-mid)">Atende</em></span>
+  <span class="footer-brand">Saúde Digital <em style="font-style:italic;color:var(--amber-mid)">Atende</em></span>
   <div class="footer-meta">
-    <span><strong>Secretaria</strong>Secretaria de SaÃºde do Recife</span>
-    <span><strong>VersÃ£o</strong>1.0 â€” Junho 2026</span>
-    <span><strong>Uso</strong>Interno Â· Documento Operacional</span>
+    <span><strong>Secretaria</strong>Secretaria de Saúde do Recife</span>
+    <span><strong>Versão</strong>1.0 — Junho 2026</span>
+    <span><strong>Uso</strong>Interno · Documento Operacional</span>
   </div>
   <a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal">
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
@@ -503,4 +503,3 @@ sections.forEach(s => obs.observe(s));
 
 </body>
 </html>
-
