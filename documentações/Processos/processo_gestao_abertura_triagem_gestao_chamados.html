@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Processo Operacional de Gestão da Abertura e Triagem de Chamados · GTIC</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -118,17 +118,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .summary-node{flex:1;min-width:135px;padding:12px;border-radius:9px;border:1px solid var(--rule);background:#fff;font-size:12px;color:var(--ink2)}
 .summary-node strong{display:block;color:var(--ink);margin-bottom:3px}
 .summary-arrow{align-self:center;color:var(--ink3);font-size:18px}
-@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}.word-download-row{display:flex;justify-content:flex-end;margin:0 0 10px}.word-download{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(255,255,255,.35);border-radius:6px;color:#fff;text-decoration:none;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.08)}.word-download:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.65)}@media(max-width:768px){.word-download-row{justify-content:flex-start}}</style>
+@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}}.word-download-row{display:flex;justify-content:flex-end;margin:0 0 10px}.word-download{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(255,255,255,.35);border-radius:6px;color:#fff;text-decoration:none;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.08)}.word-download:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.65)}@media(max-width:768px){.word-download-row{justify-content:flex-start}}
+.processes-label{font-family:'DM Sans',Arial,sans-serif;font-size:22px;font-weight:700;color:var(--ink);margin:28px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--rule)}.section h3{font-family:'DM Sans',Arial,sans-serif;font-size:15px;font-weight:700;color:var(--blue-mid);margin:18px 0 8px}</style>
 </head>
 <body>
 
 <header class="hero">
   <div class="hero-inner">
     <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
-      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos"
-        style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
-        onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
-        onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
+      <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.15)'">
         ← Processos
       </a>
     </div>
@@ -142,48 +140,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
   <aside class="sidebar">
     <div class="sidebar-title">Sumário</div>
     <ul class="toc">
-      <li><a href="#historico">01. Histórico de Revisões</a></li>
-      <li><a href="#apresentacao">02. Apresentação</a></li>
-      <li><a href="#finalidade">03. Finalidade</a></li>
-      <li><a href="#visao-geral">04. Visão Geral do Processo</a></li>
-      <li><a href="#notificacoes">05. Notificações Automáticas</a></li>
-      <li><a href="#orientacoes">06. Orientações e Passo a Passo</a></li>
-      <li><a href="#categorizacao">07. Categorização e Templates</a></li>
-      <li><a href="#papeis">08. Papéis, Níveis e Escalonamento</a></li>
-    </ul>
+      <li><a href="#identificacao">Identificação</a></li><li><a href="#objetivo">Objetivo</a></li><li><a href="#fluxo-resumido">Fluxo resumido</a></li><div class="toc-group">Processos</div><li><a href="#proc1">Processo 1 - Notificações Automáticas por E-mail</a></li><li><a href="#proc2">Processo 2 - Orientações e Passo a Passo para Atendimento</a></li><li><a href="#proc3">Processo 3 - Categorização do Chamado e Templates</a></li><li><a href="#proc4">Processo 4 - Papéis, Níveis e Escalonamento</a></li><div class="toc-group">Revisão</div><li><a href="#historico">Histórico de Revisão</a></li></ul>
   </aside>
 
   <main class="content">
 
-    <div class="section" id="historico">
-      <div class="section-title"><span>01</span> Histórico de Revisões</div>
-      <table class="info-table">
-        <thead><tr><th>Versão</th><th>Última Atualização</th><th>Autor</th></tr></thead>
-        <tbody><tr><td>1.1</td><td>2026</td><td>GTIC</td></tr></tbody>
-      </table>
-    </div>
-
-    <div class="section" id="apresentacao">
-      <div class="section-title"><span>02</span> Apresentação</div>
-      <p class="doc-p">Este Processo Operacional tem como finalidade orientar usuários e equipes da GTIC quanto à correta abertura, registro, categorização e tratamento de chamados no sistema <strong>GLPI</strong>, considerando as melhorias implementadas no fluxo de atendimento.</p>
+    <div class="section" id="identificacao">
+      <h2 class="section-title">Identificação</h2>
+      <table class="info-table"><tbody>
+        <tr><td>Tipo</td><td>Processo Operacional</td></tr>
+        <tr><td>Título</td><td>Processo Operacional – Gestão da Abertura e Triagem de Chamados</td></tr>
+        <tr><td>Área responsável</td><td>Administrativo, Infraestrutura e Sistemas</td></tr>
+        <tr><td>Versão</td><td>2026</td></tr>
+      </tbody></table>
+    </div><div class="section" id="objetivo">
+      <div class="section-title">Objetivo</div>
+      <p class="doc-p">Estabelecer diretrizes, padrões e responsabilidades para a abertura, registro, categorização, atendimento e escalonamento de chamados no sistema GLPI, garantindo <strong>padronização</strong>, <strong>transparência</strong>, <strong>rastreabilidade</strong> e <strong>qualidade</strong> na prestação dos serviços de Tecnologia da Informação.</p>
+    <h3>02 Apresentação</h3><p class="doc-p">Este Processo Operacional tem como finalidade orientar usuários e equipes da GTIC quanto à correta abertura, registro, categorização e tratamento de chamados no sistema <strong>GLPI</strong>, considerando as melhorias implementadas no fluxo de atendimento.</p>
       <p class="doc-p">O documento foi elaborado a partir de estudo técnico, análise operacional e amadurecimento do uso da ferramenta, estando alinhado às necessidades institucionais e às boas práticas de Governança de TI, especialmente aos referenciais da <strong>ITIL</strong>.</p>
       <p class="doc-p">A padronização aqui estabelecida visa assegurar <strong>transparência</strong>, <strong>rastreabilidade</strong>, <strong>qualidade das informações</strong> e <strong>melhoria contínua</strong> dos serviços prestados.</p>
-    </div>
-
-    <div class="section" id="finalidade">
-      <div class="section-title"><span>03</span> Finalidade</div>
-      <p class="doc-p">Estabelecer diretrizes, padrões e responsabilidades para a abertura, registro, categorização, atendimento e escalonamento de chamados no sistema GLPI, garantindo <strong>padronização</strong>, <strong>transparência</strong>, <strong>rastreabilidade</strong> e <strong>qualidade</strong> na prestação dos serviços de Tecnologia da Informação.</p>
-    </div>
-
-    <div class="section" id="visao-geral">
-      <div class="section-title"><span>04</span> Visão Geral do Processo de Atendimento no GLPI</div>
-      <p class="doc-p">A partir da abertura de um chamado no GLPI, o usuário recebe notificação automática por e-mail no momento da <strong>abertura</strong> e no momento do <strong>encerramento</strong>.</p>
+    <h3>04 Visão Geral do Processo de Atendimento no GLPI</h3><p class="doc-p">A partir da abertura de um chamado no GLPI, o usuário recebe notificação automática por e-mail no momento da <strong>abertura</strong> e no momento do <strong>encerramento</strong>.</p>
       <p class="doc-p">Essas notificações visam ampliar a <strong>transparência do atendimento</strong> e fortalecer a cultura de <strong>qualidade e melhoria contínua</strong>.</p>
       
     </div>
 
     <div class="section" id="fluxo-resumido">
-    <div class="section-title"><span>FLUXO</span> Fluxo resumido do atendimento</div>
+    <div class="section-title">Fluxo resumido</div>
     <div class="summary-flow">
       <div class="summary-node"><strong>1. Receber</strong>A Central de Serviços coleta os dados e identifica a necessidade apresentada.</div><span class="summary-arrow">→</span>
       <div class="summary-node"><strong>2. Abrir e categorizar</strong>Registra um chamado por demanda, usando a categoria e o template correspondentes.</div><span class="summary-arrow">→</span>
@@ -191,8 +173,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       <div class="summary-node"><strong>4. Solucionar e encerrar</strong>Registra a solução, comunica o usuário e preserva o histórico para gestão e melhoria.</div>
     </div>
   </div>
-  <div class="section" id="notificacoes">
-      <div class="section-title"><span>05</span> Notificações Automáticas por E-mail</div>
+  <div class="processes-label">Processos</div><div class="section" id="proc1">
+      <div class="section-title">Processo 1 - Notificações Automáticas por E-mail</div>
 
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
@@ -255,8 +237,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </div>
 
-    <div class="section" id="orientacoes">
-      <div class="section-title"><span>06</span> Orientações e Passo a Passo para Atendimento</div>
+    <div class="section" id="proc2">
+      <div class="section-title">Processo 2 - Orientações e Passo a Passo para Atendimento</div>
 
       <div class="activity-card open">
         <div class="activity-header" onclick="this.closest('.activity-card').classList.toggle('open')">
@@ -455,8 +437,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
     </div>
 
-    <div class="section" id="categorizacao">
-      <div class="section-title"><span>07</span> Categorização do Chamado e Templates</div>
+    <div class="section" id="proc3">
+      <div class="section-title">Processo 3 - Categorização do Chamado e Templates</div>
       <p class="doc-p">O GLPI foi configurado com <strong>templates específicos para cada serviço</strong>, que são carregados automaticamente no momento em que o usuário realiza a <strong>categorização do chamado</strong>. Cada tipo de serviço possui um template próprio, adequado às suas particularidades e necessidades de atendimento.</p>
       <p class="doc-p">Embora os templates sejam diferentes conforme o serviço selecionado, <strong>todos possuem campos obrigatórios em comum</strong>:</p>
       <div class="notif-list">
@@ -475,8 +457,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </div>
 
-    <div class="section" id="papeis">
-      <div class="section-title"><span>08</span> Papéis, Níveis e Escalonamento</div>
+    <div class="section" id="proc4">
+      <div class="section-title">Processo 4 - Papéis, Níveis e Escalonamento</div>
       <p class="doc-p">Os papéis e responsabilidades das equipes estão alinhados ao <strong>Catálogo de Serviços</strong> e às boas práticas de <strong>governança ITIL</strong>, garantindo clareza na atuação de cada nível de atendimento e adequada gestão das demandas.</p>
 
       <div class="nivel-card">
@@ -560,7 +542,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </div>
 
-  </main>
+  <div class="section" id="historico">
+      <div class="section-title">Histórico de Revisão</div>
+      <table class="info-table">
+        <thead><tr><th>Versão</th><th>Última Atualização</th><th>Autor</th></tr></thead>
+        <tbody><tr><td>1.1</td><td>2026</td><td>GTIC</td></tr></tbody>
+      </table>
+    </div>
+
+    </main>
 </div>
 
 <footer class="page-footer">
@@ -571,7 +561,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
     <span><strong>Uso</strong>Interno · Documento Institucional</span>
   </div>
   <a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" class="back-portal">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg>
+    <svg viewbox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"></path></svg>
     Voltar às Documentações
   </a>
 </footer>
