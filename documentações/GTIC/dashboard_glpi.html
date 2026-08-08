@@ -22,19 +22,49 @@
   h2.section-title{font-size:19px;font-weight:600;margin:36px 0 2px;}
   p.section-sub{font-size:13px;color:var(--text-muted);margin:0 0 16px;}
 
-  /* Top nav */
-  .topnav{
-    background:var(--surface);border-bottom:1px solid var(--border);
-    padding:0 32px;margin-bottom:28px;
+  /* Premium header */
+  .header-premium{
+    background:var(--surface);border-top:3px solid var(--accent);
+    box-shadow:0 1px 4px rgba(20,30,45,.06);
+    padding:20px 32px;margin-bottom:28px;
   }
-  .topnav-inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:4px;height:56px;}
-  .topnav .brand{font-weight:700;font-size:15px;color:var(--text);margin-right:20px;white-space:nowrap;}
-  .topnav a.nav-link{
-    font-size:13px;font-weight:600;color:var(--text-secondary);text-decoration:none;
-    padding:8px 14px;border-radius:6px;cursor:pointer;
+  .header-inner{
+    max-width:1240px;margin:0 auto;display:flex;align-items:center;flex-wrap:wrap;gap:20px;
   }
-  .topnav a.nav-link:hover{background:var(--bg);color:var(--text);}
-  .topnav a.nav-link.active{background:var(--accent-light);color:var(--accent);}
+  .header-identity{display:flex;align-items:center;gap:14px;}
+  .header-icon-box{
+    width:44px;height:44px;min-width:44px;border-radius:10px;background:var(--accent-light);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .header-icon-box svg{width:22px;height:22px;stroke:var(--accent);}
+  .header-title-block h1{font-size:17px;font-weight:700;margin:0;letter-spacing:.02em;line-height:1.2;}
+  .header-title-block .t-indicadores{color:var(--text);}
+  .header-title-block .t-gtic{color:var(--accent);margin-left:5px;}
+  .header-underline{width:34px;height:3px;background:var(--accent);border-radius:2px;margin:6px 0 7px;}
+  .header-subtitle{font-size:12px;color:var(--text-muted);line-height:1.4;max-width:270px;margin:0;}
+  .header-divider{width:1px;align-self:stretch;background:var(--border);margin:2px 4px;}
+  .header-navcards{display:flex;gap:12px;margin-left:auto;flex-wrap:wrap;}
+  .navcard{
+    width:160px;min-height:64px;border-radius:10px;border:1px solid var(--border);background:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    cursor:pointer;text-decoration:none;color:var(--text);position:relative;padding:12px 10px 14px;
+    transition:background .15s ease,border-color .15s ease,color .15s ease;
+  }
+  .navcard:hover{border-color:var(--accent);}
+  .navcard svg{width:19px;height:19px;stroke:var(--accent);transition:stroke .15s ease;}
+  .navcard-label{font-size:12.5px;font-weight:600;text-align:center;line-height:1.28;}
+  .navcard-indicator{
+    position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+    width:26px;height:3px;border-radius:2px;background:var(--accent);opacity:.55;
+  }
+  .navcard.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .navcard.active svg{stroke:#fff;}
+  .navcard.active .navcard-indicator{background:#fff;opacity:1;}
+  @media (max-width:900px){
+    .header-inner{justify-content:flex-start;}
+    .header-divider{display:none;}
+    .header-navcards{margin-left:0;width:100%;}
+  }
 
   .filters{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:8px;}
   .filter-field{display:flex;flex-direction:column;gap:5px;}
@@ -78,31 +108,65 @@
   .chart-wrap.h-sla{height:220px;}
   .chart-wrap.v-backlog{height:300px;}
 
-  input.pct-input{width:70px;font-family:var(--font);font-size:13px;padding:5px 7px;border:1px solid var(--border);border-radius:6px;text-align:right;}
+  input.pct-input{width:118px;font-family:var(--font);font-size:13px;padding:5px 9px;border:1px solid var(--border);border-radius:6px;text-align:right;}
   input.pct-input.missing{border-color:#EDB56A;background:#FFF8EE;}
   .save-row{display:flex;align-items:center;gap:10px;margin-top:14px;}
   .save-msg{font-size:12px;color:var(--good);}
   .link-out{font-size:12px;color:var(--accent);cursor:pointer;text-decoration:underline;}
 
   .page-section{padding-top:28px;}
+
+  /* Fibra page enhancements */
+  .header-support-text{font-size:12.5px;color:var(--text-secondary);line-height:1.5;margin:6px 0 0;max-width:640px;}
+  .source-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+  .source-chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:20px;}
+  .source-chip.glpi{background:var(--accent-light);color:var(--accent);}
+  .source-chip.manual{background:#FFF4E5;color:#8A5A0A;}
+  .uppercase-title{text-transform:uppercase;letter-spacing:.03em;font-size:13px;}
+  .info-banner{display:flex;gap:10px;align-items:flex-start;background:var(--accent-light);border:1px solid #CFE3F7;border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:12.5px;color:#144C7A;line-height:1.5;}
+  .info-banner svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;stroke:var(--accent);}
+  .save-msg.error{color:var(--bad);font-weight:600;}
 </style>
 </head>
 <body>
-<nav class="topnav">
-  <div class="topnav-inner">
-    <span class="brand">GLPI &middot; Indicadores</span>
-    <a href="#" class="nav-link" id="navPainel" onclick="return false;">Painel principal</a>
-    <a href="#" class="nav-link" id="navFibra" onclick="showPage('fibra');return false;">Internet (Fibra)</a>
-    <a href="#" class="nav-link active" id="navIndicadores" onclick="showPage('indicadores');return false;">Indicadores Sistemas e Infraestrutura</a>
+<header class="header-premium">
+  <div class="header-inner">
+    <div class="header-identity">
+      <div class="header-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+      </div>
+      <div class="header-title-block">
+        <h1><span class="t-indicadores">INDICADORES</span><span class="t-gtic">GTIC</span></h1>
+        <div class="header-underline"></div>
+        <p class="header-subtitle">Acompanhe os principais indicadores de desempenho e a qualidade dos serviços de TI.</p>
+      </div>
+    </div>
+    <div class="header-divider"></div>
+    <nav class="header-navcards">
+      <a href="#" class="navcard" id="navFibra" onclick="showPage('fibra');return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        <span class="navcard-label">Internet (Fibra)</span>
+        <span class="navcard-indicator"></span>
+      </a>
+      <a href="#" class="navcard active" id="navIndicadores" onclick="showPage('indicadores');return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="6" rx="1"/><rect x="2" y="15" width="20" height="6" rx="1"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        <span class="navcard-label">Indicadores Sistemas<br>e Infraestrutura</span>
+        <span class="navcard-indicator"></span>
+      </a>
+    </nav>
   </div>
-</nav>
+</header>
 
 <div id="pageFibra" class="page-section" style="display:none;">
 <div class="wrap">
-  <div class="breadcrumb"><a href="#" onclick="return false;">Painel principal</a> &nbsp;/&nbsp; Internet (Fibra)</div>
   <header class="page">
     <h1>Internet (Fibra)</h1>
-    <p class="subtitle">Volume de chamados x disponibilidade informada pelo fornecedor — dados calculados a partir da base GLPI</p>
+    <p class="subtitle">Volume de chamados x disponibilidade informada pelo fornecedor</p>
+    <p class="header-support-text">Dados de chamados calculados a partir da base GLPI. Disponibilidade mensal informada manualmente com base no relatório do fornecedor.</p>
+    <div class="source-chips">
+      <span class="source-chip glpi">Chamados — Base GLPI</span>
+      <span class="source-chip manual">Disponibilidade — informação manual do fornecedor</span>
+    </div>
   </header>
 
   <div class="filters">
@@ -133,29 +197,38 @@
     <div class="card">
       <div class="label">Total de chamados — Internet (Fibra)</div>
       <div class="value" id="fibraCardTotal">0</div>
-      <div class="hint" id="fibraCardTotalHint">calculado da base filtrada</div>
+      <div class="hint" id="fibraCardTotalHint">Calculado a partir da base GLPI.</div>
     </div>
     <div class="card">
-      <div class="label">Disponibilidade média do período (informada)</div>
+      <div class="label">Média da disponibilidade informada pelo fornecedor</div>
       <div class="value" id="fibraCardDisp">—</div>
-      <div class="hint" id="fibraCardDispHint">meses sem valor informado não entram na média</div>
+      <div class="hint" id="fibraCardDispHint">Média calculada apenas com os meses preenchidos manualmente.</div>
     </div>
   </div>
 
   <div class="panel">
     <h2>Chamados x disponibilidade por mês</h2>
-    <p class="panel-sub">Barras = quantidade de chamados (calculada da base) · Linha = disponibilidade informada pelo fornecedor (%). Clique numa barra para ver os chamados daquele mês.</p>
+    <p class="panel-sub">Barras = quantidade de chamados calculada a partir da base GLPI.<br>Linha = disponibilidade mensal informada manualmente pelo fornecedor (%).</p>
+    <div class="legend">
+      <span><span class="swatch" style="background:#378ADD"></span>Chamados (GLPI)</span>
+      <span><span class="swatch" style="background:#0F6E56"></span>Disponibilidade informada (%)</span>
+    </div>
+    <p style="font-size:11.5px;color:var(--text-muted);margin:0 0 10px;">Clique numa barra para ver os chamados daquele mês.</p>
     <div style="position:relative;height:340px;">
       <canvas id="fibraChartFibra" role="img" aria-label="Grafico combinado de barras e linha comparando chamados de internet fibra por mes com disponibilidade informada pelo fornecedor"></canvas>
     </div>
   </div>
 
   <div class="panel">
-    <h2>Disponibilidade informada pelo fornecedor</h2>
-    <p class="panel-sub">Preencha manualmente ou importe um CSV (Mês,Disponibilidade). Nenhum valor é inventado — meses em branco ficam sem dado até serem informados. Os valores ficam salvos automaticamente.</p>
+    <h2 class="uppercase-title">Disponibilidade mensal informada pelo fornecedor</h2>
+    <div class="info-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <div>Atenção: a disponibilidade abaixo é um dado externo ao GLPI e deve ser informada manualmente com base no relatório do fornecedor.</div>
+    </div>
+    <p class="panel-sub">Os meses não preenchidos não entram no cálculo da média. Preencha manualmente ou importe um CSV (Mês,Disponibilidade) — os valores ficam salvos automaticamente.</p>
     <div class="table-scroll" style="max-height:300px;">
       <table id="fibraTableDisp">
-        <thead><tr><th>Mês</th><th>Chamados Internet (Fibra)</th><th>Disponibilidade do fornecedor (%)</th></tr></thead>
+        <thead><tr><th>Mês</th><th>Chamados Internet (GLPI)</th><th>Disponibilidade informada pelo fornecedor (%)</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -186,9 +259,8 @@
 
 <div id="pageIndicadores" class="page-section">
 <div class="wrap">
-  <div class="breadcrumb"><a href="#" onclick="return false;">Painel principal</a> &nbsp;/&nbsp; Indicadores mensais</div>
   <header class="page">
-    <h1>Indicadores mensais — Infraestrutura e Sistemas</h1>
+    <h1>Infraestrutura e Sistemas</h1>
     <p class="subtitle">Calculados diretamente da base GLPI</p>
   </header>
 
@@ -197,7 +269,7 @@
     <div class="filter-field"><label for="indFMes">Mês</label><select id="indFMes"><option value="">Todos</option></select></div>
     <div class="filter-field"><label for="indFDe">Período de</label><input type="date" id="indFDe"></div>
     <div class="filter-field"><label for="indFAte">Período até</label><input type="date" id="indFAte"></div>
-    <div class="filter-field"><label for="indFGrupo">Grupo Gestão</label><select id="indFGrupo"><option value="">Todos</option><option value="I">Infraestrutura</option><option value="S">Sistemas</option></select></div>
+    <div class="filter-field"><label for="indFGrupo">Grupo</label><select id="indFGrupo"><option value="">Todos</option><option value="I">Infraestrutura</option><option value="S">Sistemas</option></select></div>
     <div class="filter-field"><label for="indFStatus">Status</label><select id="indFStatus"><option value="">Todos</option></select></div>
     <button class="btn" id="indBtnLimpar">Limpar filtros</button>
   </div>
@@ -316,8 +388,8 @@ let activeMonthFilter = null; // {ano, mes} when a bar is clicked
 
 async function loadDisponibilidade() {
   try {
-    const res = await window.storage.get(STORAGE_KEY, false);
-    if (res && res.value) disponibilidade = JSON.parse(res.value);
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) disponibilidade = JSON.parse(raw);
   } catch (e) {
     disponibilidade = {};
   }
@@ -327,11 +399,15 @@ async function loadDisponibilidade() {
 
 async function saveDisponibilidade() {
   try {
-    await window.storage.set(STORAGE_KEY, JSON.stringify(disponibilidade), false);
-    document.getElementById('fibraSaveMsg').textContent = 'Salvo.';
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(disponibilidade));
+    const msg = document.getElementById('fibraSaveMsg');
+    msg.classList.remove('error');
+    msg.textContent = 'Salvo.';
     setTimeout(() => { document.getElementById('fibraSaveMsg').textContent=''; }, 2500);
   } catch (e) {
-    document.getElementById('fibraSaveMsg').textContent = 'Erro ao salvar.';
+    const msg = document.getElementById('fibraSaveMsg');
+    msg.classList.add('error');
+    msg.textContent = 'Erro ao salvar.';
   }
 }
 
@@ -403,7 +479,7 @@ function drawChart(monthlyCounts, dispValues) {
       datasets: [
         {
           type: 'bar',
-          label: 'Chamados Internet (Fibra)',
+          label: 'Chamados (GLPI)',
           data: monthlyCounts,
           backgroundColor: '#378ADD',
           borderRadius: 4,
@@ -412,7 +488,7 @@ function drawChart(monthlyCounts, dispValues) {
         },
         {
           type: 'line',
-          label: 'Disponibilidade do fornecedor (%)',
+          label: 'Disponibilidade informada (%)',
           data: dispValues,
           borderColor: '#0F6E56',
           backgroundColor: '#0F6E56',
