@@ -1,1 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Indicadores GLPI — Infraestrutura e Sistemas</title>
+<style>
+  :root{
+    --bg:#F5F6F8;--surface:#FFFFFF;--border:#E3E5E9;--text:#1B1F27;
+    --text-secondary:#5B6270;--text-muted:#8A8F9A;--accent:#185FA5;--accent-light:#E6F1FB;
+    --good:#0F6E56;--bad:#993C1D;--radius:10px;
+    --font: "Segoe UI", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px 64px;}
+  .breadcrumb{font-size:13px;color:var(--text-muted);margin-bottom:6px;}
+  .breadcrumb a{color:var(--accent);text-decoration:none;}
+  .breadcrumb a:hover{text-decoration:underline;}
+  header.page{margin-bottom:24px;}
+  h1{font-size:24px;font-weight:600;margin:0 0 4px;letter-spacing:-0.01em;}
+  .subtitle{font-size:14px;color:var(--text-secondary);margin:0;}
+  h2.section-title{font-size:19px;font-weight:600;margin:36px 0 2px;}
+  p.section-sub{font-size:13px;color:var(--text-muted);margin:0 0 16px;}
 
+  /* Top nav */
+  .topnav{
+    background:var(--surface);border-bottom:1px solid var(--border);
+    padding:0 32px;margin-bottom:28px;
+  }
+  .topnav-inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:4px;height:56px;}
+  .topnav .brand{font-weight:700;font-size:15px;color:var(--text);margin-right:20px;white-space:nowrap;}
+  .topnav a.nav-link{
+    font-size:13px;font-weight:600;color:var(--text-secondary);text-decoration:none;
+    padding:8px 14px;border-radius:6px;cursor:pointer;
+  }
+  .topnav a.nav-link:hover{background:var(--bg);color:var(--text);}
+  .topnav a.nav-link.active{background:var(--accent-light);color:var(--accent);}
+
+  .filters{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:8px;}
+  .filter-field{display:flex;flex-direction:column;gap:5px;}
+  .filter-field label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted);font-weight:600;}
+  .filter-field select, .filter-field input[type=date]{font-family:var(--font);font-size:13px;padding:7px 9px;border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--text);min-width:130px;max-width:220px;}
+  .btn{font-family:var(--font);font-size:13px;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--text);cursor:pointer;}
+  .btn:hover{background:var(--bg);}
+  .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .btn-primary:hover{background:#134b82;}
+  .btn-ghost{border-color:transparent;color:var(--accent);padding:8px 4px;}
+
+  .cards-row{display:flex;gap:16px;margin:20px 0;flex-wrap:wrap;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;flex:1;min-width:180px;}
+  .card .label{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted);font-weight:600;margin-bottom:8px;}
+  .card .value{font-size:30px;font-weight:600;letter-spacing:-0.02em;}
+  .card .hint{font-size:12px;color:var(--text-secondary);margin-top:6px;}
+  .card.warn{border-color:#EDB56A;background:#FFFBF3;}
+  .card.warn .value{color:#854F0B;}
+
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:22px;}
+  .panel h2, .panel h3{font-size:14px;font-weight:600;margin:0 0 4px;}
+  .panel .panel-sub{font-size:12px;color:var(--text-muted);margin:0 0 16px;}
+  .panels-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
+  .panels-row .panel{margin-bottom:0;}
+  @media (max-width: 900px){ .panels-row{grid-template-columns:1fr;} }
+
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:8px;font-size:12px;color:var(--text-secondary);}
+  .legend span{display:flex;align-items:center;gap:4px;}
+  .swatch{width:10px;height:10px;border-radius:2px;display:inline-block;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--text-muted);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);white-space:nowrap;}
+  td{padding:8px 10px;border-bottom:1px solid #EEF0F3;color:var(--text);white-space:nowrap;}
+  tr:hover td{background:#FAFBFC;}
+  .table-scroll{max-height:440px;overflow:auto;border:1px solid var(--border);border-radius:8px;}
+  .badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;}
+  .badge-fechado{background:#E9F6EF;color:var(--good);}
+  .badge-aberto{background:#FDEFE9;color:var(--bad);}
+  .empty-state{padding:24px;text-align:center;color:var(--text-muted);font-size:13px;}
+  .chart-wrap{position:relative;width:100%;}
+  .chart-wrap.h-sla{height:220px;}
+  .chart-wrap.v-backlog{height:300px;}
+
+  input.pct-input{width:70px;font-family:var(--font);font-size:13px;padding:5px 7px;border:1px solid var(--border);border-radius:6px;text-align:right;}
+  input.pct-input.missing{border-color:#EDB56A;background:#FFF8EE;}
+  .save-row{display:flex;align-items:center;gap:10px;margin-top:14px;}
+  .save-msg{font-size:12px;color:var(--good);}
+  .link-out{font-size:12px;color:var(--accent);cursor:pointer;text-decoration:underline;}
+
+  .page-section{padding-top:28px;}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="brand">GLPI &middot; Indicadores</span>
+    <a href="#" class="nav-link" id="navPainel" onclick="return false;">Painel principal</a>
+    <a href="#" class="nav-link" id="navFibra" onclick="showPage('fibra');return false;">Internet (Fibra)</a>
+    <a href="#" class="nav-link active" id="navIndicadores" onclick="showPage('indicadores');return false;">Indicadores Sistemas e Infraestrutura</a>
+  </div>
+</nav>
+
+<div id="pageFibra" class="page-section" style="display:none;">
+<div class="wrap">
+  <div class="breadcrumb"><a href="#" onclick="return false;">Painel principal</a> &nbsp;/&nbsp; Internet (Fibra)</div>
+  <header class="page">
+    <h1>Internet (Fibra)</h1>
+    <p class="subtitle">Volume de chamados x disponibilidade informada pelo fornecedor — dados calculados a partir da base GLPI</p>
+  </header>
+
+  <div class="filters">
+    <div class="filter-field">
+      <label for="fibraFAno">Ano</label>
+      <select id="fibraFAno"><option value="">Todos</option></select>
+    </div>
+    <div class="filter-field">
+      <label for="fibraFMes">Mês</label>
+      <select id="fibraFMes"><option value="">Todos</option></select>
+    </div>
+    <div class="filter-field">
+      <label for="fibraFDe">Período de</label>
+      <input type="date" id="fibraFDe">
+    </div>
+    <div class="filter-field">
+      <label for="fibraFAte">Período até</label>
+      <input type="date" id="fibraFAte">
+    </div>
+    <div class="filter-field">
+      <label for="fibraFCategoria">Categoria (serviço)</label>
+      <select id="fibraFCategoria"><option value="">Todas</option></select>
+    </div>
+    <button class="btn" id="fibraBtnLimpar">Limpar filtros</button>
+  </div>
+
+  <div class="cards-row">
+    <div class="card">
+      <div class="label">Total de chamados — Internet (Fibra)</div>
+      <div class="value" id="fibraCardTotal">0</div>
+      <div class="hint" id="fibraCardTotalHint">calculado da base filtrada</div>
+    </div>
+    <div class="card">
+      <div class="label">Disponibilidade média do período (informada)</div>
+      <div class="value" id="fibraCardDisp">—</div>
+      <div class="hint" id="fibraCardDispHint">meses sem valor informado não entram na média</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Chamados x disponibilidade por mês</h2>
+    <p class="panel-sub">Barras = quantidade de chamados (calculada da base) · Linha = disponibilidade informada pelo fornecedor (%). Clique numa barra para ver os chamados daquele mês.</p>
+    <div style="position:relative;height:340px;">
+      <canvas id="fibraChartFibra" role="img" aria-label="Grafico combinado de barras e linha comparando chamados de internet fibra por mes com disponibilidade informada pelo fornecedor"></canvas>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Disponibilidade informada pelo fornecedor</h2>
+    <p class="panel-sub">Preencha manualmente ou importe um CSV (Mês,Disponibilidade). Nenhum valor é inventado — meses em branco ficam sem dado até serem informados. Os valores ficam salvos automaticamente.</p>
+    <div class="table-scroll" style="max-height:300px;">
+      <table id="fibraTableDisp">
+        <thead><tr><th>Mês</th><th>Chamados Internet (Fibra)</th><th>Disponibilidade do fornecedor (%)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="save-row">
+      <button class="btn" id="fibraBtnImportar">Importar CSV</button>
+      <input type="file" id="fibraFileImportar" accept=".csv" style="display:none;">
+      <button class="btn btn-primary" id="fibraBtnSalvarDisp">Salvar disponibilidade</button>
+      <span class="save-msg" id="fibraSaveMsg"></span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Chamados detalhados <span id="fibraTituloDetalhe" style="font-weight:400;color:var(--text-muted);"></span></h2>
+    <p class="panel-sub">A contagem aqui deve sempre bater com o número mostrado no card/gráfico correspondente.</p>
+    <div class="table-scroll">
+      <table id="fibraTableDetalhe">
+        <thead><tr>
+          <th>ID</th><th>Data de abertura</th><th>Data da solução</th><th>Status</th>
+          <th>Serviço</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div id="pageIndicadores" class="page-section">
+<div class="wrap">
+  <div class="breadcrumb"><a href="#" onclick="return false;">Painel principal</a> &nbsp;/&nbsp; Indicadores mensais</div>
+  <header class="page">
+    <h1>Indicadores mensais — Infraestrutura e Sistemas</h1>
+    <p class="subtitle">Calculados diretamente da base GLPI</p>
+  </header>
+
+  <div class="filters">
+    <div class="filter-field"><label for="indFAno">Ano</label><select id="indFAno"><option value="">Todos</option></select></div>
+    <div class="filter-field"><label for="indFMes">Mês</label><select id="indFMes"><option value="">Todos</option></select></div>
+    <div class="filter-field"><label for="indFDe">Período de</label><input type="date" id="indFDe"></div>
+    <div class="filter-field"><label for="indFAte">Período até</label><input type="date" id="indFAte"></div>
+    <div class="filter-field"><label for="indFGrupo">Grupo Gestão</label><select id="indFGrupo"><option value="">Todos</option><option value="I">Infraestrutura</option><option value="S">Sistemas</option></select></div>
+    <div class="filter-field"><label for="indFStatus">Status</label><select id="indFStatus"><option value="">Todos</option></select></div>
+    <button class="btn" id="indBtnLimpar">Limpar filtros</button>
+  </div>
+
+  <h2 class="section-title">Situação dos chamados em relação ao SLA</h2>
+  <p class="section-sub">Distribuição dos chamados conforme o prazo de solução definido no SLA.</p>
+
+  <div class="cards-row">
+    <div class="card">
+      <div class="label">Total de chamados</div>
+      <div class="value" id="indCardTotal">0</div>
+      <div class="hint">no período e filtros selecionados</div>
+    </div>
+    <div class="card warn" id="indCardIndeterminado" style="display:none;">
+      <div class="label">Sem classificação de SLA</div>
+      <div class="value" id="indCardIndeterminadoValor">0</div>
+      <div class="hint">Chamados que ainda não foram encerrados e cuja base não registrou uma data-limite de SLA — por isso não é possível dizer se estão dentro ou fora do prazo. Não entram nas 4 barras nem no total acima.</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><span class="swatch" style="background:#378ADD"></span>Em aberto dentro do SLA</span>
+    <span><span class="swatch" style="background:#e34948"></span>Em aberto com SLA vencido</span>
+    <span><span class="swatch" style="background:#1baf7a"></span>Encerrado dentro do SLA</span>
+    <span><span class="swatch" style="background:#a32d2d"></span>Encerrado com SLA vencido</span>
+  </div>
+
+  <div class="panels-row">
+    <div class="panel">
+      <h3>Infraestrutura</h3>
+      <div class="chart-wrap h-sla"><canvas id="indChartSlaInfra" role="img" aria-label="Grafico de barras horizontais com a situacao dos chamados de infraestrutura em relacao ao SLA"></canvas></div>
+    </div>
+    <div class="panel">
+      <h3>Sistemas</h3>
+      <div class="chart-wrap h-sla"><canvas id="indChartSlaSistemas" role="img" aria-label="Grafico de barras horizontais com a situacao dos chamados de sistemas em relacao ao SLA"></canvas></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Encerramento no mês de abertura e backlog gerado</h2>
+  <p class="section-sub">Compara os chamados abertos no mês, os encerrados dentro do próprio mês e os que seguiram em aberto para o mês seguinte. Backlog é diferente de SLA vencido: um chamado pode estar em backlog e ainda dentro do prazo, ou já com o SLA vencido.</p>
+
+  <div class="legend">
+    <span><span class="swatch" style="background:#378ADD"></span>Abertos no mês</span>
+    <span><span class="swatch" style="background:#1baf7a"></span>Encerrados no mesmo mês</span>
+    <span><span class="swatch" style="background:#eb6834"></span>Backlog gerado no mês</span>
+  </div>
+
+  <div class="panels-row">
+    <div class="panel">
+      <h3>Infraestrutura</h3>
+      <div class="chart-wrap v-backlog"><canvas id="indChartBacklogInfra" role="img" aria-label="Grafico mensal de infraestrutura com abertos, encerrados no mesmo mes e backlog gerado"></canvas></div>
+    </div>
+    <div class="panel">
+      <h3>Sistemas</h3>
+      <div class="chart-wrap v-backlog"><canvas id="indChartBacklogSistemas" role="img" aria-label="Grafico mensal de sistemas com abertos, encerrados no mesmo mes e backlog gerado"></canvas></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Chamados detalhados <span id="indTituloDetalhe" style="font-weight:400;color:var(--text-muted);"></span></h3>
+    <p class="section-sub" style="margin-bottom:12px;">A contagem aqui deve sempre bater com o número mostrado no gráfico/card selecionado.</p>
+    <div class="table-scroll">
+      <table id="indTableDetalhe">
+        <thead><tr>
+          <th>ID</th><th>Título</th><th>Data de abertura</th><th>Data da solução</th><th>Status</th>
+          <th>Categoria</th><th>Serviço</th><th>Grupo Gestão</th><th>Grupo técnico</th>
+          <th>SLA (prazo)</th><th>Tempo p/ adquirir excedido</th><th>Tempo p/ resolver excedido</th>
+        </tr></thead>
+        <tbody><tr><td colspan="12" class="empty-state">Clique numa barra para ver os chamados correspondentes.</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function showPage(name) {
+  document.getElementById('pageFibra').style.display = (name === 'fibra') ? '' : 'none';
+  document.getElementById('pageIndicadores').style.display = (name === 'indicadores') ? '' : 'none';
+  document.getElementById('navFibra').classList.toggle('active', name === 'fibra');
+  document.getElementById('navIndicadores').classList.toggle('active', name === 'indicadores');
+  window.scrollTo(0,0);
+}
+</script>
+<script>
+(async function(){
+const RAW_DATA_FIBRA = await fetch('./kpi_data_fibra.json').then(r => r.json());
+
+const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const STORAGE_KEY = 'internet_fibra_disponibilidade_v1';
+
+// normalize records with parsed dates
+const chamados = RAW_DATA_FIBRA.map(r => ({
+  ...r,
+  aberturaDate: r.abertura ? new Date(r.abertura) : null,
+  solucaoDate: r.solucao ? new Date(r.solucao) : null
+}));
+
+// ---- filter population ----
+const anos = [...new Set(chamados.map(c => c.aberturaDate ? c.aberturaDate.getFullYear() : null).filter(Boolean))].sort();
+const categorias = [...new Set(chamados.map(c => c.servico))].sort();
+
+const fAno = document.getElementById('fibraFAno');
+anos.forEach(a => { const o = document.createElement('option'); o.value = a; o.textContent = a; fAno.appendChild(o); });
+
+const fMes = document.getElementById('fibraFMes');
+MESES.forEach((m,i) => { const o = document.createElement('option'); o.value = i+1; o.textContent = m; fMes.appendChild(o); });
+
+const fCategoria = document.getElementById('fibraFCategoria');
+categorias.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; fCategoria.appendChild(o); });
+
+let disponibilidade = {}; // { "2024-1": 99.5, ... }
+let activeMonthFilter = null; // {ano, mes} when a bar is clicked
+
+async function loadDisponibilidade() {
+  try {
+    const res = await window.storage.get(STORAGE_KEY, false);
+    if (res && res.value) disponibilidade = JSON.parse(res.value);
+  } catch (e) {
+    disponibilidade = {};
+  }
+  renderDispTable();
+  render();
+}
+
+async function saveDisponibilidade() {
+  try {
+    await window.storage.set(STORAGE_KEY, JSON.stringify(disponibilidade), false);
+    document.getElementById('fibraSaveMsg').textContent = 'Salvo.';
+    setTimeout(() => { document.getElementById('fibraSaveMsg').textContent=''; }, 2500);
+  } catch (e) {
+    document.getElementById('fibraSaveMsg').textContent = 'Erro ao salvar.';
+  }
+}
+
+function applyFilters() {
+  const ano = fAno.value;
+  const mes = fMes.value;
+  const de = document.getElementById('fibraFDe').value;
+  const ate = document.getElementById('fibraFAte').value;
+  const cat = fCategoria.value;
+
+  return chamados.filter(c => {
+    if (!c.aberturaDate) return false;
+    if (ano && c.aberturaDate.getFullYear() !== Number(ano)) return false;
+    if (mes && (c.aberturaDate.getMonth()+1) !== Number(mes)) return false;
+    if (de && c.aberturaDate < new Date(de)) return false;
+    if (ate) { const ateEnd = new Date(ate); ateEnd.setHours(23,59,59,999); if (c.aberturaDate > ateEnd) return false; }
+    if (cat && c.servico !== cat) return false;
+    return true;
+  });
+}
+
+let chartInstance = null;
+
+function render() {
+  const filtered = applyFilters();
+
+  document.getElementById('fibraCardTotal').textContent = filtered.length.toLocaleString('pt-BR');
+
+  // monthly counts, respecting Ano filter if set (default: all years present in filtered data, else all anos)
+  const anoFiltro = fAno.value ? Number(fAno.value) : (anos.length === 1 ? anos[0] : null);
+  const yearsToShow = anoFiltro ? [anoFiltro] : anos;
+
+  const monthlyCounts = new Array(12).fill(0);
+  filtered.forEach(c => {
+    if (!c.aberturaDate) return;
+    if (yearsToShow.length && !yearsToShow.includes(c.aberturaDate.getFullYear())) return;
+    monthlyCounts[c.aberturaDate.getMonth()] += 1;
+  });
+
+  const dispValues = MESES.map((_, i) => {
+    const y = yearsToShow[0] || anos[0];
+    const key = y + '-' + (i+1);
+    return disponibilidade[key] !== undefined && disponibilidade[key] !== '' ? Number(disponibilidade[key]) : null;
+  });
+
+  const validDisp = dispValues.filter(v => v !== null && !isNaN(v));
+  if (validDisp.length) {
+    const avg = validDisp.reduce((a,b)=>a+b,0) / validDisp.length;
+    document.getElementById('fibraCardDisp').textContent = avg.toFixed(2) + '%';
+  } else {
+    document.getElementById('fibraCardDisp').textContent = '—';
+  }
+
+  drawChart(monthlyCounts, dispValues);
+  renderDispTable(monthlyCounts, yearsToShow[0] || anos[0]);
+
+  if (!activeMonthFilter) {
+    renderDetailTable(filtered);
+    document.getElementById('fibraTituloDetalhe').textContent = '';
+  }
+}
+
+function drawChart(monthlyCounts, dispValues) {
+  const ctx = document.getElementById('fibraChartFibra');
+  if (chartInstance) chartInstance.destroy();
+  chartInstance = new Chart(ctx, {
+    data: {
+      labels: MESES,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Chamados Internet (Fibra)',
+          data: monthlyCounts,
+          backgroundColor: '#378ADD',
+          borderRadius: 4,
+          maxBarThickness: 34,
+          yAxisID: 'y'
+        },
+        {
+          type: 'line',
+          label: 'Disponibilidade do fornecedor (%)',
+          data: dispValues,
+          borderColor: '#0F6E56',
+          backgroundColor: '#0F6E56',
+          spanGaps: true,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          borderWidth: 2,
+          tension: 0.2,
+          yAxisID: 'y1'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      onClick: (evt, elements) => {
+        if (!elements.length) return;
+        const idx = elements[0].index;
+        activeMonthFilter = idx;
+        const filtered = applyFilters().filter(c => c.aberturaDate && c.aberturaDate.getMonth() === idx);
+        renderDetailTable(filtered);
+        document.getElementById('fibraTituloDetalhe').textContent = '— ' + MESES[idx] + ' (' + filtered.length + ' chamados)';
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (c) => {
+              if (c.dataset.yAxisID === 'y1') {
+                return c.raw === null ? 'Disponibilidade: não informada' : 'Disponibilidade: ' + c.raw + '%';
+              }
+              return 'Chamados: ' + c.raw;
+            }
+          }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Chamados' }, grid: { color: '#EEF0F3' } },
+        y1: { beginAtZero: false, min: 0, max: 100, position: 'right', title: { display: true, text: 'Disponibilidade (%)' }, grid: { display: false } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
+
+function renderDispTable(monthlyCounts, ano) {
+  monthlyCounts = monthlyCounts || new Array(12).fill(0);
+  ano = ano || anos[0];
+  const tbody = document.querySelector('#fibraTableDisp tbody');
+  tbody.innerHTML = '';
+  MESES.forEach((m, i) => {
+    const key = ano + '-' + (i+1);
+    const val = disponibilidade[key] !== undefined ? disponibilidade[key] : '';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + m + ' / ' + ano + '</td><td>' + (monthlyCounts[i] ?? 0) + '</td><td></td>';
+    const td = tr.querySelector('td:last-child');
+    const input = document.createElement('input');
+    input.type = 'number'; input.step = '0.01'; input.min = '0'; input.max = '100';
+    input.className = 'pct-input' + (val === '' ? ' missing' : '');
+    input.value = val;
+    input.placeholder = 'não informado';
+    input.addEventListener('input', () => {
+      const key2 = ano + '-' + (i+1);
+      if (input.value === '') { delete disponibilidade[key2]; input.classList.add('missing'); }
+      else { disponibilidade[key2] = Number(input.value); input.classList.remove('missing'); }
+    });
+    td.appendChild(input);
+    tbody.appendChild(tr);
+  });
+}
+
+function renderDetailTable(list) {
+  const tbody = document.querySelector('#fibraTableDetalhe tbody');
+  tbody.innerHTML = '';
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Nenhum chamado para os filtros selecionados.</td></tr>';
+    return;
+  }
+  list.slice(0, 500).forEach(c => {
+    const tr = document.createElement('tr');
+    const statusBadge = c.status === 'Fechado'
+      ? '<span class="badge badge-fechado">Fechado</span>'
+      : '<span class="badge badge-aberto">' + c.status + '</span>';
+    tr.innerHTML = '<td>' + c.id + '</td>' +
+      '<td>' + (c.abertura ? c.abertura.replace('T',' ').slice(0,16) : '') + '</td>' +
+      '<td>' + (c.solucao ? c.solucao.replace('T',' ').slice(0,16) : '—') + '</td>' +
+      '<td>' + statusBadge + '</td>' +
+      '<td>' + c.servico + '</td>';
+    tbody.appendChild(tr);
+  });
+  if (list.length > 500) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td colspan="5" class="empty-state">Mostrando 500 de ' + list.length + ' chamados. Refine os filtros para ver todos.</td>';
+    tbody.appendChild(tr);
+  }
+}
+
+// ---- events ----
+[fAno, fMes, fCategoria].forEach(el => el.addEventListener('change', () => { activeMonthFilter = null; render(); }));
+document.getElementById('fibraFDe').addEventListener('change', () => { activeMonthFilter = null; render(); });
+document.getElementById('fibraFAte').addEventListener('change', () => { activeMonthFilter = null; render(); });
+document.getElementById('fibraBtnLimpar').addEventListener('click', () => {
+  fAno.value=''; fMes.value=''; fCategoria.value='';
+  document.getElementById('fibraFDe').value=''; document.getElementById('fibraFAte').value='';
+  activeMonthFilter = null;
+  render();
+});
+document.getElementById('fibraBtnSalvarDisp').addEventListener('click', saveDisponibilidade);
+
+document.getElementById('fibraBtnImportar').addEventListener('click', () => document.getElementById('fibraFileImportar').click());
+document.getElementById('fibraFileImportar').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (evt) => {
+    const text = evt.target.result;
+    const lines = text.split(/\r?\n/).filter(l => l.trim());
+    const ano = fAno.value ? Number(fAno.value) : anos[0];
+    lines.forEach(line => {
+      const parts = line.split(',').map(s => s.trim());
+      if (parts.length < 2) return;
+      const mesLabel = parts[0];
+      const val = parseFloat(parts[1].replace('%',''));
+      if (isNaN(val)) return;
+      let mesIdx = MESES.findIndex(m => m.toLowerCase() === mesLabel.toLowerCase());
+      if (mesIdx === -1) { const n = parseInt(mesLabel); if (n >= 1 && n <= 12) mesIdx = n - 1; }
+      if (mesIdx === -1) return;
+      disponibilidade[ano + '-' + (mesIdx+1)] = val;
+    });
+    renderDispTable(null, ano);
+    render();
+    document.getElementById('fibraSaveMsg').textContent = 'Importado — clique em Salvar disponibilidade para gravar.';
+  };
+  reader.readAsText(file);
+});
+
+loadDisponibilidade();
+})();
+(async function(){
+const RAW_DATA_IND = (await Promise.all([
+  fetch('./kpi_data_2024a.json').then(r => r.json()),
+  fetch('./kpi_data_2024b.json').then(r => r.json()),
+  fetch('./kpi_data_2025a.json').then(r => r.json()),
+  fetch('./kpi_data_2025b.json').then(r => r.json()),
+  fetch('./kpi_data_2026a.json').then(r => r.json()),
+  fetch('./kpi_data_2026b.json').then(r => r.json())
+])).flat();
+
+const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const MESES_LONG = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const hoje = new Date();
+
+const chamados = RAW_DATA_IND.map(r => ({
+  id: r.i, titulo: r.t,
+  aberturaDate: r.a ? new Date(r.a) : null, aberturaStr: r.a,
+  solucaoDate: r.s ? new Date(r.s) : null, solucaoStr: r.s,
+  status: r.st, categoria: r.c, servico: r.sv,
+  grupo: r.g === 'I' ? 'INFRAESTRUTURA' : 'SISTEMAS',
+  grupoTecnico: r.gt,
+  prazoDate: r.p ? new Date(r.p) : null, prazoStr: r.p,
+  adquirirExcedido: r.aq === 'S' ? 'Sim' : 'Não',
+  resolverExcedido: r.re === 'S' ? 'Sim' : 'Não'
+}));
+
+function classify(c) {
+  if (c.solucaoDate) {
+    if (c.prazoDate) return c.solucaoDate <= c.prazoDate ? 'encerrado_dentro' : 'encerrado_vencido';
+    return c.resolverExcedido === 'Sim' ? 'encerrado_vencido' : 'encerrado_dentro';
+  } else {
+    if (c.prazoDate) return c.prazoDate >= hoje ? 'aberto_dentro' : 'aberto_vencido';
+    return null;
+  }
+}
+chamados.forEach(c => { c.slaClass = classify(c); });
+
+const anos = [...new Set(chamados.map(c => c.aberturaDate ? c.aberturaDate.getFullYear() : null).filter(Boolean))].sort();
+const statusList = [...new Set(chamados.map(c => c.status))].sort();
+
+function fillSelect(id, values) {
+  const el = document.getElementById(id);
+  values.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; el.appendChild(o); });
+}
+anos.forEach(a => { const o = document.createElement('option'); o.value = a; o.textContent = a; document.getElementById('indFAno').appendChild(o); });
+MESES.forEach((m,i) => { const o = document.createElement('option'); o.value = i+1; o.textContent = m; document.getElementById('indFMes').appendChild(o); });
+fillSelect('indFStatus', statusList);
+
+
+const fAno = document.getElementById('indFAno'), fMes = document.getElementById('indFMes'),
+      fDe = document.getElementById('indFDe'), fAte = document.getElementById('indFAte'),
+      fGrupo = document.getElementById('indFGrupo'), fStatus = document.getElementById('indFStatus');
+
+function applyFilters() {
+  const ano = fAno.value, mes = fMes.value, de = fDe.value, ate = fAte.value;
+  const grupo = fGrupo.value, status = fStatus.value;
+  return chamados.filter(c => {
+    if (!c.aberturaDate) return false;
+    if (ano && c.aberturaDate.getFullYear() !== Number(ano)) return false;
+    if (mes && (c.aberturaDate.getMonth()+1) !== Number(mes)) return false;
+    if (de && c.aberturaDate < new Date(de)) return false;
+    if (ate) { const ateEnd = new Date(ate); ateEnd.setHours(23,59,59,999); if (c.aberturaDate > ateEnd) return false; }
+    if (grupo && c.grupo !== (grupo === 'I' ? 'INFRAESTRUTURA' : 'SISTEMAS')) return false;
+    if (status && c.status !== status) return false;
+    return true;
+  });
+}
+
+function ymEqual(d1, d2) { return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth(); }
+
+let charts = {};
+
+function labelPeriodo() {
+  const ano = fAno.value, mes = fMes.value;
+  if (mes && ano) return MESES_LONG[Number(mes)-1] + '/' + ano;
+  if (ano) return ano;
+  return 'Todo o período filtrado';
+}
+
+// ---- custom plugin: draw value + percent at end of horizontal bars ----
+const valueLabelsPlugin = {
+  id: 'valueLabels',
+  afterDatasetsDraw(chart) {
+    const { ctx } = chart;
+    chart.data.datasets.forEach((dataset, di) => {
+      const meta = chart.getDatasetMeta(di);
+      meta.data.forEach((bar, i) => {
+        const val = dataset.data[i];
+        const pct = dataset.percents ? dataset.percents[i] : null;
+        const text = val.toLocaleString('pt-BR') + (pct !== null ? ' (' + pct.toFixed(1) + '%)' : '');
+        ctx.save();
+        ctx.fillStyle = '#1B1F27';
+        ctx.font = '12px "Segoe UI", Arial, sans-serif';
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'left';
+        ctx.fillText(text, bar.x + 6, bar.y);
+        ctx.restore();
+      });
+    });
+  }
+};
+
+function renderDetailTable(list, label) {
+  document.getElementById('indTituloDetalhe').textContent = label ? '— ' + label + ' (' + list.length + ' chamados)' : '';
+  const tbody = document.querySelector('#indTableDetalhe tbody');
+  tbody.innerHTML = '';
+  if (!list.length) { tbody.innerHTML = '<tr><td colspan="12" class="empty-state">Nenhum chamado para essa seleção.</td></tr>'; return; }
+  list.slice(0, 500).forEach(c => {
+    const tr = document.createElement('tr');
+    const badge = c.status === 'Fechado' ? '<span class="badge badge-fechado">Fechado</span>' : '<span class="badge badge-aberto">' + c.status + '</span>';
+    tr.innerHTML = '<td>' + c.id + '</td>' +
+      '<td>' + (c.titulo || '').slice(0,50) + '</td>' +
+      '<td>' + (c.aberturaStr ? c.aberturaStr.replace('T',' ').slice(0,16) : '') + '</td>' +
+      '<td>' + (c.solucaoStr ? c.solucaoStr.replace('T',' ').slice(0,16) : '—') + '</td>' +
+      '<td>' + badge + '</td>' +
+      '<td>' + (c.categoria || '—') + '</td>' +
+      '<td>' + (c.servico || '—') + '</td>' +
+      '<td>' + c.grupo + '</td>' +
+      '<td>' + (c.grupoTecnico || '—') + '</td>' +
+      '<td>' + (c.prazoStr ? c.prazoStr.replace('T',' ').slice(0,16) : 'não calculável') + '</td>' +
+      '<td>' + c.adquirirExcedido + '</td>' +
+      '<td>' + c.resolverExcedido + '</td>';
+    tbody.appendChild(tr);
+  });
+  if (list.length > 500) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td colspan="12" class="empty-state">Mostrando 500 de ' + list.length + ' chamados. Refine os filtros para ver todos.</td>';
+    tbody.appendChild(tr);
+  }
+}
+
+function renderSlaChart(canvasId, list, grupo) {
+  const g = list.filter(c => c.grupo === grupo);
+  const cats = {
+    aberto_dentro: g.filter(c => c.slaClass === 'aberto_dentro'),
+    aberto_vencido: g.filter(c => c.slaClass === 'aberto_vencido'),
+    encerrado_dentro: g.filter(c => c.slaClass === 'encerrado_dentro'),
+    encerrado_vencido: g.filter(c => c.slaClass === 'encerrado_vencido')
+  };
+  const totalClassificavel = cats.aberto_dentro.length + cats.aberto_vencido.length + cats.encerrado_dentro.length + cats.encerrado_vencido.length;
+  const labels = ['Em aberto dentro do SLA', 'Em aberto com SLA vencido', 'Encerrado dentro do SLA', 'Encerrado com SLA vencido'];
+  const keys = ['aberto_dentro','aberto_vencido','encerrado_dentro','encerrado_vencido'];
+  const colors = ['#378ADD', '#e34948', '#1baf7a', '#a32d2d'];
+  const values = keys.map(k => cats[k].length);
+  const percents = values.map(v => totalClassificavel ? (v/totalClassificavel*100) : 0);
+
+  if (charts[canvasId]) charts[canvasId].destroy();
+  charts[canvasId] = new Chart(document.getElementById(canvasId), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data: values, backgroundColor: colors, borderRadius: 4, barThickness: 28, percents }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { right: 90 } },
+      onClick: (evt, elements) => {
+        if (!elements.length) return;
+        const idx = elements[0].index;
+        const key = keys[idx];
+        renderDetailTable(cats[key], grupo + ' — ' + labels[idx]);
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          title: (items) => labels[items[0].dataIndex],
+          label: (ctx) => {
+            const idx = ctx.dataIndex;
+            return ['Quantidade: ' + values[idx].toLocaleString('pt-BR'),
+                    'Percentual: ' + percents[idx].toFixed(1) + '%',
+                    'Equipe: ' + (grupo === 'INFRAESTRUTURA' ? 'Infraestrutura' : 'Sistemas'),
+                    'Período: ' + labelPeriodo()];
+          }
+        } }
+      },
+      scales: {
+        x: { beginAtZero: true, grid: { color: '#EEF0F3' }, ticks: { color: '#8A8F9A' } },
+        y: { grid: { display: false }, ticks: { color: '#1B1F27' } }
+      }
+    },
+    plugins: [valueLabelsPlugin]
+  });
+}
+
+function renderBacklogChart(canvasId, list, grupo) {
+  const g = list.filter(c => c.grupo === grupo);
+  const abertos = new Array(12).fill(0), encerradosMesmoMes = new Array(12).fill(0), backlog = new Array(12).fill(0);
+  const perMonthLists = { abertos: Array.from({length:12}, () => []), encerrados: Array.from({length:12}, () => []), backlog: Array.from({length:12}, () => []) };
+  g.forEach(c => {
+    const m = c.aberturaDate.getMonth();
+    abertos[m]++; perMonthLists.abertos[m].push(c);
+    const mesmoMes = c.solucaoDate && ymEqual(c.aberturaDate, c.solucaoDate);
+    if (mesmoMes) { encerradosMesmoMes[m]++; perMonthLists.encerrados[m].push(c); }
+    else { backlog[m]++; perMonthLists.backlog[m].push(c); }
+  });
+
+  if (charts[canvasId]) charts[canvasId].destroy();
+  charts[canvasId] = new Chart(document.getElementById(canvasId), {
+    type: 'bar',
+    data: {
+      labels: MESES,
+      datasets: [
+        { label: 'Abertos no mês', data: abertos, backgroundColor: '#378ADD', borderRadius: 4, maxBarThickness: 18 },
+        { label: 'Encerrados no mesmo mês', data: encerradosMesmoMes, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 18 },
+        { label: 'Backlog gerado no mês', data: backlog, backgroundColor: '#eb6834', borderRadius: 4, maxBarThickness: 18 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      onClick: (evt, elements) => {
+        if (!elements.length) return;
+        const el = elements[0];
+        const m = el.index;
+        const key = el.datasetIndex === 0 ? 'abertos' : (el.datasetIndex === 1 ? 'encerrados' : 'backlog');
+        const label = el.datasetIndex === 0 ? 'Abertos no mês' : (el.datasetIndex === 1 ? 'Encerrados no mesmo mês' : 'Backlog gerado no mês');
+        renderDetailTable(perMonthLists[key][m], grupo + ' — ' + MESES_LONG[m] + ' — ' + label);
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          title: (items) => MESES_LONG[items[0].dataIndex] + '/' + (fAno.value || ''),
+          label: (ctx) => {
+            const m = ctx.dataIndex;
+            if (ctx.datasetIndex === 0) return 'Abertos no mês: ' + abertos[m].toLocaleString('pt-BR');
+            if (ctx.datasetIndex === 1) return 'Encerrados no mesmo mês: ' + encerradosMesmoMes[m].toLocaleString('pt-BR');
+            return 'Backlog gerado: ' + backlog[m].toLocaleString('pt-BR');
+          }
+        } }
+      },
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#EEF0F3' }, ticks: { color: '#8A8F9A' } },
+        x: { grid: { display: false }, ticks: { color: '#8A8F9A', autoSkip: false, maxRotation: 0 } }
+      }
+    }
+  });
+}
+
+function render() {
+  const filtered = applyFilters();
+  const classificaveis = filtered.filter(c => c.slaClass !== null);
+  const indeterminados = filtered.filter(c => c.slaClass === null);
+
+  document.getElementById('indCardTotal').textContent = classificaveis.length.toLocaleString('pt-BR');
+  const cardIndet = document.getElementById('indCardIndeterminado');
+  if (indeterminados.length) {
+    cardIndet.style.display = '';
+    document.getElementById('indCardIndeterminadoValor').textContent = indeterminados.length.toLocaleString('pt-BR');
+  } else {
+    cardIndet.style.display = 'none';
+  }
+
+  renderSlaChart('indChartSlaInfra', classificaveis, 'INFRAESTRUTURA');
+  renderSlaChart('indChartSlaSistemas', classificaveis, 'SISTEMAS');
+  renderBacklogChart('indChartBacklogInfra', filtered, 'INFRAESTRUTURA');
+  renderBacklogChart('indChartBacklogSistemas', filtered, 'SISTEMAS');
+}
+
+[fAno, fMes, fGrupo, fStatus].forEach(el => el.addEventListener('change', render));
+fDe.addEventListener('change', render);
+fAte.addEventListener('change', render);
+document.getElementById('indBtnLimpar').addEventListener('click', () => {
+  [fAno, fMes, fGrupo, fStatus].forEach(el => el.value = '');
+  fDe.value = ''; fAte.value = '';
+  render();
+});
+
+render();
+})();
+</script>
+</body>
+</html>
