@@ -106,7 +106,7 @@
   .empty-state{padding:24px;text-align:center;color:var(--text-muted);font-size:13px;}
   .chart-wrap{position:relative;width:100%;}
   .chart-wrap.h-sla{height:220px;}
-  .chart-wrap.v-backlog{height:300px;}
+  .chart-wrap.v-backlog{height:620px;}
 
   input.pct-input{width:118px;font-family:var(--font);font-size:13px;padding:5px 9px;border:1px solid var(--border);border-radius:6px;text-align:right;}
   input.pct-input.missing{border-color:#EDB56A;background:#FFF8EE;}
@@ -938,6 +938,7 @@ function renderBacklogChart(canvasId, list, grupo) {
     type: 'bar',
     data: { labels: chartLabels, datasets },
     options: {
+      indexAxis: 'y',
       responsive: true, maintainAspectRatio: false,
       onClick: (evt, elements) => {
         if (!elements.length) return;
@@ -971,8 +972,8 @@ function renderBacklogChart(canvasId, list, grupo) {
         } }
       },
       scales: {
-        y: { beginAtZero: true, title: { display: true, text: 'Chamados' }, grid: { color: '#EEF0F3' }, ticks: { color: '#8A8F9A' } },
-        x: { grid: { display: false }, ticks: { color: '#8A8F9A', autoSkip: false, maxRotation: 0 } }
+        x: { beginAtZero: true, title: { display: true, text: 'Chamados' }, grid: { color: '#EEF0F3' }, ticks: { color: '#8A8F9A' } },
+        y: { grid: { display: false }, ticks: { color: '#8A8F9A', autoSkip: false } }
       }
     }
   });
