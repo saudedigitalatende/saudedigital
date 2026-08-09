@@ -935,58 +935,70 @@ function renderBacklogChart(canvasId, list, grupo) {
   }
   const anoRef = fAno.value || '';
 
+  // ---- Determinar o mês de referência do resumo (NUNCA fixo em dezembro) ----
+  // Prioridade: 1) filtro de Mês  2) mês do fim do período (Período até)  3) último mês com dado real no ano
+  let lastRealMonth = -1;
+  for (let m = 0; m < 12; m++) { if (abertos[m] > 0) lastRealMonth = m; }
+  if (lastRealMonth === -1) lastRealMonth = 0;
+
+  let referenceMonth = lastRealMonth;
+  if (fMes.value) {
+    referenceMonth = Number(fMes.value) - 1;
+  } else if (fAte.value) {
+    const dAte = new Date(fAte.value);
+    if (!anoRef || dAte.getFullYear() === Number(anoRef)) referenceMonth = dAte.getMonth();
+  }
+
   // ---- Projeção do Backlog acumulado (só quando um ano específico está filtrado e o ano ainda não está completo) ----
   let chartLabels = MESES.slice();
   let abertosExt = abertos.slice(), encerradosExt = encerradosMesmoMes.slice(), backlogExt = backlog.slice();
   let backlogAcumuladoExt = backlogAcumulado.slice();
   let projecaoData = null;
   let temProjecao = false;
-  let lastRealMonth = 11;
 
-  if (anoRef) {
-    lastRealMonth = -1;
-    for (let m = 0; m < 12; m++) { if (abertos[m] > 0) lastRealMonth = m; }
-    if (lastRealMonth >= 1 && lastRealMonth < 11) {
-      const janela = [];
-      for (let m = Math.max(0, lastRealMonth - 5); m <= lastRealMonth; m++) janela.push(backlog[m]);
-      const n = janela.length;
-      const xMean = (n - 1) / 2;
-      const yMean = janela.reduce((a, b) => a + b, 0) / n;
-      let num = 0, den = 0;
-      for (let i = 0; i < n; i++) { num += (i - xMean) * (janela[i] - yMean); den += (i - xMean) * (i - xMean); }
-      const slope = den ? num / den : 0;
+  if (anoRef && lastRealMonth >= 1 && lastRealMonth < 11) {
+    const janela = [];
+    for (let m = Math.max(0, lastRealMonth - 5); m <= lastRealMonth; m++) janela.push(backlog[m]);
+    const n = janela.length;
+    const xMean = (n - 1) / 2;
+    const yMean = janela.reduce((a, b) => a + b, 0) / n;
+    let num = 0, den = 0;
+    for (let i = 0; i < n; i++) { num += (i - xMean) * (janela[i] - yMean); den += (i - xMean) * (i - xMean); }
+    const slope = den ? num / den : 0;
 
-      const qtdProjecao = Math.min(3, 11 - lastRealMonth);
-      const totalSlots = 12 + Math.max(0, (lastRealMonth + 3) - 11);
-      chartLabels = Array.from({length: totalSlots}, (_, i) => i < 12 ? MESES[i] : (MESES[i - 12] + '/' + (Number(anoRef) + 1)));
-      abertosExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? abertos[i] : null);
-      encerradosExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? encerradosMesmoMes[i] : null);
-      backlogExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? backlog[i] : null);
-      backlogAcumuladoExt = Array.from({length: totalSlots}, (_, i) => (i < 12 && i <= lastRealMonth) ? backlogAcumulado[i] : null);
+    const qtdProjecao = Math.min(3, 11 - lastRealMonth);
+    const totalSlots = 12 + Math.max(0, (lastRealMonth + 3) - 11);
+    chartLabels = Array.from({length: totalSlots}, (_, i) => i < 12 ? MESES[i] : (MESES[i - 12] + '/' + (Number(anoRef) + 1)));
+    abertosExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? abertos[i] : null);
+    encerradosExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? encerradosMesmoMes[i] : null);
+    backlogExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? backlog[i] : null);
+    backlogAcumuladoExt = Array.from({length: totalSlots}, (_, i) => (i < 12 && i <= lastRealMonth) ? backlogAcumulado[i] : null);
 
-      projecaoData = new Array(totalSlots).fill(null);
-      projecaoData[lastRealMonth] = backlogAcumulado[lastRealMonth];
-      let acumuladoProjetado = backlogAcumulado[lastRealMonth];
-      for (let i = 1; i <= qtdProjecao; i++) {
-        const incrementoProjetado = Math.max(0, Math.round(janela[n - 1] + slope * i));
-        acumuladoProjetado += incrementoProjetado;
-        projecaoData[lastRealMonth + i] = acumuladoProjetado;
-      }
-      temProjecao = true;
-    } else if (lastRealMonth === -1) {
-      lastRealMonth = 0;
+    projecaoData = new Array(totalSlots).fill(null);
+    projecaoData[lastRealMonth] = backlogAcumulado[lastRealMonth];
+    let acumuladoProjetado = backlogAcumulado[lastRealMonth];
+    for (let i = 1; i <= qtdProjecao; i++) {
+      const incrementoProjetado = Math.max(0, Math.round(janela[n - 1] + slope * i));
+      acumuladoProjetado += incrementoProjetado;
+      projecaoData[lastRealMonth + i] = acumuladoProjetado;
     }
+    temProjecao = true;
   }
 
-  // ---- Resumo inferior: backlog acumulado no último mês do período filtrado ----
+  // ---- Resumo inferior: backlog acumulado no mês de referência (dinâmico) ----
   const equipeLabel = grupo === 'INFRAESTRUTURA' ? 'Infraestrutura' : 'Sistemas';
   const resumoId = grupo === 'INFRAESTRUTURA' ? 'indBacklogResumoInfra' : 'indBacklogResumoSistemas';
   const resumoEl = document.getElementById(resumoId);
-  if (resumoEl) {
+  function atualizarResumo(monthIdx) {
+    if (!resumoEl) return;
+    const yearLabel = monthIdx < 12 ? anoRef : (anoRef ? Number(anoRef) + 1 : '');
+    const isProjetado = monthIdx > lastRealMonth;
+    const valor = isProjetado ? (projecaoData ? projecaoData[monthIdx] : null) : backlogAcumulado[monthIdx];
     resumoEl.innerHTML =
-      '<div class="bs-label">Backlog acumulado em ' + MESES_LONG[lastRealMonth] + (anoRef ? '/' + anoRef : '') + '</div>' +
-      '<div class="bs-value">' + backlogAcumulado[lastRealMonth].toLocaleString('pt-BR') + '</div>';
+      '<div class="bs-label">Backlog acumulado em ' + MESES_LONG[monthIdx % 12] + (yearLabel ? '/' + yearLabel : '') + (isProjetado ? ' (projeção)' : '') + '</div>' +
+      '<div class="bs-value">' + (valor !== null && valor !== undefined ? valor.toLocaleString('pt-BR') : '—') + '</div>';
   }
+  atualizarResumo(referenceMonth);
 
   if (charts[canvasId]) charts[canvasId].destroy();
   const datasets = [
@@ -1010,7 +1022,8 @@ function renderBacklogChart(canvasId, list, grupo) {
         if (!elements.length) return;
         const el = elements[0];
         const m = el.index;
-        if (el.datasetIndex === 4) return; // linha de projeção não é auditável (não são chamados reais)
+        if (el.datasetIndex === 4) { atualizarResumo(m); return; } // projeção: atualiza o card, mas não é auditável
+        atualizarResumo(m);
         const keys = ['abertos','encerrados','backlog','backlogAcumulado'];
         const labels = ['Abertos no mês','Encerrados no mês','Backlog do mês','Backlog acumulado'];
         const lists = [perMonthLists.abertos, perMonthLists.encerrados, perMonthLists.backlog, perMonthListsAcumulado];
