@@ -337,26 +337,44 @@
   <p class="section-sub">Distribuição dos chamados conforme o prazo de solução definido no SLA, separando os chamados em aberto e encerrados, dentro e fora do prazo.</p>
   <p class="section-sub" style="margin-top:-10px;">Clique em uma barra ou indicador para auditar os chamados correspondentes.</p>
 
-  <div class="kpi-grid">
+  <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));">
     <div class="kpi-card">
       <div class="label">Total de chamados</div>
       <div class="value" id="indCardTotal">0</div>
-      <div class="hint">No período e filtros selecionados</div>
+      <div class="hint" id="indCardTotalClassificado"></div>
     </div>
-    <div class="kpi-card warn" id="indCardIndeterminado" style="display:none;">
+    <div class="kpi-card warn" id="indCardIndeterminado" style="display:none;cursor:pointer;">
       <div class="label">Sem classificação de SLA</div>
       <div class="value" id="indCardIndeterminadoValor">0</div>
-      <div class="hint">Chamados sem data-base suficiente para classificar prazo. Não entram no comparativo principal.</div>
+      <div class="hint">Sem data-base suficiente para classificar o prazo. Clique para ver os IDs.</div>
     </div>
-    <div class="kpi-card sla-ok">
-      <div class="label">Dentro do SLA</div>
-      <div class="value" id="indCardDentroSla">0</div>
-      <div class="hint" id="indCardDentroSlaPct"></div>
+  </div>
+
+  <div id="indSlaInconsistencia" class="kpi-card" style="display:none;border-color:#e34948;background:#FDF3F3;margin-bottom:14px;">
+    <div class="label" style="color:#993C1D;">⚠ Inconsistência encontrada</div>
+    <div class="hint" id="indSlaInconsistenciaTexto" style="color:#993C1D;"></div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-color:#B9D6F2;background:#F3F8FD;cursor:pointer;" id="indCardAbertoDentro">
+      <div class="label">Em aberto dentro do SLA</div>
+      <div class="value" style="color:#1B5FA8;" id="indCardValAbertoDentro">0</div>
+      <div class="hint" id="indCardPctAbertoDentro"></div>
     </div>
-    <div class="kpi-card sla-bad">
-      <div class="label">Com SLA vencido</div>
-      <div class="value" id="indCardForaSla">0</div>
-      <div class="hint" id="indCardForaSlaPct"></div>
+    <div class="kpi-card" style="border-color:#F5CBA0;background:#FEF7EF;cursor:pointer;" id="indCardAbertoVencido">
+      <div class="label">Em aberto com SLA vencido</div>
+      <div class="value" style="color:#B45F13;" id="indCardValAbertoVencido">0</div>
+      <div class="hint" id="indCardPctAbertoVencido"></div>
+    </div>
+    <div class="kpi-card sla-ok" style="cursor:pointer;" id="indCardEncerradoDentro">
+      <div class="label">Encerrados dentro do SLA</div>
+      <div class="value" id="indCardValEncerradoDentro">0</div>
+      <div class="hint" id="indCardPctEncerradoDentro"></div>
+    </div>
+    <div class="kpi-card sla-bad" style="cursor:pointer;" id="indCardEncerradoVencido">
+      <div class="label">Encerrados com SLA vencido</div>
+      <div class="value" id="indCardValEncerradoVencido">0</div>
+      <div class="hint" id="indCardPctEncerradoVencido"></div>
     </div>
   </div>
 
@@ -1005,13 +1023,13 @@ function renderBacklogChart(canvasId, list, grupo) {
     { type: 'bar', label: 'Abertos no mês', data: abertosExt, backgroundColor: '#378ADD', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
     { type: 'bar', label: 'Encerrados no mês', data: encerradosExt, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
     { type: 'bar', label: 'Backlog do mês', data: backlogExt, backgroundColor: '#eb6834', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
-    { type: 'line', label: 'Backlog acumulado', data: backlogAcumuladoExt, borderColor: '#5b21b6', backgroundColor: '#5b21b6', pointBackgroundColor: '#5b21b6', pointBorderColor: '#fff', pointBorderWidth: 1.5, pointRadius: 4, pointHoverRadius: 6, borderWidth: 3, tension: 0.25, spanGaps: false, yAxisID: 'y1' }
+    { type: 'line', label: 'Backlog acumulado', data: backlogAcumuladoExt, borderColor: '#5b21b6', backgroundColor: '#5b21b6', pointBackgroundColor: '#5b21b6', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 3, tension: 0, spanGaps: false, yAxisID: 'y1' }
   ];
   if (temProjecao) {
     datasets.push({
       type: 'line', label: 'Projeção — Backlog acumulado', data: projecaoData,
-      borderColor: '#5b21b6', borderDash: [5, 4], borderWidth: 2, pointRadius: 3, pointStyle: 'circle',
-      backgroundColor: '#fff', pointBorderColor: '#5b21b6', spanGaps: true, fill: false, tension: 0, yAxisID: 'y1'
+      borderColor: '#5b21b6', borderDash: [5, 4], borderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHitRadius: 10, pointStyle: 'circle',
+      backgroundColor: '#fff', pointBackgroundColor: '#fff', pointBorderColor: '#5b21b6', pointBorderWidth: 2, spanGaps: true, fill: false, tension: 0, yAxisID: 'y1'
     });
   }
   charts[canvasId] = new Chart(document.getElementById(canvasId), {
@@ -1066,7 +1084,10 @@ function render() {
   const classificaveis = filtered.filter(c => c.slaClass !== null);
   const indeterminados = filtered.filter(c => c.slaClass === null);
 
-  document.getElementById('indCardTotal').textContent = classificaveis.length.toLocaleString('pt-BR');
+  // Total de chamados = TOTAL REAL da base filtrada (inclui os sem classificação).
+  document.getElementById('indCardTotal').textContent = filtered.length.toLocaleString('pt-BR');
+  document.getElementById('indCardTotalClassificado').textContent = 'Total classificado: ' + classificaveis.length.toLocaleString('pt-BR');
+
   const cardIndet = document.getElementById('indCardIndeterminado');
   if (indeterminados.length) {
     cardIndet.style.display = '';
@@ -1074,14 +1095,37 @@ function render() {
   } else {
     cardIndet.style.display = 'none';
   }
+  cardIndet.onclick = () => renderDetailTable(indeterminados, 'Sem classificação de SLA');
 
-  const dentroSla = classificaveis.filter(c => c.slaClass === 'aberto_dentro' || c.slaClass === 'encerrado_dentro').length;
-  const foraSla = classificaveis.filter(c => c.slaClass === 'aberto_vencido' || c.slaClass === 'encerrado_vencido').length;
+  // Quatro categorias mutuamente exclusivas (cada chamado tem exatamente um slaClass, ou null).
+  const abertoDentro = classificaveis.filter(c => c.slaClass === 'aberto_dentro');
+  const abertoVencido = classificaveis.filter(c => c.slaClass === 'aberto_vencido');
+  const encerradoDentro = classificaveis.filter(c => c.slaClass === 'encerrado_dentro');
+  const encerradoVencido = classificaveis.filter(c => c.slaClass === 'encerrado_vencido');
   const totalC = classificaveis.length;
-  document.getElementById('indCardDentroSla').textContent = dentroSla.toLocaleString('pt-BR');
-  document.getElementById('indCardDentroSlaPct').textContent = totalC ? (dentroSla/totalC*100).toFixed(1) + '% do total classificado' : '';
-  document.getElementById('indCardForaSla').textContent = foraSla.toLocaleString('pt-BR');
-  document.getElementById('indCardForaSlaPct').textContent = totalC ? (foraSla/totalC*100).toFixed(1) + '% do total classificado' : '';
+
+  const cardsData = [
+    ['indCardValAbertoDentro', 'indCardPctAbertoDentro', 'indCardAbertoDentro', abertoDentro, 'Em aberto dentro do SLA'],
+    ['indCardValAbertoVencido', 'indCardPctAbertoVencido', 'indCardAbertoVencido', abertoVencido, 'Em aberto com SLA vencido'],
+    ['indCardValEncerradoDentro', 'indCardPctEncerradoDentro', 'indCardEncerradoDentro', encerradoDentro, 'Encerrados dentro do SLA'],
+    ['indCardValEncerradoVencido', 'indCardPctEncerradoVencido', 'indCardEncerradoVencido', encerradoVencido, 'Encerrados com SLA vencido']
+  ];
+  cardsData.forEach(([valId, pctId, cardId, list, label]) => {
+    document.getElementById(valId).textContent = list.length.toLocaleString('pt-BR');
+    document.getElementById(pctId).textContent = totalC ? (list.length/totalC*100).toFixed(1) + '% do total classificado' : '';
+    document.getElementById(cardId).onclick = () => renderDetailTable(list, label);
+  });
+
+  // Validação automática de consistência (nunca deve disparar, mas fica auditável se algo mudar no futuro).
+  const somaCategorias = indeterminados.length + abertoDentro.length + abertoVencido.length + encerradoDentro.length + encerradoVencido.length;
+  const inconsistBox = document.getElementById('indSlaInconsistencia');
+  if (somaCategorias !== filtered.length) {
+    inconsistBox.style.display = '';
+    document.getElementById('indSlaInconsistenciaTexto').textContent =
+      'A soma das categorias (' + somaCategorias.toLocaleString('pt-BR') + ') não bate com o total de chamados (' + filtered.length.toLocaleString('pt-BR') + '). Verifique a regra de classificação antes de confiar nos números abaixo.';
+  } else {
+    inconsistBox.style.display = 'none';
+  }
 
   renderSlaChart('indChartSlaInfra', classificaveis, 'INFRAESTRUTURA');
   renderSlaChart('indChartSlaSistemas', classificaveis, 'SISTEMAS');
