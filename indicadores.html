@@ -35,7 +35,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 .section-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px}
 
-.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cards-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media(max-width:980px){.cards-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.cards-grid{grid-template-columns:1fr}}
 
 .ind-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:all .2s}
@@ -43,19 +44,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .ind-bar{height:5px}
 .bar-amber{background:linear-gradient(90deg,var(--amber-mid),#e8c878)}
 .bar-blue{background:linear-gradient(90deg,var(--blue-mid),#5a9fd4)}
+.bar-green{background:linear-gradient(90deg,var(--green-mid),#70bd91)}
 .ind-body{padding:28px 26px;flex:1;display:flex;flex-direction:column;gap:12px}
 .ind-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px}
 .ind-icon.amber{background:var(--amber-lt)}
 .ind-icon.blue{background:var(--blue-lt)}
+.ind-icon.green{background:var(--green-lt)}
 .ind-title{font-family:'DM Serif Display',serif;font-size:21px;color:var(--ink)}
 .ind-desc{font-size:12.5px;color:var(--ink3);line-height:1.6}
 .ind-footer{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;border-top:1px solid var(--rule);background:var(--paper2)}
 .ind-tag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
 .tag-amber{background:var(--amber-lt);color:var(--amber)}
 .tag-blue{background:var(--blue-lt);color:var(--blue)}
+.tag-green{background:var(--green-lt);color:var(--green)}
 .ind-arrow{font-size:16px;color:var(--ink3);transition:transform .15s,color .15s}
 .ind-card.amber:hover .ind-arrow{color:var(--amber-mid);transform:translateX(4px)}
 .ind-card.blue:hover .ind-arrow{color:var(--blue-mid);transform:translateX(4px)}
+.ind-card.green{cursor:default}
+.ind-card.green:hover{box-shadow:0 8px 24px rgba(26,102,68,.09);transform:translateY(-2px)}
+.ind-card.green .ind-arrow{color:var(--green-mid)}
 
 .page-footer{padding:20px 60px;border-top:1px solid var(--rule);display:flex;justify-content:center;align-items:center;font-size:11px;color:var(--ink3)}
 </style>
@@ -103,6 +110,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         <span class="ind-arrow">→</span>
       </div>
     </a>
+
+    <article class="ind-card green" aria-label="Outros Indicadores — em preparação">
+      <div class="ind-bar bar-green"></div>
+      <div class="ind-body">
+        <div class="ind-icon green" aria-hidden="true">&#128202;</div>
+        <div class="ind-title">Outros Indicadores</div>
+        <div class="ind-desc">Painel complementar para análise de atendimento, prazos, escalonamento e backlog das equipes de Infraestrutura e Sistemas.</div>
+      </div>
+      <div class="ind-footer">
+        <span class="ind-tag tag-green">Em preparação</span>
+        <span class="ind-arrow" aria-hidden="true">&#8226;</span>
+      </div>
+    </article>
 
   </div>
 </div>
