@@ -343,11 +343,6 @@
       <div class="value" id="indCardTotal">0</div>
       <div class="hint" id="indCardTotalClassificado"></div>
     </div>
-    <div class="kpi-card warn" id="indCardIndeterminado" style="display:none;cursor:pointer;">
-      <div class="label">Sem classificação de SLA</div>
-      <div class="value" id="indCardIndeterminadoValor">0</div>
-      <div class="hint"></div>
-    </div>
   </div>
 
   <div id="indSlaInconsistencia" class="kpi-card" style="display:none;border-color:#e34948;background:#FDF3F3;margin-bottom:14px;">
@@ -1088,14 +1083,6 @@ function render() {
   document.getElementById('indCardTotal').textContent = filtered.length.toLocaleString('pt-BR');
   document.getElementById('indCardTotalClassificado').textContent = 'Total classificado: ' + classificaveis.length.toLocaleString('pt-BR');
 
-  const cardIndet = document.getElementById('indCardIndeterminado');
-  if (indeterminados.length) {
-    cardIndet.style.display = '';
-    document.getElementById('indCardIndeterminadoValor').textContent = indeterminados.length.toLocaleString('pt-BR');
-  } else {
-    cardIndet.style.display = 'none';
-  }
-  cardIndet.onclick = () => renderDetailTable(indeterminados, 'Sem classificação de SLA');
 
   // Quatro categorias mutuamente exclusivas (cada chamado tem exatamente um slaClass, ou null).
   const abertoDentro = classificaveis.filter(c => c.slaClass === 'aberto_dentro');
