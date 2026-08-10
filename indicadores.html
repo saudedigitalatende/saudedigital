@@ -60,9 +60,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .ind-arrow{font-size:16px;color:var(--ink3);transition:transform .15s,color .15s}
 .ind-card.amber:hover .ind-arrow{color:var(--amber-mid);transform:translateX(4px)}
 .ind-card.blue:hover .ind-arrow{color:var(--blue-mid);transform:translateX(4px)}
-.ind-card.green{cursor:default}
-.ind-card.green:hover{box-shadow:0 8px 24px rgba(26,102,68,.09);transform:translateY(-2px)}
+.ind-card.green{cursor:pointer}
+.ind-card.green:hover{box-shadow:0 10px 30px rgba(26,102,68,.14);transform:translateY(-3px)}
 .ind-card.green .ind-arrow{color:var(--green-mid)}
+.ind-card.green:hover .ind-arrow{transform:translateX(4px)}
 
 .page-footer{padding:20px 60px;border-top:1px solid var(--rule);display:flex;justify-content:center;align-items:center;font-size:11px;color:var(--ink3)}
 </style>
@@ -110,7 +111,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </a>
 
-    <article class="ind-card green" aria-label="Outros Indicadores — em preparação">
+    <a class="ind-card green" href="documenta%C3%A7%C3%B5es/GTIC/dashboard_glpi.html" target="_blank" rel="noopener" aria-label="Abrir Outros Indicadores — GTIC">
       <div class="ind-bar bar-green"></div>
       <div class="ind-body">
         <div class="ind-icon green" aria-hidden="true">&#128202;</div>
@@ -118,10 +119,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         <div class="ind-desc">Painel complementar para análise de atendimento, prazos, escalonamento e backlog das equipes de Infraestrutura e Sistemas.</div>
       </div>
       <div class="ind-footer">
-        <span class="ind-tag tag-green">Em preparação</span>
-        <span class="ind-arrow" aria-hidden="true">&#8226;</span>
+        <span class="ind-tag tag-green">Painel GTIC</span>
+        <span class="ind-arrow" aria-hidden="true">&#8594;</span>
       </div>
-    </article>
+    </a>
 
   </div>
 </div>
