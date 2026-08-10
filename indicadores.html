@@ -35,11 +35,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 .section-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px}
 
-.cards-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.cards-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 @media(max-width:980px){.cards-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.cards-grid{grid-template-columns:1fr}}
 
 .ind-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:all .2s}
+.ind-card.is-hidden{display:none}
 .ind-card:hover{box-shadow:0 10px 30px rgba(0,0,0,.10);transform:translateY(-3px)}
 .ind-bar{height:5px}
 .bar-amber{background:linear-gradient(90deg,var(--amber-mid),#e8c878)}
@@ -98,7 +99,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </a>
 
-    <a class="ind-card blue" href="https://saudedigitalatende.github.io/saudedigital/Indicador_de_desempenho_2024_2025.html" target="_blank">
+    <a class="ind-card blue is-hidden" href="https://saudedigitalatende.github.io/saudedigital/Indicador_de_desempenho_2024_2025.html" target="_blank" aria-hidden="true" tabindex="-1">
       <div class="ind-bar bar-blue"></div>
       <div class="ind-body">
         <div class="ind-icon blue">🗂️</div>
