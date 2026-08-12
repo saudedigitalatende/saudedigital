@@ -489,11 +489,11 @@ function activateAllSheet(area) {
   buildCatalog(area);
 }
 
-function showGlobalResults(search) {
+function showGlobalResults(search, displaySearch = search) {
   globalSearchRunning = true;
   ['infra','sistemas','adm'].forEach(area => {
     activateAllSheet(area);
-    document.getElementById('search-'+area).value = search;
+    document.getElementById('search-'+area).value = displaySearch;
     document.getElementById('tipo-'+area).value = '';
     state[area].search = search;
     state[area].tipo = '';
@@ -516,10 +516,11 @@ function clearGlobalResults() {
 
 function filterCatalog(area) {
   if (globalSearchRunning) return;
-  const search = (document.getElementById('search-'+area).value||'').toLowerCase().trim();
+  const displaySearch = document.getElementById('search-'+area).value||'';
+  const search = displaySearch.toLowerCase().trim();
   const tipo   = (document.getElementById('tipo-'+area).value||'').toUpperCase();
   if (search) {
-    showGlobalResults(search);
+    showGlobalResults(search, displaySearch);
     return;
   }
   clearGlobalResults();
