@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Indicadores GLPI — Infraestrutura e Sistemas</title>
+<title>Indicadores GLPI — Infraestrutura, Soluções Digitais e NOC</title>
 <style>
   :root{
     --bg:#F5F6F8;--surface:#FFFFFF;--border:#E3E5E9;--text:#1B1F27;
@@ -87,9 +87,10 @@
   .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:22px;}
   .panel h2, .panel h3{font-size:14px;font-weight:600;margin:0 0 4px;}
   .panel .panel-sub{font-size:12px;color:var(--text-muted);margin:0 0 16px;}
-  .panels-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
+  .panels-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px;}
   .panels-row .panel{margin-bottom:0;}
-  @media (max-width: 900px){ .panels-row{grid-template-columns:1fr;} }
+  @media (max-width: 1180px){ .panels-row{grid-template-columns:1fr 1fr;} }
+  @media (max-width: 760px){ .panels-row{grid-template-columns:1fr;} }
 
   .legend{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:8px;font-size:12px;color:var(--text-secondary);}
   .legend span{display:flex;align-items:center;gap:4px;}
@@ -262,7 +263,7 @@
   </div>
 
   <div class="panel">
-    <h2>Chamados x disponibilidade por mês</h2>
+    <h2>Chamados x Disponibilidade informada pelo fornecedor</h2>
     <p class="panel-sub">Barras = quantidade de chamados calculada a partir da base GLPI.<br>Linha = disponibilidade mensal informada manualmente pelo fornecedor (%).</p>
     <div class="legend">
       <span><span class="swatch" style="background:#378ADD"></span>Chamados (GLPI)</span>
@@ -315,7 +316,7 @@
 <div id="pageIndicadores" class="page-section">
 <div class="wrap">
   <header class="page">
-    <h1>Infraestrutura e Sistemas</h1>
+    <h1>Infraestrutura, Soluções Digitais e NOC</h1>
     <p class="subtitle">Calculados diretamente da base GLPI</p>
   </header>
 
@@ -324,14 +325,13 @@
     <div class="filter-field"><label for="indFMes">Mês</label><select id="indFMes"><option value="">Todos</option></select></div>
     <div class="filter-field"><label for="indFDe">Período de</label><input type="date" id="indFDe"></div>
     <div class="filter-field"><label for="indFAte">Período até</label><input type="date" id="indFAte"></div>
-    <div class="filter-field"><label for="indFGrupo">Grupo</label><select id="indFGrupo"><option value="">Todos</option><option value="I">Infraestrutura</option><option value="S">Sistemas</option></select></div>
+    <div class="filter-field"><label for="indFGrupo">Grupo</label><select id="indFGrupo"><option value="">Todos</option><option value="I">Infraestrutura</option><option value="S">Soluções Digitais</option><option value="N">NOC</option></select></div>
     <div class="filter-field"><label for="indFStatus">Status</label><select id="indFStatus"><option value="">Todos</option></select></div>
     <button class="btn" id="indBtnLimpar">Limpar filtros</button>
   </div>
 
   <h2 class="section-title">Situação dos chamados em relação ao SLA</h2>
   <p class="section-sub">Distribuição dos chamados conforme o prazo de solução definido no SLA, separando os chamados em aberto e encerrados, dentro e fora do prazo.</p>
-  <p class="section-sub" style="margin-top:-10px;">Clique em uma barra ou indicador para auditar os chamados correspondentes.</p>
 
   <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));">
     <div class="kpi-card">
@@ -393,21 +393,30 @@
     <div class="panel sla-panel">
       <div class="backlog-card-title">
         <span class="backlog-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="15" x2="4" y2="15"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="15" x2="22" y2="15"/></svg></span>
-        <h3>Sistemas</h3>
+        <h3>Soluções Digitais</h3>
       </div>
       <div class="sla-mini-summary" id="indSlaResumoSistemas"></div>
-      <div class="chart-wrap h-sla"><canvas id="indChartSlaSistemas" role="img" aria-label="Grafico de barras horizontais com a situacao dos chamados de sistemas em relacao ao SLA"></canvas></div>
+      <div class="chart-wrap h-sla"><canvas id="indChartSlaSistemas" role="img" aria-label="Grafico de barras horizontais com a situacao dos chamados de solucoes digitais em relacao ao SLA"></canvas></div>
+    </div>
+    <div class="panel sla-panel">
+      <div class="backlog-card-title">
+        <span class="backlog-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6.01" y2="10"/><line x1="6" y1="14" x2="6.01" y2="14"/><path d="M10 10h8M10 14h8"/></svg></span>
+        <h3>NOC</h3>
+      </div>
+      <div class="sla-mini-summary" id="indSlaResumoNoc"></div>
+      <div class="chart-wrap h-sla"><canvas id="indChartSlaNoc" role="img" aria-label="Grafico de barras horizontais com a situacao dos chamados do NOC em relacao ao SLA"></canvas></div>
     </div>
   </div>
 
   <h2 class="section-title">Encerramento no mês de abertura e backlog gerado</h2>
-  <p class="section-sub">Compara os chamados abertos no mês, os encerrados dentro do próprio mês e o backlog gerado — do mês e acumulado. Backlog é diferente de SLA vencido: um chamado pode estar em backlog e ainda dentro do prazo, ou já com o SLA vencido.</p>
+  <p class="section-sub">Evolução mensal de chamados abertos, encerrados no próprio mês e do backlog gerado — comparado ao acumulado do ano e ao acumulado geral, com projeção para os próximos meses.</p>
 
   <div class="legend">
     <span><span class="swatch" style="background:#378ADD"></span>Abertos no mês</span>
     <span><span class="swatch" style="background:#1baf7a"></span>Encerrados no mês</span>
     <span><span class="swatch" style="background:#eb6834"></span>Backlog do mês</span>
-    <span><span class="swatch" style="background:#5b21b6"></span>Backlog acumulado</span>
+    <span><span class="swatch" style="background:#5b21b6"></span>Backlog acumulado geral</span>
+    <span><span class="swatch" style="background:#d6336c"></span>Backlog acumulado do ano</span>
   </div>
 
   <div class="panels-row">
@@ -422,10 +431,18 @@
     <div class="panel backlog-card">
       <div class="backlog-card-title">
         <span class="backlog-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="15" x2="4" y2="15"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="15" x2="22" y2="15"/></svg></span>
-        <h3>Sistemas</h3>
+        <h3>Soluções Digitais</h3>
       </div>
-      <div class="chart-wrap v-backlog"><canvas id="indChartBacklogSistemas" role="img" aria-label="Grafico combinado mensal de sistemas com abertos, encerrados, backlog do mes e backlog acumulado"></canvas></div>
+      <div class="chart-wrap v-backlog"><canvas id="indChartBacklogSistemas" role="img" aria-label="Grafico combinado mensal de solucoes digitais com abertos, encerrados, backlog do mes e backlog acumulado"></canvas></div>
       <div class="backlog-summary" id="indBacklogResumoSistemas"></div>
+    </div>
+    <div class="panel backlog-card">
+      <div class="backlog-card-title">
+        <span class="backlog-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6.01" y2="10"/><line x1="6" y1="14" x2="6.01" y2="14"/><path d="M10 10h8M10 14h8"/></svg></span>
+        <h3>NOC</h3>
+      </div>
+      <div class="chart-wrap v-backlog"><canvas id="indChartBacklogNoc" role="img" aria-label="Grafico combinado mensal do NOC com abertos, encerrados, backlog do mes e backlog acumulado"></canvas></div>
+      <div class="backlog-summary" id="indBacklogResumoNoc"></div>
     </div>
   </div>
 
@@ -803,12 +820,12 @@ const chamados = RAW_DATA_IND.map(r => ({
   aberturaDate: r.a ? new Date(r.a) : null, aberturaStr: r.a,
   solucaoDate: r.s ? new Date(r.s) : null, solucaoStr: r.s,
   status: r.st, categoria: r.c, servico: r.sv,
-  grupo: r.g === 'I' ? 'INFRAESTRUTURA' : 'SISTEMAS',
+  grupo: r.g === 'S' ? 'SOLUCOES_DIGITAIS' : ((r.c || '').toUpperCase().includes('INTERNET (FIBRA)') ? 'NOC' : 'INFRAESTRUTURA'),
   grupoTecnico: r.gt,
   prazoDate: r.p ? new Date(r.p) : null, prazoStr: r.p,
   adquirirExcedido: r.aq === 'S' ? 'Sim' : 'Não',
   resolverExcedido: r.re === 'S' ? 'Sim' : 'Não'
-}));
+})).filter(c => !(c.categoria || '').toUpperCase().includes('TABLET'));
 
 function classify(c) {
   if (c.solucaoDate) {
@@ -837,6 +854,10 @@ const fAno = document.getElementById('indFAno'), fMes = document.getElementById(
       fDe = document.getElementById('indFDe'), fAte = document.getElementById('indFAte'),
       fGrupo = document.getElementById('indFGrupo'), fStatus = document.getElementById('indFStatus');
 
+function equipeLabelFor(grupo) {
+  return grupo === 'INFRAESTRUTURA' ? 'Infraestrutura' : (grupo === 'SOLUCOES_DIGITAIS' ? 'Soluções Digitais' : 'NOC');
+}
+
 function applyFilters() {
   const ano = fAno.value, mes = fMes.value, de = fDe.value, ate = fAte.value;
   const grupo = fGrupo.value, status = fStatus.value;
@@ -846,7 +867,10 @@ function applyFilters() {
     if (mes && (c.aberturaDate.getMonth()+1) !== Number(mes)) return false;
     if (de && c.aberturaDate < new Date(de)) return false;
     if (ate) { const ateEnd = new Date(ate); ateEnd.setHours(23,59,59,999); if (c.aberturaDate > ateEnd) return false; }
-    if (grupo && c.grupo !== (grupo === 'I' ? 'INFRAESTRUTURA' : 'SISTEMAS')) return false;
+    if (grupo) {
+      const grupoMap = { I: 'INFRAESTRUTURA', S: 'SOLUCOES_DIGITAIS', N: 'NOC' };
+      if (c.grupo !== grupoMap[grupo]) return false;
+    }
     if (status && c.status !== status) return false;
     return true;
   });
@@ -932,8 +956,8 @@ function renderSlaChart(canvasId, list, grupo) {
 
   const dentroTotal = cats.aberto_dentro.length + cats.encerrado_dentro.length;
   const foraTotal = cats.aberto_vencido.length + cats.encerrado_vencido.length;
-  const equipeLabel = grupo === 'INFRAESTRUTURA' ? 'Infraestrutura' : 'Sistemas';
-  const resumoId = grupo === 'INFRAESTRUTURA' ? 'indSlaResumoInfra' : 'indSlaResumoSistemas';
+  const equipeLabel = equipeLabelFor(grupo);
+  const resumoId = grupo === 'INFRAESTRUTURA' ? 'indSlaResumoInfra' : (grupo === 'SOLUCOES_DIGITAIS' ? 'indSlaResumoSistemas' : 'indSlaResumoNoc');
   const resumoEl = document.getElementById(resumoId);
   if (resumoEl) {
     resumoEl.innerHTML =
@@ -1008,24 +1032,29 @@ function renderBacklogChart(canvasId, list, grupo) {
     if (!porChave[chave]) porChave[chave] = [];
     porChave[chave].push(c);
   });
-  const chavesOrdenadas = Object.keys(porChave)
-    .map(k => { const [y, mo] = k.split('-').map(Number); return { y, mo, chave: k }; })
-    .sort((a, b) => a.y - b.y || a.mo - b.mo);
 
+  const anosPresentesGrupo = [...new Set(chamados.filter(c => c.grupo === grupo).map(c => c.aberturaDate.getFullYear()))];
+  const anoParaAcumulado = anoRef ? Number(anoRef) : (anosPresentesGrupo.length ? Math.max(...anosPresentesGrupo) : new Date().getFullYear());
+
+  // Preenchimento contínuo mês a mês (mesmo meses sem chamado novo nenhum) do primeiro ano com dado
+  // até o ano em vista, para o saldo nunca "zerar" incorretamente num mês sem atividade.
+  const anosComDado = baseGrupoHist.map(c => c.aberturaDate.getFullYear());
+  const anoMin = anosComDado.length ? Math.min(...anosComDado, anoParaAcumulado) : anoParaAcumulado;
   let acumuladoCorrente = 0;
   let listaCorrente = [];
   const acumuladoPorChave = {};
   const listaPorChave = {};
-  chavesOrdenadas.forEach(({ chave }) => {
-    const lista = porChave[chave];
-    acumuladoCorrente += lista.length;
-    listaCorrente = listaCorrente.concat(lista);
-    acumuladoPorChave[chave] = acumuladoCorrente;
-    listaPorChave[chave] = listaCorrente.slice();
-  });
-
-  const anosPresentesGrupo = [...new Set(chamados.filter(c => c.grupo === grupo).map(c => c.aberturaDate.getFullYear()))];
-  const anoParaAcumulado = anoRef ? Number(anoRef) : (anosPresentesGrupo.length ? Math.max(...anosPresentesGrupo) : new Date().getFullYear());
+  for (let y = anoMin; y <= anoParaAcumulado; y++) {
+    for (let mo = 0; mo < 12; mo++) {
+      const chave = y + '-' + mo;
+      if (porChave[chave]) {
+        acumuladoCorrente += porChave[chave].length;
+        listaCorrente = listaCorrente.concat(porChave[chave]);
+      }
+      acumuladoPorChave[chave] = acumuladoCorrente;
+      listaPorChave[chave] = listaCorrente.slice();
+    }
+  }
 
   const backlogAcumulado = new Array(12).fill(0);
   const perMonthListsAcumulado = Array.from({length:12}, () => []);
@@ -1033,6 +1062,15 @@ function renderBacklogChart(canvasId, list, grupo) {
     const chave = anoParaAcumulado + '-' + m;
     backlogAcumulado[m] = acumuladoPorChave[chave] !== undefined ? acumuladoPorChave[chave] : (m === 0 ? 0 : backlogAcumulado[m-1]);
     perMonthListsAcumulado[m] = listaPorChave[chave] !== undefined ? listaPorChave[chave] : (m === 0 ? [] : perMonthListsAcumulado[m-1]);
+  }
+
+  // Backlog acumulado DO ANO: mesma regra de soma sequencial, mas reinicia em zero em Janeiro de cada
+  // ano (nao soma o que sobrou do ano anterior) -- usa apenas o "backlog do mes" ja calculado para o ano em vista.
+  const backlogAcumuladoAno = new Array(12).fill(0);
+  const perMonthListsAcumuladoAno = Array.from({length:12}, () => []);
+  for (let m = 0; m < 12; m++) {
+    backlogAcumuladoAno[m] = (m === 0 ? 0 : backlogAcumuladoAno[m-1]) + backlog[m];
+    perMonthListsAcumuladoAno[m] = (m === 0 ? [] : perMonthListsAcumuladoAno[m-1]).concat(perMonthLists.backlog[m]);
   }
 
   // ---- Determinar o mês de referência do resumo (NUNCA fixo em dezembro) ----
@@ -1053,6 +1091,7 @@ function renderBacklogChart(canvasId, list, grupo) {
   let chartLabels = MESES.slice();
   let abertosExt = abertos.slice(), encerradosExt = encerradosMesmoMes.slice(), backlogExt = backlog.slice();
   let backlogAcumuladoExt = backlogAcumulado.slice();
+  let backlogAcumuladoAnoExt = backlogAcumuladoAno.slice();
   let projecaoData = null;
   let temProjecao = false;
 
@@ -1073,6 +1112,7 @@ function renderBacklogChart(canvasId, list, grupo) {
     encerradosExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? encerradosMesmoMes[i] : null);
     backlogExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? backlog[i] : null);
     backlogAcumuladoExt = Array.from({length: totalSlots}, (_, i) => (i < 12 && i <= lastRealMonth) ? backlogAcumulado[i] : null);
+    backlogAcumuladoAnoExt = Array.from({length: totalSlots}, (_, i) => (i < 12 && i <= lastRealMonth) ? backlogAcumuladoAno[i] : null);
 
     projecaoData = new Array(totalSlots).fill(null);
     projecaoData[lastRealMonth] = backlogAcumulado[lastRealMonth];
@@ -1086,8 +1126,8 @@ function renderBacklogChart(canvasId, list, grupo) {
   }
 
   // ---- Resumo inferior: backlog acumulado no mês de referência (dinâmico) ----
-  const equipeLabel = grupo === 'INFRAESTRUTURA' ? 'Infraestrutura' : 'Sistemas';
-  const resumoId = grupo === 'INFRAESTRUTURA' ? 'indBacklogResumoInfra' : 'indBacklogResumoSistemas';
+  const equipeLabel = equipeLabelFor(grupo);
+  const resumoId = grupo === 'INFRAESTRUTURA' ? 'indBacklogResumoInfra' : (grupo === 'SOLUCOES_DIGITAIS' ? 'indBacklogResumoSistemas' : 'indBacklogResumoNoc');
   const resumoEl = document.getElementById(resumoId);
   function atualizarResumo(monthIdx) {
     if (!resumoEl) return;
@@ -1095,7 +1135,7 @@ function renderBacklogChart(canvasId, list, grupo) {
     const isProjetado = monthIdx > lastRealMonth;
     const valor = isProjetado ? (projecaoData ? projecaoData[monthIdx] : null) : backlogAcumulado[monthIdx];
     resumoEl.innerHTML =
-      '<div class="bs-label">Backlog acumulado em ' + MESES_LONG[monthIdx % 12] + (yearLabel ? '/' + yearLabel : '') + (isProjetado ? ' (projeção)' : '') + '</div>' +
+      '<div class="bs-label">Backlog acumulado geral em ' + MESES_LONG[monthIdx % 12] + (yearLabel ? '/' + yearLabel : '') + (isProjetado ? ' (projeção)' : '') + '</div>' +
       '<div class="bs-value">' + (valor !== null && valor !== undefined ? valor.toLocaleString('pt-BR') : '—') + '</div>';
   }
   atualizarResumo(referenceMonth);
@@ -1105,11 +1145,12 @@ function renderBacklogChart(canvasId, list, grupo) {
     { type: 'bar', label: 'Abertos no mês', data: abertosExt, backgroundColor: '#378ADD', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
     { type: 'bar', label: 'Encerrados no mês', data: encerradosExt, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
     { type: 'bar', label: 'Backlog do mês', data: backlogExt, backgroundColor: '#eb6834', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
-    { type: 'line', label: 'Backlog acumulado', data: backlogAcumuladoExt, borderColor: '#5b21b6', backgroundColor: '#5b21b6', pointBackgroundColor: '#5b21b6', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 3, tension: 0, spanGaps: false, yAxisID: 'y1' }
+    { type: 'line', label: 'Backlog acumulado geral', data: backlogAcumuladoExt, borderColor: '#5b21b6', backgroundColor: '#5b21b6', pointBackgroundColor: '#5b21b6', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 3, tension: 0, spanGaps: false, yAxisID: 'y1' },
+    { type: 'line', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, borderColor: '#d6336c', backgroundColor: '#d6336c', pointBackgroundColor: '#d6336c', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 2, borderDash: [2, 2], tension: 0, spanGaps: false, yAxisID: 'y1' }
   ];
   if (temProjecao) {
     datasets.push({
-      type: 'line', label: 'Projeção — Backlog acumulado', data: projecaoData,
+      type: 'line', label: 'Projeção — Backlog acumulado geral', data: projecaoData,
       borderColor: '#5b21b6', borderDash: [5, 4], borderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHitRadius: 10, pointStyle: 'circle',
       backgroundColor: '#fff', pointBackgroundColor: '#fff', pointBorderColor: '#5b21b6', pointBorderWidth: 2, spanGaps: true, fill: false, tension: 0, yAxisID: 'y1'
     });
@@ -1122,11 +1163,11 @@ function renderBacklogChart(canvasId, list, grupo) {
         if (!elements.length) return;
         const el = elements[0];
         const m = el.index;
-        if (el.datasetIndex === 4) { atualizarResumo(m); return; } // projeção: atualiza o card, mas não é auditável
+        if (el.datasetIndex === 5) { atualizarResumo(m); return; } // projeção: atualiza o card, mas não é auditável
         atualizarResumo(m);
-        const keys = ['abertos','encerrados','backlog','backlogAcumulado'];
-        const labels = ['Abertos no mês','Encerrados no mês','Backlog do mês','Backlog acumulado'];
-        const lists = [perMonthLists.abertos, perMonthLists.encerrados, perMonthLists.backlog, perMonthListsAcumulado];
+        const keys = ['abertos','encerrados','backlog','backlogAcumulado','backlogAcumuladoAno'];
+        const labels = ['Abertos no mês','Encerrados no mês','Backlog do mês','Backlog acumulado geral','Backlog acumulado do ano'];
+        const lists = [perMonthLists.abertos, perMonthLists.encerrados, perMonthLists.backlog, perMonthListsAcumulado, perMonthListsAcumuladoAno];
         renderDetailTable(lists[el.datasetIndex][m], equipeLabel + ' — ' + MESES_LONG[m % 12] + ' — ' + labels[el.datasetIndex]);
       },
       plugins: {
@@ -1145,7 +1186,8 @@ function renderBacklogChart(canvasId, list, grupo) {
               if (ctx.datasetIndex === 0) return abertosExt[m] !== null ? 'Abertos no mês: ' + abertosExt[m].toLocaleString('pt-BR') : null;
               if (ctx.datasetIndex === 1) return encerradosExt[m] !== null ? 'Encerrados no mês: ' + encerradosExt[m].toLocaleString('pt-BR') : null;
               if (ctx.datasetIndex === 2) return backlogExt[m] !== null ? 'Backlog do mês: ' + backlogExt[m].toLocaleString('pt-BR') : null;
-              if (ctx.datasetIndex === 3) return backlogAcumuladoExt[m] !== null ? 'Backlog acumulado: ' + backlogAcumuladoExt[m].toLocaleString('pt-BR') : null;
+              if (ctx.datasetIndex === 3) return backlogAcumuladoExt[m] !== null ? 'Backlog acumulado geral: ' + backlogAcumuladoExt[m].toLocaleString('pt-BR') : null;
+              if (ctx.datasetIndex === 4) return backlogAcumuladoAnoExt[m] !== null ? 'Backlog acumulado do ano: ' + backlogAcumuladoAnoExt[m].toLocaleString('pt-BR') : null;
               return 'Projeção (regressão linear, 3 meses): ' + (projecaoData[m] !== null ? projecaoData[m].toLocaleString('pt-BR') : '—');
             },
             afterBody: () => ['Equipe: ' + equipeLabel]
@@ -1210,9 +1252,11 @@ function render() {
   }
 
   renderSlaChart('indChartSlaInfra', classificaveis, 'INFRAESTRUTURA');
-  renderSlaChart('indChartSlaSistemas', classificaveis, 'SISTEMAS');
+  renderSlaChart('indChartSlaSistemas', classificaveis, 'SOLUCOES_DIGITAIS');
+  renderSlaChart('indChartSlaNoc', classificaveis, 'NOC');
   renderBacklogChart('indChartBacklogInfra', filtered, 'INFRAESTRUTURA');
-  renderBacklogChart('indChartBacklogSistemas', filtered, 'SISTEMAS');
+  renderBacklogChart('indChartBacklogSistemas', filtered, 'SOLUCOES_DIGITAIS');
+  renderBacklogChart('indChartBacklogNoc', filtered, 'NOC');
 }
 
 [fAno, fMes, fGrupo, fStatus].forEach(el => el.addEventListener('change', render));
