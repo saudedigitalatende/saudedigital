@@ -222,10 +222,6 @@
     <h1>Internet (Fibra)</h1>
     <p class="subtitle">Volume de chamados x disponibilidade informada pelo fornecedor</p>
     <p class="header-support-text">Dados de chamados calculados a partir da base GLPI. Disponibilidade mensal informada manualmente com base no relatório do fornecedor.</p>
-    <div class="source-chips">
-      <span class="source-chip glpi">Chamados — Base GLPI</span>
-      <span class="source-chip manual">Disponibilidade — informação manual do fornecedor</span>
-    </div>
   </header>
 
   <div class="filters">
@@ -505,7 +501,9 @@ let activeMonthFilter = null; // {ano, mes} when a bar is clicked
 async function loadDisponibilidade() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) disponibilidade = { ...DISPONIBILIDADE_FIXA, ...JSON.parse(raw) };
+    // Os valores fixos SEMPRE prevalecem sobre o que já estava salvo localmente (evita número antigo
+    // de teste sobrescrever o dado real). O localStorage só complementa meses que a base fixa não cobre.
+    disponibilidade = raw ? { ...JSON.parse(raw), ...DISPONIBILIDADE_FIXA } : { ...DISPONIBILIDADE_FIXA };
   } catch (e) {
     disponibilidade = { ...DISPONIBILIDADE_FIXA };
   }
@@ -586,15 +584,33 @@ function render() {
   }
 }
 
-// Plugin customizado: desenha o valor de disponibilidade (%) acima de cada ponto da linha.
+// Plugin customizado: desenha o valor de disponibilidade (%) acima de cada ponto da linha,
+// e a quantidade de chamados acima de cada barra.
 const dispDataLabelsPlugin = {
   id: 'dispDataLabels',
   afterDatasetsDraw(chart) {
     const { ctx } = chart;
-    const meta = chart.getDatasetMeta(1); // dataset 1 = Disponibilidade informada (%)
-    const dataset = chart.data.datasets[1];
-    meta.data.forEach((point, i) => {
-      const val = dataset.data[i];
+
+    // Rótulo das barras (Chamados)
+    const metaBar = chart.getDatasetMeta(0);
+    const barDataset = chart.data.datasets[0];
+    metaBar.data.forEach((bar, i) => {
+      const val = barDataset.data[i];
+      if (val === null || val === undefined) return;
+      ctx.save();
+      ctx.font = '600 11px "Segoe UI", Arial, sans-serif';
+      ctx.fillStyle = '#1B4F72';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText(val.toLocaleString('pt-BR'), bar.x, bar.y - 6);
+      ctx.restore();
+    });
+
+    // Rótulo da linha (Disponibilidade %)
+    const metaLine = chart.getDatasetMeta(1);
+    const lineDataset = chart.data.datasets[1];
+    metaLine.data.forEach((point, i) => {
+      const val = lineDataset.data[i];
       if (val === null || val === undefined) return;
       ctx.save();
       ctx.font = '600 11px "Segoe UI", Arial, sans-serif';
@@ -664,7 +680,7 @@ function drawChart(monthlyCounts, dispValues) {
         }
       },
       scales: {
-        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Chamados' }, grid: { color: '#EEF0F3' } },
+        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Chamados' }, grid: { display: false } },
         y1: { beginAtZero: false, min: 0, max: 100, position: 'right', title: { display: true, text: 'Disponibilidade (%)' }, grid: { display: false } },
         x: { grid: { display: false } }
       }
