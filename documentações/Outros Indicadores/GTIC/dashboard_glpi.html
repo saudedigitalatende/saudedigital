@@ -125,7 +125,10 @@
 
   /* Fibra page enhancements */
   .header-support-text{font-size:12.5px;color:var(--text-secondary);line-height:1.5;margin:6px 0 0;max-width:640px;}
-
+  .source-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+  .source-chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:20px;}
+  .source-chip.glpi{background:var(--accent-light);color:var(--accent);}
+  .source-chip.manual{background:#FFF4E5;color:#8A5A0A;}
   .uppercase-title{text-transform:uppercase;letter-spacing:.03em;font-size:13px;}
   .info-banner{display:flex;gap:10px;align-items:flex-start;background:var(--accent-light);border:1px solid #CFE3F7;border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:12.5px;color:#144C7A;line-height:1.5;}
   .info-banner svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;stroke:var(--accent);}
@@ -219,7 +222,10 @@
     <h1>Internet (Fibra)</h1>
     <p class="subtitle">Volume de chamados x disponibilidade informada pelo fornecedor</p>
     <p class="header-support-text">Dados de chamados calculados a partir da base GLPI. Disponibilidade mensal informada manualmente com base no relatório do fornecedor.</p>
-
+    <div class="source-chips">
+      <span class="source-chip glpi">Chamados — Base GLPI</span>
+      <span class="source-chip manual">Disponibilidade — informação manual do fornecedor</span>
+    </div>
   </header>
 
   <div class="filters">
@@ -483,15 +489,25 @@ MESES.forEach((m,i) => { const o = document.createElement('option'); o.value = i
 const fCategoria = document.getElementById('fibraFCategoria');
 categorias.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; fCategoria.appendChild(o); });
 
-let disponibilidade = {}; // { "2024-1": 99.5, ... }
+// Disponibilidade mensal informada pelo fornecedor — valores fixos (não depende mais de digitação manual).
+// Convertido de fração (ex.: 0,95) para percentual (95).
+const DISPONIBILIDADE_FIXA = {
+  '2024-1': 95, '2024-2': 92, '2024-3': 91, '2024-4': 90, '2024-5': 89, '2024-6': 91,
+  '2024-7': 91, '2024-8': 94, '2024-9': 96, '2024-10': 89, '2024-11': 95, '2024-12': 96,
+  '2025-1': 96, '2025-2': 97, '2025-3': 96, '2025-4': 97, '2025-5': 97, '2025-6': 95,
+  '2025-7': 98, '2025-8': 97, '2025-9': 97, '2025-10': 98, '2025-11': 98, '2025-12': 97,
+  '2026-1': 98, '2026-2': 96, '2026-3': 95, '2026-4': 94, '2026-5': 97, '2026-6': 94
+};
+
+let disponibilidade = { ...DISPONIBILIDADE_FIXA }; // { "2024-1": 99.5, ... } — parte da base fixa, editável por cima se precisar
 let activeMonthFilter = null; // {ano, mes} when a bar is clicked
 
 async function loadDisponibilidade() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) disponibilidade = JSON.parse(raw);
+    if (raw) disponibilidade = { ...DISPONIBILIDADE_FIXA, ...JSON.parse(raw) };
   } catch (e) {
-    disponibilidade = {};
+    disponibilidade = { ...DISPONIBILIDADE_FIXA };
   }
   renderDispTable();
   render();
@@ -570,6 +586,27 @@ function render() {
   }
 }
 
+// Plugin customizado: desenha o valor de disponibilidade (%) acima de cada ponto da linha.
+const dispDataLabelsPlugin = {
+  id: 'dispDataLabels',
+  afterDatasetsDraw(chart) {
+    const { ctx } = chart;
+    const meta = chart.getDatasetMeta(1); // dataset 1 = Disponibilidade informada (%)
+    const dataset = chart.data.datasets[1];
+    meta.data.forEach((point, i) => {
+      const val = dataset.data[i];
+      if (val === null || val === undefined) return;
+      ctx.save();
+      ctx.font = '600 11px "Segoe UI", Arial, sans-serif';
+      ctx.fillStyle = '#0F6E56';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText(val + '%', point.x, point.y - 10);
+      ctx.restore();
+    });
+  }
+};
+
 function drawChart(monthlyCounts, dispValues) {
   const ctx = document.getElementById('fibraChartFibra');
   if (chartInstance) chartInstance.destroy();
@@ -604,6 +641,7 @@ function drawChart(monthlyCounts, dispValues) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      layout: { padding: { top: 20 } },
       onClick: (evt, elements) => {
         if (!elements.length) return;
         const idx = elements[0].index;
@@ -630,7 +668,8 @@ function drawChart(monthlyCounts, dispValues) {
         y1: { beginAtZero: false, min: 0, max: 100, position: 'right', title: { display: true, text: 'Disponibilidade (%)' }, grid: { display: false } },
         x: { grid: { display: false } }
       }
-    }
+    },
+    plugins: [dispDataLabelsPlugin]
   });
 }
 
@@ -941,15 +980,44 @@ function renderBacklogChart(canvasId, list, grupo) {
     if (ACTIVE_STATUSES.includes(c.status)) { backlog[m]++; perMonthLists.backlog[m].push(c); }
   });
 
-  // Backlog acumulado = somatório sequencial: acumulado[m] = acumulado[m-1] + backlog[m] (inclui o proprio mes).
-  // Nao desconta chamados de meses anteriores que foram encerrados depois -- e o acumulo historico de backlog gerado.
+  const anoRef = fAno.value || '';
+
+  // Backlog acumulado = somatório sequencial cronológico usando TODO o histórico do grupo (não só o ano
+  // filtrado), para que Janeiro de um ano comece somando o saldo que sobrou de Dezembro do ano anterior,
+  // em vez de reiniciar em zero. Backlog do mês (ativo hoje) já usa ACTIVE_STATUSES, igual às barras.
+  const baseGrupoHist = chamados.filter(c => c.grupo === grupo && ACTIVE_STATUSES.includes(c.status));
+  const porChave = {};
+  baseGrupoHist.forEach(c => {
+    const chave = c.aberturaDate.getFullYear() + '-' + c.aberturaDate.getMonth();
+    if (!porChave[chave]) porChave[chave] = [];
+    porChave[chave].push(c);
+  });
+  const chavesOrdenadas = Object.keys(porChave)
+    .map(k => { const [y, mo] = k.split('-').map(Number); return { y, mo, chave: k }; })
+    .sort((a, b) => a.y - b.y || a.mo - b.mo);
+
+  let acumuladoCorrente = 0;
+  let listaCorrente = [];
+  const acumuladoPorChave = {};
+  const listaPorChave = {};
+  chavesOrdenadas.forEach(({ chave }) => {
+    const lista = porChave[chave];
+    acumuladoCorrente += lista.length;
+    listaCorrente = listaCorrente.concat(lista);
+    acumuladoPorChave[chave] = acumuladoCorrente;
+    listaPorChave[chave] = listaCorrente.slice();
+  });
+
+  const anosPresentesGrupo = [...new Set(chamados.filter(c => c.grupo === grupo).map(c => c.aberturaDate.getFullYear()))];
+  const anoParaAcumulado = anoRef ? Number(anoRef) : (anosPresentesGrupo.length ? Math.max(...anosPresentesGrupo) : new Date().getFullYear());
+
   const backlogAcumulado = new Array(12).fill(0);
   const perMonthListsAcumulado = Array.from({length:12}, () => []);
   for (let m = 0; m < 12; m++) {
-    backlogAcumulado[m] = (m === 0 ? 0 : backlogAcumulado[m-1]) + backlog[m];
-    perMonthListsAcumulado[m] = (m === 0 ? [] : perMonthListsAcumulado[m-1]).concat(perMonthLists.backlog[m]);
+    const chave = anoParaAcumulado + '-' + m;
+    backlogAcumulado[m] = acumuladoPorChave[chave] !== undefined ? acumuladoPorChave[chave] : (m === 0 ? 0 : backlogAcumulado[m-1]);
+    perMonthListsAcumulado[m] = listaPorChave[chave] !== undefined ? listaPorChave[chave] : (m === 0 ? [] : perMonthListsAcumulado[m-1]);
   }
-  const anoRef = fAno.value || '';
 
   // ---- Determinar o mês de referência do resumo (NUNCA fixo em dezembro) ----
   // Prioridade: 1) filtro de Mês  2) mês do fim do período (Período até)  3) último mês com dado real no ano
