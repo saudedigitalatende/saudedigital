@@ -88,9 +88,12 @@
   .panel h2, .panel h3{font-size:14px;font-weight:600;margin:0 0 4px;}
   .panel .panel-sub{font-size:12px;color:var(--text-muted);margin:0 0 16px;}
   .panels-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px;}
+  .panels-row.panels-row-2{grid-template-columns:1fr 1fr;}
+  .panels-row.panels-row-noc{grid-template-columns:1fr 1fr;}
+  .panels-row.panels-row-noc .panel{grid-column:1 / span 1;}
   .panels-row .panel{margin-bottom:0;}
   @media (max-width: 1180px){ .panels-row{grid-template-columns:1fr 1fr;} }
-  @media (max-width: 760px){ .panels-row{grid-template-columns:1fr;} }
+  @media (max-width: 760px){ .panels-row{grid-template-columns:1fr;} .panels-row.panels-row-2{grid-template-columns:1fr;} .panels-row.panels-row-noc{grid-template-columns:1fr;} }
 
   .legend{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:8px;font-size:12px;color:var(--text-secondary);}
   .legend span{display:flex;align-items:center;gap:4px;}
@@ -381,7 +384,7 @@
     <span><span class="swatch" style="background:#a32d2d"></span>Encerrado com SLA vencido</span>
   </div>
 
-  <div class="panels-row">
+  <div class="panels-row panels-row-2">
     <div class="panel sla-panel">
       <div class="backlog-card-title">
         <span class="backlog-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="6" rx="1.5"/><rect x="2" y="15" width="20" height="6" rx="1.5"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></span>
@@ -398,6 +401,8 @@
       <div class="sla-mini-summary" id="indSlaResumoSistemas"></div>
       <div class="chart-wrap h-sla"><canvas id="indChartSlaSistemas" role="img" aria-label="Grafico de barras horizontais com a situacao dos chamados de solucoes digitais em relacao ao SLA"></canvas></div>
     </div>
+  </div>
+  <div class="panels-row panels-row-noc">
     <div class="panel sla-panel">
       <div class="backlog-card-title">
         <span class="backlog-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6.01" y2="10"/><line x1="6" y1="14" x2="6.01" y2="14"/><path d="M10 10h8M10 14h8"/></svg></span>
@@ -409,7 +414,7 @@
   </div>
 
   <h2 class="section-title">Encerramento no mês de abertura e backlog gerado</h2>
-  <p class="section-sub">Evolução mensal de chamados abertos, encerrados no próprio mês e do backlog gerado — comparado ao acumulado do ano e ao acumulado geral, com projeção para os próximos meses.</p>
+  <p class="section-sub">Evolução mensal de chamados, backlog e acumulados, com projeção dos próximos meses.</p>
 
   <div class="legend">
     <span><span class="swatch" style="background:#378ADD"></span>Abertos no mês</span>
@@ -419,7 +424,7 @@
     <span><span class="swatch" style="background:#d6336c"></span>Backlog acumulado do ano</span>
   </div>
 
-  <div class="panels-row">
+  <div class="panels-row panels-row-2">
     <div class="panel backlog-card">
       <div class="backlog-card-title">
         <span class="backlog-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="6" rx="1.5"/><rect x="2" y="15" width="20" height="6" rx="1.5"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></span>
@@ -436,6 +441,8 @@
       <div class="chart-wrap v-backlog"><canvas id="indChartBacklogSistemas" role="img" aria-label="Grafico combinado mensal de solucoes digitais com abertos, encerrados, backlog do mes e backlog acumulado"></canvas></div>
       <div class="backlog-summary" id="indBacklogResumoSistemas"></div>
     </div>
+  </div>
+  <div class="panels-row panels-row-noc">
     <div class="panel backlog-card">
       <div class="backlog-card-title">
         <span class="backlog-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6.01" y2="10"/><line x1="6" y1="14" x2="6.01" y2="14"/><path d="M10 10h8M10 14h8"/></svg></span>
