@@ -271,6 +271,7 @@
     <div class="legend">
       <span><span class="swatch" style="background:#378ADD"></span>Chamados (GLPI)</span>
       <span><span class="swatch" style="background:#0F6E56"></span>Disponibilidade informada (%)</span>
+      <span><span class="swatch" style="background:#f97316"></span>Incidentes abertos pelo fornecedor</span>
     </div>
     <p style="font-size:11.5px;color:var(--text-muted);margin:0 0 10px;">Clique numa barra para ver os chamados daquele mês.</p>
     <div style="position:relative;height:340px;">
@@ -341,11 +342,6 @@
       <div class="label">Total de chamados</div>
       <div class="value" id="indCardTotal">0</div>
       <div class="hint" id="indCardTotalClassificado"></div>
-    </div>
-    <div class="kpi-card warn" id="indCardIndeterminado" style="display:none;cursor:pointer;">
-      <div class="label">Sem classificação de SLA</div>
-      <div class="value" id="indCardIndeterminadoValor">0</div>
-      <div class="hint"></div>
     </div>
   </div>
 
@@ -420,7 +416,7 @@
     <span><span class="swatch" style="background:#378ADD"></span>Abertos no mês</span>
     <span><span class="swatch" style="background:#1baf7a"></span>Encerrados no mês</span>
     <span><span class="swatch" style="background:#eb6834"></span>Backlog do mês</span>
-    <span><span class="swatch" style="background:#0891b2"></span>Backlog acumulado do ano</span>
+    <span><span class="swatch" style="background:#c026d3"></span>Backlog acumulado do ano</span>
     <span><span class="swatch" style="background:#5b21b6"></span>Backlog acumulado geral</span>
   </div>
 
@@ -519,6 +515,16 @@ const DISPONIBILIDADE_FIXA = {
   '2026-1': 98, '2026-2': 96, '2026-3': 95, '2026-4': 94, '2026-5': 97, '2026-6': 94
 };
 
+// Quantidade de incidentes por mês abertos pelo fornecedor (contagem de unidades com INCIDENTES > 0
+// na planilha "Disponibilidade lan2lan 1Telecom") — valores fixos, mesma lógica da disponibilidade.
+const INCIDENTES_FORNECEDOR_FIXO = {
+  '2024-1': 183, '2024-2': 177, '2024-3': 251, '2024-4': 214, '2024-5': 174, '2024-6': 254,
+  '2024-7': 253, '2024-8': 251, '2024-9': 161, '2024-10': 250, '2024-11': 125, '2024-12': 145,
+  '2025-1': 141, '2025-2': 140, '2025-3': 116, '2025-4': 111, '2025-5': 123, '2025-6': 134,
+  '2025-7': 145, '2025-8': 239, '2025-9': 239, '2025-10': 110, '2025-11': 110, '2025-12': 174,
+  '2026-1': 98, '2026-2': 133, '2026-3': 138, '2026-4': 137, '2026-5': 114, '2026-6': 122
+};
+
 let disponibilidade = { ...DISPONIBILIDADE_FIXA }; // { "2024-1": 99.5, ... } — parte da base fixa, editável por cima se precisar
 let activeMonthFilter = null; // {ano, mes} when a bar is clicked
 
@@ -591,6 +597,12 @@ function render() {
     return disponibilidade[key] !== undefined && disponibilidade[key] !== '' ? Number(disponibilidade[key]) : null;
   });
 
+  const incidentesValues = MESES.map((_, i) => {
+    const y = yearsToShow[0] || anos[0];
+    const key = y + '-' + (i+1);
+    return INCIDENTES_FORNECEDOR_FIXO[key] !== undefined ? INCIDENTES_FORNECEDOR_FIXO[key] : null;
+  });
+
   const validDisp = dispValues.filter(v => v !== null && !isNaN(v));
   if (validDisp.length) {
     const avg = validDisp.reduce((a,b)=>a+b,0) / validDisp.length;
@@ -599,7 +611,7 @@ function render() {
     document.getElementById('fibraCardDisp').textContent = '—';
   }
 
-  drawChart(monthlyCounts, dispValues);
+  drawChart(monthlyCounts, dispValues, incidentesValues);
   renderDispTable(monthlyCounts, yearsToShow[0] || anos[0]);
 
   if (!activeMonthFilter) {
@@ -609,25 +621,28 @@ function render() {
 }
 
 // Plugin customizado: desenha o valor de disponibilidade (%) acima de cada ponto da linha,
-// e a quantidade de chamados acima de cada barra.
+// e a quantidade de chamados/incidentes acima de cada barra.
 const dispDataLabelsPlugin = {
   id: 'dispDataLabels',
   afterDatasetsDraw(chart) {
     const { ctx } = chart;
 
-    // Rótulo das barras (Chamados)
-    const metaBar = chart.getDatasetMeta(0);
-    const barDataset = chart.data.datasets[0];
-    metaBar.data.forEach((bar, i) => {
-      const val = barDataset.data[i];
-      if (val === null || val === undefined) return;
-      ctx.save();
-      ctx.font = '600 11px "Segoe UI", Arial, sans-serif';
-      ctx.fillStyle = '#1B4F72';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'bottom';
-      ctx.fillText(val.toLocaleString('pt-BR'), bar.x, bar.y - 6);
-      ctx.restore();
+    // Rótulo das barras (Chamados e Incidentes)
+    [0, 2].forEach(dsIndex => {
+      if (!chart.data.datasets[dsIndex]) return;
+      const meta = chart.getDatasetMeta(dsIndex);
+      const dataset = chart.data.datasets[dsIndex];
+      meta.data.forEach((bar, i) => {
+        const val = dataset.data[i];
+        if (val === null || val === undefined) return;
+        ctx.save();
+        ctx.font = '600 11px "Segoe UI", Arial, sans-serif';
+        ctx.fillStyle = dsIndex === 0 ? '#1B4F72' : '#7C2D12';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(val.toLocaleString('pt-BR'), bar.x, bar.y - 6);
+        ctx.restore();
+      });
     });
 
     // Rótulo da linha (Disponibilidade %)
@@ -647,7 +662,7 @@ const dispDataLabelsPlugin = {
   }
 };
 
-function drawChart(monthlyCounts, dispValues) {
+function drawChart(monthlyCounts, dispValues, incidentesValues) {
   const ctx = document.getElementById('fibraChartFibra');
   if (chartInstance) chartInstance.destroy();
   chartInstance = new Chart(ctx, {
@@ -660,7 +675,7 @@ function drawChart(monthlyCounts, dispValues) {
           data: monthlyCounts,
           backgroundColor: '#378ADD',
           borderRadius: 4,
-          maxBarThickness: 34,
+          maxBarThickness: 28,
           yAxisID: 'y'
         },
         {
@@ -675,6 +690,15 @@ function drawChart(monthlyCounts, dispValues) {
           borderWidth: 2,
           tension: 0.2,
           yAxisID: 'y1'
+        },
+        {
+          type: 'bar',
+          label: 'Incidentes abertos pelo fornecedor',
+          data: incidentesValues,
+          backgroundColor: '#f97316',
+          borderRadius: 4,
+          maxBarThickness: 28,
+          yAxisID: 'y'
         }
       ]
     },
@@ -697,6 +721,9 @@ function drawChart(monthlyCounts, dispValues) {
             label: (c) => {
               if (c.dataset.yAxisID === 'y1') {
                 return c.raw === null ? 'Disponibilidade: não informada' : 'Disponibilidade: ' + c.raw + '%';
+              }
+              if (c.datasetIndex === 2) {
+                return c.raw === null ? 'Incidentes (fornecedor): não informado' : 'Incidentes (fornecedor): ' + c.raw;
               }
               return 'Chamados: ' + c.raw;
             }
@@ -1152,7 +1179,7 @@ function renderBacklogChart(canvasId, list, grupo) {
     { type: 'bar', label: 'Abertos no mês', data: abertosExt, backgroundColor: '#378ADD', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
     { type: 'bar', label: 'Encerrados no mês', data: encerradosExt, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
     { type: 'bar', label: 'Backlog do mês', data: backlogExt, backgroundColor: '#eb6834', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
-    { type: 'bar', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, backgroundColor: '#0891b2', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y1' },
+    { type: 'bar', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, backgroundColor: '#c026d3', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y1' },
     { type: 'line', label: 'Backlog acumulado geral', data: backlogAcumuladoExt, borderColor: '#5b21b6', backgroundColor: '#5b21b6', pointBackgroundColor: '#5b21b6', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 3, tension: 0, spanGaps: false, yAxisID: 'y1' }
   ];
   if (temProjecao) {
@@ -1218,15 +1245,6 @@ function render() {
   // Total de chamados = TOTAL REAL da base filtrada (inclui os sem classificação).
   document.getElementById('indCardTotal').textContent = filtered.length.toLocaleString('pt-BR');
   document.getElementById('indCardTotalClassificado').textContent = 'Total classificado: ' + classificaveis.length.toLocaleString('pt-BR');
-
-  const cardIndet = document.getElementById('indCardIndeterminado');
-  if (indeterminados.length) {
-    cardIndet.style.display = '';
-    document.getElementById('indCardIndeterminadoValor').textContent = indeterminados.length.toLocaleString('pt-BR');
-  } else {
-    cardIndet.style.display = 'none';
-  }
-  cardIndet.onclick = () => renderDetailTable(indeterminados, 'Sem classificação de SLA');
 
   // Quatro categorias mutuamente exclusivas (cada chamado tem exatamente um slaClass, ou null).
   const abertoDentro = classificaveis.filter(c => c.slaClass === 'aberto_dentro');
