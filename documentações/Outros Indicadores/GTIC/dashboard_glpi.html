@@ -420,8 +420,8 @@
     <span><span class="swatch" style="background:#378ADD"></span>Abertos no mês</span>
     <span><span class="swatch" style="background:#1baf7a"></span>Encerrados no mês</span>
     <span><span class="swatch" style="background:#eb6834"></span>Backlog do mês</span>
+    <span><span class="swatch" style="background:#0891b2"></span>Backlog acumulado do ano</span>
     <span><span class="swatch" style="background:#5b21b6"></span>Backlog acumulado geral</span>
-    <span><span class="swatch" style="background:#d6336c"></span>Backlog acumulado do ano</span>
   </div>
 
   <div class="panels-row panels-row-2">
@@ -1152,8 +1152,8 @@ function renderBacklogChart(canvasId, list, grupo) {
     { type: 'bar', label: 'Abertos no mês', data: abertosExt, backgroundColor: '#378ADD', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
     { type: 'bar', label: 'Encerrados no mês', data: encerradosExt, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
     { type: 'bar', label: 'Backlog do mês', data: backlogExt, backgroundColor: '#eb6834', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
-    { type: 'line', label: 'Backlog acumulado geral', data: backlogAcumuladoExt, borderColor: '#5b21b6', backgroundColor: '#5b21b6', pointBackgroundColor: '#5b21b6', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 3, tension: 0, spanGaps: false, yAxisID: 'y1' },
-    { type: 'line', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, borderColor: '#d6336c', backgroundColor: '#d6336c', pointBackgroundColor: '#d6336c', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 2, borderDash: [2, 2], tension: 0, spanGaps: false, yAxisID: 'y1' }
+    { type: 'bar', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, backgroundColor: '#0891b2', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y1' },
+    { type: 'line', label: 'Backlog acumulado geral', data: backlogAcumuladoExt, borderColor: '#5b21b6', backgroundColor: '#5b21b6', pointBackgroundColor: '#5b21b6', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 3, tension: 0, spanGaps: false, yAxisID: 'y1' }
   ];
   if (temProjecao) {
     datasets.push({
@@ -1172,9 +1172,9 @@ function renderBacklogChart(canvasId, list, grupo) {
         const m = el.index;
         if (el.datasetIndex === 5) { atualizarResumo(m); return; } // projeção: atualiza o card, mas não é auditável
         atualizarResumo(m);
-        const keys = ['abertos','encerrados','backlog','backlogAcumulado','backlogAcumuladoAno'];
-        const labels = ['Abertos no mês','Encerrados no mês','Backlog do mês','Backlog acumulado geral','Backlog acumulado do ano'];
-        const lists = [perMonthLists.abertos, perMonthLists.encerrados, perMonthLists.backlog, perMonthListsAcumulado, perMonthListsAcumuladoAno];
+        const keys = ['abertos','encerrados','backlog','backlogAcumuladoAno','backlogAcumulado'];
+        const labels = ['Abertos no mês','Encerrados no mês','Backlog do mês','Backlog acumulado do ano','Backlog acumulado geral'];
+        const lists = [perMonthLists.abertos, perMonthLists.encerrados, perMonthLists.backlog, perMonthListsAcumuladoAno, perMonthListsAcumulado];
         renderDetailTable(lists[el.datasetIndex][m], equipeLabel + ' — ' + MESES_LONG[m % 12] + ' — ' + labels[el.datasetIndex]);
       },
       plugins: {
@@ -1193,8 +1193,8 @@ function renderBacklogChart(canvasId, list, grupo) {
               if (ctx.datasetIndex === 0) return abertosExt[m] !== null ? 'Abertos no mês: ' + abertosExt[m].toLocaleString('pt-BR') : null;
               if (ctx.datasetIndex === 1) return encerradosExt[m] !== null ? 'Encerrados no mês: ' + encerradosExt[m].toLocaleString('pt-BR') : null;
               if (ctx.datasetIndex === 2) return backlogExt[m] !== null ? 'Backlog do mês: ' + backlogExt[m].toLocaleString('pt-BR') : null;
-              if (ctx.datasetIndex === 3) return backlogAcumuladoExt[m] !== null ? 'Backlog acumulado geral: ' + backlogAcumuladoExt[m].toLocaleString('pt-BR') : null;
-              if (ctx.datasetIndex === 4) return backlogAcumuladoAnoExt[m] !== null ? 'Backlog acumulado do ano: ' + backlogAcumuladoAnoExt[m].toLocaleString('pt-BR') : null;
+              if (ctx.datasetIndex === 3) return backlogAcumuladoAnoExt[m] !== null ? 'Backlog acumulado do ano: ' + backlogAcumuladoAnoExt[m].toLocaleString('pt-BR') : null;
+              if (ctx.datasetIndex === 4) return backlogAcumuladoExt[m] !== null ? 'Backlog acumulado geral: ' + backlogAcumuladoExt[m].toLocaleString('pt-BR') : null;
               return 'Projeção (regressão linear, 3 meses): ' + (projecaoData[m] !== null ? projecaoData[m].toLocaleString('pt-BR') : '—');
             },
             afterBody: () => ['Equipe: ' + equipeLabel]
