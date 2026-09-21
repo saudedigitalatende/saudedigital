@@ -860,7 +860,7 @@ const chamados = RAW_DATA_IND.map(r => ({
   prazoDate: r.p ? new Date(r.p) : null, prazoStr: r.p,
   adquirirExcedido: r.aq === 'S' ? 'Sim' : 'Não',
   resolverExcedido: r.re === 'S' ? 'Sim' : 'Não'
-})).filter(c => !(c.categoria || '').toUpperCase().includes('TABLET'));
+}));
 
 function classify(c) {
   if (c.solucaoDate) {
