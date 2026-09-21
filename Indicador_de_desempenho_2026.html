@@ -1374,7 +1374,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 
     <!-- ═══════════════════════════ TAB: AÇÕES ═══════════════════════════ -->
     <div class="tab-content" id="tab-acoes">
-      <div class="section-hd" style="margin-top:0"><div class="section-title">Plano de ação — prioridades Q2 2026</div></div>
+      <div class="section-hd" style="margin-top:0"><div><div class="section-title" id="plano-acao-periodo">Plano de ação — prioridades mensais</div><div class="section-sub" id="plano-acao-regra">Fonte: chamados do mês selecionado · prioridades por SLA, backlog e volume</div></div></div>
       <div class="road-grid">
         <div class="road-card urg">
           <div class="road-title">🔴 Urgente — Infraestrutura</div>
@@ -1468,6 +1468,11 @@ function gotoTab(id, el) {
     acoes:'Plano de ação', roadmap:'Roadmap de KPIs'
   };
   document.getElementById('page-title').textContent = titles[id];
+  // O plano de ação é exclusivamente mensal. Se o acumulado estiver ativo,
+  // abre no último mês disponível; uma seleção mensal existente é preservada.
+  if (id === 'acoes' && document.getElementById('btn-todos')?.classList.contains('active')) {
+    filtrarMes('ago');
+  }
   setTimeout(function(){ Object.values(Chart.instances||{}).forEach(function(ch){ if(ch&&ch.resize) ch.resize(); }); }, 50);
 }
 
@@ -2114,8 +2119,12 @@ function updateDistritosTab(mes, d) {
   });
 }
 function updatePlanoAcaoTab(mes, d) {
-  const grupos = Object.entries(d.grupos || {}).sort((a, b) => a[1].sla - b[1].sla);
-  const topBacklog = Object.entries(d.backlog || {}).sort((a, b) => b[1] - a[1]);
+  const periodo = document.getElementById('plano-acao-periodo');
+  const regra = document.getElementById('plano-acao-regra');
+  if (periodo) periodo.textContent = 'Plano de ação — prioridades de ' + MESES_LABEL[mes];
+  if (regra) regra.textContent = 'Fonte: chamados de ' + MESES_LABEL[mes] + ' · urgente: menor SLA com demanda · importante: backlog e volume · estratégico: melhor distrito';
+  const grupos = Object.entries(d.grupos || {}).filter(([, valor]) => valor.total > 0).sort((a, b) => a[1].sla - b[1].sla);
+  const topBacklog = Object.entries(d.backlog || {}).filter(([, valor]) => valor > 0).sort((a, b) => b[1] - a[1]);
   const servicos = servicePairs(d);
   const pior = grupos[0] || ['Sem grupo', {sla:0, ab:0}];
   const gargalo = topBacklog[0] || ['Sem backlog', 0];
@@ -2150,7 +2159,7 @@ function updatePlanoAcaoTab(mes, d) {
   if (insights[1]) insights[1].innerHTML = '<strong>P2 — ' + gargalo[0] + ' (' + fmt(gargalo[1]) + ' em aberto)</strong>Maior concentração de backlog do período.';
   if (insights[2]) insights[2].innerHTML = '<strong>P3 — ' + topServico[0] + '</strong>' + fmt(topServico[1]) + ' chamados no período; avaliar treinamento, automação ou melhoria de processo.';
   if (insights[3]) {
-    const best = Object.entries(d.distritos || {}).sort((a, b) => b[1].sla - a[1].sla)[0];
+    const best = Object.entries(d.distritos || {}).filter(([, valor]) => valor.total > 0).sort((a, b) => b[1].sla - a[1].sla)[0];
     insights[3].innerHTML = '<strong>P4 — Replicar ' + (best ? best[0].replace(' ', '') : 'melhor distrito') + ' como benchmark</strong>Melhor SLA do período: ' + (best ? best[1].sla + '%' : '--') + '.';
   }
 }
