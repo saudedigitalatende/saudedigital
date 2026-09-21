@@ -480,6 +480,20 @@ function showPage(name) {
 </script>
 <script>
 (async function(){
+// Posicionador nativo do Chart.js: mantém o tooltip ao lado do ponto,
+// preferencialmente à esquerda, com retorno automático para a direita.
+Chart.Tooltip.positioners.horizontalOffset = function(items) {
+  if (!items.length) return false;
+  const point = items[0].element;
+  const gap = 40;
+  const tooltipWidth = this.width || 220;
+  const canvasWidth = this.chart.width;
+  const fitsLeft = point.x - tooltipWidth - gap >= 0;
+  const fitsRight = point.x + tooltipWidth + gap <= canvasWidth;
+  const xAlign = fitsLeft ? 'right' : (fitsRight ? 'left' : (point.x >= canvasWidth / 2 ? 'right' : 'left'));
+  return { x: point.x, y: point.y, xAlign, yAlign: 'center' };
+};
+
 const RAW_DATA_FIBRA = await fetch('./kpi_data_fibra.json').then(r => r.json());
 
 const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
@@ -1185,10 +1199,8 @@ function renderBacklogChart(canvasId, list, grupo) {
         tooltip: {
           mode: 'index',
           intersect: true,
-          position: 'nearest',
-          xAlign: 'right',
-          yAlign: 'bottom',
-          caretPadding: 24,
+          position: 'horizontalOffset',
+          caretPadding: 40,
           callbacks: {
             title: (items) => {
               const idx = items[0].dataIndex;
