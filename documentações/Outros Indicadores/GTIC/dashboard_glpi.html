@@ -410,7 +410,7 @@
   </div>
 
   <h2 class="section-title">Encerramento no mês de abertura e backlog gerado</h2>
-  <p class="section-sub">Evolução mensal de chamados, backlog e acumulados, com projeção dos próximos meses.</p>
+  <p class="section-sub">Evolução mensal de chamados, backlog e acumulados.</p>
 
   <div class="legend">
     <span><span class="swatch" style="background:#378ADD"></span>Abertos no mês</span>
@@ -1129,43 +1129,10 @@ function renderBacklogChart(canvasId, list, grupo) {
     if (!anoRef || dAte.getFullYear() === Number(anoRef)) referenceMonth = dAte.getMonth();
   }
 
-  // ---- Projeção do Backlog acumulado (só quando um ano específico está filtrado e o ano ainda não está completo) ----
-  let chartLabels = MESES.slice();
-  let abertosExt = abertos.slice(), encerradosExt = encerradosMesmoMes.slice(), backlogExt = backlog.slice();
-  let backlogAcumuladoExt = backlogAcumulado.slice();
-  let backlogAcumuladoAnoExt = backlogAcumuladoAno.slice();
-  let projecaoData = null;
-  let temProjecao = false;
-
-  if (anoRef && lastRealMonth >= 1 && lastRealMonth < 11) {
-    const janela = [];
-    for (let m = Math.max(0, lastRealMonth - 5); m <= lastRealMonth; m++) janela.push(backlog[m]);
-    const n = janela.length;
-    const xMean = (n - 1) / 2;
-    const yMean = janela.reduce((a, b) => a + b, 0) / n;
-    let num = 0, den = 0;
-    for (let i = 0; i < n; i++) { num += (i - xMean) * (janela[i] - yMean); den += (i - xMean) * (i - xMean); }
-    const slope = den ? num / den : 0;
-
-    const qtdProjecao = Math.min(3, 11 - lastRealMonth);
-    const totalSlots = 12 + Math.max(0, (lastRealMonth + 3) - 11);
-    chartLabels = Array.from({length: totalSlots}, (_, i) => i < 12 ? MESES[i] : (MESES[i - 12] + '/' + (Number(anoRef) + 1)));
-    abertosExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? abertos[i] : null);
-    encerradosExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? encerradosMesmoMes[i] : null);
-    backlogExt = Array.from({length: totalSlots}, (_, i) => i < 12 ? backlog[i] : null);
-    backlogAcumuladoExt = Array.from({length: totalSlots}, (_, i) => (i < 12 && i <= lastRealMonth) ? backlogAcumulado[i] : null);
-    backlogAcumuladoAnoExt = Array.from({length: totalSlots}, (_, i) => (i < 12 && i <= lastRealMonth) ? backlogAcumuladoAno[i] : null);
-
-    projecaoData = new Array(totalSlots).fill(null);
-    projecaoData[lastRealMonth] = backlogAcumulado[lastRealMonth];
-    let acumuladoProjetado = backlogAcumulado[lastRealMonth];
-    for (let i = 1; i <= qtdProjecao; i++) {
-      const incrementoProjetado = Math.max(0, Math.round(janela[n - 1] + slope * i));
-      acumuladoProjetado += incrementoProjetado;
-      projecaoData[lastRealMonth + i] = acumuladoProjetado;
-    }
-    temProjecao = true;
-  }
+  const chartLabels = MESES.slice();
+  const abertosExt = abertos.slice(), encerradosExt = encerradosMesmoMes.slice(), backlogExt = backlog.slice();
+  const backlogAcumuladoExt = backlogAcumulado.slice();
+  const backlogAcumuladoAnoExt = backlogAcumuladoAno.slice();
 
   // ---- Resumo inferior: backlog acumulado no mês de referência (dinâmico) ----
   const equipeLabel = equipeLabelFor(grupo);
@@ -1173,11 +1140,10 @@ function renderBacklogChart(canvasId, list, grupo) {
   const resumoEl = document.getElementById(resumoId);
   function atualizarResumo(monthIdx) {
     if (!resumoEl) return;
-    const yearLabel = monthIdx < 12 ? anoRef : (anoRef ? Number(anoRef) + 1 : '');
-    const isProjetado = monthIdx > lastRealMonth;
-    const valor = isProjetado ? (projecaoData ? projecaoData[monthIdx] : null) : backlogAcumulado[monthIdx];
+    const yearLabel = anoRef;
+    const valor = backlogAcumulado[monthIdx];
     resumoEl.innerHTML =
-      '<div class="bs-label">Backlog acumulado geral em ' + MESES_LONG[monthIdx % 12] + (yearLabel ? '/' + yearLabel : '') + (isProjetado ? ' (projeção)' : '') + '</div>' +
+      '<div class="bs-label">Backlog acumulado geral em ' + MESES_LONG[monthIdx % 12] + (yearLabel ? '/' + yearLabel : '') + '</div>' +
       '<div class="bs-value">' + (valor !== null && valor !== undefined ? valor.toLocaleString('pt-BR') : '—') + '</div>';
   }
   atualizarResumo(referenceMonth);
@@ -1190,13 +1156,6 @@ function renderBacklogChart(canvasId, list, grupo) {
     { type: 'bar', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, backgroundColor: '#c026d3', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y1' },
     { type: 'line', label: 'Backlog acumulado geral', data: backlogAcumuladoExt, borderColor: '#5b21b6', backgroundColor: '#5b21b6', pointBackgroundColor: '#5b21b6', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 3, tension: 0, spanGaps: false, yAxisID: 'y1' }
   ];
-  if (temProjecao) {
-    datasets.push({
-      type: 'line', label: 'Projeção — Backlog acumulado geral', data: projecaoData,
-      borderColor: '#5b21b6', borderDash: [5, 4], borderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHitRadius: 10, pointStyle: 'circle',
-      backgroundColor: '#fff', pointBackgroundColor: '#fff', pointBorderColor: '#5b21b6', pointBorderWidth: 2, spanGaps: true, fill: false, tension: 0, yAxisID: 'y1'
-    });
-  }
   charts[canvasId] = new Chart(document.getElementById(canvasId), {
     data: { labels: chartLabels, datasets },
     options: {
@@ -1205,7 +1164,6 @@ function renderBacklogChart(canvasId, list, grupo) {
         if (!elements.length) return;
         const el = elements[0];
         const m = el.index;
-        if (el.datasetIndex === 5) { atualizarResumo(m); return; } // projeção: atualiza o card, mas não é auditável
         atualizarResumo(m);
         const keys = ['abertos','encerrados','backlog','backlogAcumuladoAno','backlogAcumulado'];
         const labels = ['Abertos no mês','Encerrados no mês','Backlog do mês','Backlog acumulado do ano','Backlog acumulado geral'];
@@ -1225,11 +1183,11 @@ function renderBacklogChart(canvasId, list, grupo) {
       plugins: {
         legend: { display: false },
         tooltip: {
-          mode: 'nearest',
+          mode: 'index',
           intersect: true,
           position: 'nearest',
           yAlign: 'bottom',
-          caretPadding: 10,
+          caretPadding: 24,
           callbacks: {
             title: (items) => {
               const idx = items[0].dataIndex;
@@ -1243,7 +1201,7 @@ function renderBacklogChart(canvasId, list, grupo) {
               if (ctx.datasetIndex === 2) return backlogExt[m] !== null ? 'Backlog do mês: ' + backlogExt[m].toLocaleString('pt-BR') : null;
               if (ctx.datasetIndex === 3) return backlogAcumuladoAnoExt[m] !== null ? 'Backlog acumulado do ano: ' + backlogAcumuladoAnoExt[m].toLocaleString('pt-BR') : null;
               if (ctx.datasetIndex === 4) return backlogAcumuladoExt[m] !== null ? 'Backlog acumulado geral: ' + backlogAcumuladoExt[m].toLocaleString('pt-BR') : null;
-              return 'Projeção (regressão linear, 3 meses): ' + (projecaoData[m] !== null ? projecaoData[m].toLocaleString('pt-BR') : '—');
+              return null;
             },
             afterBody: () => ['Equipe: ' + equipeLabel]
           }
