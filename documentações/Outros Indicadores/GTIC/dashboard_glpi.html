@@ -860,7 +860,14 @@ const chamados = RAW_DATA_IND.map(r => ({
   prazoDate: r.p ? new Date(r.p) : null, prazoStr: r.p,
   adquirirExcedido: r.aq === 'S' ? 'Sim' : 'Não',
   resolverExcedido: r.re === 'S' ? 'Sim' : 'Não'
-}));
+})).filter(c => {
+  const categoria = (c.categoria || '').toUpperCase();
+  const categoriaPrincipal = categoria.split(' > ')[0].trim();
+  const grupoTecnico = (c.grupoTecnico || '').toUpperCase();
+  return !grupoTecnico.includes('ADMINISTRATIVO') &&
+    categoriaPrincipal !== 'TELEFONES' &&
+    !categoria.includes('TABLET');
+});
 
 function classify(c) {
   if (c.solucaoDate) {
