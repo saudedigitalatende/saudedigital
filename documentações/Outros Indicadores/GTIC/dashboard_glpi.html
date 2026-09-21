@@ -1210,13 +1210,26 @@ function renderBacklogChart(canvasId, list, grupo) {
         const keys = ['abertos','encerrados','backlog','backlogAcumuladoAno','backlogAcumulado'];
         const labels = ['Abertos no mês','Encerrados no mês','Backlog do mês','Backlog acumulado do ano','Backlog acumulado geral'];
         const lists = [perMonthLists.abertos, perMonthLists.encerrados, perMonthLists.backlog, perMonthListsAcumuladoAno, perMonthListsAcumulado];
-        renderDetailTable(lists[el.datasetIndex][m], equipeLabel + ' — ' + MESES_LONG[m % 12] + ' — ' + labels[el.datasetIndex]);
+        let detailList = lists[el.datasetIndex][m];
+        // No detalhamento, mesmo os indicadores acumulados devem respeitar o mês/ano clicado.
+        // O gráfico preserva a curva histórica; a tabela mostra somente os chamados daquele ponto mensal.
+        if (el.datasetIndex === 3 || el.datasetIndex === 4) {
+          const clickedYear = m < 12 ? anoParaAcumulado : anoParaAcumulado + 1;
+          const clickedMonth = m % 12;
+          detailList = detailList.filter(c => c.aberturaDate &&
+            c.aberturaDate.getFullYear() === clickedYear &&
+            c.aberturaDate.getMonth() === clickedMonth);
+        }
+        renderDetailTable(detailList, equipeLabel + ' — ' + MESES_LONG[m % 12] + ' — ' + labels[el.datasetIndex]);
       },
       plugins: {
         legend: { display: false },
         tooltip: {
-          mode: 'index',
-          intersect: false,
+          mode: 'nearest',
+          intersect: true,
+          position: 'nearest',
+          yAlign: 'bottom',
+          caretPadding: 10,
           callbacks: {
             title: (items) => {
               const idx = items[0].dataIndex;
