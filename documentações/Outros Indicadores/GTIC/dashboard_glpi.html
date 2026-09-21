@@ -498,6 +498,7 @@ const categorias = [...new Set(chamados.map(c => c.servico))].sort();
 
 const fAno = document.getElementById('fibraFAno');
 anos.forEach(a => { const o = document.createElement('option'); o.value = a; o.textContent = a; fAno.appendChild(o); });
+if (anos.length) fAno.value = Math.max(...anos);
 
 const fMes = document.getElementById('fibraFMes');
 MESES.forEach((m,i) => { const o = document.createElement('option'); o.value = i+1; o.textContent = m; fMes.appendChild(o); });
