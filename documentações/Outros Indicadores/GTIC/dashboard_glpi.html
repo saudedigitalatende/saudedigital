@@ -1064,19 +1064,36 @@ function renderSlaChart(canvasId, list, grupo) {
 
 function renderBacklogChart(canvasId, list, grupo) {
   const g = list.filter(c => c.grupo === grupo);
-  const abertos = new Array(12).fill(0), encerradosMesmoMes = new Array(12).fill(0), backlog = new Array(12).fill(0);
+  const abertos = new Array(12).fill(0), encerradosMes = new Array(12).fill(0), backlog = new Array(12).fill(0);
   const perMonthLists = { abertos: Array.from({length:12}, () => []), encerrados: Array.from({length:12}, () => []), backlog: Array.from({length:12}, () => []) };
   g.forEach(c => {
     const m = c.aberturaDate.getMonth();
     abertos[m]++; perMonthLists.abertos[m].push(c);
-    const mesmoMes = c.solucaoDate && ymEqual(c.aberturaDate, c.solucaoDate);
-    if (mesmoMes) { encerradosMesmoMes[m]++; perMonthLists.encerrados[m].push(c); }
     // Backlog do mes = chamados abertos naquele mes cujo status ATUAL ainda esta ativo
     // (Novo, Pendente, Em atendimento (atribuído) ou Em atendimento (planejado)) -- exclui Fechado e Solucionado.
     if (ACTIVE_STATUSES.includes(c.status)) { backlog[m]++; perMonthLists.backlog[m].push(c); }
   });
 
   const anoRef = fAno.value || '';
+
+  // Encerrados no mês usa a data de solução, independentemente do mês de abertura.
+  // Os demais filtros permanecem ativos, mas o intervalo temporal é aplicado à solução.
+  chamados.filter(c => {
+    if (c.grupo !== grupo || !c.solucaoDate) return false;
+    if (anoRef && c.solucaoDate.getFullYear() !== Number(anoRef)) return false;
+    if (fMes.value && c.solucaoDate.getMonth() + 1 !== Number(fMes.value)) return false;
+    if (fDe.value && c.solucaoDate < new Date(fDe.value)) return false;
+    if (fAte.value) {
+      const ateEnd = new Date(fAte.value); ateEnd.setHours(23,59,59,999);
+      if (c.solucaoDate > ateEnd) return false;
+    }
+    if (fStatus.value && c.status !== fStatus.value) return false;
+    return true;
+  }).forEach(c => {
+    const m = c.solucaoDate.getMonth();
+    encerradosMes[m]++;
+    perMonthLists.encerrados[m].push(c);
+  });
 
   // Backlog acumulado = somatório sequencial cronológico usando TODO o histórico do grupo (não só o ano
   // filtrado), para que Janeiro de um ano comece somando o saldo que sobrou de Dezembro do ano anterior,
@@ -1144,7 +1161,7 @@ function renderBacklogChart(canvasId, list, grupo) {
   }
 
   const chartLabels = MESES.slice();
-  const abertosExt = abertos.slice(), encerradosExt = encerradosMesmoMes.slice(), backlogExt = backlog.slice();
+  const abertosExt = abertos.slice(), encerradosExt = encerradosMes.slice(), backlogExt = backlog.slice();
   const backlogAcumuladoExt = backlogAcumulado.slice();
   const backlogAcumuladoAnoExt = backlogAcumuladoAno.slice();
 
