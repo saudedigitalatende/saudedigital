@@ -1374,7 +1374,15 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 
     <!-- ═══════════════════════════ TAB: AÇÕES ═══════════════════════════ -->
     <div class="tab-content" id="tab-acoes">
-      <div class="section-hd" style="margin-top:0"><div><div class="section-title" id="plano-acao-periodo">Plano de ação — prioridades mensais</div><div class="section-sub" id="plano-acao-regra">Fonte: chamados do mês selecionado · prioridades por SLA, backlog e volume</div></div></div>
+      <div class="section-hd" style="margin-top:0">
+        <div><div class="section-title" id="plano-acao-periodo">Plano de ação — prioridades mensais</div><div class="section-sub" id="plano-acao-regra">Fonte: chamados do mês selecionado · prioridades por SLA, backlog e volume</div></div>
+        <label style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--text2)">MÊS
+          <select id="plano-acao-mes" onchange="filtrarMes(this.value)" style="min-width:150px;padding:8px 30px 8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--white);color:var(--text);font-family:inherit">
+            <option value="jan">Janeiro</option><option value="fev">Fevereiro</option><option value="mar">Março</option><option value="abr">Abril</option>
+            <option value="mai">Maio</option><option value="jun">Junho</option><option value="jul">Julho</option><option value="ago" selected>Agosto</option>
+          </select>
+        </label>
+      </div>
       <div class="road-grid">
         <div class="road-card urg">
           <div class="road-title">🔴 Urgente — Infraestrutura</div>
@@ -1457,6 +1465,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 </main>
 
 <script>
+let mesAtual = 'todos';
 function gotoTab(id, el) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1470,7 +1479,7 @@ function gotoTab(id, el) {
   document.getElementById('page-title').textContent = titles[id];
   // O plano de ação é exclusivamente mensal. Se o acumulado estiver ativo,
   // abre no último mês disponível; uma seleção mensal existente é preservada.
-  if (id === 'acoes' && document.getElementById('btn-todos')?.classList.contains('active')) {
+  if (id === 'acoes' && mesAtual === 'todos') {
     filtrarMes('ago');
   }
   setTimeout(function(){ Object.values(Chart.instances||{}).forEach(function(ch){ if(ch&&ch.resize) ch.resize(); }); }, 50);
@@ -2119,6 +2128,8 @@ function updateDistritosTab(mes, d) {
   });
 }
 function updatePlanoAcaoTab(mes, d) {
+  const seletorMes = document.getElementById('plano-acao-mes');
+  if (seletorMes && mes !== 'todos') seletorMes.value = mes;
   const periodo = document.getElementById('plano-acao-periodo');
   const regra = document.getElementById('plano-acao-regra');
   if (periodo) periodo.textContent = 'Plano de ação — prioridades de ' + MESES_LABEL[mes];
@@ -2376,6 +2387,7 @@ function updateOverviewQualidadeDistritos(mes, d) {
 }
 
 function filtrarMes(mes) {
+  mesAtual = mes;
   // Botões
   document.querySelectorAll('.mes-btn').forEach(b=>b.classList.remove('active'));
   // Activate the right button (visao or backlog tab)
