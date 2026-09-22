@@ -241,6 +241,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 
 /* ══ SELETOR MENSAL DO PLANO DE AÇÃO ══ */
 .plan-month-control{display:flex;align-items:center;gap:10px;flex:0 0 auto;position:relative;z-index:40}
+.plan-action-header{position:relative;z-index:50}
 .plan-month-label{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--text2)}
 .plan-month-dropdown{position:relative;width:184px}
 .plan-month-trigger{width:100%;height:42px;display:grid;grid-template-columns:18px 1fr 16px;align-items:center;gap:9px;padding:0 12px;border:1px solid #cbd8e6;border-radius:11px;background:#fff;color:var(--text);font-family:inherit;font-size:12px;font-weight:600;line-height:1;text-align:left;box-shadow:0 2px 8px rgba(13,27,42,.05);cursor:pointer;transition:border-color .16s ease,box-shadow .16s ease,background .16s ease}
@@ -1396,7 +1397,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 
     <!-- ═══════════════════════════ TAB: AÇÕES ═══════════════════════════ -->
     <div class="tab-content" id="tab-acoes">
-      <div class="section-hd" style="margin-top:0">
+      <div class="section-hd plan-action-header" style="margin-top:0">
         <div><div class="section-title" id="plano-acao-periodo">Plano de ação — prioridades mensais</div><div class="section-sub" id="plano-acao-regra">Fonte: chamados do mês selecionado · prioridades por SLA, backlog e volume</div></div>
         <div class="plan-month-control">
           <span class="plan-month-label" id="plano-acao-mes-label">MÊS</span>
@@ -1540,8 +1541,11 @@ function togglePlanoMesDropdown() {
 }
 function selecionarPlanoMes(mes) {
   if (!PLANO_MESES[mes] || typeof DADOS === 'undefined' || !DADOS[mes]) return;
-  filtrarMes(mes);
+  // Atualiza e fecha antes dos demais cálculos: mesmo que outra área do painel
+  // falhe, o menu nunca permanece aberto nem mantém um estado visual concorrente.
+  syncPlanoMesDropdown(mes);
   closePlanoMesDropdown(true);
+  filtrarMes(mes);
 }
 function handlePlanoMesTriggerKey(event) {
   if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -1577,13 +1581,14 @@ function gotoTab(id, el) {
     backlog:'Backlog & Risco', concentracao:'Concentração de Demanda', distritos:'SLA por distrito',
     acoes:'Plano de ação', roadmap:'Roadmap de KPIs'
   };
-  document.getElementById('page-title').textContent = titles[id];
+  const pageTitle = document.getElementById('page-title');
+  if (pageTitle) pageTitle.textContent = titles[id];
   // O plano de ação é exclusivamente mensal. Se o acumulado estiver ativo,
   // abre no último mês disponível; uma seleção mensal existente é preservada.
   if (id === 'acoes' && mesAtual === 'todos') {
     filtrarMes('ago');
   }
-  setTimeout(function(){ Object.values(Chart.instances||{}).forEach(function(ch){ if(ch&&ch.resize) ch.resize(); }); }, 50);
+  setTimeout(function(){ Object.values(Chart.instances||{}).forEach(function(ch){ if(ch?.canvas?.isConnected&&ch.resize) ch.resize(); }); }, 50);
 }
 
 const G = { color:'rgba(0,0,0,0.05)' };
@@ -2228,51 +2233,84 @@ function updateDistritosTab(mes, d) {
     row.cells[6].innerHTML = statusLabelForSla(item.sla, 'referência');
   });
 }
+function generatePlanoAcao(mes, d) {
+  if (!d || mes === 'todos') return null;
+  const groupsWithDemand = Object.entries(d.grupos || {}).filter(([, value]) => value.total > 0);
+  if (!groupsWithDemand.length || !d.total) return null;
+  const sortSlaAsc = items => [...items].sort((a, b) => a[1].sla - b[1].sla || b[1].total - a[1].total);
+  const sortSlaDesc = items => [...items].sort((a, b) => b[1].sla - a[1].sla || b[1].total - a[1].total);
+  const infraGroups = groupsWithDemand.filter(([name]) => INFRA_GRUPOS.includes(name));
+  const systemGroups = groupsWithDemand.filter(([name]) => SIST_GRUPOS.includes(name));
+  const worstOverall = sortSlaAsc(groupsWithDemand)[0];
+  const worstInfra = sortSlaAsc(infraGroups)[0] || worstOverall;
+  const worstSystem = sortSlaAsc(systemGroups)[0] || worstOverall;
+  const bestGroup = sortSlaDesc(groupsWithDemand)[0];
+  const backlogPairs = Object.entries(d.backlog || {}).filter(([, value]) => value > 0).sort((a, b) => b[1] - a[1]);
+  const infraBacklog = backlogPairs.find(([name]) => INFRA_GRUPOS.includes(name)) || ['Sem backlog de Infraestrutura', 0];
+  const systemBacklog = backlogPairs.find(([name]) => SIST_GRUPOS.includes(name)) || ['Sem backlog de Sistemas', 0];
+  const topBacklog = backlogPairs[0] || ['Sem backlog', 0];
+  const topService = servicePairs(d)[0] || ['Sem serviço', 0];
+  const districtPairs = Object.entries(d.distritos || {}).filter(([, value]) => value.total > 0);
+  const bestDistrict = sortSlaDesc(districtPairs)[0] || ['Sem distrito', {sla:0,total:0}];
+  const resolutionRate = d.total ? d.enc / d.total * 100 : 0;
+  const infraLateRate = d.infra.total ? d.infra.fp / d.infra.total * 100 : 0;
+  const systemsLateRate = d.sistemas.total ? d.sistemas.fp / d.sistemas.total * 100 : 0;
+  const lowerStructure = d.infra.sla <= d.sistemas.sla ? ['Infraestrutura', d.infra] : ['Sistemas', d.sistemas];
+  const monthLabel = MESES_LABEL[mes];
+  return {
+    cards: [
+      [
+        'Priorizar ' + worstInfra[0] + ': ' + pctText(worstInfra[1].sla) + ' de SLA em ' + fmt(worstInfra[1].total) + ' chamados',
+        infraBacklog[1] ? 'Tratar o maior backlog de Infraestrutura: ' + infraBacklog[0] + ' (' + fmt(infraBacklog[1]) + ' em aberto)' : 'Infraestrutura sem backlog registrado no período',
+        'Revisar ' + fmt(d.infra.fp) + ' chamados de Infraestrutura fora do prazo (' + pctText(infraLateRate) + ')',
+        'Acompanhar ' + fmt(d.infra.ab) + ' chamados de Infraestrutura ainda em aberto no período'
+      ],
+      [
+        'Priorizar ' + worstSystem[0] + ': ' + pctText(worstSystem[1].sla) + ' de SLA em ' + fmt(worstSystem[1].total) + ' chamados',
+        systemBacklog[1] ? 'Tratar o maior backlog de Sistemas: ' + systemBacklog[0] + ' (' + fmt(systemBacklog[1]) + ' em aberto)' : 'Sistemas sem backlog registrado no período',
+        'Revisar ' + fmt(d.sistemas.fp) + ' chamados de Sistemas fora do prazo (' + pctText(systemsLateRate) + ')',
+        'Avaliar ' + topService[0] + ', serviço de maior volume no mês (' + fmt(topService[1]) + ' chamados)'
+      ],
+      [
+        'Usar ' + bestDistrict[0].replace(' ', '') + ' como referência: ' + pctText(bestDistrict[1].sla) + ' de SLA em ' + fmt(bestDistrict[1].total) + ' chamados',
+        'Replicar práticas de ' + bestGroup[0] + ', melhor grupo do mês (' + pctText(bestGroup[1].sla) + ')',
+        'Acompanhar taxa de encerramento mensal: ' + pctText(resolutionRate) + ' (' + fmt(d.enc) + ' de ' + fmt(d.total) + ')',
+        'Concentrar melhoria em ' + lowerStructure[0] + ', estrutura com menor SLA no mês (' + pctText(lowerStructure[1].sla) + ')'
+      ]
+    ],
+    insights: [
+      '<strong>P1 — ' + worstOverall[0] + ' (' + pctText(worstOverall[1].sla) + ' SLA · ' + fmt(worstOverall[1].ab || 0) + ' em backlog)</strong>Menor SLA entre os grupos com demanda em ' + monthLabel + '.',
+      '<strong>P2 — ' + topBacklog[0] + ' (' + fmt(topBacklog[1]) + ' em aberto)</strong>Maior concentração de backlog conforme o estoque registrado para ' + monthLabel + '.',
+      '<strong>P3 — ' + topService[0] + '</strong>' + fmt(topService[1]) + ' chamados: serviço de maior volume em ' + monthLabel + '.',
+      '<strong>P4 — ' + bestDistrict[0].replace(' ', '') + ' como benchmark</strong>Melhor SLA distrital do mês: ' + pctText(bestDistrict[1].sla) + ' em ' + fmt(bestDistrict[1].total) + ' chamados.'
+    ]
+  };
+}
 function updatePlanoAcaoTab(mes, d) {
   if (mes !== 'todos') syncPlanoMesDropdown(mes);
   const periodo = document.getElementById('plano-acao-periodo');
   const regra = document.getElementById('plano-acao-regra');
   if (periodo) periodo.textContent = 'Plano de ação — prioridades de ' + MESES_LABEL[mes];
   if (regra) regra.textContent = 'Fonte: chamados de ' + MESES_LABEL[mes] + ' · urgente: menor SLA com demanda · importante: backlog e volume · estratégico: melhor distrito';
-  const grupos = Object.entries(d.grupos || {}).filter(([, valor]) => valor.total > 0).sort((a, b) => a[1].sla - b[1].sla);
-  const topBacklog = Object.entries(d.backlog || {}).filter(([, valor]) => valor > 0).sort((a, b) => b[1] - a[1]);
-  const servicos = servicePairs(d);
-  const pior = grupos[0] || ['Sem grupo', {sla:0, ab:0}];
-  const gargalo = topBacklog[0] || ['Sem backlog', 0];
-  const topServico = servicos[0] || ['Sem serviço', 0];
+  const plan = generatePlanoAcao(mes, d);
   const cards = document.querySelectorAll('#tab-acoes .road-card');
+  const insights = document.querySelectorAll('#tab-acoes .insight-text');
+  if (!plan) {
+    const empty = 'Sem dados suficientes para gerar o Plano de Ação deste mês.';
+    cards.forEach(card => card.querySelectorAll('.road-item').forEach((row, index) => {
+      row.innerHTML = index === 0 ? '<div class="road-dot"></div>' + empty : '';
+    }));
+    insights.forEach((item, index) => { item.innerHTML = index === 0 ? '<strong>' + empty + '</strong>' : ''; });
+    return;
+  }
   const fillItems = (card, items) => {
     if (!card) return;
     card.querySelectorAll('.road-item').forEach((row, i) => {
-      if (items[i]) row.innerHTML = '<div class="road-dot"></div>' + items[i];
+      row.innerHTML = items[i] ? '<div class="road-dot"></div>' + items[i] : '';
     });
   };
-  fillItems(cards[0], [
-    'Intervir em ' + pior[0] + ' (' + pior[1].sla + '% SLA) — menor SLA em ' + MESES_LABEL[mes],
-    'Reduzir backlog de ' + gargalo[0] + ': ' + fmt(gargalo[1]) + ' chamados em aberto',
-    'Atacar ' + fmt(d.fp) + ' chamados fora do prazo no período',
-    'Zerar status Solucionado: ' + fmt((d.infra.status?.[1] || 0) + (d.sistemas.status?.[1] || 0)) + ' chamados no período; Infraestrutura tem ' + fmt(d.infra.status?.[1] || 0) + ' e isso impacta a notificação por e-mail ao usuário'
-  ]);
-  fillItems(cards[1], [
-    'Capacitação/triagem para ' + topServico[0] + ': ' + fmt(topServico[1]) + ' chamados',
-    'Monitorar Sistemas: ' + d.sistemas.sla + '% SLA e ' + fmt(d.sistemas.fp) + ' fora do prazo',
-    'Reduzir novos/pendentes do período: ' + fmt(d.ab) + ' em aberto',
-    'Revisar fila de Atendimento Remoto e especialistas'
-  ]);
-  fillItems(cards[2], [
-    'Replicar práticas do melhor distrito do período',
-    'Dashboard em tempo real por grupo técnico e distrito',
-    'Meta por estrutura: Infra 70%, Sistemas 85%',
-    'Base de conhecimento para os serviços mais demandados'
-  ]);
-  const insights = document.querySelectorAll('#tab-acoes .insight-text');
-  if (insights[0]) insights[0].innerHTML = '<strong>P1 — ' + pior[0] + ' (' + pior[1].sla + '% SLA · ' + fmt(pior[1].ab || 0) + ' em backlog)</strong>Prioridade recalculada para ' + MESES_LABEL[mes] + '.';
-  if (insights[1]) insights[1].innerHTML = '<strong>P2 — ' + gargalo[0] + ' (' + fmt(gargalo[1]) + ' em aberto)</strong>Maior concentração de backlog do período.';
-  if (insights[2]) insights[2].innerHTML = '<strong>P3 — ' + topServico[0] + '</strong>' + fmt(topServico[1]) + ' chamados no período; avaliar treinamento, automação ou melhoria de processo.';
-  if (insights[3]) {
-    const best = Object.entries(d.distritos || {}).filter(([, valor]) => valor.total > 0).sort((a, b) => b[1].sla - a[1].sla)[0];
-    insights[3].innerHTML = '<strong>P4 — Replicar ' + (best ? best[0].replace(' ', '') : 'melhor distrito') + ' como benchmark</strong>Melhor SLA do período: ' + (best ? best[1].sla + '%' : '--') + '.';
-  }
+  plan.cards.forEach((items, index) => fillItems(cards[index], items));
+  plan.insights.forEach((html, index) => { if (insights[index]) insights[index].innerHTML = html; });
 }
 function updateRoadmapTab(mes, d) {
   const cards = document.querySelectorAll('#tab-roadmap .road-card');
@@ -2406,7 +2444,7 @@ function updateBacklogTab(mes, d) {
   updateBacklogCategoriaCard(mes);
   const sub = document.querySelector('#tab-backlog #backlogGrupo2')?.closest('.card')?.querySelector('.card-sub');
   if (sub) sub.textContent = 'Concentração por Grupo Técnico · ' + MESES_LABEL[mes];
-  if (backlogDonutChart) {
+  if (backlogDonutChart?.canvas?.isConnected) {
     backlogDonutChart.resize();
     backlogDonutChart.update('none');
   }
@@ -2495,6 +2533,9 @@ function filtrarMes(mes) {
   document.getElementById('mes-label').textContent = 'Exibindo: '+MESES_LABEL[mes];
 
   const d = DADOS[mes];
+  // O Plano de Ação deve ser recalculado antes das atualizações gráficas.
+  // Assim, um gráfico indisponível em outra aba não interrompe a troca mensal.
+  if (mes !== 'todos') updatePlanoAcaoTab(mes, d);
   updateSlaTab(mes, d);
   updateDistritosTab(mes, d);
   updateBacklogFrozenCharts(mes, d);
@@ -2614,7 +2655,7 @@ function filtrarMes(mes) {
 
   // ── Donut backlog ──
   const donutGrupos = [...INFRA_GRUPOS, ...SIST_GRUPOS].filter(g => (d.backlog[g] || 0) > 0);
-  if(backlogDonutChart){ backlogDonutChart.data.labels=donutGrupos; backlogDonutChart.data.datasets[0].data=donutGrupos.map(g => d.backlog[g] || 0); backlogDonutChart.update(); }
+  if(backlogDonutChart?.canvas?.isConnected){ backlogDonutChart.data.labels=donutGrupos; backlogDonutChart.data.datasets[0].data=donutGrupos.map(g => d.backlog[g] || 0); backlogDonutChart.update(); }
   updateSlaTab(mes, d);
   updateBacklogTab(mes, d);
 
