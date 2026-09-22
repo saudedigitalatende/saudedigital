@@ -587,6 +587,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 .status-head-dot,.status-dot{display:inline-block;border-radius:50%;flex-shrink:0}
 .status-head-dot{width:10px;height:10px}.status-head-dot.infra{background:#1565c0}.status-head-dot.sistemas{background:#2e7d32}
 .status-model-body{display:grid;grid-template-columns:120px minmax(150px,1fr);gap:18px;align-items:center}
+.status-model-body canvas{width:116px!important;height:116px!important;max-width:116px;max-height:116px}
 .status-model-list{min-width:0}.status-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:11px;color:var(--text2)}
 .status-row:last-child{border-bottom:none}.status-name{display:flex;align-items:center;gap:7px;white-space:nowrap}.status-dot{width:10px;height:10px}
 .status-dot.fechado{background:#4fcf8b}.status-dot.solucionado{background:#55c98a}.status-dot.atendimento,.status-dot.pendente{background:#ff7a3d}.status-dot.novo{background:#d73755}
@@ -1555,7 +1556,12 @@ function gotoTab(id, el) {
   if (id === 'acoes' && mesAtual === 'todos') {
     filtrarMes('ago');
   }
-  setTimeout(function(){ Object.values(Chart.instances||{}).forEach(function(ch){ if(ch?.canvas?.isConnected&&ch.resize) ch.resize(); }); }, 50);
+  setTimeout(function(){
+    const activeTab = document.getElementById('tab-' + id);
+    Object.values(Chart.instances || {}).forEach(function(ch){
+      if (ch?.canvas?.isConnected && activeTab?.contains(ch.canvas) && ch.resize) ch.resize();
+    });
+  }, 50);
 }
 
 const G = { color:'rgba(0,0,0,0.05)' };
