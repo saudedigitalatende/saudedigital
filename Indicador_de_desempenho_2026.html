@@ -594,6 +594,8 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 @media(max-width:1100px){.status-model-grid,.status-model-body{grid-template-columns:1fr}.status-model-body canvas{justify-self:start}}
 #tab-backlog .status-model-grid{grid-template-columns:1fr;gap:16px}
 #tab-backlog .status-model-section+.status-model-section{border-top:1px solid rgba(0,0,0,.08);padding-top:16px}
+#tab-backlog .status-model-body{grid-template-columns:140px minmax(0,1fr)}
+#tab-backlog .status-model-body canvas{width:140px!important;height:140px!important;max-width:140px;max-height:140px;justify-self:center}
 #tab-backlog{padding-bottom:0}
 #tab-backlog .backlog-risk-layout{min-height:0;align-items:start}
 #tab-backlog .backlog-risk-layout>.card{display:flex;flex-direction:column;height:auto;padding:18px 20px}
@@ -603,6 +605,7 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 #tab-backlog .backlog-risk-layout .card-title{font-size:13px}
 #tab-backlog .backlog-risk-layout .card-sub{margin-bottom:13px}
 @media(max-width:1100px){#tab-backlog .backlog-risk-layout{grid-template-columns:1fr} }
+@media(max-width:560px){#tab-backlog .status-model-body{grid-template-columns:1fr}#tab-backlog .status-model-body canvas{width:120px!important;height:120px!important;max-width:120px;max-height:120px;justify-self:start}}
 #tab-backlog .backlog-categoria-card .hbar-label{width:220px}
 #tab-backlog .backlog-categoria-card .hbar{margin-bottom:10px}
 #tab-backlog .backlog-cat-section{margin-top:8px}
