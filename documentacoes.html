@@ -74,6 +74,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .folder-view-desc{font-size:12px;color:var(--ink3);margin-top:2px}
 
 .docs-list{display:flex;flex-direction:column;gap:10px}
+.manual-doc-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.manual-doc-column{display:flex;flex-direction:column;gap:10px;min-width:0}
+.manual-doc-heading{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding:4px 0 8px;border-bottom:1px solid var(--rule);margin-bottom:4px}
 .doc-card{background:#fff;border:1px solid var(--rule);border-radius:12px;display:flex;align-items:center;gap:16px;padding:18px 22px;text-decoration:none;color:inherit;transition:all .2s}
 .doc-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:var(--blue-mid);transform:translateX(4px)}
 .doc-icon-wrap{width:44px;height:44px;border-radius:10px;background:var(--blue-lt);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
@@ -121,7 +124,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .no-results div{font-size:40px;margin-bottom:12px}
 .no-results p{font-size:13px}
 
-@media(max-width:768px){.folders-grid{grid-template-columns:1fr}.hero,.main,.docs-body{flex:1}.page-footer{padding-left:24px;padding-right:24px}}
+@media(max-width:768px){.folders-grid,.manual-doc-columns{grid-template-columns:1fr}.hero,.main,.docs-body{flex:1}.page-footer{padding-left:24px;padding-right:24px}}
 
 .rm-group{border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;transition:border-color .2s}
 .rm-group:hover{border-color:#b8a0e8}
@@ -496,7 +499,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
       </div>
     </div>
     <div class="docs-list">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding:4px 0 8px;border-bottom:1px solid var(--rule);margin-bottom:4px">Manual do Usuário</div>
+      <div class="manual-doc-columns">
+      <div class="manual-doc-column">
+      <div class="manual-doc-heading">Manual do Usuário</div>
       <a class="doc-card" href="documentações/Manual/manual_cadsus_web.html" target="_blank">
         <div class="doc-icon-wrap">📄</div>
         <div>
@@ -510,14 +515,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
         <div>
           <div class="doc-title">Manual do Usuário - SGOP</div>
           <div class="doc-meta">Área responsável: Sistemas<br>versão: 2025</div>
-        </div>
-        <span class="doc-arrow">→</span>
-      </a>
-      <a class="doc-card" href="documentações/Manual/manual_agente_chatwoot.html" target="_blank">
-        <div class="doc-icon-wrap">📄</div>
-        <div>
-          <div class="doc-title">Manual do Agente – Chatwoot</div>
-          <div class="doc-meta">Área responsável: Sistemas<br>versão: 3.0 · 2026</div>
         </div>
         <span class="doc-arrow">→</span>
       </a>
@@ -597,11 +594,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
           </a>
         </div>
       </div>
-
-
-
-
-
+      </div>
+      <div class="manual-doc-column">
+        <div class="manual-doc-heading">Manual Técnico</div>
+        <a class="doc-card" href="documentações/Manual/manual_agente_chatwoot.html" target="_blank">
+          <div class="doc-icon-wrap">🛠️</div>
+          <div>
+            <div class="doc-title">Manual Técnico do Agente Chatwoot</div>
+            <div class="doc-meta">Área responsável: Sistemas<br>versão: 3.0 · 2026</div>
+          </div>
+          <span class="doc-arrow">→</span>
+        </a>
+      </div>
+      </div>
     </div>
   </div>
 
@@ -864,7 +869,7 @@ const docs = [
     items: [
       { title: 'Manual do Usuário - CADSUS WEB', meta: 'Área responsável: Sistemas · versão: 2025', icon: '📄', href: 'documentações/Manual/manual_cadsus_web.html' },
       { title: 'Manual do Usuário - SGOP', meta: 'Área responsável: Sistemas · versão: 2025', icon: '📄', href: 'documentações/Manual/manual_sgop.html' },
-      { title: 'Manual do Agente – Chatwoot', meta: 'Área responsável: Sistemas · versão: 3.0 · 2026', icon: '📄', href: 'documentações/Manual/manual_agente_chatwoot.html' },
+      { title: 'Manual Técnico do Agente Chatwoot', meta: 'Área responsável: Sistemas · versão: 3.0 · 2026', icon: '🛠️', href: 'documentações/Manual/manual_agente_chatwoot.html' },
       { title: 'Manual Operacional - Notificação de E-mail Abertura e Encerramento de Chamado', meta: 'Área responsável: Sistemas · versão: 2026', icon: '📄', href: 'documentações/Manual/manual_glpi_notificacoes.html' },
       { title: 'Manual Operacional - Atendimento, abertura, triagem e Gestão de Chamados - GLPI', meta: 'Área responsável: Sistemas · versão: 2026', icon: '📄', href: 'documentações/Manual/manual_abertura_chamados_glpi.html' },
       { title: 'Manual do Usuário – PEC e-SUS APS', meta: 'Área responsável: Sistemas · versão: 2024', icon: '📄', href: 'documentações/Manual/manual_pec_esus_aps.html' },
