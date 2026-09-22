@@ -239,6 +239,28 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 .road-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px}
 .road-card.urg .road-dot{background:var(--red)}.road-card.imp .road-dot{background:var(--amber)}.road-card.fut .road-dot{background:var(--azul)}
 
+/* ══ SELETOR MENSAL DO PLANO DE AÇÃO ══ */
+.plan-month-control{display:flex;align-items:center;gap:10px;flex:0 0 auto;position:relative;z-index:40}
+.plan-month-label{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--text2)}
+.plan-month-dropdown{position:relative;width:184px}
+.plan-month-trigger{width:100%;height:42px;display:grid;grid-template-columns:18px 1fr 16px;align-items:center;gap:9px;padding:0 12px;border:1px solid #cbd8e6;border-radius:11px;background:#fff;color:var(--text);font-family:inherit;font-size:12px;font-weight:600;line-height:1;text-align:left;box-shadow:0 2px 8px rgba(13,27,42,.05);cursor:pointer;transition:border-color .16s ease,box-shadow .16s ease,background .16s ease}
+.plan-month-trigger:hover{border-color:#9eb8d4;background:#fbfdff}
+.plan-month-trigger:focus-visible{outline:3px solid rgba(21,101,192,.16);outline-offset:2px;border-color:var(--azul)}
+.plan-month-calendar,.plan-month-chevron{width:16px;height:16px;color:var(--azul);transition:transform .16s ease}
+.plan-month-chevron{color:var(--text2)}
+.plan-month-dropdown.open .plan-month-chevron{transform:rotate(180deg)}
+.plan-month-menu{position:absolute;top:calc(100% + 7px);right:0;width:100%;max-height:310px;overflow-y:auto;padding:6px;background:#fff;border:1px solid #d5e0eb;border-radius:11px;box-shadow:0 12px 30px rgba(13,27,42,.14);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-5px);transition:opacity .15s ease,transform .15s ease,visibility .15s ease;z-index:1000}
+.plan-month-dropdown.open .plan-month-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+.plan-month-option{width:100%;min-height:34px;display:grid;grid-template-columns:18px 1fr;align-items:center;gap:7px;padding:7px 9px;border:0;border-radius:7px;background:transparent;color:var(--text2);font-family:inherit;font-size:11px;font-weight:500;line-height:1.2;text-align:left;cursor:pointer}
+.plan-month-option:hover,.plan-month-option:focus-visible{background:#eef6ff;color:var(--azul);outline:none}
+.plan-month-option.selected{background:var(--azul);color:#fff;font-weight:700}
+.plan-month-check{font-weight:800;opacity:0;text-align:center}
+.plan-month-option.selected .plan-month-check{opacity:1}
+@media(max-width:760px){
+  #tab-acoes>.section-hd{align-items:flex-start;flex-wrap:wrap;gap:12px}
+  .plan-month-control{width:100%;justify-content:flex-start}
+}
+
 /* ══ CSAT CARD ══ */
 .csat-hero{background:linear-gradient(135deg,#1b5e20 0%,#2e7d32 60%,#388e3c 100%);border-radius:var(--rl);padding:18px 20px;margin-bottom:13px;color:#fff}
 .csat-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
@@ -1376,12 +1398,26 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
     <div class="tab-content" id="tab-acoes">
       <div class="section-hd" style="margin-top:0">
         <div><div class="section-title" id="plano-acao-periodo">Plano de ação — prioridades mensais</div><div class="section-sub" id="plano-acao-regra">Fonte: chamados do mês selecionado · prioridades por SLA, backlog e volume</div></div>
-        <label style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--text2)">MÊS
-          <select id="plano-acao-mes" onchange="filtrarMes(this.value)" style="min-width:150px;padding:8px 30px 8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--white);color:var(--text);font-family:inherit">
-            <option value="jan">Janeiro</option><option value="fev">Fevereiro</option><option value="mar">Março</option><option value="abr">Abril</option>
-            <option value="mai">Maio</option><option value="jun">Junho</option><option value="jul">Julho</option><option value="ago" selected>Agosto</option>
-          </select>
-        </label>
+        <div class="plan-month-control">
+          <span class="plan-month-label" id="plano-acao-mes-label">MÊS</span>
+          <div class="plan-month-dropdown" id="plano-acao-mes-dropdown">
+            <button type="button" class="plan-month-trigger" id="plano-acao-mes-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="plano-acao-mes-label plano-acao-mes-text" onclick="togglePlanoMesDropdown()" onkeydown="handlePlanoMesTriggerKey(event)">
+              <svg class="plan-month-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+              <span id="plano-acao-mes-text">Agosto</span>
+              <svg class="plan-month-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 7.5 5 5 5-5"/></svg>
+            </button>
+            <div class="plan-month-menu" id="plano-acao-mes-list" role="listbox" aria-labelledby="plano-acao-mes-label">
+              <button type="button" class="plan-month-option" data-month="jan" role="option" aria-selected="false" onclick="selecionarPlanoMes('jan')" onkeydown="handlePlanoMesOptionKey(event)"><span class="plan-month-check">✓</span><span>Janeiro</span></button>
+              <button type="button" class="plan-month-option" data-month="fev" role="option" aria-selected="false" onclick="selecionarPlanoMes('fev')" onkeydown="handlePlanoMesOptionKey(event)"><span class="plan-month-check">✓</span><span>Fevereiro</span></button>
+              <button type="button" class="plan-month-option" data-month="mar" role="option" aria-selected="false" onclick="selecionarPlanoMes('mar')" onkeydown="handlePlanoMesOptionKey(event)"><span class="plan-month-check">✓</span><span>Março</span></button>
+              <button type="button" class="plan-month-option" data-month="abr" role="option" aria-selected="false" onclick="selecionarPlanoMes('abr')" onkeydown="handlePlanoMesOptionKey(event)"><span class="plan-month-check">✓</span><span>Abril</span></button>
+              <button type="button" class="plan-month-option" data-month="mai" role="option" aria-selected="false" onclick="selecionarPlanoMes('mai')" onkeydown="handlePlanoMesOptionKey(event)"><span class="plan-month-check">✓</span><span>Maio</span></button>
+              <button type="button" class="plan-month-option" data-month="jun" role="option" aria-selected="false" onclick="selecionarPlanoMes('jun')" onkeydown="handlePlanoMesOptionKey(event)"><span class="plan-month-check">✓</span><span>Junho</span></button>
+              <button type="button" class="plan-month-option" data-month="jul" role="option" aria-selected="false" onclick="selecionarPlanoMes('jul')" onkeydown="handlePlanoMesOptionKey(event)"><span class="plan-month-check">✓</span><span>Julho</span></button>
+              <button type="button" class="plan-month-option selected" data-month="ago" role="option" aria-selected="true" onclick="selecionarPlanoMes('ago')" onkeydown="handlePlanoMesOptionKey(event)"><span class="plan-month-check">✓</span><span>Agosto</span></button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="road-grid">
         <div class="road-card urg">
@@ -1466,6 +1502,71 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 
 <script>
 let mesAtual = 'todos';
+const PLANO_MESES = {jan:'Janeiro',fev:'Fevereiro',mar:'Março',abr:'Abril',mai:'Maio',jun:'Junho',jul:'Julho',ago:'Agosto'};
+function planoMesOptions() { return Array.from(document.querySelectorAll('.plan-month-option')); }
+function syncPlanoMesDropdown(mes) {
+  if (!PLANO_MESES[mes]) return;
+  const text = document.getElementById('plano-acao-mes-text');
+  if (text) text.textContent = PLANO_MESES[mes];
+  planoMesOptions().forEach(option => {
+    const selected = option.dataset.month === mes;
+    option.classList.toggle('selected', selected);
+    option.setAttribute('aria-selected', selected ? 'true' : 'false');
+  });
+}
+function openPlanoMesDropdown(focusSelected) {
+  const dropdown = document.getElementById('plano-acao-mes-dropdown');
+  const trigger = document.getElementById('plano-acao-mes-trigger');
+  if (!dropdown || !trigger) return;
+  dropdown.classList.add('open');
+  trigger.setAttribute('aria-expanded', 'true');
+  if (focusSelected) {
+    const selected = dropdown.querySelector('.plan-month-option.selected') || dropdown.querySelector('.plan-month-option');
+    if (selected) requestAnimationFrame(() => selected.focus());
+  }
+}
+function closePlanoMesDropdown(returnFocus) {
+  const dropdown = document.getElementById('plano-acao-mes-dropdown');
+  const trigger = document.getElementById('plano-acao-mes-trigger');
+  if (!dropdown || !trigger) return;
+  dropdown.classList.remove('open');
+  trigger.setAttribute('aria-expanded', 'false');
+  if (returnFocus) trigger.focus();
+}
+function togglePlanoMesDropdown() {
+  const dropdown = document.getElementById('plano-acao-mes-dropdown');
+  if (!dropdown) return;
+  dropdown.classList.contains('open') ? closePlanoMesDropdown(false) : openPlanoMesDropdown(false);
+}
+function selecionarPlanoMes(mes) {
+  if (!PLANO_MESES[mes] || typeof DADOS === 'undefined' || !DADOS[mes]) return;
+  filtrarMes(mes);
+  closePlanoMesDropdown(true);
+}
+function handlePlanoMesTriggerKey(event) {
+  if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+    event.preventDefault();
+    openPlanoMesDropdown(true);
+  } else if (event.key === 'Escape') {
+    closePlanoMesDropdown(false);
+  }
+}
+function handlePlanoMesOptionKey(event) {
+  const options = planoMesOptions();
+  const index = options.indexOf(event.currentTarget);
+  let target = -1;
+  if (event.key === 'ArrowDown') target = (index + 1) % options.length;
+  if (event.key === 'ArrowUp') target = (index - 1 + options.length) % options.length;
+  if (event.key === 'Home') target = 0;
+  if (event.key === 'End') target = options.length - 1;
+  if (target >= 0) { event.preventDefault(); options[target].focus(); }
+  if (event.key === 'Escape') { event.preventDefault(); closePlanoMesDropdown(true); }
+  if (event.key === 'Tab') closePlanoMesDropdown(false);
+}
+document.addEventListener('click', event => {
+  const dropdown = document.getElementById('plano-acao-mes-dropdown');
+  if (dropdown && !dropdown.contains(event.target)) closePlanoMesDropdown(false);
+});
 function gotoTab(id, el) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -2128,8 +2229,7 @@ function updateDistritosTab(mes, d) {
   });
 }
 function updatePlanoAcaoTab(mes, d) {
-  const seletorMes = document.getElementById('plano-acao-mes');
-  if (seletorMes && mes !== 'todos') seletorMes.value = mes;
+  if (mes !== 'todos') syncPlanoMesDropdown(mes);
   const periodo = document.getElementById('plano-acao-periodo');
   const regra = document.getElementById('plano-acao-regra');
   if (periodo) periodo.textContent = 'Plano de ação — prioridades de ' + MESES_LABEL[mes];
