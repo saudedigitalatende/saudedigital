@@ -675,10 +675,6 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
               <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3L6 10l-3-3"/></svg>
               Plano de ação
             </div>
-            <div class="nav-item" onclick="gotoTab('roadmap',this)">
-              <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-              Roadmap KPIs
-            </div>
           </div>
         </div>
     
@@ -1453,38 +1449,6 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
       </div>
     </div>
 
-    <!-- ═══════════════════════════ TAB: ROADMAP ═══════════════════════════ -->
-    <div class="tab-content" id="tab-roadmap">
-      <div class="section-hd" style="margin-top:0"><div class="section-title">Roadmap de KPIs — evolução do painel</div></div>
-      <div class="card">
-        <div class="card-title">KPIs ativos e planejados</div>
-        <div class="card-sub">Maturidade do monitoramento por estrutura</div>
-        <div class="road-grid">
-          <div class="road-card urg">
-            <div class="road-title">⚡ Implementar agora</div>
-            <div class="road-item"><div class="road-dot"></div>SLA por Grupo Técnico (ativo)</div>
-            <div class="road-item"><div class="road-dot"></div>Backlog por grupo técnico (ativo)</div>
-            <div class="road-item"><div class="road-dot"></div>Alerta automático SLA abaixo de 60%</div>
-            <div class="road-item"><div class="road-dot"></div>Painel Infra vs Sistemas (implementado)</div>
-          </div>
-          <div class="road-card imp">
-            <div class="road-title">📅 Q2 2026</div>
-            <div class="road-item"><div class="road-dot"></div>MTTR por Grupo Técnico</div>
-            <div class="road-item"><div class="road-dot"></div>CSAT mensal obrigatório por grupo</div>
-            <div class="road-item"><div class="road-dot"></div>Taxa de concentração de demanda por serviço</div>
-            <div class="road-item"><div class="road-dot"></div>SLA por distrito + grupo combinado</div>
-          </div>
-          <div class="road-card fut">
-            <div class="road-title">🔮 Q3–Q4 2026</div>
-            <div class="road-item"><div class="road-dot"></div>Previsão de demanda (ML)</div>
-            <div class="road-item"><div class="road-dot"></div>Score de satisfação por técnico</div>
-            <div class="road-item"><div class="road-dot"></div>Integração com gestão de patrimônio</div>
-            <div class="road-item"><div class="road-dot"></div>Dashboard público por DS para gestão</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div><!-- /content -->
 
 <footer class="page-footer">
@@ -1579,7 +1543,7 @@ function gotoTab(id, el) {
   const titles = {
     visao:'Visão geral', satisfacao:'Satisfação CSAT', sla:'SLA & Grupo Técnico',
     backlog:'Backlog & Risco', concentracao:'Concentração de Demanda', distritos:'SLA por distrito',
-    acoes:'Plano de ação', roadmap:'Roadmap de KPIs'
+    acoes:'Plano de ação'
   };
   const pageTitle = document.getElementById('page-title');
   if (pageTitle) pageTitle.textContent = titles[id];
@@ -2312,39 +2276,10 @@ function updatePlanoAcaoTab(mes, d) {
   plan.cards.forEach((items, index) => fillItems(cards[index], items));
   plan.insights.forEach((html, index) => { if (insights[index]) insights[index].innerHTML = html; });
 }
-function updateRoadmapTab(mes, d) {
-  const cards = document.querySelectorAll('#tab-roadmap .road-card');
-  const topServico = servicePairs(d)[0] || ['Sem serviço', 0];
-  const piorGrupo = Object.entries(d.grupos || {}).sort((a, b) => a[1].sla - b[1].sla)[0] || ['Sem grupo', {sla:0}];
-  const setItems = (idx, items) => {
-    const card = cards[idx];
-    if (!card) return;
-    card.querySelectorAll('.road-item').forEach((row, i) => { if (items[i]) row.innerHTML = '<div class="road-dot"></div>' + items[i]; });
-  };
-  setItems(0, [
-    'Painel mensal ativo: ' + MESES_LABEL[mes],
-    'Alerta SLA abaixo de 60% para ' + piorGrupo[0],
-    'Backlog por grupo recalculado por mês',
-    'Serviço de maior demanda: ' + topServico[0] + ' (' + fmt(topServico[1]) + ')'
-  ]);
-  setItems(1, [
-    'MTTR por Grupo Técnico',
-    'CSAT mensal obrigatório por grupo',
-    'Taxa de concentração para ' + topServico[0],
-    'SLA por distrito + grupo combinado'
-  ]);
-  setItems(2, [
-    'Previsão de demanda por mês',
-    'Score de satisfação por técnico',
-    'Integração com gestão de patrimônio',
-    'Dashboard público por DS para gestão'
-  ]);
-}
 function updateRemainingTabs(mes, d) {
   updateConcentracaoTab(mes, d);
   updateDistritosTab(mes, d);
   updatePlanoAcaoTab(mes, d);
-  updateRoadmapTab(mes, d);
 }
 
 function updateBacklogFrozenCharts(mes, d) {
