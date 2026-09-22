@@ -224,8 +224,8 @@
 <div class="wrap">
   <header class="page">
     <h1>Internet (Fibra)</h1>
-    <p class="subtitle">Volume de chamados x disponibilidade informada pelo fornecedor</p>
-    <p class="header-support-text">Dados de chamados calculados a partir da base GLPI. Disponibilidade mensal informada manualmente com base no relatório do fornecedor.</p>
+    <p class="subtitle">Volume de requisições x incidentes e disponibilidade do fornecedor</p>
+    <p class="header-support-text">Requisições calculadas a partir da base GLPI. Incidentes e disponibilidade obtidos nos relatórios mensais do fornecedor.</p>
   </header>
 
   <div class="filters">
@@ -254,7 +254,7 @@
 
   <div class="cards-row">
     <div class="card">
-      <div class="label">Total de chamados — Internet (Fibra)</div>
+      <div class="label">Total de requisições — Internet (Fibra)</div>
       <div class="value" id="fibraCardTotal">0</div>
       <div class="hint" id="fibraCardTotalHint">Calculado a partir da base GLPI.</div>
     </div>
@@ -266,14 +266,14 @@
   </div>
 
   <div class="panel">
-    <h2>Chamados x Disponibilidade informada pelo fornecedor</h2>
-    <p class="panel-sub">Barras = quantidade de chamados calculada a partir da base GLPI.<br>Linha = disponibilidade mensal informada manualmente pelo fornecedor (%).</p>
+    <h2>Requisições x Incidentes x Disponibilidade</h2>
+    <p class="panel-sub">Barras azuis = requisições da base GLPI. Barras laranja = unidades com incidente no relatório do fornecedor.<br>Linha = disponibilidade média mensal informada pelo fornecedor (%).</p>
     <div class="legend">
-      <span><span class="swatch" style="background:#378ADD"></span>Chamados (GLPI)</span>
+      <span><span class="swatch" style="background:#378ADD"></span>Requisições (GLPI)</span>
       <span><span class="swatch" style="background:#f97316"></span>Incidentes abertos pelo fornecedor</span>
       <span><span class="swatch" style="background:#0F6E56"></span>Disponibilidade informada (%)</span>
     </div>
-    <p style="font-size:11.5px;color:var(--text-muted);margin:0 0 10px;">Clique numa barra para ver os chamados daquele mês.</p>
+    <p style="font-size:11.5px;color:var(--text-muted);margin:0 0 10px;">Clique numa barra azul para ver as requisições daquele mês.</p>
     <div style="position:relative;height:340px;">
       <canvas id="fibraChartFibra" role="img" aria-label="Grafico combinado de barras e linha comparando chamados de internet fibra por mes com disponibilidade informada pelo fornecedor"></canvas>
     </div>
@@ -288,7 +288,7 @@
     <p class="panel-sub">Os meses não preenchidos não entram no cálculo da média. Preencha manualmente ou importe um CSV (Mês,Disponibilidade) — os valores ficam salvos automaticamente.</p>
     <div class="table-scroll" style="max-height:300px;">
       <table id="fibraTableDisp">
-        <thead><tr><th>Mês</th><th>Chamados Internet (GLPI)</th><th>Disponibilidade informada pelo fornecedor (%)</th></tr></thead>
+        <thead><tr><th>Mês</th><th>Requisições Internet (GLPI)</th><th>Disponibilidade informada pelo fornecedor (%)</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -527,7 +527,8 @@ const DISPONIBILIDADE_FIXA = {
   '2024-7': 91, '2024-8': 94, '2024-9': 96, '2024-10': 89, '2024-11': 95, '2024-12': 96,
   '2025-1': 96, '2025-2': 97, '2025-3': 96, '2025-4': 97, '2025-5': 97, '2025-6': 95,
   '2025-7': 98, '2025-8': 97, '2025-9': 97, '2025-10': 98, '2025-11': 98, '2025-12': 97,
-  '2026-1': 98, '2026-2': 96, '2026-3': 95, '2026-4': 94, '2026-5': 97, '2026-6': 94
+  '2026-1': 98, '2026-2': 96, '2026-3': 95, '2026-4': 94, '2026-5': 97, '2026-6': 94,
+  '2026-7': 94.46, '2026-8': 96.73
 };
 
 // Quantidade de incidentes por mês abertos pelo fornecedor (contagem de unidades com INCIDENTES > 0
@@ -537,7 +538,8 @@ const INCIDENTES_FORNECEDOR_FIXO = {
   '2024-7': 253, '2024-8': 251, '2024-9': 161, '2024-10': 250, '2024-11': 125, '2024-12': 145,
   '2025-1': 141, '2025-2': 140, '2025-3': 116, '2025-4': 111, '2025-5': 123, '2025-6': 134,
   '2025-7': 145, '2025-8': 239, '2025-9': 239, '2025-10': 110, '2025-11': 110, '2025-12': 174,
-  '2026-1': 98, '2026-2': 133, '2026-3': 138, '2026-4': 137, '2026-5': 114, '2026-6': 122
+  '2026-1': 98, '2026-2': 133, '2026-3': 138, '2026-4': 137, '2026-5': 114, '2026-6': 122,
+  '2026-7': 242, '2026-8': 146
 };
 
 let disponibilidade = { ...DISPONIBILIDADE_FIXA }; // { "2024-1": 99.5, ... } — parte da base fixa, editável por cima se precisar
@@ -593,18 +595,23 @@ let chartInstance = null;
 function render() {
   const filtered = applyFilters();
 
-  document.getElementById('fibraCardTotal').textContent = filtered.length.toLocaleString('pt-BR');
-
   // monthly counts, respecting Ano filter if set (default: all years present in filtered data, else all anos)
   const anoFiltro = fAno.value ? Number(fAno.value) : (anos.length === 1 ? anos[0] : null);
   const yearsToShow = anoFiltro ? [anoFiltro] : anos;
 
-  const monthlyCounts = new Array(12).fill(0);
+  const monthlyCounts = new Array(12).fill(null);
   filtered.forEach(c => {
     if (!c.aberturaDate) return;
     if (yearsToShow.length && !yearsToShow.includes(c.aberturaDate.getFullYear())) return;
-    monthlyCounts[c.aberturaDate.getMonth()] += 1;
+    const monthIndex = c.aberturaDate.getMonth();
+    monthlyCounts[monthIndex] = (monthlyCounts[monthIndex] || 0) + 1;
   });
+
+  const selectedMonthIndex = fMes.value ? Number(fMes.value) - 1 : null;
+  const selectedMonthHasData = selectedMonthIndex === null || monthlyCounts[selectedMonthIndex] !== null;
+  document.getElementById('fibraCardTotal').textContent = selectedMonthHasData
+    ? filtered.length.toLocaleString('pt-BR')
+    : '—';
 
   const dispValues = MESES.map((_, i) => {
     const y = yearsToShow[0] || anos[0];
@@ -686,7 +693,7 @@ function drawChart(monthlyCounts, dispValues, incidentesValues) {
       datasets: [
         {
           type: 'bar',
-          label: 'Chamados (GLPI)',
+          label: 'Requisições (GLPI)',
           data: monthlyCounts,
           backgroundColor: '#378ADD',
           borderRadius: 4,
@@ -740,13 +747,13 @@ function drawChart(monthlyCounts, dispValues, incidentesValues) {
               if (c.datasetIndex === 2) {
                 return c.raw === null ? 'Incidentes (fornecedor): não informado' : 'Incidentes (fornecedor): ' + c.raw;
               }
-              return 'Chamados: ' + c.raw;
+              return c.raw === null ? 'Requisições (GLPI): sem dados' : 'Requisições (GLPI): ' + c.raw;
             }
           }
         }
       },
       scales: {
-        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Chamados' }, grid: { display: false } },
+        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Quantidade' }, grid: { display: false } },
         y1: { beginAtZero: false, min: 0, max: 100, position: 'right', title: { display: true, text: 'Disponibilidade (%)' }, grid: { display: false } },
         x: { grid: { display: false } }
       }
@@ -764,7 +771,7 @@ function renderDispTable(monthlyCounts, ano) {
     const key = ano + '-' + (i+1);
     const val = disponibilidade[key] !== undefined ? disponibilidade[key] : '';
     const tr = document.createElement('tr');
-    tr.innerHTML = '<td>' + m + ' / ' + ano + '</td><td>' + (monthlyCounts[i] ?? 0) + '</td><td></td>';
+    tr.innerHTML = '<td>' + m + ' / ' + ano + '</td><td>' + (monthlyCounts[i] === null || monthlyCounts[i] === undefined ? '—' : monthlyCounts[i]) + '</td><td></td>';
     const td = tr.querySelector('td:last-child');
     const input = document.createElement('input');
     input.type = 'number'; input.step = '0.01'; input.min = '0'; input.max = '100';
