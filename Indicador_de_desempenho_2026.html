@@ -257,10 +257,33 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
 .plan-month-option.selected{background:var(--azul);color:#fff;font-weight:700}
 .plan-month-check{font-weight:800;opacity:0;text-align:center}
 .plan-month-option.selected .plan-month-check{opacity:1}
+
+/* ══ PLANO DE AÇÃO EXECUTIVO ══ */
+.plan-section-heading{margin:18px 0 10px}.plan-section-heading h2{font-size:14px;margin:0 0 4px;color:var(--text)}.plan-section-heading p{font-size:10px;color:var(--text3);margin:0}
+.plan-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.plan-summary-card{display:grid;grid-template-columns:10px 1fr;gap:10px;align-items:start;background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;box-shadow:0 3px 12px rgba(13,27,42,.04)}
+.plan-summary-dot{width:9px;height:9px;border-radius:50%;margin-top:5px}.plan-summary-card.critical .plan-summary-dot{background:var(--red)}.plan-summary-card.attention .plan-summary-dot{background:#f57c00}.plan-summary-card.positive .plan-summary-dot{background:var(--verde)}.plan-summary-card.actions .plan-summary-dot{background:var(--azul)}
+.plan-summary-value{font-family:'JetBrains Mono',monospace;font-size:22px;line-height:1;color:var(--text);margin-bottom:3px}.plan-summary-label{font-size:10px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.05em}.plan-summary-help{font-size:9px;color:var(--text3);margin-top:4px}
+.plan-diagnostic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.plan-diagnostic-card{border-radius:var(--r);padding:14px;border:1px solid transparent}.plan-diagnostic-card.infra{background:var(--red-bg);border-color:rgba(198,40,40,.2)}.plan-diagnostic-card.systems{background:var(--amber-bg);border-color:rgba(230,81,0,.2)}.plan-diagnostic-card.strategy{background:var(--azul-claro);border-color:rgba(21,101,192,.16)}
+.plan-diagnostic-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}.plan-diagnostic-title{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.plan-diagnostic-card.infra .plan-diagnostic-title{color:var(--red)}.plan-diagnostic-card.systems .plan-diagnostic-title{color:#e65100}.plan-diagnostic-card.strategy .plan-diagnostic-title{color:var(--azul)}
+.plan-priority-badge{font-size:8px;font-weight:800;letter-spacing:.06em;border-radius:999px;padding:4px 8px;background:rgba(255,255,255,.65)}
+.plan-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}.plan-metric{background:rgba(255,255,255,.62);border:1px solid rgba(52,76,105,.1);border-radius:8px;padding:8px}.plan-metric-label{font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}.plan-metric-value{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;color:var(--text)}
+.plan-recommendations{list-style:none;margin:0;padding:0}.plan-recommendations li{position:relative;padding:6px 0 6px 12px;border-top:1px solid rgba(52,76,105,.09);font-size:9px;line-height:1.4;color:var(--text2)}.plan-recommendations li:before{content:'';position:absolute;left:0;top:11px;width:4px;height:4px;border-radius:50%;background:currentColor}
+.plan-actions-card{background:#fff;border:1px solid var(--border);border-radius:var(--rl);padding:16px;margin-bottom:12px}.plan-actions-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:12px}.plan-actions-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px}.plan-actions-sub{font-size:10px;color:var(--text3)}
+.plan-export-btn{height:34px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text3);font-family:inherit;font-size:9px;font-weight:700;cursor:not-allowed;white-space:nowrap;opacity:.72}
+.plan-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:9px}.plan-action-table{width:100%;min-width:920px;border-collapse:collapse}.plan-action-table th{background:#f7f9fc;color:var(--text3);font-size:8px;text-transform:uppercase;letter-spacing:.05em;padding:9px 10px;text-align:left;border-bottom:1px solid var(--border)}.plan-action-table td{font-size:9px;color:var(--text2);padding:10px;border-bottom:1px solid rgba(52,76,105,.09);vertical-align:top;line-height:1.4}.plan-action-table tr:last-child td{border-bottom:0}.plan-priority{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--azul)}
+.plan-status{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:700;white-space:nowrap}.plan-status:before{content:'';width:5px;height:5px;border-radius:50%}.plan-status.not-started{background:var(--red-bg);color:var(--red)}.plan-status.not-started:before{background:var(--red)}.plan-status.progress{background:var(--amber-bg);color:#e65100}.plan-status.progress:before{background:#f57c00}.plan-status.planned{background:var(--azul-claro);color:var(--azul)}.plan-status.planned:before{background:var(--azul)}.plan-status.done{background:var(--verde-claro);color:var(--verde)}.plan-status.done:before{background:var(--verde)}
+.plan-row-action{border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--text3);padding:4px 7px;font-family:inherit;font-size:8px;cursor:not-allowed}.plan-status-legend{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:9px;color:var(--text3)}.plan-status-legend strong{color:var(--text2)}
+.plan-observation{background:#f7f9fc;border:1px solid var(--border);border-radius:9px;padding:11px 13px;font-size:9px;line-height:1.5;color:var(--text3)}.plan-observation strong{display:block;color:var(--text2);margin-bottom:2px}
 @media(max-width:760px){
   #tab-acoes>.section-hd{align-items:flex-start;flex-wrap:wrap;gap:12px}
   .plan-month-control{width:100%;justify-content:flex-start}
+  .plan-summary-grid{grid-template-columns:repeat(2,1fr)}
+  .plan-diagnostic-grid{grid-template-columns:1fr}
+  .plan-actions-head{flex-direction:column}.plan-export-btn{width:100%}
 }
+@media(max-width:430px){.plan-summary-grid{grid-template-columns:1fr}.plan-metrics{grid-template-columns:1fr 1fr 1fr}}
 
 /* ══ CSAT CARD ══ */
 .csat-hero{background:linear-gradient(135deg,#1b5e20 0%,#2e7d32 60%,#388e3c 100%);border-radius:var(--rl);padding:18px 20px;margin-bottom:13px;color:#fff}
@@ -1416,37 +1439,39 @@ body{font-family:'Sora',sans-serif;background:#fff;color:var(--text);font-size:1
           </div>
         </div>
       </div>
-      <div class="road-grid">
-        <div class="road-card urg">
-          <div class="road-title">🔴 Urgente — Infraestrutura</div>
-          <div class="road-item"><div class="road-dot"></div>Intervir imediatamente no Laboratório Técnico (32,6% SLA) — triagem e reforço de equipe</div>
-          <div class="road-item"><div class="road-dot"></div>Rede e Conectividade (59,3%) — revisão contratual com operadora de fibra</div>
-          <div class="road-item"><div class="road-dot"></div>Reduzir backlog de 237 chamados em 50% até fim de abril</div>
-          <div class="road-item"><div class="road-dot"></div>Zerar chamados em Solucionado, inclusive Infraestrutura; esse status aciona a notificação por e-mail ao usuário</div>
-        </div>
-        <div class="road-card imp">
-          <div class="road-title">🟡 Importante — Sistemas</div>
-          <div class="road-item"><div class="road-dot"></div>Sust. Sistemas Avançado zerou SLA (0%) — investigar causa raiz</div>
-          <div class="road-item"><div class="road-dot"></div>Capacitação SEI para usuários: 432 chamados = 28,1% do total</div>
-          <div class="road-item"><div class="road-dot"></div>Treinamento PEC E-SUS: 165 chamados com potencial preventivo</div>
-          <div class="road-item"><div class="road-dot"></div>Monitorar tendência de queda em Sistemas (74,2% → 67,2%)</div>
-        </div>
-        <div class="road-card fut">
-          <div class="road-title">🔵 Estratégico</div>
-          <div class="road-item"><div class="road-dot"></div>Replicar práticas do DS3 (76,1%) como benchmark para outros distritos</div>
-          <div class="road-item"><div class="road-dot"></div>Ampliar pesquisa CSAT: de 21 para 100+ respostas trimestrais</div>
-          <div class="road-item"><div class="road-dot"></div>Dashboard de SLA em tempo real por Grupo Técnico</div>
-          <div class="road-item"><div class="road-dot"></div>Meta SLA por estrutura: Infra 70%, Sistemas 85% até Q3/2026</div>
-        </div>
+      <div class="plan-section-heading"><h2>Resumo Executivo</h2></div>
+      <div class="plan-summary-grid">
+        <div class="plan-summary-card critical"><span class="plan-summary-dot"></span><div><div class="plan-summary-value" id="plan-summary-critical">0</div><div class="plan-summary-label" id="plan-summary-critical-label">áreas críticas</div><div class="plan-summary-help">Requer ação imediata</div></div></div>
+        <div class="plan-summary-card attention"><span class="plan-summary-dot"></span><div><div class="plan-summary-value" id="plan-summary-attention">0</div><div class="plan-summary-label" id="plan-summary-attention-label">pontos de atenção</div><div class="plan-summary-help">Em monitoramento</div></div></div>
+        <div class="plan-summary-card positive"><span class="plan-summary-dot"></span><div><div class="plan-summary-value" id="plan-summary-positive">0</div><div class="plan-summary-label" id="plan-summary-positive-label">referências positivas</div><div class="plan-summary-help">Boas práticas a replicar</div></div></div>
+        <div class="plan-summary-card actions"><span class="plan-summary-dot"></span><div><div class="plan-summary-value" id="plan-summary-actions">0</div><div class="plan-summary-label">ações priorizadas</div><div class="plan-summary-help">Para este mês</div></div></div>
       </div>
-      <div class="card">
-        <div class="card-title">Insights prioritários</div>
-        <div class="card-sub">Ações com maior impacto no SLA</div>
-        <div class="insight red"><div class="insight-icon">🔴</div><div class="insight-text"><strong>P1 — Laboratório Técnico em colapso (32,6% SLA · 109 em backlog)</strong>Pior grupo do trimestre. Ação imediata: redistribuição de demanda + reforço técnico para zerar backlog crítico antes de maio.</div></div>
-        <div class="insight red"><div class="insight-icon">🔴</div><div class="insight-text"><strong>P2 — Rede e Conectividade (59,3% SLA · 87 em backlog)</strong>303 chamados de Internet Fibra indicam falha estrutural. Revisão de SLA contratual com operadora é ação prioritária.</div></div>
-        <div class="insight amber"><div class="insight-icon">🟡</div><div class="insight-text"><strong>P3 — Capacitação SEI para usuários</strong>432 chamados SEI = 28,1% do total. Muitos são concentração de demandas solucionáveis com treinamento — estimativa de redução de 35%.</div></div>
-        <div class="insight green"><div class="insight-icon">🟢</div><div class="insight-text"><strong>P4 — Replicar DS3 como benchmark</strong>76,1% SLA vs 55–67% dos demais. Mapear práticas e processos do DS3 para replicação nos distritos críticos DS4, DS6 e DS7.</div></div>
+
+      <div class="plan-section-heading"><h2>Diagnóstico e Prioridades</h2><p id="plan-diagnostic-sub">Principais pontos do mês com base nos chamados do período.</p></div>
+      <div class="plan-diagnostic-grid">
+        <article class="plan-diagnostic-card infra">
+          <div class="plan-diagnostic-head"><div class="plan-diagnostic-title">Infraestrutura</div><span class="plan-priority-badge">URGENTE</span></div>
+          <div class="plan-metrics"><div class="plan-metric"><div class="plan-metric-label">SLA</div><div class="plan-metric-value" data-plan-metric="infra-sla">--</div></div><div class="plan-metric"><div class="plan-metric-label">Chamados</div><div class="plan-metric-value" data-plan-metric="infra-total">--</div></div><div class="plan-metric"><div class="plan-metric-label">Em aberto</div><div class="plan-metric-value" data-plan-metric="infra-open">--</div></div></div>
+          <ul class="plan-recommendations" data-plan-recommendations="infra"><li>Carregando diagnóstico mensal...</li></ul>
+        </article>
+        <article class="plan-diagnostic-card systems">
+          <div class="plan-diagnostic-head"><div class="plan-diagnostic-title">Sistemas</div><span class="plan-priority-badge">IMPORTANTE</span></div>
+          <div class="plan-metrics"><div class="plan-metric"><div class="plan-metric-label">SLA</div><div class="plan-metric-value" data-plan-metric="systems-sla">--</div></div><div class="plan-metric"><div class="plan-metric-label">Chamados</div><div class="plan-metric-value" data-plan-metric="systems-total">--</div></div><div class="plan-metric"><div class="plan-metric-label">Em aberto</div><div class="plan-metric-value" data-plan-metric="systems-open">--</div></div></div>
+          <ul class="plan-recommendations" data-plan-recommendations="systems"><li>Carregando diagnóstico mensal...</li></ul>
+        </article>
+        <article class="plan-diagnostic-card strategy">
+          <div class="plan-diagnostic-head"><div class="plan-diagnostic-title">Estratégico</div></div>
+          <div class="plan-metrics"><div class="plan-metric"><div class="plan-metric-label">Melhor SLA</div><div class="plan-metric-value" data-plan-metric="strategy-sla">--</div></div><div class="plan-metric"><div class="plan-metric-label">Volume DS</div><div class="plan-metric-value" data-plan-metric="strategy-volume">--</div></div><div class="plan-metric"><div class="plan-metric-label">Encerramento</div><div class="plan-metric-value" data-plan-metric="strategy-resolution">--</div></div></div>
+          <ul class="plan-recommendations" data-plan-recommendations="strategy"><li>Carregando diagnóstico mensal...</li></ul>
+        </article>
       </div>
+
+      <section class="plan-actions-card">
+        <div class="plan-actions-head"><div><div class="plan-actions-title" id="plan-actions-title">Plano de Ação</div><div class="plan-actions-sub">Ações priorizadas com base no diagnóstico do mês. Acompanhe o andamento e os responsáveis.</div></div><button class="plan-export-btn" type="button" disabled title="Exportação ainda não disponível">Exportar plano de ação</button></div>
+        <div class="plan-table-wrap"><table class="plan-action-table"><thead><tr><th>Prioridade</th><th>Ação</th><th>Meta / Resultado esperado</th><th>Responsável</th><th>Prazo</th><th>Status</th><th>Ações</th></tr></thead><tbody id="plan-actions-body"></tbody></table></div>
+        <div class="plan-status-legend"><strong>Status:</strong><span class="plan-status not-started">Não iniciado</span><span class="plan-status progress">Em andamento</span><span class="plan-status planned">Planejado</span><span class="plan-status done">Concluído</span></div>
+      </section>
+      <div class="plan-observation"><strong>Observação</strong><span id="plan-observation-text">As informações são baseadas nos chamados do mês selecionado e podem ser atualizadas conforme a evolução do período.</span></div>
     </div>
 
   </div><!-- /content -->
@@ -2221,58 +2246,107 @@ function generatePlanoAcao(mes, d) {
   const systemsLateRate = d.sistemas.total ? d.sistemas.fp / d.sistemas.total * 100 : 0;
   const lowerStructure = d.infra.sla <= d.sistemas.sla ? ['Infraestrutura', d.infra] : ['Sistemas', d.sistemas];
   const monthLabel = MESES_LABEL[mes];
+  const actions = [
+    {
+      priority:'P1',
+      action:'Atuar nos chamados fora do prazo de ' + worstOverall[0],
+      target:'Elevar o SLA atual de ' + pctText(worstOverall[1].sla) + ' para a faixa institucional de 85% ou mais'
+    },
+    {
+      priority:'P2',
+      action:topBacklog[1] ? 'Executar força-tarefa no backlog de ' + topBacklog[0] : 'Monitorar o backlog mensal para evitar novo acúmulo',
+      target:topBacklog[1] ? 'Reduzir o estoque atual de ' + fmt(topBacklog[1]) + ' chamados em aberto' : 'Manter o período sem backlog registrado'
+    },
+    {
+      priority:'P3',
+      action:'Analisar as causas do volume de ' + topService[0],
+      target:'Definir medidas para reduzir reincidência sobre ' + fmt(topService[1]) + ' chamados do mês'
+    },
+    {
+      priority:'P4',
+      action:'Replicar práticas de ' + bestDistrict[0].replace(' ', '') + ' nos demais distritos',
+      target:'Disseminar as práticas associadas ao SLA distrital de ' + pctText(bestDistrict[1].sla)
+    }
+  ].map(item => ({...item,responsible:'Definir',deadline:'Definir',status:'Planejado'}));
   return {
-    cards: [
-      [
-        'Priorizar ' + worstInfra[0] + ': ' + pctText(worstInfra[1].sla) + ' de SLA em ' + fmt(worstInfra[1].total) + ' chamados',
-        infraBacklog[1] ? 'Tratar o maior backlog de Infraestrutura: ' + infraBacklog[0] + ' (' + fmt(infraBacklog[1]) + ' em aberto)' : 'Infraestrutura sem backlog registrado no período',
-        'Revisar ' + fmt(d.infra.fp) + ' chamados de Infraestrutura fora do prazo (' + pctText(infraLateRate) + ')',
-        'Acompanhar ' + fmt(d.infra.ab) + ' chamados de Infraestrutura ainda em aberto no período'
-      ],
-      [
-        'Priorizar ' + worstSystem[0] + ': ' + pctText(worstSystem[1].sla) + ' de SLA em ' + fmt(worstSystem[1].total) + ' chamados',
-        systemBacklog[1] ? 'Tratar o maior backlog de Sistemas: ' + systemBacklog[0] + ' (' + fmt(systemBacklog[1]) + ' em aberto)' : 'Sistemas sem backlog registrado no período',
-        'Revisar ' + fmt(d.sistemas.fp) + ' chamados de Sistemas fora do prazo (' + pctText(systemsLateRate) + ')',
-        'Avaliar ' + topService[0] + ', serviço de maior volume no mês (' + fmt(topService[1]) + ' chamados)'
-      ],
-      [
-        'Usar ' + bestDistrict[0].replace(' ', '') + ' como referência: ' + pctText(bestDistrict[1].sla) + ' de SLA em ' + fmt(bestDistrict[1].total) + ' chamados',
-        'Replicar práticas de ' + bestGroup[0] + ', melhor grupo do mês (' + pctText(bestGroup[1].sla) + ')',
-        'Acompanhar taxa de encerramento mensal: ' + pctText(resolutionRate) + ' (' + fmt(d.enc) + ' de ' + fmt(d.total) + ')',
-        'Concentrar melhoria em ' + lowerStructure[0] + ', estrutura com menor SLA no mês (' + pctText(lowerStructure[1].sla) + ')'
-      ]
-    ],
-    insights: [
-      '<strong>P1 — ' + worstOverall[0] + ' (' + pctText(worstOverall[1].sla) + ' SLA · ' + fmt(worstOverall[1].ab || 0) + ' em backlog)</strong>Menor SLA entre os grupos com demanda em ' + monthLabel + '.',
-      '<strong>P2 — ' + topBacklog[0] + ' (' + fmt(topBacklog[1]) + ' em aberto)</strong>Maior concentração de backlog conforme o estoque registrado para ' + monthLabel + '.',
-      '<strong>P3 — ' + topService[0] + '</strong>' + fmt(topService[1]) + ' chamados: serviço de maior volume em ' + monthLabel + '.',
-      '<strong>P4 — ' + bestDistrict[0].replace(' ', '') + ' como benchmark</strong>Melhor SLA distrital do mês: ' + pctText(bestDistrict[1].sla) + ' em ' + fmt(bestDistrict[1].total) + ' chamados.'
-    ]
+    summary: {
+      critical:groupsWithDemand.filter(([, value]) => value.sla < 60).length,
+      attention:groupsWithDemand.filter(([, value]) => value.sla >= 60 && value.sla < 85).length,
+      positive:groupsWithDemand.filter(([, value]) => value.sla >= 85).length,
+      actions:actions.length
+    },
+    diagnostics: {
+      infra:{metrics:[pctText(d.infra.sla),fmt(d.infra.total),fmt(d.infra.ab)],recommendations:[
+        'Priorizar ' + worstInfra[0] + ' (' + pctText(worstInfra[1].sla) + ' de SLA)',
+        infraBacklog[1] ? 'Tratar backlog de ' + infraBacklog[0] + ': ' + fmt(infraBacklog[1]) + ' em aberto' : 'Manter o período sem backlog de Infraestrutura',
+        'Revisar ' + fmt(d.infra.fp) + ' chamados fora do prazo (' + pctText(infraLateRate) + ')'
+      ]},
+      systems:{metrics:[pctText(d.sistemas.sla),fmt(d.sistemas.total),fmt(d.sistemas.ab)],recommendations:[
+        'Priorizar ' + worstSystem[0] + ' (' + pctText(worstSystem[1].sla) + ' de SLA)',
+        systemBacklog[1] ? 'Tratar backlog de ' + systemBacklog[0] + ': ' + fmt(systemBacklog[1]) + ' em aberto' : 'Manter o período sem backlog de Sistemas',
+        'Revisar ' + fmt(d.sistemas.fp) + ' chamados fora do prazo (' + pctText(systemsLateRate) + ')'
+      ]},
+      strategy:{metrics:[pctText(bestDistrict[1].sla),fmt(bestDistrict[1].total),pctText(resolutionRate)],recommendations:[
+        'Usar ' + bestDistrict[0].replace(' ', '') + ' como referência distrital',
+        'Replicar práticas de ' + bestGroup[0] + ' (' + pctText(bestGroup[1].sla) + ' de SLA)',
+        'Concentrar melhoria em ' + lowerStructure[0] + ' (' + pctText(lowerStructure[1].sla) + ' de SLA)'
+      ]}
+    },
+    actions,
+    monthLabel
   };
 }
 function updatePlanoAcaoTab(mes, d) {
   if (mes !== 'todos') syncPlanoMesDropdown(mes);
   const periodo = document.getElementById('plano-acao-periodo');
-  if (periodo) periodo.textContent = 'Plano de ação — prioridades de ' + MESES_LABEL[mes];
+  if (periodo) periodo.textContent = 'Plano de ação';
   const plan = generatePlanoAcao(mes, d);
-  const cards = document.querySelectorAll('#tab-acoes .road-card');
-  const insights = document.querySelectorAll('#tab-acoes .insight-text');
   if (!plan) {
     const empty = 'Sem dados suficientes para gerar o Plano de Ação deste mês.';
-    cards.forEach(card => card.querySelectorAll('.road-item').forEach((row, index) => {
-      row.innerHTML = index === 0 ? '<div class="road-dot"></div>' + empty : '';
-    }));
-    insights.forEach((item, index) => { item.innerHTML = index === 0 ? '<strong>' + empty + '</strong>' : ''; });
+    const body = document.getElementById('plan-actions-body');
+    if (body) body.innerHTML = '<tr><td colspan="7">' + empty + '</td></tr>';
     return;
   }
-  const fillItems = (card, items) => {
-    if (!card) return;
-    card.querySelectorAll('.road-item').forEach((row, i) => {
-      row.innerHTML = items[i] ? '<div class="road-dot"></div>' + items[i] : '';
-    });
+  const summaryFields = {critical:'critical',attention:'attention',positive:'positive',actions:'actions'};
+  Object.entries(summaryFields).forEach(([id, key]) => {
+    const element = document.getElementById('plan-summary-' + id);
+    if (element) element.textContent = fmt(plan.summary[key]);
+  });
+  const plural = (value, singular, pluralText) => value === 1 ? singular : pluralText;
+  const criticalLabel = document.getElementById('plan-summary-critical-label');
+  const attentionLabel = document.getElementById('plan-summary-attention-label');
+  const positiveLabel = document.getElementById('plan-summary-positive-label');
+  if (criticalLabel) criticalLabel.textContent = plural(plan.summary.critical,'área crítica','áreas críticas');
+  if (attentionLabel) attentionLabel.textContent = plural(plan.summary.attention,'ponto de atenção','pontos de atenção');
+  if (positiveLabel) positiveLabel.textContent = plural(plan.summary.positive,'referência positiva','referências positivas');
+  const diagnosticSub = document.getElementById('plan-diagnostic-sub');
+  if (diagnosticSub) diagnosticSub.textContent = 'Principais pontos do mês com base nos chamados de ' + plan.monthLabel + '.';
+  const metricKeys = {
+    infra:['infra-sla','infra-total','infra-open'],
+    systems:['systems-sla','systems-total','systems-open'],
+    strategy:['strategy-sla','strategy-volume','strategy-resolution']
   };
-  plan.cards.forEach((items, index) => fillItems(cards[index], items));
-  plan.insights.forEach((html, index) => { if (insights[index]) insights[index].innerHTML = html; });
+  Object.entries(plan.diagnostics).forEach(([type, diagnostic]) => {
+    metricKeys[type].forEach((key, index) => {
+      const element = document.querySelector('[data-plan-metric="' + key + '"]');
+      if (element) element.textContent = diagnostic.metrics[index];
+    });
+    const list = document.querySelector('[data-plan-recommendations="' + type + '"]');
+    if (list) list.innerHTML = diagnostic.recommendations.map(item => '<li>' + item + '</li>').join('');
+  });
+  const actionsTitle = document.getElementById('plan-actions-title');
+  if (actionsTitle) actionsTitle.textContent = 'Plano de Ação — ' + plan.monthLabel;
+  const body = document.getElementById('plan-actions-body');
+  if (body) body.innerHTML = plan.actions.map(item => '<tr>' +
+    '<td><span class="plan-priority">' + item.priority + '</span></td>' +
+    '<td>' + item.action + '</td>' +
+    '<td>' + item.target + '</td>' +
+    '<td>' + item.responsible + '</td>' +
+    '<td>' + item.deadline + '</td>' +
+    '<td><span class="plan-status planned">' + item.status + '</span></td>' +
+    '<td><button type="button" class="plan-row-action" disabled title="Edição ainda não disponível">Editar</button></td></tr>').join('');
+  const observation = document.getElementById('plan-observation-text');
+  if (observation) observation.textContent = 'As informações são baseadas nos chamados de ' + plan.monthLabel + ' e podem ser atualizadas conforme a evolução do período.';
 }
 function updateRemainingTabs(mes, d) {
   updateConcentracaoTab(mes, d);
