@@ -233,7 +233,7 @@ const links=document.querySelectorAll('.toc a');const sections=document.querySel
 window.addEventListener('scroll',()=>{let current='';sections.forEach(section=>{if(window.scrollY>=section.offsetTop-100)current=section.id});links.forEach(link=>{link.classList.toggle('active',link.getAttribute('href')==='#'+current)})});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../../assets/js/supabase-config.js"></script>
+<script src="../../assets/js/supabase-config.js?v=20260929-1"></script>
 <script src="../../assets/js/auth.js?v=20260929-2"></script>
 </body>
 </html>
