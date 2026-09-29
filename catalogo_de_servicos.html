@@ -62,10 +62,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .results-count{font-size:11px;color:var(--ink3);white-space:nowrap}
 
 /* ACCORDION */
-.services-list{display:flex;flex-direction:column;gap:10px}
-.service-block{background:#fff;border:1px solid #e3e7ed;border-radius:14px;overflow:hidden;transition:background-color .18s,border-color .18s,box-shadow .18s}
-.service-block:not(.open):hover{background:#f8fafc;border-color:#c8d9eb;box-shadow:0 3px 12px rgba(13,26,46,.045)}
-.service-block.open{background:#eef6ff;border-color:#bcd6f2;box-shadow:0 5px 18px rgba(13,26,46,.055)}
+.services-list{display:flex;flex-direction:column;gap:0}
+.service-block{background:#fff;border:0;border-bottom:1px solid #e3e7ed;border-radius:0;overflow:visible;transition:background-color .18s,border-color .18s}
+.service-block:first-child{border-top:1px solid #e3e7ed}
+.service-block:not(.open):hover{background:#fff;border-color:#d5dde7;box-shadow:none}
+.service-block.open{background:#eef6ff;border:1px solid #b8d7f5;border-radius:10px;overflow:hidden;box-shadow:none;margin:6px 0}
 .service-header{display:flex;align-items:center;gap:14px;padding:14px 18px;min-height:76px;transition:background .15s}
 .service-block.open .service-header{background:transparent}
 .service-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;color:var(--ink2)}
