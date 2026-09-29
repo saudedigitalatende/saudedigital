@@ -64,8 +64,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 /* ACCORDION */
 .services-list{display:flex;flex-direction:column;gap:0}
 .service-block{background:#fff;border:0;border-bottom:1px solid #e3e7ed;border-radius:0;overflow:visible;transition:background-color .18s,border-color .18s}
-.service-block:nth-child(odd){background:#fff}
-.service-block:nth-child(even){background:var(--paper)}
+.service-block:nth-child(odd) .service-header{background:#fff}
+.service-block:nth-child(even) .service-header{background:var(--paper)}
 .service-block:first-child{border-top:1px solid #e3e7ed}
 .service-block:not(.open):hover{border-color:#d5dde7;box-shadow:none}
 .service-block.open{background:#eef6ff;border:1px solid #b8d7f5;border-radius:10px;overflow:hidden;box-shadow:none;margin:6px 0}
@@ -518,11 +518,11 @@ function buildSubTabs(area) {
   const DATA  = getData(area);
   const color = area==='sistemas' ? 'st-blue' : area==='infra' ? 'st-green' : 'st-orange';
   const keys  = Object.keys(DATA).sort((a, b) => area === 'adm' ? categoryFirstNumber(DATA[a]) - categoryFirstNumber(DATA[b]) || a.localeCompare(b, 'pt-BR') : 0);
-  const total = Object.values(DATA).reduce((a,b)=>a+b.length, 0);
 
-  let html = `<button class="sub-tab ${color} active" onclick="selectSheet('${area}','',this)">🗂️ Todos (${total})</button>`;
+  let html = '';
   keys.forEach(k => {
-    html += `<button class="sub-tab ${color}" onclick="selectSheet('${area}','${k}',this)">${categoryIcon(k)} ${k} (${DATA[k].length})</button>`;
+    const active = state[area].sheet === k ? ' active' : '';
+    html += `<button class="sub-tab ${color}${active}" onclick="selectSheet('${area}','${k}',this)">${categoryIcon(k)} ${k} (${DATA[k].length})</button>`;
   });
   document.getElementById('subtabs-'+area).innerHTML = html;
 }
@@ -564,9 +564,7 @@ function applyCatalogFilter(area, search, tipo) {
 function activateAllSheet(area) {
   if (state[area].sheet === '') return;
   state[area].sheet = '';
-  document.querySelectorAll(`#subtabs-${area} .sub-tab`).forEach((button, index) => {
-    button.classList.toggle('active', index === 0);
-  });
+  document.querySelectorAll(`#subtabs-${area} .sub-tab`).forEach(button => button.classList.remove('active'));
   buildCatalog(area);
 }
 
