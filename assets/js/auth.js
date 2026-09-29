@@ -35,11 +35,11 @@
 
     const header = document.querySelector('header.hero, .hero, header');
     const actions = header?.querySelector('.hero-actions');
-    const heroRight = header?.querySelector('.hero-right');
-    if (actions || heroRight) {
+    if (actions) {
       host.classList.add('portal-auth-inline');
-      (actions || heroRight).prepend(host);
+      actions.prepend(host);
     } else if (header) {
+      header.classList.add('portal-auth-header-standalone');
       const computedPosition = window.getComputedStyle(header).position;
       if (computedPosition === 'static') header.style.position = 'relative';
       header.appendChild(host);
