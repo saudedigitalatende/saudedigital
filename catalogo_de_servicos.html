@@ -316,13 +316,13 @@ function slaTag(sla) {
 function makeDocLink(kind, href, label) {
   const icon = kind === 'process' ? '📋' : kind === 'manual' ? '📖' : kind === 'training' ? '🎓' : '📄';
   const type = kind === 'process' ? 'Processo operacional' : kind === 'manual' ? 'Manual' : kind === 'training' ? 'Treinamento' : 'Procedimento operacional';
-  const canDownload = /\.(pdf|docx?|xlsx?|pptx?|zip)(?:[?#].*)?$/i.test(href);
+  const canDownload = href.startsWith('https://saudedigitalatende.github.io/saudedigital/') || /\.(pdf|docx?|xlsx?|pptx?|zip)(?:[?#].*)?$/i.test(href);
   return `<div class="doc-row">
     <span class="doc-icon" aria-hidden="true">${icon}</span>
     <span class="doc-info"><span class="doc-name">${label}</span><span class="doc-type">${type}</span></span>
     <span class="doc-actions">
-      <a class="doc-action" href="${href}" target="_blank" rel="noopener">Abrir ↗</a>
       ${canDownload ? `<a class="doc-action" href="${href}" download>Baixar ↓</a>` : ''}
+      <a class="doc-action" href="${href}" target="_blank" rel="noopener">Abrir ↗</a>
     </span>
   </div>`;
 }
@@ -465,8 +465,8 @@ function buildCatalog(area) {
             <tbody>${trs}</tbody>
           </table>
         </div>
-        ${documentationBlock(srvName)}
       </div>
+      ${documentationBlock(srvName)}
     </div>`;
   });
 
