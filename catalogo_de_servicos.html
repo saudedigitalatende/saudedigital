@@ -62,47 +62,49 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .results-count{font-size:11px;color:var(--ink3);white-space:nowrap}
 
 /* ACCORDION */
-.services-list{display:flex;flex-direction:column;gap:8px}
-.service-block{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden}
-.service-block.open{box-shadow:0 4px 20px rgba(0,0,0,.06)}
-.service-header{display:flex;align-items:center;gap:14px;padding:16px 22px;cursor:pointer;user-select:none;transition:background .15s}
-.service-header:hover{background:var(--paper)}
-.service-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.services-list{display:flex;flex-direction:column;gap:10px}
+.service-block{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;transition:border-color .18s,box-shadow .18s}
+.service-block.open{border-color:#bcc8d6;box-shadow:0 5px 18px rgba(13,26,46,.055)}
+.service-header{display:flex;align-items:center;gap:14px;padding:14px 18px;min-height:76px;transition:background .15s}
+.service-block.open .service-header{background:#fcfcfb}
+.service-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;color:var(--ink2)}
 .si-blue{background:var(--blue-lt)}
 .si-green{background:var(--green-lt)}
 .si-orange{background:var(--orange-lt)}
-.service-meta{flex:1}
+.service-meta{flex:1;min-width:0}
 .service-name{font-size:14px;font-weight:700;color:var(--ink)}
 .service-sub{font-size:11.5px;color:var(--ink3);margin-top:1px}
 .service-count-badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:100px;flex-shrink:0}
 .scb-blue{background:var(--blue-lt);color:var(--blue-mid)}
 .scb-green{background:var(--green-lt);color:var(--green-mid)}
 .scb-orange{background:var(--orange-lt);color:var(--orange-mid)}
-.service-chevron{width:28px;height:28px;border-radius:50%;background:var(--paper2);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink3);transition:transform .2s;flex-shrink:0}
+.service-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:154px;padding:8px 12px;border:1px solid var(--rule);border-radius:9px;background:#fff;color:var(--ink2);font:600 11.5px 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+.service-toggle:hover{background:var(--blue-lt);border-color:#b8cce4;color:var(--blue)}
+.service-toggle:focus-visible{outline:3px solid rgba(45,111,189,.22);outline-offset:2px}
+.service-chevron{font-size:10px;transition:transform .2s}
 .service-block.open .service-chevron{transform:rotate(180deg)}
+.service-block.open .toggle-show,.service-block:not(.open) .toggle-hide{display:none}
 .service-body{display:none;border-top:1px solid var(--rule)}
 .service-block.open .service-body{display:block}
+.service-section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px 10px;font-size:13px;font-weight:700;color:var(--ink)}
+.service-section-title span{font-size:11px;font-weight:600;color:var(--ink3)}
+.table-scroll{overflow-x:auto;overscroll-behavior-inline:contain}
 
-.docs-associated{position:relative;margin-top:12px;margin-left:32px;padding:10px 0 0 20px;border-top:1px solid var(--rule);border-left:2px solid var(--rule);max-width:760px}
-.docs-associated-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
-.docs-associated-list{display:flex;flex-direction:column;gap:6px;padding-left:2px}
-.docs-associated a{display:inline-flex;align-items:flex-start;gap:7px;width:fit-content;max-width:100%;font-size:11.5px;font-weight:600;line-height:1.35;color:var(--blue-mid);text-decoration:none;background:transparent;border-radius:6px;padding:2px 4px}
-.docs-associated a:hover{background:var(--blue-lt);color:var(--blue)}
-.docs-associated .doc-process{color:var(--purple)}
-.docs-associated .doc-process:hover{background:var(--purple-lt)}
-.docs-associated .doc-manual{color:var(--green-mid)}
-.docs-associated .doc-manual:hover{background:var(--green-lt)}
-.docs-associated .doc-training{color:#b45309}
-.docs-associated .doc-training:hover{background:#fef3c7}
-.docs-toggle{position:absolute;left:-33px;top:10px;width:22px;height:22px;border:0;border-radius:50%;background:var(--paper2);color:var(--ink3);display:flex;align-items:center;justify-content:center;font-size:10px;line-height:1;cursor:pointer;transition:background .15s,transform .15s;color:transparent}
-.docs-toggle::before{content:'▾';color:var(--ink3)}
-.docs-toggle:hover{background:var(--rule);color:transparent}
-.docs-associated.collapsed .docs-toggle{transform:rotate(-90deg)}
-.docs-associated.collapsed .docs-associated-list{display:none}
-.docs-associated.collapsed{padding-bottom:2px}
+.docs-associated{margin:14px 18px 18px;border-top:1px solid var(--rule);padding-top:14px}
+.docs-associated-title{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.docs-associated-list{display:flex;flex-direction:column}
+.doc-row{display:flex;align-items:center;gap:10px;min-height:46px;padding:7px 2px;border-top:1px solid #e7e3dc}
+.doc-row:first-child{border-top:0}
+.doc-icon{width:30px;height:30px;border-radius:8px;background:var(--blue-lt);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.doc-info{min-width:0;flex:1}
+.doc-name{display:block;font-size:11.5px;font-weight:600;color:var(--ink2);line-height:1.35}
+.doc-type{display:block;font-size:10px;color:var(--ink3);margin-top:1px}
+.doc-actions{display:flex;gap:6px;flex-shrink:0}
+.doc-action{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border:1px solid var(--rule);border-radius:7px;color:var(--blue);background:#fff;text-decoration:none;font-size:10.5px;font-weight:700}
+.doc-action:hover{background:var(--blue-lt);border-color:#b8cce4}
 
 /* TABLE */
-.cat-table{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed}
+.cat-table{width:100%;min-width:1080px;border-collapse:collapse;font-size:12.5px;table-layout:fixed}
 .cat-table th{padding:10px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);background:var(--paper2);border-bottom:1px solid var(--rule);white-space:nowrap}
 .cat-table td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top}
 .cat-table tr:last-child td{border-bottom:none}
@@ -135,8 +137,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
 .back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
 .back-portal svg{width:14px;height:14px;flex-shrink:0}
-@media(max-width:768px){.page-footer{padding-left:24px;padding-right:24px}}
-@media(max-width:768px){.docs-associated{margin-left:12px;padding-left:14px}.docs-toggle{left:-24px}}
+@media(max-width:900px){
+  .hero{padding-left:28px;padding-right:28px}.main-tabs{padding:0 20px}.main{padding:24px 28px 48px}
+  .main-tabs-inner{overflow-x:auto}.main-tab{padding:14px 18px}
+  .service-header{flex-wrap:wrap}.service-toggle{min-width:148px}
+}
+@media(max-width:600px){
+  .hero{padding:24px 18px 22px}.main-tabs{padding:0}.main-tab{padding:12px 14px;font-size:11px}
+  .main{padding:20px 14px 40px}.sub-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:5px}.sub-tab{flex:0 0 auto}
+  .toolbar{gap:8px}.search-wrap{min-width:100%;order:0}.filter-tipo{flex:1}.results-count{margin-left:auto}
+  .service-header{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:10px;padding:12px}
+  .service-icon{grid-row:1 / span 2}.service-count-badge{align-self:start}.service-toggle{grid-column:2 / 4;width:auto;min-width:0;align-self:stretch}
+  .service-section-title{padding-left:12px;padding-right:12px}.docs-associated{margin-left:12px;margin-right:12px}
+  .doc-row{align-items:flex-start}.doc-action{padding:6px 8px}.page-footer{padding-left:18px;padding-right:18px;gap:22px}
+}
 </style>
 </head>
 <body>
@@ -159,8 +173,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 <div class="main-tabs">
   <div class="main-tabs-inner">
     <button class="main-tab active-infra" id="tab-infra" onclick="switchMain('infra',this)">🖧 Infraestrutura</button>
-    <button class="main-tab" id="tab-adm" onclick="switchMain('adm',this)">🗂️ Administrativo</button>
     <button class="main-tab" id="tab-sistemas" onclick="switchMain('sistemas',this)">💻 Sistemas</button>
+    <button class="main-tab" id="tab-adm" onclick="switchMain('adm',this)">🗂️ Administrativo</button>
   </div>
 </div>
 
@@ -300,9 +314,17 @@ function slaTag(sla) {
 }
 
 function makeDocLink(kind, href, label) {
-  const cls = kind === 'process' ? 'doc-process' : kind === 'manual' ? 'doc-manual' : kind === 'training' ? 'doc-training' : 'doc-pop';
   const icon = kind === 'process' ? '📋' : kind === 'manual' ? '📖' : kind === 'training' ? '🎓' : '📄';
-  return `<a class="${cls}" href="${href}" target="_blank" onclick="event.stopPropagation()"><span>${icon}</span><span>${label}</span></a>`;
+  const type = kind === 'process' ? 'Processo operacional' : kind === 'manual' ? 'Manual' : kind === 'training' ? 'Treinamento' : 'Procedimento operacional';
+  const canDownload = /\.(pdf|docx?|xlsx?|pptx?|zip)(?:[?#].*)?$/i.test(href);
+  return `<div class="doc-row">
+    <span class="doc-icon" aria-hidden="true">${icon}</span>
+    <span class="doc-info"><span class="doc-name">${label}</span><span class="doc-type">${type}</span></span>
+    <span class="doc-actions">
+      <a class="doc-action" href="${href}" target="_blank" rel="noopener">Abrir ↗</a>
+      ${canDownload ? `<a class="doc-action" href="${href}" download>Baixar ↓</a>` : ''}
+    </span>
+  </div>`;
 }
 
 function documentationLinks(srvName) {
@@ -354,7 +376,7 @@ function documentationBlock(srvName) {
   const docs = documentationLinks(srvName);
   if (!docs.length) return '';
   const links = docs.map(([kind, href, label]) => makeDocLink(kind, href, label)).join('');
-  return `<div class="docs-associated collapsed"><button type="button" class="docs-toggle" title="Expandir documentos associados" onclick="toggleDocs(event,this)"></button><div class="docs-associated-title">📚 Documentos associados</div><div class="docs-associated-list">${links}</div></div>`;
+  return `<section class="docs-associated" aria-label="Documentos associados"><div class="docs-associated-title">📚 Documentos associados (${docs.length})</div><div class="docs-associated-list">${links}</div></section>`;
 }
 function formatSolicitacao(str) {
   if (!str) return '';
@@ -421,24 +443,29 @@ function buildCatalog(area) {
     });
 
     html += `<div class="service-block" data-service="${srvName}">
-      <div class="service-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="service-header">
         <div class="service-icon si-${color}">${serviceIcon(srvName, srv.cat)}</div>
         <div class="service-meta">
           <div class="service-name">${srvName}</div>
           ${srv.dono ? `<div class="service-sub">Responsável: ${srv.dono}</div>` : ''}
-          ${documentationBlock(srvName)}
         </div>
         <span class="service-count-badge scb-${color}">${srv.rows.length} itens</span>
-        <span class="service-chevron">▾</span>
+        <button type="button" class="service-toggle" aria-expanded="false" onclick="toggleService(this)">
+          <span class="toggle-show">Ver solicitações</span><span class="toggle-hide">Ocultar solicitações</span><span class="service-chevron" aria-hidden="true">▾</span>
+        </button>
       </div>
       <div class="service-body">
-        <table class="cat-table">
-          <thead><tr>
-            <th>Tipo</th><th>Solicitação</th><th>SLA</th>
-            <th>Filtro / Nível Básico</th><th>Nível Avançado</th><th>Nível Especialista</th><th>Descrição</th>
-          </tr></thead>
-          <tbody>${trs}</tbody>
-        </table>
+        <div class="service-section-title">Solicitações (${srv.rows.length}) <span>Detalhamento do serviço</span></div>
+        <div class="table-scroll" tabindex="0" aria-label="Tabela de solicitações de ${srvName}">
+          <table class="cat-table">
+            <thead><tr>
+              <th>Tipo</th><th>Solicitação</th><th>SLA</th>
+              <th>N1</th><th>N2</th><th>N3</th><th>Conceito</th>
+            </tr></thead>
+            <tbody>${trs}</tbody>
+          </table>
+        </div>
+        ${documentationBlock(srvName)}
       </div>
     </div>`;
   });
@@ -524,7 +551,6 @@ function applyCatalogFilter(area, search, tipo) {
     });
     block.querySelector('.service-count-badge').textContent = shown+' item'+(shown!==1?'s':'');
     block.style.display = shown ? '' : 'none';
-    if (shown && (search||tipo)) block.classList.add('open');
     total += shown;
   });
   document.getElementById('count-'+area).textContent = total+' item(ns)';
@@ -577,12 +603,18 @@ function filterCatalog(area) {
   applyCatalogFilter(area, search, tipo);
 }
 
-function toggleDocs(event, button) {
-  event.stopPropagation();
-  const box = button.closest('.docs-associated');
-  if (!box) return;
-  box.classList.toggle('collapsed');
-  button.title = box.classList.contains('collapsed') ? 'Expandir documentos associados' : 'Recolher documentos associados';
+function setServiceOpen(block, open) {
+  block.classList.toggle('open', open);
+  const button = block.querySelector('.service-toggle');
+  if (button) button.setAttribute('aria-expanded', String(open));
+}
+function toggleService(button) {
+  const block = button.closest('.service-block');
+  if (!block) return;
+  const shouldOpen = !block.classList.contains('open');
+  const list = block.closest('.services-list');
+  if (list) list.querySelectorAll('.service-block.open').forEach(item => setServiceOpen(item, false));
+  setServiceOpen(block, shouldOpen);
 }
 function switchMain(area, el) {
   activeMainArea = area;
