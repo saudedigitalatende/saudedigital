@@ -277,14 +277,16 @@ Object.values(INFRA).flat().filter(item => item.servico === '8. VPN').forEach(it
   if (encaminhamento) [item.n1, item.n2, item.n3] = encaminhamento;
 });
 
-// current sheet per area: '' = Todos
+// Categoria atual por área: null = nenhuma seleção; '' é reservado à busca global temporária.
 const state = {
-  sistemas: {sheet: '', search:'', tipo:''},
-  infra:    {sheet: '', search:'', tipo:''},
-  adm:      {sheet: '', search:'', tipo:''},
+  sistemas: {sheet: null, search:'', tipo:''},
+  infra:    {sheet: null, search:'', tipo:''},
+  adm:      {sheet: null, search:'', tipo:''},
 };
 let activeMainArea = 'infra';
 let globalSearchRunning = false;
+let globalSearchActive = false;
+let stateBeforeGlobalSearch = null;
 
 function serviceNumber(name) {
   const match = String(name || '').match(/^\s*(\d+)\./);
@@ -396,15 +398,15 @@ function buildCatalog(area) {
   const DATA  = getData(area);
   const color = area==='sistemas' ? 'blue' : area==='infra' ? 'green' : 'orange';
   const icon  = area==='sistemas' ? '🖥️' : area==='infra' ? '🖧' : '🗂️';
-  const sheet = state[area].sheet; // '' = todos
+  const sheet = state[area].sheet;
 
-  // Collect rows: all sheets if '' else just current sheet
+  // Sem categoria, não há serviços. A busca global usa '' apenas temporariamente.
   let allRows = [];
   if (sheet === '') {
     Object.entries(DATA).forEach(([catName, rows]) => {
       rows.forEach(r => allRows.push(Object.assign({}, r, {_cat: catName})));
     });
-  } else {
+  } else if (sheet) {
     allRows = (DATA[sheet] || []).map(r => Object.assign({}, r, {_cat: sheet}));
   }
 
@@ -475,7 +477,10 @@ function buildCatalog(area) {
     </div>`;
   });
 
-  document.getElementById('list-'+area).innerHTML = html || '<div style="padding:40px;text-align:center;color:var(--ink3)">Nenhum item.</div>';
+  const emptyMessage = sheet === null
+    ? 'Selecione uma categoria para visualizar os serviços.'
+    : 'Nenhum item encontrado.';
+  document.getElementById('list-'+area).innerHTML = html || `<div style="padding:40px;text-align:center;color:var(--ink3)">${emptyMessage}</div>`;
   filterCatalog(area);
 }
 
@@ -528,9 +533,12 @@ function buildSubTabs(area) {
 }
 
 function selectSheet(area, sheet, el) {
+  const leavingGlobalSearch = globalSearchActive;
+  if (leavingGlobalSearch) clearGlobalResults();
   state[area].sheet = sheet;
   document.querySelectorAll(`#subtabs-${area} .sub-tab`).forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
+  if (leavingGlobalSearch) buildSubTabs(area);
+  else el.classList.add('active');
   // Reset search and filter
   document.getElementById('search-'+area).value = '';
   document.getElementById('tipo-'+area).value = '';
@@ -561,21 +569,23 @@ function applyCatalogFilter(area, search, tipo) {
   document.getElementById('count-'+area).textContent = total+' item(ns)';
 }
 
-function activateAllSheet(area) {
-  if (state[area].sheet === '') return;
-  state[area].sheet = '';
-  document.querySelectorAll(`#subtabs-${area} .sub-tab`).forEach(button => button.classList.remove('active'));
-  buildCatalog(area);
-}
-
 function showGlobalResults(search, displaySearch = search) {
+  if (!globalSearchActive) {
+    stateBeforeGlobalSearch = {};
+    ['infra','sistemas','adm'].forEach(area => {
+      stateBeforeGlobalSearch[area] = {sheet: state[area].sheet, tipo: state[area].tipo};
+    });
+    globalSearchActive = true;
+  }
   globalSearchRunning = true;
   ['infra','sistemas','adm'].forEach(area => {
-    activateAllSheet(area);
-    document.getElementById('search-'+area).value = displaySearch;
-    document.getElementById('tipo-'+area).value = '';
+    state[area].sheet = '';
     state[area].search = search;
     state[area].tipo = '';
+    document.querySelectorAll(`#subtabs-${area} .sub-tab`).forEach(button => button.classList.remove('active'));
+    document.getElementById('search-'+area).value = displaySearch;
+    document.getElementById('tipo-'+area).value = '';
+    buildCatalog(area);
     applyCatalogFilter(area, search, '');
     document.getElementById('panel-'+area).classList.add('global-search-result');
   });
@@ -583,12 +593,23 @@ function showGlobalResults(search, displaySearch = search) {
 }
 
 function clearGlobalResults() {
+  if (!globalSearchActive) return;
+  globalSearchRunning = true;
   ['infra','sistemas','adm'].forEach(area => {
+    const previous = stateBeforeGlobalSearch[area];
+    state[area].sheet = previous.sheet;
+    state[area].search = '';
+    state[area].tipo = previous.tipo;
     document.getElementById('search-'+area).value = '';
+    document.getElementById('tipo-'+area).value = previous.tipo;
     document.getElementById('panel-'+area).classList.remove('global-search-result');
-    const tipo = (document.getElementById('tipo-'+area).value||'').toUpperCase();
-    applyCatalogFilter(area, '', tipo);
+    buildSubTabs(area);
+    buildCatalog(area);
+    applyCatalogFilter(area, '', previous.tipo);
   });
+  globalSearchRunning = false;
+  globalSearchActive = false;
+  stateBeforeGlobalSearch = null;
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+activeMainArea).classList.add('active');
 }
