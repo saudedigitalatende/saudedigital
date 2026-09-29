@@ -88,6 +88,7 @@ h3.sub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.0
 .footer-top-link svg{width:16px;height:16px}
 @media(max-width:900px){.page-wrap{grid-template-columns:1fr;padding:24px}.hero{padding:24px}.sidebar{display:none}.dss-meta{grid-template-columns:1fr 1fr}}
 </style>
+<link rel="stylesheet" href="../../assets/css/auth.css">
 </head>
 <body>
 
@@ -212,5 +213,8 @@ const secs=[...document.querySelectorAll('section[id],div.dss-card[id]')];
 const navs=document.querySelectorAll('.sidebar-nav a');
 window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id});navs.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})});
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../../assets/js/supabase-config.js"></script>
+<script src="../../assets/js/auth.js"></script>
 </body>
 </html>

@@ -143,30 +143,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 .back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
 .back-portal svg{width:14px;height:14px;flex-shrink:0}
 
-/* AUTENTICAÇÃO */
-.hero-actions{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-bottom:10px}
-.auth-entry,.auth-user-button{display:inline-flex;align-items:center;gap:6px;font:600 11px 'DM Sans',sans-serif;color:rgba(255,255,255,.72);background:transparent;padding:4px 12px;border:1px solid rgba(255,255,255,.2);border-radius:100px;cursor:pointer;transition:all .2s}
-.auth-entry[hidden]{display:none}
-.auth-entry:hover,.auth-user-button:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
-.auth-user{position:relative}.auth-user[hidden]{display:none}
-.auth-user-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:40;width:210px;padding:6px;background:#fff;border:1px solid #dce3eb;border-radius:10px;box-shadow:0 12px 30px rgba(13,26,46,.14)}
-.auth-user-menu[hidden],.auth-menu-item[hidden]{display:none}
-.auth-user-summary{padding:8px 10px 10px;border-bottom:1px solid #e6ebf2;margin-bottom:4px}
-.auth-user-summary strong,.auth-user-summary span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.auth-user-summary strong{font-size:12px;color:var(--ink)}.auth-user-summary span{font-size:10px;color:var(--ink3);margin-top:2px}
-.auth-menu-item{display:flex;width:100%;align-items:center;gap:8px;padding:8px 10px;border:0;border-radius:7px;background:transparent;color:var(--ink2);font:500 11.5px 'DM Sans',sans-serif;text-align:left;text-decoration:none;cursor:pointer}
-.auth-menu-item:hover{background:#f5f8fc;color:var(--blue)}.auth-menu-item[aria-disabled="true"]{cursor:default;color:var(--ink3)}
-.auth-overlay{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(13,26,46,.55);backdrop-filter:blur(2px)}
-.auth-overlay[hidden]{display:none}
-.auth-modal{position:relative;width:min(440px,100%);background:#fff;border:1px solid #dce3eb;border-radius:16px;padding:28px;box-shadow:0 24px 70px rgba(13,26,46,.25)}
-.auth-close{position:absolute;right:14px;top:12px;width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:var(--ink3);font-size:20px;cursor:pointer}.auth-close:hover{background:#f1f4f8;color:var(--ink)}
-.auth-modal h2{font-family:'DM Serif Display',serif;font-size:24px;line-height:1.2;color:var(--ink);margin-bottom:6px}
-.auth-restricted{font-size:12px;color:var(--ink3);margin-bottom:20px}.auth-field{display:block;font-size:11px;font-weight:700;color:var(--ink2);margin-bottom:6px}
-.auth-input{width:100%;height:42px;padding:0 12px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:var(--ink);font:400 13px 'DM Sans',sans-serif;outline:none}
-.auth-input:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(45,111,189,.12)}
-.auth-submit{width:100%;margin-top:14px;padding:10px 14px;border:0;border-radius:9px;background:var(--blue);color:#fff;font:700 12px 'DM Sans',sans-serif;cursor:pointer}.auth-submit:hover{background:#153f6e}.auth-submit:disabled{opacity:.6;cursor:wait}
-.auth-status{min-height:20px;margin-top:12px;font-size:11.5px;color:var(--ink3)}.auth-status.error{color:#b42318}.auth-status.success{color:var(--green)}
-.auth-account-view[hidden]{display:none}.auth-account-view dl{display:grid;grid-template-columns:92px 1fr;gap:8px 12px;margin-top:18px;font-size:12px}.auth-account-view dt{font-weight:700;color:var(--ink3)}.auth-account-view dd{color:var(--ink);overflow-wrap:anywhere}
 @media(max-width:900px){
   .hero{padding-left:28px;padding-right:28px}.main-tabs{padding:0 20px}.main{padding:24px 28px 48px}
   .main-tabs-inner{overflow-x:auto}.main-tab{padding:14px 18px}
@@ -182,22 +158,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
   .doc-row{align-items:flex-start}.doc-action{padding:6px 8px}.page-footer{padding-left:18px;padding-right:18px;gap:22px}
 }
 </style>
+<link rel="stylesheet" href="assets/css/auth.css">
 </head>
 <body>
 
 <header class="hero">
   <div class="hero-inner" style="display:flex;flex-direction:column">
     <div class="hero-actions">
-      <button type="button" class="auth-entry" id="auth-entry" aria-haspopup="dialog">👤 Entrar</button>
-      <div class="auth-user" id="auth-user" hidden>
-        <button type="button" class="auth-user-button" id="auth-user-button" aria-haspopup="menu" aria-expanded="false">👤 <span id="auth-user-name">Usuário</span> ▾</button>
-        <div class="auth-user-menu" id="auth-user-menu" role="menu" hidden>
-          <div class="auth-user-summary"><strong id="auth-menu-name"></strong><span id="auth-menu-profile"></span></div>
-          <button type="button" class="auth-menu-item" id="auth-admin-link" role="menuitem" aria-disabled="true" title="Área administrativa será disponibilizada em uma próxima etapa" hidden>⚙ Área administrativa</button>
-          <button type="button" class="auth-menu-item" id="auth-account-link" role="menuitem">👤 Minha conta</button>
-          <button type="button" class="auth-menu-item" id="auth-signout" role="menuitem">↪ Sair</button>
-        </div>
-      </div>
+
       <a href="https://saudedigitalatende.github.io/saudedigital/"
          style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:100px;transition:all .2s"
          onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.4)'"
@@ -209,27 +177,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
     <p>GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p>
   </div>
 </header>
-
-<div class="auth-overlay" id="auth-overlay" hidden>
-  <section class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
-    <button type="button" class="auth-close" id="auth-close" aria-label="Fechar">×</button>
-    <div class="auth-login-view" id="auth-login-view">
-      <h2 id="auth-modal-title">Acesso à Área Administrativa</h2>
-      <p class="auth-restricted">Acesso restrito a usuários autorizados.</p>
-      <form id="auth-form">
-        <label class="auth-field" for="auth-email">E-mail institucional</label>
-        <input class="auth-input" id="auth-email" name="email" type="email" autocomplete="email" required placeholder="nome@recife.pe.gov.br">
-        <button class="auth-submit" id="auth-submit" type="submit">Enviar código de acesso</button>
-        <p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
-      </form>
-    </div>
-    <div class="auth-account-view" id="auth-account-view" hidden>
-      <h2>Minha conta</h2>
-      <p class="auth-restricted">Dados da sessão autenticada.</p>
-      <dl><dt>Nome</dt><dd id="auth-account-name"></dd><dt>E-mail</dt><dd id="auth-account-email"></dd><dt>Perfil</dt><dd id="auth-account-profile"></dd></dl>
-    </div>
-  </section>
-</div>
 
 <div class="main-tabs">
   <div class="main-tabs-inner">
@@ -718,9 +665,12 @@ window.addEventListener('message', e => {
   }
 });
 </script>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/catalogo-supabase-config.js"></script>
-<script src="assets/js/catalogo-auth.js"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
 </body>
 </html> 
 

@@ -73,6 +73,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .notif-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);padding:9px 14px;background:#fff;border:1px solid var(--rule);border-radius:8px;border-left:3px solid var(--blue-mid)}
 @media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}.meta-grid{grid-template-columns:1fr}}
 </style>
+<link rel="stylesheet" href="../../assets/css/auth.css">
 </head>
 <body>
 <header class="hero">
@@ -231,5 +232,8 @@ document.querySelectorAll('.activity-header').forEach(h=>{h.addEventListener('cl
 const links=document.querySelectorAll('.toc a');const sections=document.querySelectorAll('.section');
 window.addEventListener('scroll',()=>{let current='';sections.forEach(section=>{if(window.scrollY>=section.offsetTop-100)current=section.id});links.forEach(link=>{link.classList.toggle('active',link.getAttribute('href')==='#'+current)})});
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../../assets/js/supabase-config.js"></script>
+<script src="../../assets/js/auth.js"></script>
 </body>
 </html>

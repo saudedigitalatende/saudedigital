@@ -68,6 +68,7 @@ body{font-family:'DM Sans',Arial,sans-serif;background:var(--paper);color:var(--
 .back-portal svg{width:14px;height:14px}
 @media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
 </style>
+<link rel="stylesheet" href="../../assets/css/auth.css">
 </head>
 <body>
 
@@ -288,5 +289,8 @@ const obs = new IntersectionObserver(entries => {
 sections.forEach(s => obs.observe(s));
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../../assets/js/supabase-config.js"></script>
+<script src="../../assets/js/auth.js"></script>
 </body>
 </html>

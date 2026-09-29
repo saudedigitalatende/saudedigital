@@ -105,6 +105,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .doc-figure img{max-width:100%;height:auto;border-radius:8px;display:block;margin:0 auto}
 @media(max-width:900px){.meta-grid{grid-template-columns:1fr}}
 </style>
+<link rel="stylesheet" href="../../assets/css/auth.css">
 </head>
 <body>
 <header class="hero">
@@ -663,6 +664,9 @@ window.addEventListener('scroll', () => {
   links.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../../assets/js/supabase-config.js"></script>
+<script src="../../assets/js/auth.js"></script>
 </body>
 </html>
 
