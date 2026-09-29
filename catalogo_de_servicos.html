@@ -63,9 +63,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 
 /* ACCORDION */
 .services-list{display:flex;flex-direction:column;gap:10px}
-.service-block{background:#fff;border:1px solid #e2e6ea;border-radius:14px;overflow:hidden;transition:border-color .18s,box-shadow .18s}
-.service-block:not(.open):hover{background:#fff;border-color:#c8d9eb;box-shadow:0 3px 12px rgba(13,26,46,.045)}
-.service-block.open{background:#eef6ff;border-color:#b8d7f5;box-shadow:0 5px 18px rgba(13,26,46,.055)}
+.service-block{background:#fff;border:1px solid #e3e7ed;border-radius:14px;overflow:hidden;transition:background-color .18s,border-color .18s,box-shadow .18s}
+.service-block:not(.open):hover{background:#f8fafc;border-color:#c8d9eb;box-shadow:0 3px 12px rgba(13,26,46,.045)}
+.service-block.open{background:#eef6ff;border-color:#bcd6f2;box-shadow:0 5px 18px rgba(13,26,46,.055)}
 .service-header{display:flex;align-items:center;gap:14px;padding:14px 18px;min-height:76px;transition:background .15s}
 .service-block.open .service-header{background:transparent}
 .service-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;color:var(--ink2)}
@@ -86,16 +86,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .service-chevron{font-size:10px;transition:transform .2s}
 .service-block.open .service-chevron{transform:rotate(180deg)}
 .service-block.open .toggle-show,.service-block:not(.open) .toggle-hide{display:none}
-.service-body{display:none;border-top:1px solid var(--rule)}
+.service-body{display:none;border-top:1px solid #e6ebf2}
 .service-block.open .service-body{display:block}
 .service-section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px 10px;font-size:13px;font-weight:700;color:var(--ink)}
 .service-section-title span{font-size:11px;font-weight:600;color:var(--ink3)}
 .table-scroll{overflow-x:auto;overscroll-behavior-inline:contain}
 
-.docs-associated{margin:14px 18px 18px;border-top:1px solid var(--rule);padding-top:14px}
+.docs-associated{margin:14px 18px 18px;border-top:1px solid #e6ebf2;padding-top:14px;background:#fff}
 .docs-associated-title{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px}
 .docs-associated-list{display:flex;flex-direction:column}
-.doc-row{display:flex;align-items:center;gap:10px;min-height:46px;padding:7px 2px;border-top:1px solid #e7e3dc}
+.doc-row{display:flex;align-items:center;gap:10px;min-height:46px;padding:7px 2px;border-top:1px solid #e6ebf2;background:#fff}
 .doc-row:first-child{border-top:0}
 .doc-icon{width:30px;height:30px;border-radius:8px;background:var(--blue-lt);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
 .doc-info{min-width:0;flex:1}
@@ -106,11 +106,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .doc-action:hover{background:var(--blue-lt);border-color:#b8cce4}
 
 /* TABLE */
-.cat-table{width:100%;min-width:1080px;border-collapse:collapse;font-size:12.5px;table-layout:fixed}
-.cat-table th{padding:10px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);background:var(--paper2);border-bottom:1px solid var(--rule);white-space:nowrap}
-.cat-table td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top}
+.cat-table{width:100%;min-width:1080px;border-collapse:collapse;font-size:12.5px;table-layout:fixed;background:#fff}
+.cat-table th{padding:10px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);background:#f5f8fc;border-bottom:1px solid #e6ebf2;white-space:nowrap}
+.cat-table td{padding:12px 16px;border-bottom:1px solid #e6ebf2;vertical-align:top;background:#fff}
 .cat-table tr:last-child td{border-bottom:none}
-.cat-table tr:hover td{background:#fafaf8}
+.cat-table tr:hover td{background:#f8fafc}
 .td-sol{font-weight:600;color:var(--ink)}
 .td-n{font-size:12px;color:var(--ink3)}.resp-group{display:inline-block;margin-top:3px;font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:.02em}
 .td-desc{font-size:12px;color:var(--ink3);line-height:1.5;word-wrap:break-word;overflow-wrap:break-word}
