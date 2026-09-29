@@ -249,10 +249,10 @@ Object.values(ADMINISTRATIVO).flat().forEach(item => {
 // Mantém os demais itens do catálogo sem alteração.
 Object.values(INFRA).flat().filter(item => item.servico === '8. VPN').forEach(item => {
   const encaminhamento = {
-    'CADASTRO DE USUÁRIO': ['GOVERNANÇA NOC', 'GOVERNANÇA NOC', 'GOVERNANÇA NOC'],
+    'CADASTRO DE USUÁRIO': ['CENTRAL DE SERVIÇOS', 'GOVERNANÇA NOC', 'GOVERNANÇA NOC'],
     'DÚVIDA/ORIENTAÇÃO': ['CENTRAL DE SERVIÇOS', 'GOVERNANÇA NOC', 'GOVERNANÇA NOC'],
-    'INSTALAÇÃO DA APLICAÇÃO': ['INFRAESTRUTURA', 'INFRAESTRUTURA', 'GOVERNANÇA NOC'],
-    'MANUTENÇÃO CORRETIVA': ['INFRAESTRUTURA', 'GOVERNANÇA NOC', 'GOVERNANÇA NOC'],
+    'INSTALAÇÃO DA APLICAÇÃO': ['CENTRAL DE SERVIÇOS', 'INFRAESTRUTURA', 'GOVERNANÇA NOC'],
+    'MANUTENÇÃO CORRETIVA': ['CENTRAL DE SERVIÇOS', 'GOVERNANÇA NOC', 'GOVERNANÇA NOC'],
     'OUTROS': ['CENTRAL DE SERVIÇOS', 'GOVERNANÇA NOC', 'GOVERNANÇA NOC']
   }[item.solicitacao];
   if (encaminhamento) [item.n1, item.n2, item.n3] = encaminhamento;
