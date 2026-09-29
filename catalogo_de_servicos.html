@@ -450,7 +450,7 @@ function buildCatalog(area) {
 const CATEGORY_ICONS = {
   'cabos': '🔌', 'computadores': '🖥️', 'conectividade': '🌐',
   'dispositivos': '🎛️', 'dispositivos passivos': '🎧', 'dispositivos de rede': '📡',
-  'impressoras': '🖨️', 'monitores': '🖵', 'softwares': '💽', 'telefones': '☎️',
+  'impressoras': '🖨️', 'monitores': '🖥️', 'softwares': '💽', 'telefones': '☎️',
   'gestão de acesso': '🔐', 'cartões sim': '📱',
   'sistemas da saúde digital': '🏥', 'sistemas de gestão': '⚙️'
 };
@@ -458,7 +458,10 @@ function categoryIcon(name) {
   return CATEGORY_ICONS[(name||'').toLowerCase()] || '📁';
 }
 function serviceIcon(serviceName, categoryName) {
-  return /(?:^|\.\s*)SMARTPHONE$/i.test(serviceName || '') ? '📱' : categoryIcon(categoryName);
+  const name = serviceName || '';
+  if (/(?:^|\.\s*)SMARTPHONE$/i.test(name)) return '📱';
+  if (/MONITOR DE TELEVISÃO$/i.test(name)) return '📺';
+  return categoryIcon(categoryName);
 }
 
 function buildSubTabs(area) {
