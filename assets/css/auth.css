@@ -1,6 +1,6 @@
 .portal-auth-host{position:absolute;z-index:80;top:18px;right:max(24px,calc((100% - 1200px)/2));font-family:'DM Sans',Arial,sans-serif}
 .portal-auth-host.portal-auth-inline{position:relative;top:auto;right:auto;display:inline-flex}
-.hero-actions:has(> .portal-auth-host){display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-bottom:10px}
+.hero-actions:has(> .portal-auth-host){display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-end;gap:12px;margin-bottom:10px}
 .portal-auth-header-standalone{padding-top:88px!important}
 .portal-auth-trigger,.portal-auth-user-button{display:inline-flex;min-height:42px;align-items:center;justify-content:center;gap:8px;padding:9px 18px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;color:#17213d;font:700 13px/1.2 'DM Sans',Arial,sans-serif;letter-spacing:.02em;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.16);transition:background .2s,border-color .2s,transform .2s}
 .portal-auth-trigger:hover,.portal-auth-user-button:hover{background:#eef2f7;border-color:#94a3b8;transform:translateY(-1px)}
