@@ -422,7 +422,7 @@ function buildCatalog(area) {
 
     html += `<div class="service-block" data-service="${srvName}">
       <div class="service-header" onclick="this.parentElement.classList.toggle('open')">
-        <div class="service-icon si-${color}">${categoryIcon(srv.cat)}</div>
+        <div class="service-icon si-${color}">${serviceIcon(srvName, srv.cat)}</div>
         <div class="service-meta">
           <div class="service-name">${srvName}</div>
           ${srv.dono ? `<div class="service-sub">Responsável: ${srv.dono}</div>` : ''}
@@ -456,6 +456,9 @@ const CATEGORY_ICONS = {
 };
 function categoryIcon(name) {
   return CATEGORY_ICONS[(name||'').toLowerCase()] || '📁';
+}
+function serviceIcon(serviceName, categoryName) {
+  return /(?:^|\.\s*)SMARTPHONE$/i.test(serviceName || '') ? '📱' : categoryIcon(categoryName);
 }
 
 function buildSubTabs(area) {
