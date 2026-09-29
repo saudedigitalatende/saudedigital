@@ -458,9 +458,22 @@ function categoryIcon(name) {
   return CATEGORY_ICONS[(name||'').toLowerCase()] || '📁';
 }
 function serviceIcon(serviceName, categoryName) {
-  const name = serviceName || '';
-  if (/(?:^|\.\s*)SMARTPHONE$/i.test(name)) return '📱';
-  if (/MONITOR DE TELEVISÃO$/i.test(name)) return '📺';
+  const name = String(serviceName || '').replace(/^\s*\d+\.\s*/, '').toUpperCase();
+  const icons = {
+    'NOTEBOOK': '💻',
+    'TABLET': '📱',
+    'HEADPHONE': '🎧',
+    'MOUSE': '🖱️',
+    'TECLADO': '⌨️',
+    'SUPORTE DE TV ARTICULADO': '🛠️',
+    'CAIXA DE SOM': '🔊',
+    'FONTE EXTERNA': '🔌',
+    'WEBCAM': '📷',
+    'MONITOR DE COMPUTADOR': '🖥️',
+    'MONITOR DE TELEVISÃO': '📺',
+    'SMARTPHONE': '📱'
+  };
+  if (icons[name]) return icons[name];
   return categoryIcon(categoryName);
 }
 
