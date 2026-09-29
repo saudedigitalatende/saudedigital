@@ -459,9 +459,14 @@ function categoryIcon(name) {
 }
 function serviceIcon(serviceName, categoryName) {
   const name = String(serviceName || '').replace(/^\s*\d+\.\s*/, '').toUpperCase();
+  const svg = (body) => `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
+  const computerIcons = {
+    'DESKTOP': svg('<rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/>'),
+    'NOTEBOOK': svg('<rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2.5 18h19l-1 2h-17z"/>'),
+    'TABLET': svg('<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18.5h2"/>')
+  };
+  if (computerIcons[name]) return computerIcons[name];
   const icons = {
-    'NOTEBOOK': '💻',
-    'TABLET': '📱',
     'HEADPHONE': '🎧',
     'MOUSE': '🖱️',
     'TECLADO': '⌨️',
