@@ -64,8 +64,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 /* ACCORDION */
 .services-list{display:flex;flex-direction:column;gap:0}
 .service-block{background:#fff;border:0;border-bottom:1px solid #e3e7ed;border-radius:0;overflow:visible;transition:background-color .18s,border-color .18s}
+.service-block:nth-child(odd){background:#fff}
+.service-block:nth-child(even){background:var(--paper)}
 .service-block:first-child{border-top:1px solid #e3e7ed}
-.service-block:not(.open):hover{background:#fff;border-color:#d5dde7;box-shadow:none}
+.service-block:not(.open):hover{border-color:#d5dde7;box-shadow:none}
 .service-block.open{background:#eef6ff;border:1px solid #b8d7f5;border-radius:10px;overflow:hidden;box-shadow:none;margin:6px 0}
 .service-header{display:flex;align-items:center;gap:14px;padding:14px 18px;min-height:76px;transition:background .15s}
 .service-block.open .service-header{background:transparent}
