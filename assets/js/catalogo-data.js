@@ -7,17 +7,18 @@
   async function load(){
     const {data,error}=await db.from('catalogo_areas').select('slug,nome,ordem,catalogo_categorias(id,nome,ordem,catalogo_servicos(id,numero,nome,responsavel,grupo_tecnico,icone,ordem,catalogo_solicitacoes(tipo,solicitacao,sla,n1,n2,n3,conceito,ordem),catalogo_documentos(nome,tipo,versao,url,arquivo_path,ordem)))').eq('ativo',true).order('ordem');
     if(error||!data?.length){console.info('Catálogo: mantendo dados incorporados até a migração do Supabase.',error?.message||'sem dados');return;}
-    const target={sistemas:{},infra:{},administrativo:{}};window.CATALOGO_DB_DOCUMENTS={};
+    const target={sistemas:{},infra:{},administrativo:{}};window.CATALOGO_DB_DOCUMENTS={};window.CATALOGO_DB_SERVICE_IDS={};
     data.forEach(area=>(area.catalogo_categorias||[]).sort((a,b)=>a.ordem-b.ordem).forEach(cat=>{
       const rows=[];(cat.catalogo_servicos||[]).sort((a,b)=>a.ordem-b.ordem).forEach(service=>{
-        const label=`${service.numero?`${service.numero}. `:''}${service.nome}`;const owner=ownerHtml(service);
-        (service.catalogo_solicitacoes||[]).sort((a,b)=>a.ordem-b.ordem).forEach(r=>rows.push({servico:label,responsavel:owner,dono:owner,tipo:r.tipo,solicitacao:r.solicitacao,sla:r.sla,n1:r.n1,n2:r.n2,n3:r.n3,descricao:r.conceito}));
-        window.CATALOGO_DB_DOCUMENTS[label]=(service.catalogo_documentos||[]).sort((a,b)=>a.ordem-b.ordem).map(d=>[String(d.tipo||'documento').toLowerCase(),d.url,d.nome,d.versao]);
+        const label=`${service.numero?`${service.numero}. `:''}${service.nome}`;const owner=ownerHtml(service);window.CATALOGO_DB_SERVICE_IDS[label]=service.id;
+        (service.catalogo_solicitacoes||[]).sort((a,b)=>a.ordem-b.ordem).forEach(r=>rows.push({_id:r.id,servico:label,responsavel:owner,dono:owner,tipo:r.tipo,solicitacao:r.solicitacao,sla:r.sla,n1:r.n1,n2:r.n2,n3:r.n3,descricao:r.conceito}));
+        window.CATALOGO_DB_DOCUMENTS[label]=(service.catalogo_documentos||[]).sort((a,b)=>a.ordem-b.ordem).map(d=>[String(d.tipo||'documento').toLowerCase(),d.url,d.nome,d.versao,d.id]);
       });if(target[area.slug])target[area.slug][cat.nome]=rows;
     }));
     SISTEMAS=target.sistemas;INFRA=target.infra;ADMINISTRATIVO=target.administrativo;
     ['sistemas','infra','adm'].forEach(area=>{buildSubTabs(area);buildCatalog(area)});
     document.documentElement.dataset.catalogSource='supabase';
+    window.dispatchEvent(new CustomEvent('catalog-data-ready'));
   }
   load().catch(error=>console.error('Falha ao carregar catálogo do Supabase; usando cópia incorporada.',error));
 })();

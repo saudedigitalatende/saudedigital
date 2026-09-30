@@ -159,6 +159,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 }
 </style>
 <link rel="stylesheet" href="assets/css/auth.css?v=20260929-3">
+<link rel="stylesheet" href="assets/css/catalogo-admin.css?v=20260930-1">
 </head>
 <body>
 
@@ -323,13 +324,13 @@ function slaTag(sla) {
   return `<span class="sla-tag ${cls}">${sla}</span>`;
 }
 
-function makeDocLink(kind, href, label) {
+function makeDocLink(kind, href, label, version, documentId) {
   const icon = kind === 'process' ? '📋' : kind === 'manual' ? '📖' : kind === 'training' ? '🎓' : '📄';
   const type = kind === 'process' ? 'Processo operacional' : kind === 'manual' ? 'Manual' : kind === 'training' ? 'Treinamento' : 'Procedimento operacional';
   const canDownload = href.startsWith('https://saudedigitalatende.github.io/saudedigital/') || /\.(pdf|docx?|xlsx?|pptx?|zip)(?:[?#].*)?$/i.test(href);
-  return `<div class="doc-row">
+  return `<div class="doc-row"${documentId ? ` data-document-id="${documentId}"` : ''}>
     <span class="doc-icon" aria-hidden="true">${icon}</span>
-    <span class="doc-info"><span class="doc-name">${label}</span><span class="doc-type">${type}</span></span>
+    <span class="doc-info"><span class="doc-name">${label}</span><span class="doc-type">${type}${version ? ` · ${version}` : ''}</span></span>
     <span class="doc-actions">
       ${canDownload ? `<a class="doc-action" href="${href}" download>Baixar ↓</a>` : ''}
       <a class="doc-action" href="${href}" target="_blank" rel="noopener">Abrir ↗</a>
@@ -388,7 +389,7 @@ function documentationLinks(srvName) {
 function documentationBlock(srvName) {
   const docs = documentationLinks(srvName);
   if (!docs.length) return '';
-  const links = docs.map(([kind, href, label]) => makeDocLink(kind, href, label)).join('');
+  const links = docs.map(([kind, href, label, version, documentId]) => makeDocLink(kind, href, label, version, documentId)).join('');
   return `<section class="docs-associated" aria-label="Documentos associados"><div class="docs-associated-title">📚 Documentos associados (${docs.length})</div><div class="docs-associated-list">${links}</div></section>`;
 }
 function formatSolicitacao(str) {
@@ -444,7 +445,7 @@ function buildCatalog(area) {
     const srv = seen[srvName];
     let trs = '';
     srv.rows.forEach(r => {
-      trs += `<tr data-sol="${r.solicitacao}" data-tipo="${r.tipo}" data-desc="${r.descricao||''}">
+      trs += `<tr${r._id ? ` data-request-id="${r._id}"` : ''} data-sol="${r.solicitacao}" data-tipo="${r.tipo}" data-desc="${r.descricao||''}">
         <td style="width:145px">${tipoTag(r.tipo)}</td>
         <td><span class="td-sol">${formatSolicitacao(r.solicitacao)}</span></td>
         <td style="width:145px">${slaTag(r.sla)}</td>
@@ -674,6 +675,7 @@ window.addEventListener('message', e => {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js?v=20260929-1"></script>
 <script src="assets/js/catalogo-data.js?v=20260930-1"></script>
-<script src="assets/js/auth.js?v=20260930-1"></script>
+<script src="assets/js/auth.js?v=20260930-2"></script>
+<script src="assets/js/catalogo-admin.js?v=20260930-1"></script>
 </body>
 </html>

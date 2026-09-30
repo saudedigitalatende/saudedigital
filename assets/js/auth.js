@@ -129,7 +129,8 @@
     elements.entry.hidden = false;
     elements.user.hidden = true;
     closeMenu();
-    window.dispatchEvent(new CustomEvent('portal-auth-change', {detail: {user: null, profile: null, client}}));
+    window.PORTAL_AUTH_STATE = {user: null, profile: null, client};
+    window.dispatchEvent(new CustomEvent('portal-auth-change', {detail: window.PORTAL_AUTH_STATE}));
   }
   function renderSignedIn(user, profile) {
     currentUser = user;
@@ -144,7 +145,8 @@
     elements.users.hidden = role !== 'ADMINISTRADOR';
     elements.entry.hidden = true;
     elements.user.hidden = false;
-    window.dispatchEvent(new CustomEvent('portal-auth-change', {detail: {user, profile, client}}));
+    window.PORTAL_AUTH_STATE = {user, profile, client};
+    window.dispatchEvent(new CustomEvent('portal-auth-change', {detail: window.PORTAL_AUTH_STATE}));
   }
   async function resolveSession(session) {
     const check = ++authorizationCheck;
