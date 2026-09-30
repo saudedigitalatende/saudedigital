@@ -35,6 +35,6 @@ html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var
 <script>function toggleCard(header){header.closest('.process-card').classList.toggle('open')}const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.toc a');const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){links.forEach(link=>link.classList.remove('active'));const current=document.querySelector(`.toc a[href="#${entry.target.id}"]`);if(current)current.classList.add('active')}}),{rootMargin:'-20% 0px -70% 0px'});sections.forEach(section=>observer.observe(section));</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../../assets/js/supabase-config.js?v=20260929-1"></script>
-<script src="../../assets/js/auth.js?v=20260929-2"></script>
+<script src="../../assets/js/auth.js?v=20260930-1"></script>
 </body>
 </html>

@@ -129,6 +129,7 @@
     elements.entry.hidden = false;
     elements.user.hidden = true;
     closeMenu();
+    window.dispatchEvent(new CustomEvent('portal-auth-change', {detail: {user: null, profile: null, client}}));
   }
   function renderSignedIn(user, profile) {
     currentUser = user;
@@ -143,6 +144,7 @@
     elements.users.hidden = role !== 'ADMINISTRADOR';
     elements.entry.hidden = true;
     elements.user.hidden = false;
+    window.dispatchEvent(new CustomEvent('portal-auth-change', {detail: {user, profile, client}}));
   }
   async function resolveSession(session) {
     const check = ++authorizationCheck;
@@ -187,8 +189,9 @@
   elements.form.addEventListener('submit', submitLogin);
   elements.userButton.addEventListener('click', () => { const opening = elements.menu.hidden; elements.menu.hidden = !opening; elements.userButton.setAttribute('aria-expanded', String(opening)); });
   elements.account.addEventListener('click', () => { closeMenu(); openModal('account'); });
-  elements.admin.addEventListener('click', event => event.preventDefault());
-  elements.users.addEventListener('click', event => event.preventDefault());
+  const portalBase = window.location.pathname.includes('/saudedigital/') ? '/saudedigital/' : `${window.location.pathname.split('/').slice(0, -1).join('/')}/`;
+  elements.admin.addEventListener('click', () => { window.location.href = `${portalBase}admin/`; });
+  elements.users.addEventListener('click', () => { window.location.href = `${portalBase}admin/usuarios.html`; });
   elements.signOut.addEventListener('click', async () => { closeMenu(); if (client) await client.auth.signOut(); renderSignedOut(); });
   document.addEventListener('click', event => { if (!elements.user.contains(event.target)) closeMenu(); });
   document.addEventListener('keydown', event => { if (event.key !== 'Escape') return; if (!elements.overlay.hidden) closeModal(); else closeMenu(); });
