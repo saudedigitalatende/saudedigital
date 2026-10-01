@@ -93,7 +93,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 .service-block.open .service-body{display:block}
 .service-section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px 10px;font-size:13px;font-weight:700;color:var(--ink)}
 .service-section-title span{font-size:11px;font-weight:600;color:var(--ink3)}
-.table-scroll{width:100%;overflow-x:auto;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch}
+.table-scroll{width:100%;overflow-x:visible;overscroll-behavior-inline:contain}
 
 .docs-associated{margin:14px 18px 18px;border-top:1px solid #e6ebf2;padding-top:14px;background:transparent}
 .docs-associated-title{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px}
@@ -109,21 +109,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 .doc-action:hover{background:var(--blue-lt);border-color:#b8cce4}
 
 /* TABLE */
-.cat-table{width:100%;min-width:1280px;border-collapse:collapse;font-size:12.5px;table-layout:fixed;background:transparent}
-.cat-table th{padding:10px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);background:transparent;border-bottom:1px solid #e6ebf2;white-space:nowrap;box-sizing:border-box}
+.cat-table{width:100%;min-width:0;border-collapse:collapse;font-size:12.5px;table-layout:fixed;background:transparent}
+.cat-table th{padding:10px 12px;text-align:left;font-size:10px;font-weight:700;line-height:1.25;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);background:transparent;border-bottom:1px solid #e6ebf2;white-space:normal;overflow-wrap:normal;word-break:normal;box-sizing:border-box}
 .cat-table td{padding:12px 16px;border-bottom:1px solid #e6ebf2;vertical-align:top;background:transparent;box-sizing:border-box}
-.cat-table th:nth-child(1),.cat-table td:nth-child(1){width:130px}
-.cat-table th:nth-child(2),.cat-table td:nth-child(2){width:210px}
-.cat-table th:nth-child(3),.cat-table td:nth-child(3){width:150px}
-.cat-table th:nth-child(4),.cat-table td:nth-child(4){width:190px}
-.cat-table th:nth-child(5),.cat-table td:nth-child(5){width:160px}
-.cat-table th:nth-child(6),.cat-table td:nth-child(6){width:175px}
-.cat-table th:nth-child(7),.cat-table td:nth-child(7){width:265px}
+.cat-table th:nth-child(1),.cat-table td:nth-child(1){width:10%}
+.cat-table th:nth-child(2),.cat-table td:nth-child(2){width:18%}
+.cat-table th:nth-child(3),.cat-table td:nth-child(3){width:12%}
+.cat-table th:nth-child(4),.cat-table td:nth-child(4){width:15%}
+.cat-table th:nth-child(5),.cat-table td:nth-child(5){width:12%}
+.cat-table th:nth-child(6),.cat-table td:nth-child(6){width:14%}
+.cat-table th:nth-child(7),.cat-table td:nth-child(7){width:19%}
 .cat-table tr:last-child td{border-bottom:none}
 .cat-table tr:hover td{background:transparent}
 .td-sol{font-weight:600;color:var(--ink)}
 .td-n{font-size:12px;color:var(--ink3)}.resp-group{display:inline-block;margin-top:3px;font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:.02em}
-.td-desc{font-size:12px;color:var(--ink3);line-height:1.5;word-wrap:break-word;overflow-wrap:break-word}
+.td-desc{font-size:12px;color:var(--ink3);line-height:1.5;overflow-wrap:break-word;word-break:normal}
 .td-sol{word-wrap:normal;overflow-wrap:normal;word-break:normal;line-height:1.45}
 .td-n{word-wrap:break-word;overflow-wrap:break-word}
 
@@ -154,6 +154,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
   .hero{padding-left:28px;padding-right:28px}.main-tabs{padding:0 20px}.main{padding:24px 28px 48px}
   .main-tabs-inner{overflow-x:auto}.main-tab{padding:14px 18px}
   .service-header{flex-wrap:wrap}.service-toggle{min-width:148px}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.cat-table{min-width:900px}
 }
 @media(max-width:600px){
   .hero{padding:24px 18px 22px}.main-tabs{padding:0}.main-tab{padding:12px 14px;font-size:11px}
@@ -166,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 }
 </style>
 <link rel="stylesheet" href="assets/css/auth.css?v=20260929-3">
-<link rel="stylesheet" href="assets/css/catalogo-admin.css?v=20260930-2">
+<link rel="stylesheet" href="assets/css/catalogo-admin.css?v=20260930-3">
 </head>
 <body>
 
