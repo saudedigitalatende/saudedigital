@@ -110,15 +110,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 
 /* TABLE */
 .cat-table{width:100%;min-width:0;border-collapse:collapse;font-size:12.5px;table-layout:fixed;background:transparent}
-.cat-table th{padding:10px 12px;text-align:left;font-size:10px;font-weight:700;line-height:1.25;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);background:transparent;border-bottom:1px solid #e6ebf2;white-space:normal;overflow-wrap:normal;word-break:normal;box-sizing:border-box}
+.cat-table th{padding:10px 16px;text-align:left;font-size:10px;font-weight:700;line-height:1.25;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);background:transparent;border-bottom:1px solid #e6ebf2;white-space:normal;overflow-wrap:normal;word-break:normal;box-sizing:border-box}
 .cat-table td{padding:12px 16px;border-bottom:1px solid #e6ebf2;vertical-align:top;background:transparent;box-sizing:border-box}
 .cat-table th:nth-child(1),.cat-table td:nth-child(1){width:10%}
-.cat-table th:nth-child(2),.cat-table td:nth-child(2){width:18%}
-.cat-table th:nth-child(3),.cat-table td:nth-child(3){width:12%}
-.cat-table th:nth-child(4),.cat-table td:nth-child(4){width:15%}
+.cat-table th:nth-child(2),.cat-table td:nth-child(2){width:16%}
+.cat-table th:nth-child(3),.cat-table td:nth-child(3){width:16%;padding-right:24px}
+.cat-table th:nth-child(4),.cat-table td:nth-child(4){width:15%;padding-left:20px}
 .cat-table th:nth-child(5),.cat-table td:nth-child(5){width:12%}
 .cat-table th:nth-child(6),.cat-table td:nth-child(6){width:14%}
-.cat-table th:nth-child(7),.cat-table td:nth-child(7){width:19%}
+.cat-table th:nth-child(7),.cat-table td:nth-child(7){width:17%}
 .cat-table tr:last-child td{border-bottom:none}
 .cat-table tr:hover td{background:transparent}
 .td-sol{font-weight:600;color:var(--ink)}
@@ -132,12 +132,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 .tag-req{background:var(--blue-lt);color:var(--blue-mid)}
 .tag-inc{background:var(--orange-lt);color:var(--orange-mid)}
 .tag-both{background:var(--purple-lt);color:var(--purple)}
-.sla-tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
+.sla-tag{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;line-height:1.2;white-space:nowrap}
 .sla-critico{background:#fdeee6;color:#c0390a}
-.sla-alto{background:#fff3cd;color:#856404}
-.sla-medio{background:var(--blue-lt);color:var(--blue-mid)}
-.sla-baixo{background:var(--green-lt);color:var(--green-mid)}
-.sla-planejado{background:var(--paper2);color:var(--ink3)}
+.sla-muito-baixo{background:#E8F7EA;color:#2E7D32}
+.sla-baixo{background:#EAF4FF;color:#1565C0}
+.sla-medio{background:#FFF4D6;color:#B26A00}
+.sla-alto{background:#FDE7E7;color:#C62828}
+.sla-planejado{background:#EEEAFB;color:#5E35B1}
+.sla-sem-sla{background:#ECEFF3;color:#5F6B7A}
 
 /* FOOTER */
 
@@ -167,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 }
 </style>
 <link rel="stylesheet" href="assets/css/auth.css?v=20260929-3">
-<link rel="stylesheet" href="assets/css/catalogo-admin.css?v=20260930-3">
+<link rel="stylesheet" href="assets/css/catalogo-admin.css?v=20261001-1">
 </head>
 <body>
 
@@ -323,12 +325,15 @@ function tipoTag(tipo) {
 
 function slaTag(sla) {
   if (!sla) return '—';
-  const s = sla.toUpperCase();
+  const s = sla.trim().toUpperCase();
   let cls = 'sla-baixo';
-  if (s.includes('CRÍTICO')||s.includes('CRITICO')||s.includes('1 HORA')) cls='sla-critico';
-  else if (s.includes('ALTO')||s.includes('2 HORA')) cls='sla-alto';
-  else if (s.includes('MÉDIO')||s.includes('MEDIO')||s.includes('4 HORA')) cls='sla-medio';
-  else if (s.includes('PLANEJADO')||s.includes('DIA')) cls='sla-planejado';
+  if (s.includes('NÃO TEM SLA') || s.includes('NAO TEM SLA')) cls='sla-sem-sla';
+  else if (s.startsWith('MUITO BAIXO')) cls='sla-muito-baixo';
+  else if (s.startsWith('BAIXO')) cls='sla-baixo';
+  else if (s.startsWith('MÉDIO')||s.startsWith('MEDIO')) cls='sla-medio';
+  else if (s.startsWith('ALTO')) cls='sla-alto';
+  else if (s.startsWith('PLANEJADO')) cls='sla-planejado';
+  else if (s.startsWith('CRÍTICO')||s.startsWith('CRITICO')) cls='sla-critico';
   return `<span class="sla-tag ${cls}">${sla}</span>`;
 }
 
