@@ -4,7 +4,9 @@ No **SQL Editor** do projeto Supabase, execute nesta ordem:
 
 1. `catalogo_auth.sql` (caso ainda não tenha sido executado);
 2. `catalogo_admin.sql` (tabelas, RLS, auditoria e bucket);
-3. `catalogo_seed.sql` (carga dos 85 serviços, 582 solicitações e 33 documentos atuais).
+3. `catalogo_seed.sql` (carga idempotente das 3 áreas, 20 categorias, 85 serviços, 582 solicitações e 33 documentos atuais).
+
+O seed não apaga registros existentes. Serviços equivalentes são atualizados e solicitações/documentos equivalentes são preservados, sem duplicação. Ao final, a consulta de conferência exibe os totais encontrados no banco.
 
 Depois, em **Authentication → Users**, crie ou convide o usuário institucional. Copie o UUID dele e cadastre o primeiro administrador pelo SQL Editor:
 

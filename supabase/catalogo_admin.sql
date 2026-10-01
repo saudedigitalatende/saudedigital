@@ -30,6 +30,10 @@ create table if not exists public.catalogo_documentos (
   ativo boolean not null default true, ordem integer not null default 0,
   created_at timestamptz not null default now(), updated_at timestamptz not null default now()
 );
+create unique index if not exists catalogo_solicitacoes_natural_uidx
+  on public.catalogo_solicitacoes(servico_id,lower(coalesce(tipo,'')),lower(solicitacao));
+create unique index if not exists catalogo_documentos_natural_uidx
+  on public.catalogo_documentos(servico_id,lower(nome),coalesce(url,''));
 create table if not exists public.catalogo_historico (
   id bigint generated always as identity primary key, usuario_id uuid, usuario_email text,
   acao text not null, entidade text not null, registro_id text,
@@ -41,6 +45,12 @@ create or replace function public.catalogo_pode_editar() returns boolean languag
 $$;
 revoke all on function public.catalogo_pode_editar() from public;
 grant execute on function public.catalogo_pode_editar() to authenticated, anon;
+
+create or replace function public.catalogo_eh_admin() returns boolean language sql stable security definer set search_path=public as $$
+ select exists(select 1 from public.catalogo_usuarios where user_id=auth.uid() and ativo and perfil='ADMINISTRADOR');
+$$;
+revoke all on function public.catalogo_eh_admin() from public;
+grant execute on function public.catalogo_eh_admin() to authenticated;
 
 create or replace function public.catalogo_auditar() returns trigger language plpgsql security definer set search_path=public as $$
 begin
@@ -73,7 +83,12 @@ do $$ declare t text; begin
   execute format('drop policy if exists %I_publicar on public.%I',t,t);
   execute format('create policy %I_publicar on public.%I for select using (ativo=true or public.catalogo_pode_editar())',t,t);
   execute format('drop policy if exists %I_editar on public.%I',t,t);
-  execute format('create policy %I_editar on public.%I for all to authenticated using (public.catalogo_pode_editar()) with check (public.catalogo_pode_editar())',t,t);
+  execute format('drop policy if exists %I_inserir on public.%I',t,t);
+  execute format('create policy %I_inserir on public.%I for insert to authenticated with check (public.catalogo_pode_editar())',t,t);
+  execute format('drop policy if exists %I_atualizar on public.%I',t,t);
+  execute format('create policy %I_atualizar on public.%I for update to authenticated using (public.catalogo_pode_editar()) with check (public.catalogo_pode_editar())',t,t);
+  execute format('drop policy if exists %I_excluir on public.%I',t,t);
+  execute format('create policy %I_excluir on public.%I for delete to authenticated using (public.catalogo_eh_admin())',t,t);
  end loop;
 end $$;
 drop policy if exists catalogo_historico_ler on public.catalogo_historico;

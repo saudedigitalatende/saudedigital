@@ -1,6 +1,6 @@
 const fs=require('fs');
 const html=fs.readFileSync('catalogo_de_servicos.html','utf8');
-function object(name){const m=html.match(new RegExp(`const ${name} = (\\{.*?\\});\\r?\\n`));if(!m)throw new Error(`Objeto ${name} não encontrado`);return JSON.parse(m[1]);}
+function object(name){const m=html.match(new RegExp(`(?:const|let) ${name} = (\\{.*?\\});\\r?\\n`));if(!m)throw new Error(`Objeto ${name} não encontrado`);return JSON.parse(m[1]);}
 const sources=[['SISTEMAS','Sistemas',object('SISTEMAS')],['INFRA','Infraestrutura',object('INFRA')],['ADMINISTRATIVO','Administrativo',object('ADMINISTRATIVO')]];
 const q=v=>v==null?'null':`'${String(v).replace(/'/g,"''")}'`;
 const clean=v=>String(v||'').replace(/<br><span class='resp-group'>.*?<\/span>/g,'').replace(/&eacute;/g,'é').replace(/&atilde;/g,'ã').replace(/&ccedil;/g,'ç').trim();
@@ -30,13 +30,17 @@ for(let ai=0;ai<sources.length;ai++){
   const by=new Map();for(const r of rows){if(!by.has(r.servico))by.set(r.servico,[]);by.get(r.servico).push(r)}
   let si=0;
   for(const [label,requests] of by){const m=label.match(/^\s*(\d+)\.\s*(.*)$/),num=m?Number(m[1]):null,name=m?m[2]:label,ownerRaw=requests[0].responsavel||requests[0].dono||'';
-   sql+=`insert into public.catalogo_servicos(categoria_id,numero,nome,responsavel,grupo_tecnico,ordem) select c.id,${num??'null'},${q(name)},${q(clean(ownerRaw))},${q(group(ownerRaw))},${si++} from public.catalogo_categorias c join public.catalogo_areas a on a.id=c.area_id where a.slug=${q(slug.toLowerCase())} and c.nome=${q(category)} on conflict(categoria_id,nome) do update set numero=excluded.numero,responsavel=excluded.responsavel,grupo_tecnico=excluded.grupo_tecnico,ordem=excluded.ordem;\n`;
-   sql+=`delete from public.catalogo_solicitacoes where servico_id=(select s.id from public.catalogo_servicos s join public.catalogo_categorias c on c.id=s.categoria_id join public.catalogo_areas a on a.id=c.area_id where a.slug=${q(slug.toLowerCase())} and c.nome=${q(category)} and s.nome=${q(name)});\n`;
-   requests.forEach((r,i)=>sql+=`insert into public.catalogo_solicitacoes(servico_id,tipo,solicitacao,sla,n1,n2,n3,conceito,ordem) select s.id,${q(clean(r.tipo))},${q(clean(r.solicitacao))},${q(clean(r.sla))},${q(clean(r.n1))},${q(clean(r.n2))},${q(clean(r.n3))},${q(clean(r.descricao))},${i} from public.catalogo_servicos s join public.catalogo_categorias c on c.id=s.categoria_id join public.catalogo_areas a on a.id=c.area_id where a.slug=${q(slug.toLowerCase())} and c.nome=${q(category)} and s.nome=${q(name)};\n`);
-   sql+=`delete from public.catalogo_documentos where servico_id=(select s.id from public.catalogo_servicos s join public.catalogo_categorias c on c.id=s.categoria_id join public.catalogo_areas a on a.id=c.area_id where a.slug=${q(slug.toLowerCase())} and c.nome=${q(category)} and s.nome=${q(name)}) and arquivo_path is null;\n`;
-   docsFor(name).forEach((d,i)=>sql+=`insert into public.catalogo_documentos(servico_id,nome,tipo,url,ordem) select s.id,${q(d.nome)},${q(d.tipo)},${q(d.url)},${i} from public.catalogo_servicos s join public.catalogo_categorias c on c.id=s.categoria_id join public.catalogo_areas a on a.id=c.area_id where a.slug=${q(slug.toLowerCase())} and c.nome=${q(category)} and s.nome=${q(name)};\n`);
+   sql+=`insert into public.catalogo_servicos(categoria_id,numero,nome,responsavel,grupo_tecnico,ordem,ativo) select c.id,${num??'null'},${q(name)},${q(clean(ownerRaw))},${q(group(ownerRaw))},${si++},true from public.catalogo_categorias c join public.catalogo_areas a on a.id=c.area_id where a.slug=${q(slug.toLowerCase())} and c.nome=${q(category)} on conflict(categoria_id,nome) do update set numero=excluded.numero,responsavel=excluded.responsavel,grupo_tecnico=excluded.grupo_tecnico,ordem=excluded.ordem;\n`;
+   requests.forEach((r,i)=>sql+=`insert into public.catalogo_solicitacoes(servico_id,tipo,solicitacao,sla,n1,n2,n3,conceito,ordem,ativo) select s.id,${q(clean(r.tipo))},${q(clean(r.solicitacao))},${q(clean(r.sla))},${q(clean(r.n1))},${q(clean(r.n2))},${q(clean(r.n3))},${q(clean(r.descricao))},${i},true from public.catalogo_servicos s join public.catalogo_categorias c on c.id=s.categoria_id join public.catalogo_areas a on a.id=c.area_id where a.slug=${q(slug.toLowerCase())} and c.nome=${q(category)} and s.nome=${q(name)} and not exists(select 1 from public.catalogo_solicitacoes x where x.servico_id=s.id and lower(coalesce(x.tipo,''))=lower(${q(clean(r.tipo))}) and lower(x.solicitacao)=lower(${q(clean(r.solicitacao))}));\n`);
+   docsFor(name).forEach((d,i)=>sql+=`insert into public.catalogo_documentos(servico_id,nome,tipo,url,ordem,ativo) select s.id,${q(d.nome)},${q(d.tipo)},${q(d.url)},${i},true from public.catalogo_servicos s join public.catalogo_categorias c on c.id=s.categoria_id join public.catalogo_areas a on a.id=c.area_id where a.slug=${q(slug.toLowerCase())} and c.nome=${q(category)} and s.nome=${q(name)} and not exists(select 1 from public.catalogo_documentos x where x.servico_id=s.id and lower(x.nome)=lower(${q(d.nome)}) and coalesce(x.url,'')=coalesce(${q(d.url)},''));\n`);
   }
  }
 }
-sql+='commit;\n';fs.writeFileSync('supabase/catalogo_seed.sql',sql);
+sql+=`commit;
+select 'areas' as entidade,count(*) as total from public.catalogo_areas
+union all select 'categorias',count(*) from public.catalogo_categorias
+union all select 'servicos',count(*) from public.catalogo_servicos
+union all select 'solicitacoes',count(*) from public.catalogo_solicitacoes
+union all select 'documentos',count(*) from public.catalogo_documentos;
+`;fs.writeFileSync('supabase/catalogo_seed.sql',sql);
 console.log(`Seed gerado: ${sql.split('\n').length-1} comandos/linhas`);

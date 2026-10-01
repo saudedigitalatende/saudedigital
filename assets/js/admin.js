@@ -5,7 +5,9 @@
   const state = {requests:[], documents:[]};
   const guard=$('guard'), app=$('app'), dialog=$('service-dialog');
   const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  function fail(message){guard.textContent=message;guard.classList.add('error');app.hidden=true;}
+  let authRun=0;
+  function showState(message,type='loading',detail=''){guard.hidden=false;guard.className=`admin-state ${type}`;guard.innerHTML=`<strong>${esc(message)}</strong>${detail?`<small>${esc(detail)}</small>`:''}`;app.hidden=true;}
+  function fail(message,detail=''){showState(message,'error',detail);}
   async function queryCatalog(){
     const [a,c,s]=await Promise.all([
       db.from('catalogo_areas').select('*').order('ordem'),
@@ -16,7 +18,8 @@
     areas=a.data||[];categories=c.data||[];services=s.data||[];renderAll();
   }
   function renderAll(){
-    $('stats').innerHTML=[['Áreas',areas.length],['Categorias',categories.length],['Serviços',services.length],['Ativos',services.filter(s=>s.ativo).length]].map(x=>`<div class="stat"><strong>${x[1]}</strong>${x[0]}</div>`).join('');
+    $('stats').innerHTML=[['Áreas',areas.length],['Categorias',categories.length],['Serviços',services.length],['Serviços ativos',services.filter(s=>s.ativo).length]].map(x=>`<div class="stat"><strong>${x[1]}</strong>${x[0]}</div>`).join('');
+    $('dashboard-empty').hidden=Boolean(areas.length||categories.length||services.length);
     const areaOptions=areas.map(a=>`<option value="${a.id}">${esc(a.nome)}</option>`).join('');
     $('area-filter').innerHTML='<option value="">Todas as áreas</option>'+areaOptions;
     $('service-area').innerHTML='<option value="">Selecione</option>'+areaOptions;
@@ -53,7 +56,7 @@
       const result=serviceId?await db.from('catalogo_servicos').update(payload).eq('id',serviceId).select().single():await db.from('catalogo_servicos').insert(payload).select().single();if(result.error)throw result.error;serviceId=result.data.id;
       const old=services.find(s=>s.id===serviceId);const reqs=readRows('#requests-editor .request-row');const docs=readRows('#documents-editor .document-row');
       const keptReq=reqs.filter(r=>r.id).map(r=>r.id), keptDoc=docs.filter(d=>d.id).map(d=>d.id);
-      for(const r of old?.catalogo_solicitacoes||[])if(!keptReq.includes(r.id))await db.from('catalogo_solicitacoes').delete().eq('id',r.id);
+      for(const r of old?.catalogo_solicitacoes||[])if(!keptReq.includes(r.id)){const result=await db.from('catalogo_solicitacoes').update({ativo:false}).eq('id',r.id);if(result.error)throw result.error}
       for(const d of old?.catalogo_documentos||[])if(!keptDoc.includes(d.id)){if(d.arquivo_path)await db.storage.from('catalogo-documentos').remove([d.arquivo_path]);await db.from('catalogo_documentos').delete().eq('id',d.id)}
       for(const r of reqs){const {id,...data}=r;data.servico_id=serviceId;data.ativo=true;const q=id?db.from('catalogo_solicitacoes').update(data).eq('id',id):db.from('catalogo_solicitacoes').insert(data);const x=await q;if(x.error)throw x.error}
       const docRows=[...document.querySelectorAll('#documents-editor .document-row')];
@@ -61,9 +64,13 @@
       dialog.close();await queryCatalog();
     }catch(error){console.error(error);$('form-status').textContent=`Não foi possível salvar: ${error.message||error}`;}finally{button.disabled=false}
   }
-  async function loadHistory(){const {data}=await db.from('catalogo_historico').select('*').order('data_hora',{ascending:false}).limit(50);$('history-list').innerHTML=(data||[]).map(h=>`<div class="history-item"><strong>${esc(h.usuario_email||'Sistema')}</strong> ${esc(h.acao.toLowerCase())} ${esc(h.entidade)}<br><small>${new Date(h.data_hora).toLocaleString('pt-BR')}</small></div>`).join('')||'<div class="history-item">Nenhuma alteração registrada.</div>'}
-  window.addEventListener('portal-auth-change',async e=>{const d=e.detail;if(!d.user)return fail('Entre com uma conta autorizada para acessar esta página.');if(!d.profile||!['ADMINISTRADOR','EDITOR'].includes(d.profile.perfil))return fail('Seu perfil não possui permissão para alterar o catálogo.');db=d.client;profile=d.profile;$('nav-users').hidden=profile.perfil!=='ADMINISTRADOR';guard.hidden=true;app.hidden=false;try{await queryCatalog()}catch(error){fail(`A estrutura administrativa ainda não está disponível no Supabase: ${error.message}`)}});
+  async function loadHistory(){const {data,error}=await db.from('catalogo_historico').select('*').order('data_hora',{ascending:false}).limit(50);$('history-list').innerHTML=error?`<div class="history-item error">Não foi possível carregar o histórico.<small>${esc(error.message)}</small></div>`:(data||[]).map(h=>`<div class="history-item"><strong>${esc(h.usuario_email||'Sistema')}</strong> ${esc(h.acao.toLowerCase())} ${esc(h.entidade)}<br><small>${new Date(h.data_hora).toLocaleString('pt-BR')}</small></div>`).join('')||'<div class="history-item">Nenhuma alteração registrada.</div>'}
+  function showSection(id='dashboard'){const valid=['dashboard','catalogo','documentos','historico'];if(!valid.includes(id))id='dashboard';valid.forEach(sectionId=>$(sectionId).hidden=sectionId!==id);document.querySelectorAll('.admin-nav a[href^="#"]').forEach(link=>link.classList.toggle('active',link.getAttribute('href')===`#${id}`));}
+  async function handleAuth(detail){const run=++authRun;if(!detail?.user)return fail('Entre com uma conta autorizada para acessar esta página.');if(!detail.profile||!['ADMINISTRADOR','EDITOR'].includes(detail.profile.perfil))return fail('Seu perfil não possui permissão para acessar a área administrativa.');db=detail.client;profile=detail.profile;$('nav-users').hidden=profile.perfil!=='ADMINISTRADOR';$('quick-users').hidden=profile.perfil!=='ADMINISTRADOR';showState('Carregando área administrativa…');try{await queryCatalog();if(run!==authRun)return;guard.hidden=true;app.hidden=false;showSection(location.hash.slice(1)||'dashboard');}catch(error){console.error('Falha ao carregar a área administrativa:',error);const missing=error?.code==='PGRST205';fail(missing?'Estrutura administrativa do catálogo ainda não foi criada no Supabase.':'Não foi possível carregar a área administrativa.',error?.message||String(error));}}
+  window.addEventListener('portal-auth-change',e=>handleAuth(e.detail));
   $('search').addEventListener('input',renderServices);$('area-filter').addEventListener('change',()=>{refreshCategoryOptions();renderServices()});$('category-filter').addEventListener('change',renderServices);$('service-area').addEventListener('change',()=>refreshCategoryOptions());$('new-service').addEventListener('click',()=>openForm());$('add-request').addEventListener('click',()=>$('requests-editor').insertAdjacentHTML('beforeend',requestRow()));$('add-document').addEventListener('click',()=>$('documents-editor').insertAdjacentHTML('beforeend',documentRow()));$('service-form').addEventListener('submit',save);
   $('edit-category').addEventListener('click',async()=>{const id=$('category-filter').value;if(!id)return alert('Selecione uma categoria específica.');const current=categories.find(c=>c.id===id),nome=prompt('Novo nome da categoria:',current.nome);if(!nome||nome.trim()===current.nome)return;const {error}=await db.from('catalogo_categorias').update({nome:nome.trim()}).eq('id',id);if(error)alert(error.message);else await queryCatalog()});
   document.addEventListener('click',async e=>{const edit=e.target.closest('.edit'),toggle=e.target.closest('.toggle'),remove=e.target.closest('.row-remove');if(remove)remove.parentElement.remove();if(edit)openForm(services.find(s=>s.id===edit.dataset.id));if(toggle){const s=services.find(x=>x.id===toggle.dataset.id);if(s&&confirm(`${s.ativo?'Inativar':'Ativar'} ${s.nome}?`)){const {error}=await db.from('catalogo_servicos').update({ativo:!s.ativo}).eq('id',s.id);if(error)alert(error.message);else await queryCatalog()}}});
+  $('quick-new-service').addEventListener('click',()=>openForm());document.querySelectorAll('.admin-nav a[href^="#"],.quick-link[href^="#"]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();const id=link.getAttribute('href').slice(1);history.replaceState(null,'',`#${id}`);showSection(id)}));
+  if(window.PORTAL_AUTH_STATE)handleAuth(window.PORTAL_AUTH_STATE);
 })();
