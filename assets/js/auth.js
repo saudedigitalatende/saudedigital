@@ -100,6 +100,7 @@
   function closeMenu() {
     elements.menu.hidden = true;
     elements.userButton.setAttribute('aria-expanded', 'false');
+    elements.userButton.closest('header, .hero')?.classList.remove('portal-auth-header-menu-open');
   }
   function openModal(view = 'login') {
     lastFocusedElement = document.activeElement;
@@ -189,7 +190,7 @@
   elements.close.addEventListener('click', closeModal);
   elements.overlay.addEventListener('click', event => { if (event.target === elements.overlay) closeModal(); });
   elements.form.addEventListener('submit', submitLogin);
-  elements.userButton.addEventListener('click', () => { const opening = elements.menu.hidden; elements.menu.hidden = !opening; elements.userButton.setAttribute('aria-expanded', String(opening)); });
+  elements.userButton.addEventListener('click', () => { const opening = elements.menu.hidden; elements.menu.hidden = !opening; elements.userButton.setAttribute('aria-expanded', String(opening)); elements.userButton.closest('header, .hero')?.classList.toggle('portal-auth-header-menu-open', opening); });
   elements.account.addEventListener('click', () => { closeMenu(); openModal('account'); });
   const portalBase = window.location.pathname.includes('/saudedigital/') ? '/saudedigital/' : `${window.location.pathname.split('/').slice(0, -1).join('/')}/`;
   elements.admin.addEventListener('click', () => { window.location.href = `${portalBase}admin/`; });
