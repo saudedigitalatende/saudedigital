@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Processo Operacional – Treinamento de Sistemas · GTIC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d1a2e;--ink2:#2c3e55;--ink3:#5a6b7e;
+  --paper:#f7f5f0;--paper2:#ede9e1;--rule:#d4cfc5;
+  --blue:#1a4f8a;--blue-lt:#e8f0fa;--blue-mid:#2d6fbd;
+  --green:#1a6644;--green-lt:#e6f4ee;--green-mid:#2a8a5a;
+  --orange:#b85a1a;--orange-lt:#fdeee6;--orange-mid:#d4721a;
+  --amber:#b07d1a;--amber-lt:#fdf3dc;--amber-mid:#c8a94a;
+  --red:#a01a1a;--red-lt:#fdeaea;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+
+/* HERO */
+.hero{background:var(--ink);color:#fff;padding:32px 60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(45,111,189,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto}
+.hero-actions{display:flex;justify-content:flex-end;margin-bottom:12px}
+.hero-crumb{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.65);text-decoration:none;padding:4px 12px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s}
+.hero-crumb:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.hero h1{font-family:'DM Sans',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);color:#fff;line-height:1.1;margin-bottom:4px}
+.hero h1 em{color:var(--amber-mid);font-style:normal}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
+
+/* LAYOUT */
+.layout{max-width:1100px;margin:0 auto;padding:36px 60px 60px;display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.toc{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent;transition:all .15s}
+.toc a:hover,.toc a.active{color:var(--blue-mid);background:var(--blue-lt);border-left-color:var(--blue-mid);font-weight:600}
+.toc-group{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);padding:8px 10px 2px;margin-top:6px}
+
+/* CONTENT */
+.content .section{margin-bottom:40px;scroll-margin-top:24px}
+.section-title{font-family:'DM Sans',sans-serif;font-weight:700;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+.section-title span{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--blue-mid);background:var(--blue-lt);padding:2px 8px;border-radius:4px}
+.doc-p{font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:10px}
+
+/* INFO TABLE */
+.info-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin-bottom:16px}
+.info-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.info-table td{padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even) td{background:var(--paper)}
+.info-table td:first-child{font-weight:600;color:var(--ink);width:200px}
+
+/* PROCESS CARD */
+.process-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.process-header{display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer;user-select:none;transition:background .15s}
+.process-header:hover{background:var(--paper)}
+.process-num{font-size:11px;font-weight:700;color:#fff;background:var(--blue-mid);padding:3px 10px;border-radius:6px;white-space:nowrap}
+.process-title{font-size:13.5px;font-weight:600;color:var(--ink);flex:1}
+.process-resp{font-size:11px;color:var(--ink3);background:var(--paper);padding:2px 8px;border-radius:4px;border:1px solid var(--rule)}
+.process-chevron{font-size:11px;color:var(--ink3);transition:transform .2s;width:22px;height:22px;border-radius:50%;background:var(--paper);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--rule)}
+.process-card:not(.open) .process-body{display:none}
+.process-card.open .process-chevron{transform:rotate(180deg)}
+.process-body{padding:20px;border-top:1px solid var(--rule)}
+
+/* META BADGES */
+.meta-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.meta-badge{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink2);background:var(--paper);padding:4px 10px;border-radius:6px;border:1px solid var(--rule)}
+.meta-badge strong{color:var(--ink);font-weight:600}
+
+/* STEPS TABLE */
+.steps-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule);margin:12px 0}
+.steps-table thead tr{background:var(--ink)}
+.steps-table th{padding:9px 12px;text-align:left;font-size:11px;font-weight:600;color:#fff}
+.steps-table td{padding:10px 12px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+.steps-table tr:last-child td{border-bottom:none}
+.steps-table tr:nth-child(even) td{background:var(--paper)}
+.step-num{font-weight:700;color:var(--blue-mid);font-size:13px;width:36px}
+.step-obs{font-size:11.5px;color:var(--ink3);font-style:italic}
+.step-resp{font-weight:600;color:var(--ink);white-space:nowrap}
+
+/* ALERT BOXES */
+.alert-box{border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13px;line-height:1.6;border-left:4px solid}
+.alert-box.warn{background:var(--amber-lt);border-color:var(--amber-mid);color:#5a3f00}
+.alert-box.warn strong{color:#3a2800}
+.alert-box.info{background:var(--blue-lt);border-color:var(--blue-mid);color:#1a4070}
+.alert-box.info strong{color:#1a3050}
+.alert-box.danger{background:var(--red-lt);border-color:var(--red);color:#6a0000}
+.alert-box.danger strong{color:#4a0000}
+.alert-box.success{background:var(--green-lt);border-color:var(--green-mid);color:#1a5a3a}
+.alert-box.success strong{color:#0a3a20}
+.alert-box.note{background:var(--orange-lt);border-color:var(--orange-mid);color:#5a2800}
+
+/* STATUS TABLE */
+.status-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:10px;overflow:hidden;border:1px solid var(--rule)}
+.status-table th{background:var(--ink);color:#fff;padding:9px 14px;text-align:left;font-size:11px;font-weight:600}
+.status-table td{padding:10px 14px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+.status-table tr:last-child td{border-bottom:none}
+.status-table tr:nth-child(even) td{background:var(--paper)}
+.status-badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px}
+.s-uso{background:#e6f4ee;color:#1a6644}
+.s-man{background:#fdf3dc;color:#7a5000}
+.s-con{background:#fdeaea;color:#7a1a1a}
+.s-est{background:#e8f0fa;color:#1a4f8a}
+.s-emp{background:#f0eaf8;color:#5a3aa2}
+
+/* CYCLE */
+.cycle-flow{display:flex;align-items:center;gap:8px;margin:16px 0;flex-wrap:wrap}
+.cycle-node{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;text-align:center}
+.cycle-arrow{color:var(--ink3);font-size:16px}
+.cn-uso{background:var(--green-lt);color:var(--green);border:1.5px solid var(--green-mid)}
+.cn-man{background:var(--amber-lt);color:var(--amber);border:1.5px solid var(--amber-mid)}
+.cn-con{background:var(--red-lt);color:var(--red);border:1.5px solid var(--red)}
+.cn-bai{background:var(--paper2);color:var(--ink3);border:1.5px solid var(--rule)}
+
+/* RULES LIST */
+.rules-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.rules-list li{font-size:13px;color:var(--ink2);padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px;border-left:3px solid var(--blue-mid);line-height:1.5}
+
+/* FOOTER */
+.page-footer{margin-top:40px;padding:18px 60px;background:var(--ink);border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:40px}
+.footer-brand{font-family:'DM Sans',sans-serif;font-weight:700;font-size:18px;color:#fff}
+.footer-meta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-meta span{display:flex;flex-direction:column;gap:2px}
+.footer-meta strong{color:rgba(255,255,255,.8);font-weight:500}
+.back-portal{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:100px;transition:all .2s;margin-left:auto}
+.back-portal:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
+.back-portal svg{width:14px;height:14px}
+
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.hero,.page-footer,.layout{padding-left:24px;padding-right:24px}}
+
+/* FLUXO RESUMIDO */
+.summary-flow{display:flex;align-items:stretch;gap:8px;margin:18px 0;flex-wrap:wrap}
+.summary-node{flex:1;min-width:135px;padding:12px;border-radius:9px;border:1px solid var(--rule);background:#fff;font-size:12px;color:var(--ink2)}
+.summary-node strong{display:block;color:var(--ink);margin-bottom:3px}
+.summary-arrow{align-self:center;color:var(--ink3);font-size:18px}
+@media(max-width:700px){.summary-flow{display:grid;grid-template-columns:1fr}.summary-arrow{transform:rotate(90deg);justify-self:center}.content,.section,.process-card{min-width:0;max-width:100%}.process-card{overflow:hidden}.process-body{width:100%;max-width:calc(100vw - 48px);overflow-x:auto}.steps-table{min-width:620px}}.word-download-row{display:flex;justify-content:flex-end;margin:0 0 10px}.word-download{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(255,255,255,.35);border-radius:6px;color:#fff;text-decoration:none;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.08)}.word-download:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.65)}@media(max-width:768px){.word-download-row{justify-content:flex-start}}
+.processes-label{font-family:'DM Sans',Arial,sans-serif;font-size:22px;font-weight:700;color:var(--ink);margin:28px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--rule)}.section h3{font-family:'DM Sans',Arial,sans-serif;font-size:15px;font-weight:700;color:var(--blue-mid);margin:18px 0 8px}</style>
+<link rel="stylesheet" href="../../assets/css/auth.css?v=20261001-2">
+</head>
+<body>
+<header class="hero"><div class="hero-inner">
+  <div class="hero-actions"><a href="https://saudedigitalatende.github.io/saudedigital/documentacoes.html#processos" class="hero-crumb">← Processos</a></div>
+  <div class="word-download-row"><a class="word-download" href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit?gid=1930757022#gid=1930757022" target="_blank" rel="noopener">Abrir planilha de acompanhamento ↗</a></div>
+  <h1>Processo Operacional – <em>Treinamento de Sistemas</em></h1>
+  <p>GTIC · Saúde Digital Atende · Secretaria de Saúde do Recife · Versão 1.0</p>
+</div></header>
+
+<div class="layout">
+  <aside class="sidebar"><div class="sidebar-title">Neste processo</div><ul class="toc" id="toc">
+    <li><a href="#identificacao">Identificação</a></li><li><a href="#objetivo">Objetivo</a></li><li><a href="#fluxo-resumido">Fluxo resumido</a></li>
+    <div class="toc-group">Processos</div><li><a href="#proc1">1. Abertura do chamado</a></li><li><a href="#proc2">2. Análise e registro</a></li><li><a href="#proc3">3. Programação</a></li><li><a href="#proc4">4. Execução presencial</a></li>
+    <div class="toc-group">Controle</div><li><a href="#responsabilidades">Responsabilidades</a></li><li><a href="#regras">Regras de acompanhamento</a></li><li><a href="#historico">Histórico de revisão</a></li>
+  </ul></aside>
+
+  <div class="content">
+    <section class="section" id="identificacao"><h2 class="section-title">Identificação</h2>
+      <table class="info-table"><tbody>
+        <tr><td>Tipo</td><td>Processo Operacional</td></tr><tr><td>Título</td><td>Treinamento de Sistemas</td></tr>
+        <tr><td>Área responsável</td><td>GTIC — Sistemas</td></tr><tr><td>Setor</td><td>Saúde Digital Atende</td></tr>
+        <tr><td>Data de criação</td><td>Outubro / 2026</td></tr><tr><td>Versão</td><td>1.0</td></tr>
+      </tbody></table>
+      <div class="alert-box info"><strong>ℹ️ Sobre este processo:</strong> Este documento padroniza o recebimento, o registro, o planejamento, o escalonamento e a execução presencial das solicitações de treinamento dos sistemas atendidos pela GTIC.</div>
+    </section>
+
+    <section class="section" id="objetivo"><h2 class="section-title">Objetivo</h2>
+      <p class="doc-p">Garantir que toda solicitação de treinamento seja registrada em chamado, analisada tecnicamente, incluída na planilha de acompanhamento e programada conforme o cronograma e a disponibilidade dos técnicos de campo, mantendo rastreabilidade até a execução do atendimento.</p>
+      <div class="alert-box note"><strong>📊 Instrumento de controle:</strong> A <a href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit?gid=1930757022#gid=1930757022" target="_blank" rel="noopener">planilha de acompanhamento de treinamentos</a> centraliza as demandas que aguardam programação ou execução e deve permanecer atualizada pela equipe responsável.</div>
+    </section>
+
+    <section class="section" id="fluxo-resumido"><h2 class="section-title">Fluxo resumido</h2>
+      <div class="summary-flow">
+        <div class="summary-node"><strong>1. Receber e abrir</strong>O Nível 1 registra o chamado a partir da solicitação recebida.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>2. Analisar e controlar</strong>O Nível 2 analisa a demanda e registra o chamado na planilha.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>3. Programar</strong>Os analistas organizam o atendimento conforme cronograma e disponibilidade.</div><span class="summary-arrow">→</span>
+        <div class="summary-node"><strong>4. Executar</strong>O Nível 2 de Campo realiza presencialmente o treinamento.</div>
+      </div>
+    </section>
+
+    <div class="processes-label">Processos</div>
+    <section class="section" id="proc1"><h2 class="section-title">Processo 1 - Abertura do Chamado</h2>
+      <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 1</span><span class="process-title">Recebimento e abertura da solicitação</span><span class="process-resp">Nível 1</span><span class="process-chevron">▾</span></div><div class="process-body">
+        <div class="meta-badges"><div class="meta-badge"><strong>Responsável:</strong> Nível 1</div><div class="meta-badge"><strong>Quando:</strong> Ao receber uma solicitação de treinamento</div><div class="meta-badge"><strong>Registro:</strong> Chamado no GLPI</div></div>
+        <table class="steps-table"><thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:160px">Responsável</th><th style="width:220px">Resultado esperado</th></tr></thead><tbody>
+          <tr><td class="step-num">1</td><td>Receber a solicitação de treinamento e identificar o sistema, a unidade, o público participante, o contato do solicitante e a necessidade apresentada.</td><td class="step-resp">Nível 1</td><td class="step-obs">Informações mínimas disponíveis para análise.</td></tr>
+          <tr><td class="step-num">2</td><td>Abrir o chamado no GLPI utilizando a categoria de treinamento correspondente ao sistema solicitado.</td><td class="step-resp">Nível 1</td><td class="step-obs">Chamado registrado e rastreável.</td></tr>
+          <tr><td class="step-num">3</td><td>Descrever no chamado todas as informações recebidas e anexar documentos ou evidências encaminhados pelo solicitante, quando houver.</td><td class="step-resp">Nível 1</td><td class="step-obs">Demanda documentada de forma clara.</td></tr>
+          <tr><td class="step-num">4</td><td>Escalonar o chamado para o Nível 2 responsável pela análise da demanda.</td><td class="step-resp">Nível 1</td><td class="step-obs">Chamado encaminhado para avaliação.</td></tr>
+        </tbody></table>
+      </div></div>
+    </section>
+
+    <section class="section" id="proc2"><h2 class="section-title">Processo 2 - Análise, Registro e Escalonamento</h2>
+      <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 2</span><span class="process-title">Análise da demanda e inclusão no controle</span><span class="process-resp">Nível 2</span><span class="process-chevron">▾</span></div><div class="process-body">
+        <div class="meta-badges"><div class="meta-badge"><strong>Responsável:</strong> Nível 2</div><div class="meta-badge"><strong>Pré-requisito:</strong> Chamado aberto pelo Nível 1</div><div class="meta-badge"><strong>Controle:</strong> Planilha de treinamentos</div></div>
+        <table class="steps-table"><thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:160px">Responsável</th><th style="width:220px">Resultado esperado</th></tr></thead><tbody>
+          <tr><td class="step-num">1</td><td>Analisar o conteúdo do chamado e verificar se as informações são suficientes para planejar o treinamento.</td><td class="step-resp">Nível 2</td><td class="step-obs">Escopo inicial identificado.</td></tr>
+          <tr><td class="step-num">2</td><td>Solicitar complementação ao solicitante quando houver informação essencial ausente.</td><td class="step-resp">Nível 2</td><td class="step-obs">Chamado completo para programação.</td></tr>
+          <tr><td class="step-num">3</td><td>Registrar a demanda na <a href="https://docs.google.com/spreadsheets/d/16eL_YwG7q1qZkIvMoNSxKhGEgH7xfXgk/edit?gid=1930757022#gid=1930757022" target="_blank" rel="noopener"><strong>planilha de acompanhamento de treinamentos</strong></a>, vinculando-a ao número do chamado.</td><td class="step-resp">Nível 2</td><td class="step-obs">Demanda incluída no controle oficial.</td></tr>
+          <tr><td class="step-num">4</td><td>Registrar no acompanhamento do chamado que a solicitação foi incluída na planilha e aguarda programação.</td><td class="step-resp">Nível 2</td><td class="step-obs">Solicitante e equipes informados sobre a etapa atual.</td></tr>
+          <tr><td class="step-num">5</td><td>Escalonar o chamado para o Nível 2 de Campo, responsável pela execução presencial.</td><td class="step-resp">Nível 2</td><td class="step-obs">Demanda disponível para planejamento de campo.</td></tr>
+        </tbody></table>
+        <div class="alert-box warn"><strong>⚠️ Controle obrigatório:</strong> Nenhum chamado de treinamento deve ser escalonado para execução presencial sem estar registrado na planilha de acompanhamento.</div>
+      </div></div>
+    </section>
+
+    <section class="section" id="proc3"><h2 class="section-title">Processo 3 - Programação e Acompanhamento</h2>
+      <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 3</span><span class="process-title">Organização do cronograma de atendimento</span><span class="process-resp">Equipe de Analistas</span><span class="process-chevron">▾</span></div><div class="process-body">
+        <div class="meta-badges"><div class="meta-badge"><strong>Responsável:</strong> Equipe de Analistas</div><div class="meta-badge"><strong>Base de controle:</strong> Planilha de treinamentos</div><div class="meta-badge"><strong>Critério:</strong> Cronograma e disponibilidade de campo</div></div>
+        <table class="steps-table"><thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:160px">Responsável</th><th style="width:220px">Resultado esperado</th></tr></thead><tbody>
+          <tr><td class="step-num">1</td><td>Acompanhar periodicamente as solicitações registradas na planilha.</td><td class="step-resp">Analistas</td><td class="step-obs">Fila de treinamentos atualizada.</td></tr>
+          <tr><td class="step-num">2</td><td>Avaliar o cronograma, a localização, a disponibilidade do solicitante e a disponibilidade dos técnicos de campo.</td><td class="step-resp">Analistas</td><td class="step-obs">Possibilidade de atendimento identificada.</td></tr>
+          <tr><td class="step-num">3</td><td>Definir a programação do treinamento e atualizar a planilha com as informações de agendamento.</td><td class="step-resp">Analistas</td><td class="step-obs">Data e responsável organizados.</td></tr>
+          <tr><td class="step-num">4</td><td>Manter em acompanhamento os chamados que ainda não puderem ser executados.</td><td class="step-resp">Analistas</td><td class="step-obs">Nenhuma demanda perdida ou encerrada antecipadamente.</td></tr>
+          <tr><td class="step-num">5</td><td>Comunicar a programação ao Nível 2 de Campo e ao solicitante.</td><td class="step-resp">Analistas</td><td class="step-obs">Partes envolvidas informadas.</td></tr>
+        </tbody></table>
+      </div></div>
+    </section>
+
+    <section class="section" id="proc4"><h2 class="section-title">Processo 4 - Execução Presencial</h2>
+      <div class="process-card open"><div class="process-header" onclick="toggleCard(this)"><span class="process-num">PROCESSO 4</span><span class="process-title">Realização e registro do treinamento</span><span class="process-resp">Nível 2 de Campo</span><span class="process-chevron">▾</span></div><div class="process-body">
+        <div class="meta-badges"><div class="meta-badge"><strong>Responsável:</strong> Nível 2 de Campo</div><div class="meta-badge"><strong>Modalidade:</strong> Presencial</div><div class="meta-badge"><strong>Pré-requisito:</strong> Treinamento programado</div></div>
+        <table class="steps-table"><thead><tr><th style="width:40px">N°</th><th>Ação / Descrição</th><th style="width:160px">Responsável</th><th style="width:220px">Resultado esperado</th></tr></thead><tbody>
+          <tr><td class="step-num">1</td><td>Confirmar a programação, o local, o sistema e o público previsto antes do deslocamento.</td><td class="step-resp">Nível 2 de Campo</td><td class="step-obs">Atendimento confirmado.</td></tr>
+          <tr><td class="step-num">2</td><td>Realizar presencialmente o treinamento conforme a demanda registrada.</td><td class="step-resp">Nível 2 de Campo</td><td class="step-obs">Conteúdo solicitado apresentado aos participantes.</td></tr>
+          <tr><td class="step-num">3</td><td>Registrar no chamado a data da execução, o local, o conteúdo abordado e as observações relevantes.</td><td class="step-resp">Nível 2 de Campo</td><td class="step-obs">Evidência do atendimento registrada.</td></tr>
+          <tr><td class="step-num">4</td><td>Atualizar a planilha de acompanhamento com a situação da execução.</td><td class="step-resp">Nível 2 de Campo / Analistas</td><td class="step-obs">Controle alinhado ao chamado.</td></tr>
+          <tr><td class="step-num">5</td><td>Concluir o chamado quando o treinamento tiver sido realizado e todos os registros estiverem completos.</td><td class="step-resp">Nível 2 de Campo</td><td class="step-obs">Demanda encerrada com rastreabilidade.</td></tr>
+        </tbody></table>
+      </div></div>
+    </section>
+
+    <section class="section" id="responsabilidades"><h2 class="section-title">Responsabilidades</h2>
+      <table class="info-table"><thead><tr><th>Papel</th><th>Responsabilidade principal</th></tr></thead><tbody>
+        <tr><td>Nível 1</td><td>Receber a solicitação, abrir o chamado com as informações disponíveis e encaminhá-lo ao Nível 2.</td></tr>
+        <tr><td>Nível 2</td><td>Analisar a demanda, complementar informações, registrar o chamado na planilha e escalonar para o Nível 2 de Campo.</td></tr>
+        <tr><td>Equipe de Analistas</td><td>Acompanhar a planilha e organizar a programação conforme cronograma e disponibilidade dos técnicos.</td></tr>
+        <tr><td>Nível 2 de Campo</td><td>Executar presencialmente o treinamento e registrar o resultado no chamado e na planilha.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="section" id="regras"><h2 class="section-title">Regras de Acompanhamento</h2>
+      <ul class="rules-list">
+        <li>O chamado é o registro oficial da solicitação e deve permanecer atualizado durante todo o processo.</li>
+        <li>A planilha é o instrumento de controle e organização das demandas de treinamento.</li>
+        <li>Chamados que aguardam disponibilidade devem permanecer em acompanhamento até a execução.</li>
+        <li>A programação deve considerar o cronograma e a disponibilidade dos técnicos de campo.</li>
+        <li>A execução presencial deve ser registrada tanto no chamado quanto na planilha.</li>
+      </ul>
+    </section>
+
+    <section class="section" id="historico"><h2 class="section-title">Histórico de Revisão</h2>
+      <table class="info-table"><thead><tr><th>Versão</th><th>Data</th><th>Responsável</th><th>Descrição</th></tr></thead><tbody><tr><td>1.0</td><td>Outubro / 2026</td><td>GTIC / Saúde Digital Atende</td><td>Criação do processo de treinamento de sistemas</td></tr></tbody></table>
+    </section>
+  </div>
+</div>
+
+<footer class="page-footer"><span class="footer-brand">Saúde Digital <em style="font-style:italic;color:var(--amber-mid)">Atende</em></span><div class="footer-meta"><span><strong>Secretaria</strong>Secretaria de Saúde do Recife</span><span><strong>Versão</strong>1.0 — Outubro 2026</span><span><strong>Uso</strong>Interno · Documento Operacional</span></div><a href="https://saudedigitalatende.github.io/saudedigital/" class="back-portal"><svg viewbox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"></path></svg>Voltar ao Portal</a></footer>
+
+<script>
+function toggleCard(header){header.closest('.process-card').classList.toggle('open')}
+const sections=document.querySelectorAll('.section'),tocLinks=document.querySelectorAll('.toc a');
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){tocLinks.forEach(l=>l.classList.remove('active'));const link=document.querySelector(`.toc a[href="#${e.target.id}"]`);if(link)link.classList.add('active')}}),{rootMargin:'-20% 0px -70% 0px'});sections.forEach(s=>obs.observe(s));
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../../assets/js/supabase-config.js?v=20260929-1"></script>
+<script src="../../assets/js/auth.js?v=20261001-1"></script>
+</body></html>
