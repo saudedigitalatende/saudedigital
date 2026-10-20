@@ -82,22 +82,30 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 .scb-blue{background:var(--blue-lt);color:var(--blue-mid)}
 .scb-green{background:var(--green-lt);color:var(--green-mid)}
 .scb-orange{background:var(--orange-lt);color:var(--orange-mid)}
-.service-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:154px;padding:8px 12px;border:1px solid var(--rule);border-radius:9px;background:#fff;color:var(--ink2);font:600 11.5px 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+.service-toggle,.docs-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:154px;padding:8px 12px;border:1px solid var(--rule);border-radius:9px;background:#fff;color:var(--ink2);font:600 11.5px 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
 .service-toggle:hover{background:var(--blue-lt);border-color:#b8cce4;color:var(--blue)}
-.service-toggle:focus-visible{outline:3px solid rgba(45,111,189,.22);outline-offset:2px}
+.docs-toggle:hover{background:var(--blue-lt);border-color:#b8cce4;color:var(--blue)}
+.service-toggle:focus-visible,.docs-toggle:focus-visible{outline:3px solid rgba(45,111,189,.22);outline-offset:2px}
+.docs-toggle:disabled{opacity:.55;cursor:default;background:#fff;color:var(--ink3)}
 .service-block.open .service-toggle{background:#e6f2ff;border-color:#b8d7f5;color:var(--ink)}
-.service-chevron{font-size:10px;transition:transform .2s}
+.service-chevron,.docs-chevron{font-size:10px;transition:transform .2s}
 .service-block.open .service-chevron{transform:rotate(180deg)}
+.service-block.docs-open .docs-chevron{transform:rotate(180deg)}
 .service-block.open .toggle-show,.service-block:not(.open) .toggle-hide{display:none}
-.service-body{display:none;border-top:1px solid #e6ebf2}
+.service-body{display:none}
 .service-block.open .service-body{display:block}
+.requests-control{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin:0 18px;padding:14px 0;border-top:1px solid #e6ebf2;background:transparent}
+.requests-control .service-toggle{min-width:174px}
+.requests-control .service-count-badge{margin:0}
 .service-section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px 10px;font-size:13px;font-weight:700;color:var(--ink)}
 .service-section-title span{font-size:11px;font-weight:600;color:var(--ink3)}
 .table-scroll{width:100%;overflow-x:visible;overscroll-behavior-inline:contain}
 
-.docs-associated{margin:14px 18px 18px;border-top:1px solid #e6ebf2;padding-top:14px;background:transparent}
+.docs-associated{display:none;margin:0 18px 14px;border-top:1px solid #e6ebf2;padding-top:14px;background:transparent}
+.service-block.docs-open .docs-associated{display:block}
 .docs-associated-title{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px}
 .docs-associated-list{display:flex;flex-direction:column}
+.doc-empty{padding:8px 2px;color:var(--ink3);font-size:11px}
 .doc-row{display:flex;align-items:center;gap:10px;min-height:46px;padding:7px 2px;border-top:1px solid #e6ebf2;background:transparent}
 .doc-row:first-child{border-top:0}
 .doc-icon{width:30px;height:30px;border-radius:8px;background:var(--blue-lt);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
@@ -155,7 +163,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 @media(max-width:900px){
   .hero{padding-left:28px;padding-right:28px}.main-tabs{padding:0 20px}.main{padding:24px 28px 48px}
   .main-tabs-inner{overflow-x:auto}.main-tab{padding:14px 18px}
-  .service-header{flex-wrap:wrap}.service-toggle{min-width:148px}
+  .service-header{flex-wrap:wrap}.service-toggle,.docs-toggle{min-width:148px}
   .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.cat-table{min-width:900px}
 }
 @media(max-width:600px){
@@ -163,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
   .main{padding:20px 14px 40px}.sub-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:5px}.sub-tab{flex:0 0 auto}
   .toolbar{gap:8px}.search-wrap{min-width:100%;order:0}.filter-tipo{flex:1}.results-count{margin-left:auto}
   .service-header{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:10px;padding:12px}
-  .service-icon{grid-row:1 / span 2}.service-count-badge{align-self:start}.service-toggle{grid-column:2 / 4;width:auto;min-width:0;align-self:stretch}
+  .service-icon{grid-row:1 / span 2}.docs-toggle{grid-column:2 / 4;width:auto;min-width:0;align-self:stretch}.requests-control{margin-left:12px;margin-right:12px}.requests-control .service-toggle{width:auto;min-width:0}
   .service-section-title{padding-left:12px;padding-right:12px}.docs-associated{margin-left:12px;margin-right:12px}
   .doc-row{align-items:flex-start}.doc-action{padding:6px 8px}.page-footer{padding-left:18px;padding-right:18px;gap:22px}
 }
@@ -399,11 +407,9 @@ function documentationLinks(srvName) {
   return docs;
 }
 
-function documentationBlock(srvName) {
-  const docs = documentationLinks(srvName);
-  if (!docs.length) return '';
+function documentationBlock(srvName, docs = documentationLinks(srvName)) {
   const links = docs.map(([kind, href, label, version, documentId]) => makeDocLink(kind, href, label, version, documentId)).join('');
-  return `<section class="docs-associated" aria-label="Documentos associados"><div class="docs-associated-title">📚 Documentos associados (${docs.length})</div><div class="docs-associated-list">${links}</div></section>`;
+  return `<section class="docs-associated" aria-label="Documentos associados"><div class="docs-associated-title">📚 Documentos associados (${docs.length})</div><div class="docs-associated-list">${links || '<div class="doc-empty">Nenhum documento associado.</div>'}</div></section>`;
 }
 function formatSolicitacao(str) {
   if (!str) return '';
@@ -456,6 +462,7 @@ function buildCatalog(area) {
   let html = '';
   services.forEach(srvName => {
     const srv = seen[srvName];
+    const docs = documentationLinks(srvName);
     let trs = '';
     srv.rows.forEach(r => {
       trs += `<tr${r._id ? ` data-request-id="${r._id}"` : ''} data-sol="${r.solicitacao}" data-tipo="${r.tipo}" data-desc="${r.descricao||''}">
@@ -476,6 +483,12 @@ function buildCatalog(area) {
           <div class="service-name">${srvName}</div>
           ${srv.dono ? `<div class="service-sub">Responsável: ${srv.dono}</div>` : ''}
         </div>
+        <button type="button" class="docs-toggle" aria-expanded="false" onclick="toggleDocuments(this)"${docs.length ? '' : ' disabled'}>
+          <span>Documentos associados (${docs.length})</span><span class="docs-chevron" aria-hidden="true">▾</span>
+        </button>
+      </div>
+      ${documentationBlock(srvName, docs)}
+      <div class="requests-control">
         <span class="service-count-badge scb-${color}">${srv.rows.length} itens</span>
         <button type="button" class="service-toggle" aria-expanded="false" onclick="toggleService(this)">
           <span class="toggle-show">Ver solicitações</span><span class="toggle-hide">Ocultar solicitações</span><span class="service-chevron" aria-hidden="true">▾</span>
@@ -493,7 +506,6 @@ function buildCatalog(area) {
           </table>
         </div>
       </div>
-      ${documentationBlock(srvName)}
     </div>`;
   });
 
@@ -582,7 +594,7 @@ function applyCatalogFilter(area, search, tipo) {
       tr.style.display = ok ? '' : 'none';
       if (ok) shown++;
     });
-    block.querySelector('.service-count-badge').textContent = shown+' item'+(shown!==1?'s':'');
+    block.querySelector('.service-count-badge').textContent = shown+(shown===1?' item':' itens');
     block.style.display = shown ? '' : 'none';
     total += shown;
   });
@@ -659,6 +671,13 @@ function toggleService(button) {
   const list = block.closest('.services-list');
   if (list) list.querySelectorAll('.service-block.open').forEach(item => setServiceOpen(item, false));
   setServiceOpen(block, shouldOpen);
+}
+function toggleDocuments(button) {
+  const block = button.closest('.service-block');
+  if (!block || button.disabled) return;
+  const shouldOpen = !block.classList.contains('docs-open');
+  block.classList.toggle('docs-open', shouldOpen);
+  button.setAttribute('aria-expanded', String(shouldOpen));
 }
 function switchMain(area, el) {
   activeMainArea = area;
