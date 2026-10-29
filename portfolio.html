@@ -42,6 +42,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .pc-meta-row{display:flex;gap:10px;font-size:11.5px}
 .pc-meta-label{color:var(--ink3);font-weight:600;min-width:82px;flex-shrink:0}
 .pc-meta-value{color:var(--ink2);line-height:1.4;flex:1;min-width:0;overflow-wrap:break-word;word-break:break-word}
+.pc-contact{display:flex;flex-direction:column;gap:3px;line-height:1.45}
+.pc-contact-line{display:block}
+.pc-contact-key{font-weight:600;color:var(--ink3)}
 .pc-footer{padding:12px 22px;border-top:1px solid var(--rule);background:var(--paper2);display:flex;align-items:center;justify-content:space-between;gap:8px}
 .pc-link{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--blue-lt);color:var(--blue-mid);border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;transition:background .15s}
 .pc-link:hover{background:#d0e4f7}
@@ -133,13 +136,34 @@ function toSentence(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
+function formatContact(value) {
+  if (!value) return '';
+  const normalized = value
+    .replace(/\n/g, ' ')
+    .replace(/"+$/g, '')
+    .replace(/\s+E-mail:\s*/gi, ' | E-mail: ')
+    .replace(/\s+Tel(?:efone)?:\s*/gi, ' | Telefone: ')
+    .trim();
+  return normalized
+    .split(/\s*\|\s*/)
+    .map(part => part.trim())
+    .filter(Boolean)
+    .map(part => {
+      const field = part.match(/^(E-mail|Telefone):\s*(.*)$/i);
+      if (!field) return `<span class="pc-contact-line">${part}</span>`;
+      const label = field[1].toLowerCase() === 'e-mail' ? 'E-mail' : 'Telefone';
+      return `<span class="pc-contact-line"><span class="pc-contact-key">${label}:</span> ${field[2]}</span>`;
+    })
+    .join('');
+}
+
 function render(rows) {
   let html = '';
   rows.forEach(r => {
     const nome = r.servico.replace(/\n/g,' ').trim();
     const desc = r.descricao.replace(/\n/g,' ').trim();
     const link = r.link && r.link.trim().startsWith('http') ? r.link.trim() : '';
-    const contato = r.contato ? r.contato.replace(/\n/g,' ') : '';
+    const contato = formatContact(r.contato);
     html += `<div class="portfolio-card${r.status === 'Descontinuado' ? ' is-disabled' : ''}">
       <div class="pc-top">
         ${r.status ? `<div class="status-badge${r.status === 'Em Desenvolvimento' ? ' badge-dev' : ''}">${r.status}</div>` : ''}
@@ -158,7 +182,7 @@ function render(rows) {
           ${r.localizacao ? `<div class="pc-meta-row"><span class="pc-meta-label">Localização</span><span class="pc-meta-value" style="font-family:monospace;font-size:11px">${r.localizacao}</span></div>` : ''}
           ${r.executiva  ? `<div class="pc-meta-row"><span class="pc-meta-label">Executiva</span><span class="pc-meta-value">${r.executiva}</span></div>` : ''}
           ${r.hospedagem ? `<div class="pc-meta-row"><span class="pc-meta-label">Hospedagem</span><span class="pc-meta-value">${r.hospedagem}</span></div>` : ''}
-          ${contato      ? `<div class="pc-meta-row"><span class="pc-meta-label">Contato</span><span class="pc-meta-value">${contato}</span></div>` : ''}
+          ${contato      ? `<div class="pc-meta-row"><span class="pc-meta-label">Contato</span><span class="pc-meta-value pc-contact">${contato}</span></div>` : ''}
         </div>
       </div>
       <div class="pc-footer">
