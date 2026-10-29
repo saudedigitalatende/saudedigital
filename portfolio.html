@@ -42,7 +42,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .pc-meta-row{display:flex;gap:10px;font-size:11.5px}
 .pc-meta-label{color:var(--ink3);font-weight:600;min-width:82px;flex-shrink:0}
 .pc-meta-value{color:var(--ink2);line-height:1.4;flex:1;min-width:0;overflow-wrap:break-word;word-break:break-word}
-.pc-contact{display:flex;flex-direction:column;gap:3px;line-height:1.45}
+.pc-contact{display:flex;flex-direction:column;align-items:flex-start;gap:3px;line-height:1.45;text-transform:lowercase}
 .pc-contact-line{display:block}
 .pc-contact-key{font-weight:600;color:var(--ink3)}
 .pc-footer{padding:12px 22px;border-top:1px solid var(--rule);background:var(--paper2);display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -145,7 +145,7 @@ function formatContact(value) {
     .replace(/\s+Tel(?:efone)?:\s*/gi, ' | Telefone: ')
     .trim();
   return normalized
-    .split(/\s*\|\s*/)
+    .split(/\s*\|\s*|\s+\/\s+/)
     .map(part => part.trim())
     .filter(Boolean)
     .map(part => {
