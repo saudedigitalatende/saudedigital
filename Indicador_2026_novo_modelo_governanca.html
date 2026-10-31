@@ -155,6 +155,20 @@ h1 em{font-style:normal;color:#c5a23e}
       </article>
     </div>
   </section>
+  <section class="trend-section" id="status-servicos">
+    <div class="trend-grid">
+      <article class="chart-card">
+        <div class="chart-title">Status dos chamados</div>
+        <div class="chart-sub" id="status-chart-sub">Distribuição por situação · Jan–Ago 2026</div>
+        <div class="chart-wrap"><canvas id="status-chart"></canvas></div>
+      </article>
+      <article class="chart-card">
+        <div class="chart-title">Top 5 serviços demandados</div>
+        <div class="chart-sub" id="services-chart-sub">Volume de chamados por serviço · Jan–Ago 2026</div>
+        <div class="chart-wrap"><canvas id="services-chart"></canvas></div>
+      </article>
+    </div>
+  </section>
   <div class="source-note"><strong>Fonte:</strong> GLPI_Janeiro_a_Agosto_2026_4_Grupos.xlsx. A estrutura apresenta quatro Grupos Técnicos e suas Áreas Técnicas, incluindo Tablet, Smartphone e Cartão SIM em Dispositivos Móveis.</div>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -171,6 +185,18 @@ const AREA_ORDER = {
 };
 const CSAT_SUMMARY = {todos:{csat:94.2,respostas:89,excelente:82.6},jan:{csat:90,respostas:10,excelente:70},fev:{csat:100,respostas:7,excelente:100},mar:{csat:75,respostas:4,excelente:75},abr:{csat:100,respostas:6,excelente:83.3},mai:{csat:96.7,respostas:32,excelente:86.7},jun:{csat:87.5,respostas:9,excelente:75},jul:{csat:100,respostas:17,excelente:82.4},ago:{csat:75,respostas:4,excelente:75}};
 const WEEKDAY_DATA = {todos:[2804,2670,2320,2105,1630,112,29],jan:[210,278,164,171,173,0,0],fev:[209,215,208,219,210,30,20],mar:[343,351,289,216,127,0,0],abr:[355,302,414,285,188,0,0],mai:[430,387,342,305,233,0,0],jun:[445,413,259,324,177,0,0],jul:[376,408,336,275,225,5,0],ago:[436,316,308,310,297,77,9]};
+const STATUS_DATA = {todos:[8492,820,1380,719,259],jan:[835,17,131,13,0],fev:[929,85,78,18,1],mar:[976,76,243,31,0],abr:[1008,106,272,50,108],mai:[1270,193,179,26,29],jun:[1006,151,247,181,33],jul:[1108,69,144,223,81],ago:[1360,123,86,177,7]};
+const SERVICE_DATA = {
+  todos:[['IMPRESSORAS',2764],['COMPUTADORES',2503],['SISTEMAS DE GESTÃO',2084],['CONECTIVIDADE',1528],['MONITORES',593]],
+  jan:[['IMPRESSORAS',289],['COMPUTADORES',229],['SISTEMAS DE GESTÃO',142],['CONECTIVIDADE',86],['SISTEMAS DA SAÚDE DIGITAL',74]],
+  fev:[['IMPRESSORAS',281],['COMPUTADORES',222],['CONECTIVIDADE',210],['SISTEMAS DE GESTÃO',152],['MONITORES',55]],
+  mar:[['IMPRESSORAS',443],['COMPUTADORES',295],['SISTEMAS DE GESTÃO',224],['CONECTIVIDADE',156],['SISTEMAS DA SAÚDE DIGITAL',44]],
+  abr:[['SISTEMAS DE GESTÃO',405],['IMPRESSORAS',370],['COMPUTADORES',250],['CONECTIVIDADE',145],['SISTEMAS DA SAÚDE DIGITAL',105]],
+  mai:[['SISTEMAS DE GESTÃO',408],['COMPUTADORES',378],['IMPRESSORAS',359],['CONECTIVIDADE',162],['SISTEMAS DA SAÚDE DIGITAL',108]],
+  jun:[['SISTEMAS DE GESTÃO',387],['COMPUTADORES',328],['IMPRESSORAS',313],['CONECTIVIDADE',211],['MONITORES',157]],
+  jul:[['IMPRESSORAS',396],['COMPUTADORES',322],['CONECTIVIDADE',248],['GESTÃO DE ACESSO',183],['SISTEMAS DE GESTÃO',160]],
+  ago:[['COMPUTADORES',479],['IMPRESSORAS',313],['CONECTIVIDADE',310],['SISTEMAS DE GESTÃO',206],['DISPOSITIVOS',85]]
+};
 const MONTH_KEYS = ['jan','fev','mar','abr','mai','jun','jul','ago'];
 const MONTH_NAMES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago'];
 const WEEKDAY_NAMES = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
@@ -184,6 +210,9 @@ const chartGrid = 'rgba(102,117,138,.14)';
 const weekdayChart = new Chart(document.getElementById('weekday-chart'), {type:'bar',data:{labels:WEEKDAY_NAMES,datasets:[{label:'Chamados',data:WEEKDAY_DATA.todos,backgroundColor:'#4f91dc',borderRadius:6,maxBarThickness:42}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fmt(ctx.raw)+' chamados'}}},scales:{x:{grid:{display:false},ticks:{color:chartText,font:{size:10}}},y:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:9},callback:value=>fmt(value)}}}}});
 const groupColors = {'INFRAESTRUTURA':'#1f65b5','SISTEMAS':'#17824f','GOVERNANÇA':'#c87b08','DISPOSITIVOS MÓVEIS':'#8b5db7'};
 const groupTrendChart = new Chart(document.getElementById('group-trend-chart'), {type:'line',data:{labels:MONTH_NAMES,datasets:GROUP_ORDER.map(group=>({label:GROUP_NAMES[group],data:MONTH_KEYS.map(month=>DASHBOARD_DATA[month].groups[group]?.total||0),borderColor:groupColors[group],backgroundColor:groupColors[group],borderWidth:2.5,pointRadius:3,pointHoverRadius:5,tension:.28}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,color:chartText,font:{size:9}}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+fmt(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{color:chartText,font:{size:10}}},y:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:9},callback:value=>fmt(value)}}}}});
+const statusChart = new Chart(document.getElementById('status-chart'), {type:'doughnut',data:{labels:['Fechado','Solucionado','Em atendimento','Pendente','Novo'],datasets:[{data:STATUS_DATA.todos,backgroundColor:['#17824f','#55b987','#e98b2a','#d6a537','#c9303e'],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'right',labels:{usePointStyle:true,boxWidth:9,padding:14,color:chartText,font:{size:10}}},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fmt(ctx.raw)}}}}});
+const initialServices = SERVICE_DATA.todos;
+const servicesChart = new Chart(document.getElementById('services-chart'), {type:'bar',data:{labels:initialServices.map(item=>item[0]),datasets:[{label:'Chamados',data:initialServices.map(item=>item[1]),backgroundColor:['#1f65b5','#3f83c9','#66a0d8','#8bb9e4','#b2d1ed'],borderRadius:6,maxBarThickness:28}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fmt(ctx.raw)+' chamados'}}},scales:{x:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:9},callback:value=>fmt(value)}},y:{grid:{display:false},ticks:{color:chartText,font:{size:9},autoSkip:false}}}}});
 function renderDashboard(period='todos') {
   const data = DASHBOARD_DATA[period] || DASHBOARD_DATA.todos;
   const label = PERIOD_LABELS[period];
@@ -230,6 +259,14 @@ function renderDashboard(period='todos') {
   document.getElementById('weekly-peak-sub').textContent = 'Volume de chamados por dia da semana · ' + label;
   document.getElementById('weekly-peak-value').textContent = fmt(peak);
   document.getElementById('weekly-peak-label').textContent = WEEKDAY_NAMES[peakIndex] || '—';
+  statusChart.data.datasets[0].data = STATUS_DATA[period] || STATUS_DATA.todos;
+  statusChart.update();
+  const services = SERVICE_DATA[period] || SERVICE_DATA.todos;
+  servicesChart.data.labels = services.map(item => item[0]);
+  servicesChart.data.datasets[0].data = services.map(item => item[1]);
+  servicesChart.update();
+  document.getElementById('status-chart-sub').textContent = 'Distribuição por situação · ' + label;
+  document.getElementById('services-chart-sub').textContent = 'Volume de chamados por serviço · ' + label;
 }
 document.querySelectorAll('.month-pill[data-month]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('.month-pill[data-month]').forEach(item => item.classList.remove('active')); button.classList.add('active'); renderDashboard(button.dataset.month); }));
 renderDashboard('todos');
