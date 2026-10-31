@@ -95,9 +95,19 @@ h1 em{font-style:normal;color:#c5a23e}
 .chart-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .chart-metric{background:#f5f8fc;border:1px solid var(--rule);border-radius:9px;padding:8px;text-align:center}
 .chart-metric span{display:block;font-size:9px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em}.chart-metric strong{display:block;font-size:17px;color:var(--blue);margin-top:2px}
+.status-card-wide,.services-card-wide{grid-column:1/-1}
+.status-groups-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 28px;margin-top:8px}
+.status-group{min-width:0}.status-group:nth-child(n+3){border-top:1px solid #e7ebf1;padding-top:17px}
+.status-group-title{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.status-group-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.status-group-body{display:grid;grid-template-columns:130px minmax(180px,1fr);align-items:center;gap:18px}
+.status-donut{position:relative;width:126px;height:126px}.status-list{min-width:0}
+.status-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid #edf0f4;font-size:10px;color:var(--ink2)}.status-row:last-child{border-bottom:0}
+.status-name{display:flex;align-items:center;gap:7px}.status-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.status-value{font-size:11px;font-weight:700}
+.services-chart-wrap{height:250px}
 @media(max-width:1000px){.technical-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quality-section{grid-template-columns:1fr}.district-title{margin-top:4px}}
 @media(max-width:800px){.top,.dashboard-nav,.main{padding-left:18px;padding-right:18px}.top-inner{flex-direction:column}.summary-grid,.governance-grid,.trend-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:620px){.summary-grid,.governance-grid,.technical-grid,.trend-grid{grid-template-columns:1fr}.global-row{align-items:flex-start;flex-direction:column}.district-grid{grid-template-columns:1fr 1fr}.quality-main{align-items:flex-start}.quality-rate{font-size:31px}}
+@media(max-width:620px){.summary-grid,.governance-grid,.technical-grid,.trend-grid,.status-groups-grid{grid-template-columns:1fr}.global-row{align-items:flex-start;flex-direction:column}.district-grid{grid-template-columns:1fr 1fr}.quality-main{align-items:flex-start}.quality-rate{font-size:31px}.status-group:nth-child(n+2){border-top:1px solid #e7ebf1;padding-top:17px}.status-group-body{grid-template-columns:110px minmax(0,1fr)}.status-donut{width:106px;height:106px}}
 </style>
 <link rel="stylesheet" href="assets/css/auth.css?v=20261001-2">
 </head>
@@ -157,15 +167,15 @@ h1 em{font-style:normal;color:#c5a23e}
   </section>
   <section class="trend-section" id="status-servicos">
     <div class="trend-grid">
-      <article class="chart-card">
+      <article class="chart-card status-card-wide">
         <div class="chart-title">Status dos chamados</div>
-        <div class="chart-sub" id="status-chart-sub">Distribuição por situação · Jan–Ago 2026</div>
-        <div class="chart-wrap"><canvas id="status-chart"></canvas></div>
+        <div class="chart-sub" id="status-chart-sub">Distribuição por situação e Grupo Técnico · Jan–Ago 2026</div>
+        <div class="status-groups-grid" id="status-groups-grid"></div>
       </article>
-      <article class="chart-card">
+      <article class="chart-card services-card-wide">
         <div class="chart-title">Top 5 serviços demandados</div>
         <div class="chart-sub" id="services-chart-sub">Volume de chamados por serviço · Jan–Ago 2026</div>
-        <div class="chart-wrap"><canvas id="services-chart"></canvas></div>
+        <div class="chart-wrap services-chart-wrap"><canvas id="services-chart"></canvas></div>
       </article>
     </div>
   </section>
@@ -186,6 +196,17 @@ const AREA_ORDER = {
 const CSAT_SUMMARY = {todos:{csat:94.2,respostas:89,excelente:82.6},jan:{csat:90,respostas:10,excelente:70},fev:{csat:100,respostas:7,excelente:100},mar:{csat:75,respostas:4,excelente:75},abr:{csat:100,respostas:6,excelente:83.3},mai:{csat:96.7,respostas:32,excelente:86.7},jun:{csat:87.5,respostas:9,excelente:75},jul:{csat:100,respostas:17,excelente:82.4},ago:{csat:75,respostas:4,excelente:75}};
 const WEEKDAY_DATA = {todos:[2804,2670,2320,2105,1630,112,29],jan:[210,278,164,171,173,0,0],fev:[209,215,208,219,210,30,20],mar:[343,351,289,216,127,0,0],abr:[355,302,414,285,188,0,0],mai:[430,387,342,305,233,0,0],jun:[445,413,259,324,177,0,0],jul:[376,408,336,275,225,5,0],ago:[436,316,308,310,297,77,9]};
 const STATUS_DATA = {todos:[8492,820,1380,719,259],jan:[835,17,131,13,0],fev:[929,85,78,18,1],mar:[976,76,243,31,0],abr:[1008,106,272,50,108],mai:[1270,193,179,26,29],jun:[1006,151,247,181,33],jul:[1108,69,144,223,81],ago:[1360,123,86,177,7]};
+const STATUS_GROUP_DATA = {
+  todos:{INFRAESTRUTURA:[5633,83,1056,567,210],SISTEMAS:[1889,496,157,44,28],GOVERNANÇA:[954,222,41,108,19],'DISPOSITIVOS MÓVEIS':[16,19,126,0,2]},
+  jan:{INFRAESTRUTURA:[566,5,114,13,0],SISTEMAS:[214,1,1,0,0],GOVERNANÇA:[53,11,0,0,0],'DISPOSITIVOS MÓVEIS':[2,0,16,0,0]},
+  fev:{INFRAESTRUTURA:[675,13,70,18,0],SISTEMAS:[177,1,1,0,1],GOVERNANÇA:[76,70,0,0,0],'DISPOSITIVOS MÓVEIS':[1,1,7,0,0]},
+  mar:{INFRAESTRUTURA:[658,8,229,31,0],SISTEMAS:[266,1,1,0,0],GOVERNANÇA:[51,67,0,0,0],'DISPOSITIVOS MÓVEIS':[1,0,13,0,0]},
+  abr:{INFRAESTRUTURA:[552,25,211,15,85],SISTEMAS:[417,11,36,34,12],GOVERNANÇA:[39,70,4,1,11],'DISPOSITIVOS MÓVEIS':[0,0,21,0,0]},
+  mai:{INFRAESTRUTURA:[880,13,128,16,25],SISTEMAS:[291,179,36,6,4],GOVERNANÇA:[94,0,4,4,0],'DISPOSITIVOS MÓVEIS':[5,1,11,0,0]},
+  jun:{INFRAESTRUTURA:[722,8,154,127,25],SISTEMAS:[225,136,63,1,8],GOVERNANÇA:[58,1,11,53,0],'DISPOSITIVOS MÓVEIS':[1,6,19,0,0]},
+  jul:{INFRAESTRUTURA:[633,6,85,177,74],SISTEMAS:[148,53,17,1,1],GOVERNANÇA:[326,3,21,45,6],'DISPOSITIVOS MÓVEIS':[1,7,21,0,0]},
+  ago:{INFRAESTRUTURA:[947,5,65,170,1],SISTEMAS:[151,114,2,2,2],GOVERNANÇA:[257,0,1,5,2],'DISPOSITIVOS MÓVEIS':[5,4,18,0,2]}
+};
 const SERVICE_DATA = {
   todos:[['IMPRESSORAS',2764],['COMPUTADORES',2503],['SISTEMAS DE GESTÃO',2084],['CONECTIVIDADE',1528],['MONITORES',593]],
   jan:[['IMPRESSORAS',289],['COMPUTADORES',229],['SISTEMAS DE GESTÃO',142],['CONECTIVIDADE',86],['SISTEMAS DA SAÚDE DIGITAL',74]],
@@ -210,7 +231,12 @@ const chartGrid = 'rgba(102,117,138,.14)';
 const weekdayChart = new Chart(document.getElementById('weekday-chart'), {type:'bar',data:{labels:WEEKDAY_NAMES,datasets:[{label:'Chamados',data:WEEKDAY_DATA.todos,backgroundColor:'#4f91dc',borderRadius:6,maxBarThickness:42}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fmt(ctx.raw)+' chamados'}}},scales:{x:{grid:{display:false},ticks:{color:chartText,font:{size:10}}},y:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:9},callback:value=>fmt(value)}}}}});
 const groupColors = {'INFRAESTRUTURA':'#1f65b5','SISTEMAS':'#17824f','GOVERNANÇA':'#c87b08','DISPOSITIVOS MÓVEIS':'#8b5db7'};
 const groupTrendChart = new Chart(document.getElementById('group-trend-chart'), {type:'line',data:{labels:MONTH_NAMES,datasets:GROUP_ORDER.map(group=>({label:GROUP_NAMES[group],data:MONTH_KEYS.map(month=>DASHBOARD_DATA[month].groups[group]?.total||0),borderColor:groupColors[group],backgroundColor:groupColors[group],borderWidth:2.5,pointRadius:3,pointHoverRadius:5,tension:.28}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,color:chartText,font:{size:9}}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+fmt(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{color:chartText,font:{size:10}}},y:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:9},callback:value=>fmt(value)}}}}});
-const statusChart = new Chart(document.getElementById('status-chart'), {type:'doughnut',data:{labels:['Fechado','Solucionado','Em atendimento','Pendente','Novo'],datasets:[{data:STATUS_DATA.todos,backgroundColor:['#17824f','#55b987','#e98b2a','#d6a537','#c9303e'],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'right',labels:{usePointStyle:true,boxWidth:9,padding:14,color:chartText,font:{size:10}}},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fmt(ctx.raw)}}}}});
+const STATUS_LABELS = ['Fechado','Solucionado','Em atendimento','Pendente','Novo'];
+const STATUS_COLORS = ['#43c985','#50c58b','#ff7138','#ff7138','#d62e56'];
+const statusGroupsGrid = document.getElementById('status-groups-grid');
+statusGroupsGrid.innerHTML = GROUP_ORDER.map((group,index) => `<section class="status-group" data-status-group="${group}"><div class="status-group-title" style="color:${groupColors[group]}"><span class="status-group-dot" style="background:${groupColors[group]}"></span>${GROUP_NAMES[group]}</div><div class="status-group-body"><div class="status-donut"><canvas id="status-group-${index}"></canvas></div><div class="status-list">${STATUS_LABELS.map((label,statusIndex)=>`<div class="status-row"><span class="status-name"><span class="status-dot" style="background:${STATUS_COLORS[statusIndex]}"></span>${label}</span><span class="status-value" data-status-index="${statusIndex}" style="color:${STATUS_COLORS[statusIndex]}">0</span></div>`).join('')}</div></div></section>`).join('');
+const statusCharts = {};
+GROUP_ORDER.forEach((group,index) => { statusCharts[group] = new Chart(document.getElementById(`status-group-${index}`), {type:'doughnut',data:{labels:STATUS_LABELS,datasets:[{data:STATUS_GROUP_DATA.todos[group],backgroundColor:STATUS_COLORS,borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'63%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fmt(ctx.raw)}}}}}); });
 const initialServices = SERVICE_DATA.todos;
 const servicesChart = new Chart(document.getElementById('services-chart'), {type:'bar',data:{labels:initialServices.map(item=>item[0]),datasets:[{label:'Chamados',data:initialServices.map(item=>item[1]),backgroundColor:['#1f65b5','#3f83c9','#66a0d8','#8bb9e4','#b2d1ed'],borderRadius:6,maxBarThickness:28}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fmt(ctx.raw)+' chamados'}}},scales:{x:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:9},callback:value=>fmt(value)}},y:{grid:{display:false},ticks:{color:chartText,font:{size:9},autoSkip:false}}}}});
 function renderDashboard(period='todos') {
@@ -259,13 +285,19 @@ function renderDashboard(period='todos') {
   document.getElementById('weekly-peak-sub').textContent = 'Volume de chamados por dia da semana · ' + label;
   document.getElementById('weekly-peak-value').textContent = fmt(peak);
   document.getElementById('weekly-peak-label').textContent = WEEKDAY_NAMES[peakIndex] || '—';
-  statusChart.data.datasets[0].data = STATUS_DATA[period] || STATUS_DATA.todos;
-  statusChart.update();
+  const groupedStatus = STATUS_GROUP_DATA[period] || STATUS_GROUP_DATA.todos;
+  GROUP_ORDER.forEach(group => {
+    const values = groupedStatus[group] || [0,0,0,0,0];
+    statusCharts[group].data.datasets[0].data = values;
+    statusCharts[group].update();
+    const section = statusGroupsGrid.querySelector(`[data-status-group="${group}"]`);
+    section.querySelectorAll('[data-status-index]').forEach(node => { node.textContent = fmt(values[Number(node.dataset.statusIndex)] || 0); });
+  });
   const services = SERVICE_DATA[period] || SERVICE_DATA.todos;
   servicesChart.data.labels = services.map(item => item[0]);
   servicesChart.data.datasets[0].data = services.map(item => item[1]);
   servicesChart.update();
-  document.getElementById('status-chart-sub').textContent = 'Distribuição por situação · ' + label;
+  document.getElementById('status-chart-sub').textContent = 'Distribuição por situação e Grupo Técnico · ' + label;
   document.getElementById('services-chart-sub').textContent = 'Volume de chamados por serviço · ' + label;
 }
 document.querySelectorAll('.month-pill[data-month]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('.month-pill[data-month]').forEach(item => item.classList.remove('active')); button.classList.add('active'); renderDashboard(button.dataset.month); }));
