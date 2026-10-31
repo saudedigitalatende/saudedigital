@@ -121,8 +121,8 @@ h1 em{font-style:normal;color:#c5a23e}
     <div class="summary-box"><strong id="summary-total">0</strong><span>total de chamados</span></div>
     <div class="summary-box ok"><strong id="summary-closed">0</strong><span id="summary-closed-label">encerrados</span></div>
     <div class="summary-box attention"><strong id="summary-open">0</strong><span id="summary-open-label">em atendimento + pendente + novo</span></div>
-    <div class="summary-box ok"><strong id="summary-csat">0%</strong><span>CSAT atendimento</span></div>
-  </div><div class="summary-note" id="summary-note"><strong>Destaque positivo:</strong> CSAT de atendimento no período selecionado.</div></section>
+    <div class="summary-box ok"><strong id="summary-csat">0%</strong><span>Pesquisa de Satisfação</span></div>
+  </div><div class="summary-note" id="summary-note"><strong>Destaque positivo:</strong> Pesquisa de Satisfação no período selecionado.</div></section>
   <section class="global-sla" id="sla-grupos"><div class="global-row"><div class="global-value"><span>SLA GLOBAL</span><strong id="global-sla-value">0%</strong></div><div class="legend"><span class="legend-meta">Meta: <strong>85%</strong></span><span class="legend-separator" aria-hidden="true"></span><span class="legend-item"><i class="legend-dot critical"></i>Crítico &lt;60%</span><span class="legend-item"><i class="legend-dot attention"></i>Atenção 60–84%</span><span class="legend-item"><i class="legend-dot ok"></i>OK ≥85%</span></div></div><div class="progress"><span id="global-progress"></span></div></section>
   <div class="governance-grid" id="governance-grid"></div>
   <section class="quality-section" id="qualidade-distritos">
@@ -189,7 +189,7 @@ function renderDashboard(period='todos') {
   document.getElementById('summary-open-label').textContent = 'em atendimento + pendente + novo · ' + pct(data.total ? data.ab * 100 / data.total : 0);
   const csat = CSAT_SUMMARY[period] || CSAT_SUMMARY.todos;
   document.getElementById('summary-csat').textContent = pct(csat.csat);
-  document.getElementById('summary-note').innerHTML = '<strong>Destaque positivo:</strong> CSAT de atendimento em ' + pct(csat.csat) + ' no período selecionado, considerando avaliações Excelente + Bom. <strong>' + pct(csat.excelente) + ' avaliaram como Excelente</strong> em ' + fmt(csat.respostas) + ' respostas.';
+  document.getElementById('summary-note').innerHTML = '<strong>Destaque positivo:</strong> Pesquisa de Satisfação em ' + pct(csat.csat) + ' no período selecionado, considerando avaliações Excelente + Bom. <strong>' + pct(csat.excelente) + ' avaliaram como Excelente</strong> em ' + fmt(csat.respostas) + ' respostas.';
   document.getElementById('global-sla-value').textContent = pct(data.sla);
   document.getElementById('global-progress').style.width = data.sla + '%';
   document.getElementById('nav-total').textContent = fmt(data.total);
