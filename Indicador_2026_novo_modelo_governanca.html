@@ -71,6 +71,7 @@ h1 em{font-style:normal;color:#c5a23e}
 .technical-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .technical-card{border:1px solid var(--rule);border-radius:10px;padding:11px;background:#f8fafc;text-align:center;min-width:0}
 .technical-sla{font-size:18px;font-weight:700}.technical-card.ok .technical-sla{color:var(--green)}.technical-card.attention .technical-sla{color:var(--amber)}.technical-card.critical .technical-sla{color:var(--red)}
+.technical-card.empty{background:#fbfcfe;border-style:dashed}.technical-card.empty .technical-sla,.technical-card.empty .technical-detail{color:#9aa7b6}
 .technical-name{font-size:10px;font-weight:700;color:var(--ink2);min-height:30px;display:flex;align-items:center;justify-content:center;line-height:1.3}
 .technical-total{font-size:11px;font-weight:600;color:var(--ink);margin-top:4px}
 .technical-detail{font-size:9px;color:var(--ink3);margin-top:2px}
@@ -162,6 +163,12 @@ const DASHBOARD_DATA = {"todos":{"total":11670,"np":8653,"fp":3017,"sla":74.1,"e
 const PERIOD_LABELS = {"todos": "Jan–Ago 2026", "jan": "Janeiro 2026", "fev": "Fevereiro 2026", "mar": "Março 2026", "abr": "Abril 2026", "mai": "Maio 2026", "jun": "Junho 2026", "jul": "Julho 2026", "ago": "Agosto 2026"};
 const GROUP_ORDER = ["INFRAESTRUTURA", "SISTEMAS", "GOVERNANÇA", "DISPOSITIVOS MÓVEIS"];
 const GROUP_NAMES = {INFRAESTRUTURA:'Infraestrutura',SISTEMAS:'Sistemas','GOVERNANÇA':'Governança','DISPOSITIVOS MÓVEIS':'Dispositivos Móveis'};
+const AREA_ORDER = {
+  INFRAESTRUTURA:['EQUIPAMENTOS E DISPOSITIVOS','IMPRESSÃO','REDE E CONECTIVIDADE','TELEFONIA','SOFTWARES'],
+  SISTEMAS:['ASSISTÊNCIA REMOTA','ASSISTÊNCIA CAMPO - TREINAMENTO','ASSISTÊNCIA OPERAÇÃO ASSISTIDA','ASSISTÊNCIA IMPLANTAÇÃO'],
+  'GOVERNANÇA':['NOC','DATA CENTER'],
+  'DISPOSITIVOS MÓVEIS':['TABLET','SMARTPHONE','CARTÃO SIM']
+};
 const CSAT_SUMMARY = {todos:{csat:94.2,respostas:89,excelente:82.6},jan:{csat:90,respostas:10,excelente:70},fev:{csat:100,respostas:7,excelente:100},mar:{csat:75,respostas:4,excelente:75},abr:{csat:100,respostas:6,excelente:83.3},mai:{csat:96.7,respostas:32,excelente:86.7},jun:{csat:87.5,respostas:9,excelente:75},jul:{csat:100,respostas:17,excelente:82.4},ago:{csat:75,respostas:4,excelente:75}};
 const WEEKDAY_DATA = {todos:[2804,2670,2320,2105,1630,112,29],jan:[210,278,164,171,173,0,0],fev:[209,215,208,219,210,30,20],mar:[343,351,289,216,127,0,0],abr:[355,302,414,285,188,0,0],mai:[430,387,342,305,233,0,0],jun:[445,413,259,324,177,0,0],jul:[376,408,336,275,225,5,0],ago:[436,316,308,310,297,77,9]};
 const MONTH_KEYS = ['jan','fev','mar','abr','mai','jun','jul','ago'];
@@ -197,7 +204,11 @@ function renderDashboard(period='todos') {
   const grid = document.getElementById('governance-grid');
   grid.innerHTML = GROUP_ORDER.map(groupKey => {
     const group = data.groups[groupKey] || {total:0,np:0,fp:0,sla:0,areas:{}};
-    const areas = Object.entries(group.areas).sort((a,b) => b[1].total-a[1].total).map(([name,item]) => `<article class="technical-card ${statusClass(item.sla)}"><div class="technical-sla">${pct(item.sla)}</div><div class="technical-name">${areaName(name)}</div><div class="technical-total">${fmt(item.total)} chamados</div><div class="technical-detail">${fmt(item.np)} dentro · ${fmt(item.fp)} fora</div></article>`).join('');
+    const areas = AREA_ORDER[groupKey].map(name => {
+      const item = group.areas[name] || {total:0,np:0,fp:0,sla:0};
+      const cardStatus = item.total ? statusClass(item.sla) : 'empty';
+      return `<article class="technical-card ${cardStatus}"><div class="technical-sla">${item.total ? pct(item.sla) : '—'}</div><div class="technical-name">${areaName(name)}</div><div class="technical-total">${fmt(item.total)} chamados</div><div class="technical-detail">${fmt(item.np)} dentro · ${fmt(item.fp)} fora</div></article>`;
+    }).join('');
     return `<section class="governance-card ${statusClass(group.sla)}"><div class="group-heading"><div><span class="group-kicker">Grupo Técnico</span><h2>${GROUP_NAMES[groupKey]}</h2></div><div class="group-sla"><strong>${pct(group.sla)}</strong><span>SLA</span></div></div><div class="group-volume"><strong>${fmt(group.total)}</strong> chamados<span>${fmt(group.np)} dentro do prazo · ${fmt(group.fp)} fora do prazo</span></div><div class="progress"><span style="width:${group.sla}%"></span></div><div class="technical-label">Área Técnica</div><div class="technical-grid">${areas || '<article class="technical-card"><div class="technical-name">Sem chamados no período</div></article>'}</div></section>`;
   }).join('');
   document.getElementById('quality-rate').textContent = pct(data.resolucao);
