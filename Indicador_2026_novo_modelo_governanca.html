@@ -224,7 +224,7 @@ const WEEKDAY_NAMES = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','D
 const fmt = value => Number(value || 0).toLocaleString('pt-BR');
 const pct = value => Number(value || 0).toFixed(1).replace('.', ',') + '%';
 const statusClass = value => value >= 85 ? 'ok' : value >= 60 ? 'attention' : 'critical';
-const AREA_NAMES = {'EQUIPAMENTOS E DISPOSITIVOS':'Equipamentos e Dispositivos','IMPRESSÃO':'Impressão','REDE E CONECTIVIDADE':'Rede e Conectividade','TELEFONIA':'Telefonia','SOFTWARES':'Softwares','ASSISTÊNCIA REMOTA':'Assistência Remota','ASSISTÊNCIA OPERAÇÃO ASSISTIDA':'Assistência Operação Assistida','ASSISTÊNCIA IMPLANTAÇÃO':'Assistência Implantação','ASSISTÊNCIA CAMPO - TREINAMENTO':'Assistência Campo - Treinamento','NOC':'NOC','DATA CENTER':'Data Center','TABLET':'Tablet','SMARTPHONE':'Smartphone','CARTÃO SIM':'Cartão SIM'};
+const AREA_NAMES = {'EQUIPAMENTOS E DISPOSITIVOS':'Equipamentos e Dispositivos','IMPRESSÃO':'Impressão','REDE E CONECTIVIDADE':'Rede e Conectividade','TELEFONIA':'Telefonia','SOFTWARES':'Softwares','ASSISTÊNCIA REMOTA':'Assistência Remota','ASSISTÊNCIA OPERAÇÃO ASSISTIDA':'Assistência Operação Assistida','ASSISTÊNCIA IMPLANTAÇÃO':'Assistência Implantação','ASSISTÊNCIA CAMPO - TREINAMENTO':'Assistência Treinamento','NOC':'NOC','DATA CENTER':'Data Center','TABLET':'Tablet','SMARTPHONE':'Smartphone','CARTÃO SIM':'Cartão SIM'};
 const areaName = name => AREA_NAMES[name] || name;
 Chart.defaults.devicePixelRatio = Math.min(3, Math.max(2, (window.devicePixelRatio || 1) * 1.5));
 Chart.defaults.font.family = "'DM Sans', sans-serif";
