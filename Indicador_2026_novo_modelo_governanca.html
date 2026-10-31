@@ -115,6 +115,10 @@ h1 em{font-style:normal;color:#c5a23e}
 .sla-bar-label{font-size:10px;color:#40556f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sla-bar-label strong{display:block;color:var(--ink2);font-size:11px}.sla-bar-label span{font-size:9px;color:var(--ink3)}
 .sla-track{height:7px;background:#edf1f6;border-radius:999px;overflow:hidden}.sla-fill{display:block;height:100%;border-radius:999px}.sla-value{font-size:11px;font-weight:700;text-align:right}.sla-badge{justify-self:end;padding:3px 8px;border-radius:5px;font-size:9px;font-weight:700}.sla-badge.ok{background:#e4f4e7;color:#2e7d32}.sla-badge.attention{background:#fff0dc;color:#e76f00}.sla-badge.critical{background:#fde8eb;color:#c62838}
 .sla-category-group+.sla-category-group{border-top:1px solid #e9edf2;margin-top:13px;padding-top:12px}.sla-category-heading{font-size:10px;font-weight:800;letter-spacing:.08em;color:#425c79;margin-bottom:9px;text-transform:uppercase}
+.sla-analysis-title{font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#8297b0;margin:17px 0 8px}
+.sla-analysis-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.sla-analysis-card{background:#fff;border:1px solid #d5dde8;border-top:3px solid var(--blue);border-radius:9px;padding:10px;min-width:0}.sla-analysis-card.best{border-top-color:#2f8a3b}.sla-analysis-card.warning{border-top-color:#f07800}
+.sla-analysis-label{font-size:8px;text-transform:uppercase;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sla-analysis-value{font-size:21px;line-height:1.1;color:#1768c4;margin:4px 0}.sla-analysis-card.best .sla-analysis-value{color:#2f8a3b}.sla-analysis-card.warning .sla-analysis-value{color:#f07800}.sla-analysis-detail{font-size:8px;color:#7890aa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sla-analysis-progress{height:3px;background:#e8edf4;border-radius:999px;overflow:hidden;margin-top:8px}.sla-analysis-progress span{display:block;height:100%;background:#1768c4}.sla-analysis-card.best .sla-analysis-progress span{background:#2f8a3b}.sla-analysis-card.warning .sla-analysis-progress span{background:#f07800}
 @media(max-width:1000px){.technical-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quality-section{grid-template-columns:1fr}.district-title{margin-top:4px}}
 @media(max-width:800px){.top,.dashboard-nav,.main{padding-left:18px;padding-right:18px}.top-inner{flex-direction:column}.summary-grid,.governance-grid,.trend-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.summary-grid,.governance-grid,.technical-grid,.trend-grid,.status-groups-grid,.sla-layout{grid-template-columns:1fr}.global-row{align-items:flex-start;flex-direction:column}.district-grid{grid-template-columns:1fr 1fr}.quality-main{align-items:flex-start}.quality-rate{font-size:31px}.status-group:nth-child(n+2){border-top:1px solid #e7ebf1;padding-top:17px}.status-group-body{grid-template-columns:110px minmax(0,1fr)}.status-donut{width:106px;height:106px}.sla-panel.wide{grid-column:auto}.sla-bar-row{grid-template-columns:minmax(100px,1.2fr) minmax(80px,1fr) 48px}.sla-badge{display:none}}
@@ -195,9 +199,9 @@ h1 em{font-style:normal;color:#c5a23e}
 <section class="dashboard-view" id="sla-view" hidden>
   <div class="sla-page-title"><h2>SLA</h2><p id="sla-period-label">Análise de cumprimento dos prazos · Jan–Ago 2026</p></div>
   <div class="sla-layout">
-    <article class="sla-panel"><div class="sla-panel-title">SLA por Grupo Técnico</div><div class="sla-panel-sub">Visão consolidada por grupo · meta 85%</div><div class="sla-bars" id="sla-group-bars"></div></article>
+    <article class="sla-panel"><div class="sla-panel-title">SLA por Grupo Técnico</div><div class="sla-panel-sub">Visão consolidada por grupo · meta 85%</div><div class="sla-bars" id="sla-group-bars"></div><div class="sla-analysis-title">Desempenho por Grupo Técnico</div><div class="sla-analysis-grid" id="sla-group-analysis"></div></article>
     <article class="sla-panel"><div class="sla-panel-title">SLA por Categoria</div><div class="sla-panel-sub">% dentro do SLA por tipo de demanda</div><div id="sla-category-bars"></div></article>
-    <article class="sla-panel"><div class="sla-panel-title">SLA por Distrito Sanitário</div><div class="sla-panel-sub">Percentual dentro do prazo nos oito distritos</div><div class="sla-bars" id="sla-district-bars"></div></article>
+    <article class="sla-panel"><div class="sla-panel-title">SLA por Distrito Sanitário</div><div class="sla-panel-sub">Percentual dentro do prazo nos oito distritos</div><div class="sla-bars" id="sla-district-bars"></div><div class="sla-analysis-title">Desempenho por Distrito Sanitário</div><div class="sla-analysis-grid" id="sla-district-analysis"></div></article>
     <article class="sla-panel"><div class="sla-panel-title">SLA por Executiva</div><div class="sla-panel-sub">% dentro do SLA · meta 85%</div><div class="sla-bars" id="sla-executive-bars"></div></article>
   </div>
   <div class="source-note"><strong>Fonte:</strong> GLPI Janeiro a Agosto de 2026. Os percentuais consideram chamados concluídos dentro do prazo definido.</div>
@@ -255,6 +259,21 @@ const slaColor = value => value >= 85 ? '#2f7f36' : value >= 60 ? '#f07800' : '#
 const compactCategory = name => { const parts=name.split('>').map(item=>item.trim()); return parts.length > 2 ? parts.slice(-2).join(' > ') : name; };
 function slaBar(item, label=item.name) {
   return `<div class="sla-bar-row" title="${item.name}"><div class="sla-bar-label"><strong>${label}</strong><span>${fmt(item.total)} chamados</span></div><div class="sla-track"><span class="sla-fill" style="width:${item.sla}%;background:${slaColor(item.sla)}"></span></div><div class="sla-value" style="color:${slaColor(item.sla)}">${pct(item.sla)}</div><span class="sla-badge ${slaState(item.sla)}">${slaStateLabel(item.sla)}</span></div>`;
+}
+function renderSlaAnalysis(containerId, items, entityLabel, total) {
+  const valid = items.filter(item => item.total > 0);
+  if (!valid.length) { document.getElementById(containerId).innerHTML = '<div class="sla-bar-label">Sem dados no período.</div>'; return; }
+  const bySla = [...valid].sort((a,b)=>b.sla-a.sla);
+  const byVolume = [...valid].sort((a,b)=>b.total-a.total);
+  const best=bySla[0], warning=bySla[bySla.length-1], largest=byVolume[0], smallest=byVolume[byVolume.length-1];
+  const volumePct = item => total ? item.total * 100 / total : 0;
+  const cards = [
+    {kind:'best',label:'Melhor '+entityLabel,value:pct(best.sla),detail:best.name+' — benchmark',progress:best.sla},
+    {kind:'warning',label:entityLabel+' em atenção',value:pct(warning.sla),detail:warning.name+' — '+slaStateLabel(warning.sla),progress:warning.sla},
+    {kind:'',label:'Maior volume',value:fmt(largest.total),detail:largest.name+' · '+pct(volumePct(largest))+' do total',progress:volumePct(largest)},
+    {kind:'',label:'Menor volume',value:fmt(smallest.total),detail:smallest.name+' · '+pct(volumePct(smallest))+' do total',progress:volumePct(smallest)}
+  ];
+  document.getElementById(containerId).innerHTML = cards.map(card=>`<article class="sla-analysis-card ${card.kind}"><div class="sla-analysis-label">${card.label}</div><div class="sla-analysis-value">${card.value}</div><div class="sla-analysis-detail" title="${card.detail}">${card.detail}</div><div class="sla-analysis-progress"><span style="width:${Math.min(100,card.progress)}%"></span></div></article>`).join('');
 }
 Chart.defaults.devicePixelRatio = Math.min(3, Math.max(2, (window.devicePixelRatio || 1) * 1.5));
 Chart.defaults.font.family = "'DM Sans', sans-serif";
@@ -337,9 +356,12 @@ function renderDashboard(period='todos') {
 function renderSlaView(period, data, label) {
   const detail = SLA_DETAIL_DATA[period] || SLA_DETAIL_DATA.todos;
   document.getElementById('sla-period-label').textContent = 'Análise de cumprimento dos prazos · ' + label;
-  document.getElementById('sla-group-bars').innerHTML = GROUP_ORDER.map(group => { const item=data.groups[group]||{total:0,sla:0}; return slaBar({name:GROUP_NAMES[group],total:item.total,sla:item.sla},GROUP_NAMES[group]); }).join('');
+  const groupItems = GROUP_ORDER.map(group => { const item=data.groups[group]||{total:0,sla:0}; return {name:GROUP_NAMES[group],total:item.total,sla:item.sla}; });
+  document.getElementById('sla-group-bars').innerHTML = groupItems.map(item=>slaBar(item,item.name)).join('');
+  renderSlaAnalysis('sla-group-analysis',groupItems,'Grupo',data.total);
   const districts = ['DS 1','DS 2','DS 3','DS 4','DS 5','DS 6','DS 7','DS 8'].map(name => ({name,...(data.districts[name]||{total:0,sla:0})}));
   document.getElementById('sla-district-bars').innerHTML = districts.map(item => slaBar(item,item.name.replace(' ',''))).join('');
+  renderSlaAnalysis('sla-district-analysis',districts.map(item=>({...item,name:item.name.replace(' ', '')})),'Distrito',data.total);
   document.getElementById('sla-executive-bars').innerHTML = detail.executives.map(item => slaBar(item,item.name)).join('');
   document.getElementById('sla-category-bars').innerHTML = GROUP_ORDER.map(group => { const items=detail.categories[group]||[]; return `<section class="sla-category-group"><div class="sla-category-heading">${GROUP_NAMES[group]}</div><div class="sla-bars">${items.length ? items.map(item=>slaBar(item,compactCategory(item.name))).join('') : '<div class="sla-bar-label">Sem chamados no período</div>'}</div></section>`; }).join('');
 }
