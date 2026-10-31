@@ -18,9 +18,18 @@ h1 em{font-style:normal;color:#c5a23e}
 .top-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
 .btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid var(--rule);border-radius:999px;background:#fff;color:var(--ink2);text-decoration:none;font-size:12px;font-weight:600}
 .btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
-.toolbar{max-width:1480px;margin:0 auto;padding:18px 42px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.pill{padding:7px 13px;border-radius:999px;background:#fff;border:1px solid var(--rule);font-size:11px;font-weight:600;color:var(--ink2)}
-.pill.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.dashboard-nav{max-width:1480px;margin:0 auto;padding:15px 42px 0}
+.nav-row,.month-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nav-row{padding-bottom:18px;border-bottom:1px solid #e3e8ef}
+.month-row{padding-top:15px}
+.nav-label{font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#315a86;margin-right:2px}
+.nav-pill,.month-pill{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;background:#fff;border:1px solid #cbd5e1;font-size:11px;font-weight:500;color:var(--ink2);text-decoration:none;box-shadow:0 5px 14px rgba(29,52,80,.05);transition:.2s ease}
+.nav-pill:hover,.month-pill:hover{border-color:#8eb4dd;background:#f8fbff}
+.nav-pill.active,.month-pill.active{background:#1768c4;border-color:#1768c4;color:#fff;font-weight:700}
+.nav-icon{font-size:14px;line-height:1}
+.nav-count{display:inline-flex;align-items:center;justify-content:center;min-width:28px;padding:2px 7px;border-radius:999px;background:#edf2f8;color:#57708c;font-size:9px;font-weight:700}
+.nav-pill.active .nav-count{background:rgba(255,255,255,.18);color:#fff}
+.month-note{font-size:10px;font-style:italic;color:#8a98aa;margin-left:4px}
 .main{max-width:1480px;margin:auto;padding:18px 42px 56px}
 .summary{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:18px;margin-bottom:16px}
 .section-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
@@ -61,22 +70,34 @@ h1 em{font-style:normal;color:#c5a23e}
 .source-note{margin-top:16px;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:13px 16px;font-size:10px;color:var(--ink3)}
 .source-note strong{color:var(--ink2)}
 @media(max-width:1000px){.technical-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:800px){.top,.toolbar,.main{padding-left:18px;padding-right:18px}.top-inner{flex-direction:column}.summary-grid,.governance-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){.top,.dashboard-nav,.main{padding-left:18px;padding-right:18px}.top-inner{flex-direction:column}.summary-grid,.governance-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.summary-grid,.governance-grid,.technical-grid{grid-template-columns:1fr}.global-row{align-items:flex-start;flex-direction:column}}
 </style>
 <link rel="stylesheet" href="assets/css/auth.css?v=20261001-2">
 </head>
 <body>
 <header class="top"><div class="top-inner"><div><div class="eyebrow">Novo modelo de Governança · Janeiro 2026</div><h1>Indicador de <em>Desempenho</em></h1><p class="subtitle">GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p></div><div class="top-actions"><a class="btn primary" href="documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/Planilha_Indicadores_Janeiro_2026.xlsx" download>↓ Baixar planilha fonte</a><a class="btn" href="indicadores.html">← Voltar aos indicadores</a></div></div></header>
-<div class="toolbar"><span class="pill active">Visão geral</span><span class="pill">Janeiro 2026</span><span class="pill">4 grupos de gestão</span><span class="pill">10 grupos técnicos</span></div>
+<nav class="dashboard-nav" aria-label="Navegação dos indicadores">
+  <div class="nav-row">
+    <span class="nav-label">Monitoramento</span>
+    <a class="nav-pill active" href="#resumo"><span class="nav-icon">▦</span>Visão geral <span class="nav-count">995</span></a>
+    <a class="nav-pill" href="#sla-grupos"><span class="nav-icon">◷</span>SLA &amp; Grupo Técnico <span class="nav-count">10 grp</span></a>
+    <a class="nav-pill" href="#sla-grupos"><span class="nav-icon">◔</span>Concentração de Demanda <span class="nav-count">4</span></a>
+  </div>
+  <div class="month-row">
+    <span class="nav-label">Filtrar por mês:</span>
+    <span class="month-pill active">Janeiro</span>
+    <span class="month-note">Exibindo: Janeiro 2026</span>
+  </div>
+</nav>
 <main class="main">
-  <section class="summary"><div class="section-title">Resumo executivo — Janeiro 2026</div><div class="summary-grid">
+  <section class="summary" id="resumo"><div class="section-title">Resumo executivo — Janeiro 2026</div><div class="summary-grid">
     <div class="summary-box"><strong>995</strong><span>total de chamados</span></div>
     <div class="summary-box ok"><strong>791</strong><span>dentro do SLA</span></div>
     <div class="summary-box critical"><strong>204</strong><span>fora do SLA</span></div>
     <div class="summary-box attention"><strong>79,5%</strong><span>SLA global</span></div>
   </div></section>
-  <section class="global-sla"><div class="global-row"><div class="global-value"><span>SLA GLOBAL</span><strong>79,5%</strong></div><div class="legend">Crítico &lt; 60% · Atenção 60–84,9% · OK ≥ 85%</div></div><div class="progress"><span style="width:79.5%"></span></div></section>
+  <section class="global-sla" id="sla-grupos"><div class="global-row"><div class="global-value"><span>SLA GLOBAL</span><strong>79,5%</strong></div><div class="legend">Crítico &lt; 60% · Atenção 60–84,9% · OK ≥ 85%</div></div><div class="progress"><span style="width:79.5%"></span></div></section>
   <div class="governance-grid">
       <section class="governance-card ok">
         <div class="group-heading">
