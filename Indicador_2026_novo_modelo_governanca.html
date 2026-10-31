@@ -43,7 +43,12 @@ h1 em{font-style:normal;color:#c5a23e}
 .global-value{display:flex;gap:12px;align-items:baseline}
 .global-value strong{font-size:31px;color:var(--amber)}
 .global-value span{font-size:12px;color:var(--ink3)}
-.legend{font-size:10px;color:var(--ink3)}
+.legend{display:flex;align-items:center;justify-content:flex-end;gap:11px;flex-wrap:wrap;font-size:10px;color:var(--ink3)}
+.legend-meta{color:var(--ink2)}
+.legend-meta strong{color:var(--green)}
+.legend-separator{width:1px;height:16px;background:#d7dee8}
+.legend-item{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.legend-dot{width:8px;height:8px;border-radius:2px;display:inline-block}.legend-dot.critical{background:var(--red)}.legend-dot.attention{background:#e76f00}.legend-dot.ok{background:#2f8a3b}
 .progress{height:5px;background:#dce4ef;border-radius:999px;overflow:hidden;margin:12px 0 16px}
 .progress span{display:block;height:100%;background:var(--amber)}
 .governance-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
@@ -97,7 +102,7 @@ h1 em{font-style:normal;color:#c5a23e}
     <div class="summary-box critical"><strong>204</strong><span>fora do SLA</span></div>
     <div class="summary-box attention"><strong>79,5%</strong><span>SLA global</span></div>
   </div></section>
-  <section class="global-sla" id="sla-grupos"><div class="global-row"><div class="global-value"><span>SLA GLOBAL</span><strong>79,5%</strong></div><div class="legend">Crítico &lt; 60% · Atenção 60–84,9% · OK ≥ 85%</div></div><div class="progress"><span style="width:79.5%"></span></div></section>
+  <section class="global-sla" id="sla-grupos"><div class="global-row"><div class="global-value"><span>SLA GLOBAL</span><strong>79,5%</strong></div><div class="legend"><span class="legend-meta">Meta: <strong>85%</strong></span><span class="legend-separator" aria-hidden="true"></span><span class="legend-item"><i class="legend-dot critical"></i>Crítico &lt;60%</span><span class="legend-item"><i class="legend-dot attention"></i>Atenção 60–84%</span><span class="legend-item"><i class="legend-dot ok"></i>OK ≥85%</span></div></div><div class="progress"><span style="width:79.5%"></span></div></section>
   <div class="governance-grid">
       <section class="governance-card ok">
         <div class="group-heading">
