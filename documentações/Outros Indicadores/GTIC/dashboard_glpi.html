@@ -126,6 +126,11 @@
   .link-out{font-size:12px;color:var(--accent);cursor:pointer;text-decoration:underline;}
 
   .page-section{padding-top:28px;}
+  body.embed-mode{background:transparent;overflow-x:hidden;}
+  body.embed-mode .header-premium,body.embed-mode #pageIndicadores>.wrap>header.page,body.embed-mode #pageIndicadores>.wrap>.filters{display:none!important;}
+  body.embed-mode #pageFibra,body.embed-mode .panels-row-noc{display:none!important;}
+  body.embed-mode #pageIndicadores{display:block!important;padding-top:0;}
+  body.embed-mode #pageIndicadores>.wrap{max-width:none;padding:0;}
 
   /* Fibra page enhancements */
   .header-support-text{font-size:12.5px;color:var(--text-secondary);line-height:1.5;margin:6px 0 0;max-width:640px;}
@@ -193,6 +198,7 @@
 <link rel="stylesheet" href="../../../assets/css/auth.css?v=20261001-2">
 </head>
 <body>
+<script>if(new URLSearchParams(location.search).get('embed')==='1')document.body.classList.add('embed-mode');</script>
 <header class="header-premium">
   <div class="header-inner">
     <div class="header-identity">
@@ -863,7 +869,8 @@ const RAW_DATA_IND = (await Promise.all([
   fetch('./kpi_data_2025a.json').then(r => r.json()),
   fetch('./kpi_data_2025b.json').then(r => r.json()),
   fetch('./kpi_data_2026a.json').then(r => r.json()),
-  fetch('./kpi_data_2026b.json').then(r => r.json())
+  fetch('./kpi_data_2026b.json').then(r => r.json()),
+  fetch('./kpi_data_2026c.json').then(r => r.json())
 ])).flat();
 
 const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
@@ -1309,6 +1316,20 @@ document.getElementById('indBtnLimpar').addEventListener('click', () => {
   fDe.value = ''; fAte.value = '';
   render();
 });
+
+if (document.body.classList.contains('embed-mode')) {
+  fAno.value = '2026';
+  window.addEventListener('message', event => {
+    if (event.origin !== location.origin || event.data?.type !== 'dashboard-month') return;
+    fAno.value = '2026';
+    fMes.value = event.data.month ? String(event.data.month) : '';
+    fDe.value = ''; fAte.value = ''; fGrupo.value = ''; fStatus.value = '';
+    render();
+  });
+  const reportHeight = () => parent.postMessage({type:'dashboard-height',height:document.documentElement.scrollHeight}, location.origin);
+  new ResizeObserver(reportHeight).observe(document.getElementById('pageIndicadores'));
+  window.addEventListener('load', reportHeight);
+}
 
 render();
 })();
