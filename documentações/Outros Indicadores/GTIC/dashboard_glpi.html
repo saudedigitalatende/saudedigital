@@ -92,6 +92,7 @@
   .panels-row.panels-row-2{grid-template-columns:1fr 1fr;}
   .panels-row.panels-row-noc{grid-template-columns:1fr 1fr;}
   .panels-row.panels-row-noc .panel{grid-column:1 / span 1;}
+  .embed-extra-groups{display:none;}
   .panels-row .panel{margin-bottom:0;}
   @media (max-width: 1180px){ .panels-row{grid-template-columns:1fr 1fr;} }
   @media (max-width: 760px){ .panels-row{grid-template-columns:1fr;} .panels-row.panels-row-2{grid-template-columns:1fr;} .panels-row.panels-row-noc{grid-template-columns:1fr;} }
@@ -144,6 +145,8 @@
   body.embed-mode .kpi-card .value{font-size:20px;}
   body.embed-mode .legend{font-size:10px;gap:11px;margin-bottom:10px;}
   body.embed-mode .panels-row{gap:16px;margin-bottom:16px;}
+  body.embed-mode .embed-extra-groups{display:grid;}
+  body.embed-mode .legend{justify-content:flex-end;}
   body.embed-mode .panel{border-radius:16px;padding:18px;margin-bottom:16px;}
   body.embed-mode .panel h2,body.embed-mode .panel h3,body.embed-mode .backlog-card-title h3{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#0d1a2e;letter-spacing:0;}
   body.embed-mode .panel .panel-sub{font-size:10px;line-height:1.45;margin-bottom:12px;}
@@ -419,10 +422,22 @@
     <div class="panel sla-panel">
       <div class="backlog-card-title">
         <span class="backlog-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="15" x2="4" y2="15"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="15" x2="22" y2="15"/></svg></span>
-        <h3>Soluções Digitais</h3>
+        <h3>Sistemas</h3>
       </div>
       <div class="sla-mini-summary" id="indSlaResumoSistemas"></div>
       <div class="chart-wrap h-sla"><canvas id="indChartSlaSistemas" role="img" aria-label="Grafico de barras horizontais com a situacao dos chamados de solucoes digitais em relacao ao SLA"></canvas></div>
+    </div>
+  </div>
+  <div class="panels-row panels-row-2 embed-extra-groups">
+    <div class="panel sla-panel">
+      <div class="backlog-card-title"><span class="backlog-card-icon">◆</span><h3>Governança</h3></div>
+      <div class="sla-mini-summary" id="indSlaResumoGovernanca"></div>
+      <div class="chart-wrap h-sla"><canvas id="indChartSlaGovernanca" role="img" aria-label="Gráfico da situação dos chamados de Governança em relação ao SLA"></canvas></div>
+    </div>
+    <div class="panel sla-panel">
+      <div class="backlog-card-title"><span class="backlog-card-icon">▣</span><h3>Dispositivos Móveis</h3></div>
+      <div class="sla-mini-summary" id="indSlaResumoMoveis"></div>
+      <div class="chart-wrap h-sla"><canvas id="indChartSlaMoveis" role="img" aria-label="Gráfico da situação dos chamados de Dispositivos Móveis em relação ao SLA"></canvas></div>
     </div>
   </div>
   <div class="panels-row panels-row-noc">
@@ -883,7 +898,8 @@ document.getElementById('fibraFileImportar').addEventListener('change', (e) => {
 loadDisponibilidade();
 })();
 (async function(){
-const RAW_DATA_IND = (await Promise.all([
+const EMBED_MODE = document.body.classList.contains('embed-mode');
+const RAW_DATA_IND = EMBED_MODE ? await fetch('./kpi_governanca_2026.json?v=20261031-2').then(r => r.json()) : (await Promise.all([
   fetch('./kpi_data_2024a.json').then(r => r.json()),
   fetch('./kpi_data_2024b.json').then(r => r.json()),
   fetch('./kpi_data_2025a.json').then(r => r.json()),
@@ -904,21 +920,23 @@ const chamados = RAW_DATA_IND.map(r => ({
   aberturaDate: r.a ? new Date(r.a) : null, aberturaStr: r.a,
   solucaoDate: r.s ? new Date(r.s) : null, solucaoStr: r.s,
   status: r.st, categoria: r.c, servico: r.sv,
-  grupo: r.g === 'S' ? 'SOLUCOES_DIGITAIS' : ((r.c || '').toUpperCase().includes('INTERNET (FIBRA)') ? 'NOC' : 'INFRAESTRUTURA'),
+  grupo: r.g === 'S' ? 'SOLUCOES_DIGITAIS' : (r.g === 'SISTEMAS' ? 'SISTEMAS' : (r.g === 'GOVERNANÇA' ? 'GOVERNANCA' : (r.g === 'DISPOSITIVOS MÓVEIS' ? 'MOVEIS' : ((r.c || '').toUpperCase().includes('INTERNET (FIBRA)') && !EMBED_MODE ? 'NOC' : 'INFRAESTRUTURA')))),
   grupoTecnico: r.gt,
   prazoDate: r.p ? new Date(r.p) : null, prazoStr: r.p,
   adquirirExcedido: r.aq === 'S' ? 'Sim' : 'Não',
-  resolverExcedido: r.re === 'S' ? 'Sim' : 'Não'
+  resolverExcedido: r.re === 'S' ? 'Sim' : 'Não',
+  slaClassPre: r.cl || null
 })).filter(c => {
   const categoria = (c.categoria || '').toUpperCase();
   const categoriaPrincipal = categoria.split(' > ')[0].trim();
   const grupoTecnico = (c.grupoTecnico || '').toUpperCase();
-  return !grupoTecnico.includes('ADMINISTRATIVO') &&
+  return EMBED_MODE || (!grupoTecnico.includes('ADMINISTRATIVO') &&
     categoriaPrincipal !== 'TELEFONES' &&
-    !categoria.includes('TABLET');
+    !categoria.includes('TABLET'));
 });
 
 function classify(c) {
+  if (c.slaClassPre) return c.slaClassPre;
   if (c.solucaoDate) {
     if (c.prazoDate) return c.solucaoDate <= c.prazoDate ? 'encerrado_dentro' : 'encerrado_vencido';
     return c.resolverExcedido === 'Sim' ? 'encerrado_vencido' : 'encerrado_dentro';
@@ -946,7 +964,7 @@ const fAno = document.getElementById('indFAno'), fMes = document.getElementById(
       fGrupo = document.getElementById('indFGrupo'), fStatus = document.getElementById('indFStatus');
 
 function equipeLabelFor(grupo) {
-  return grupo === 'INFRAESTRUTURA' ? 'Infraestrutura' : (grupo === 'SOLUCOES_DIGITAIS' ? 'Soluções Digitais' : 'NOC');
+  return grupo === 'INFRAESTRUTURA' ? 'Infraestrutura' : (grupo === 'SISTEMAS' ? 'Sistemas' : (grupo === 'GOVERNANCA' ? 'Governança' : (grupo === 'MOVEIS' ? 'Dispositivos Móveis' : 'NOC')));
 }
 
 function applyFilters() {
@@ -1048,7 +1066,7 @@ function renderSlaChart(canvasId, list, grupo) {
   const dentroTotal = cats.aberto_dentro.length + cats.encerrado_dentro.length;
   const foraTotal = cats.aberto_vencido.length + cats.encerrado_vencido.length;
   const equipeLabel = equipeLabelFor(grupo);
-  const resumoId = grupo === 'INFRAESTRUTURA' ? 'indSlaResumoInfra' : (grupo === 'SOLUCOES_DIGITAIS' ? 'indSlaResumoSistemas' : 'indSlaResumoNoc');
+  const resumoId = {INFRAESTRUTURA:'indSlaResumoInfra',SOLUCOES_DIGITAIS:'indSlaResumoSistemas',SISTEMAS:'indSlaResumoSistemas',GOVERNANCA:'indSlaResumoGovernanca',MOVEIS:'indSlaResumoMoveis',NOC:'indSlaResumoNoc'}[grupo];
   const resumoEl = document.getElementById(resumoId);
   if (resumoEl) {
     resumoEl.innerHTML =
@@ -1324,11 +1342,16 @@ function render() {
   }
 
   renderSlaChart('indChartSlaInfra', classificaveis, 'INFRAESTRUTURA');
-  renderSlaChart('indChartSlaSistemas', classificaveis, 'SOLUCOES_DIGITAIS');
-  renderSlaChart('indChartSlaNoc', classificaveis, 'NOC');
+  renderSlaChart('indChartSlaSistemas', classificaveis, EMBED_MODE ? 'SISTEMAS' : 'SOLUCOES_DIGITAIS');
+  if (EMBED_MODE) {
+    renderSlaChart('indChartSlaGovernanca', classificaveis, 'GOVERNANCA');
+    renderSlaChart('indChartSlaMoveis', classificaveis, 'MOVEIS');
+  } else {
+    renderSlaChart('indChartSlaNoc', classificaveis, 'NOC');
+  }
   renderBacklogChart('indChartBacklogInfra', filtered, 'INFRAESTRUTURA');
-  renderBacklogChart('indChartBacklogSistemas', filtered, 'SOLUCOES_DIGITAIS');
-  renderBacklogChart('indChartBacklogNoc', filtered, 'NOC');
+  renderBacklogChart('indChartBacklogSistemas', filtered, EMBED_MODE ? 'SISTEMAS' : 'SOLUCOES_DIGITAIS');
+  if (!EMBED_MODE) renderBacklogChart('indChartBacklogNoc', filtered, 'NOC');
 }
 
 [fAno, fMes, fGrupo, fStatus].forEach(el => el.addEventListener('change', render));
