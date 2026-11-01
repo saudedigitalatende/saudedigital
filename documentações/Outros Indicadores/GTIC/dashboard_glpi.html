@@ -899,6 +899,12 @@ loadDisponibilidade();
 })();
 (async function(){
 const EMBED_MODE = document.body.classList.contains('embed-mode');
+if (EMBED_MODE && window.Chart) {
+  Chart.defaults.font.family = "'DM Sans', sans-serif";
+  Chart.defaults.font.size = 11;
+  Chart.defaults.font.weight = '500';
+  Chart.defaults.color = '#2c3e55';
+}
 const RAW_DATA_IND = EMBED_MODE ? await fetch('./kpi_governanca_2026.json?v=20261031-2').then(r => r.json()) : (await Promise.all([
   fetch('./kpi_data_2024a.json').then(r => r.json()),
   fetch('./kpi_data_2024b.json').then(r => r.json()),
@@ -1009,7 +1015,7 @@ const valueLabelsPlugin = {
         const text = val.toLocaleString('pt-BR') + (pct !== null ? ' (' + pct.toFixed(1) + '%)' : '');
         ctx.save();
         ctx.fillStyle = '#1B1F27';
-        ctx.font = '12px "Segoe UI", Arial, sans-serif';
+        ctx.font = EMBED_MODE ? '500 11px "DM Sans", sans-serif' : '12px "Segoe UI", Arial, sans-serif';
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'left';
         ctx.fillText(text, bar.x + 6, bar.y);
