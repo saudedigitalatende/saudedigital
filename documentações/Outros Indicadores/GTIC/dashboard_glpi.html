@@ -1341,6 +1341,12 @@ document.getElementById('indBtnLimpar').addEventListener('click', () => {
 });
 
 if (document.body.classList.contains('embed-mode')) {
+  const embeddedTitle = document.querySelector('h2.section-title.embed-main-title');
+  if (embeddedTitle) {
+    const embeddedSubtitle = embeddedTitle.nextElementSibling;
+    if (embeddedSubtitle && embeddedSubtitle.classList.contains('section-sub')) embeddedSubtitle.remove();
+    embeddedTitle.remove();
+  }
   fAno.value = '2026';
   window.addEventListener('message', event => {
     if (event.origin !== location.origin || event.data?.type !== 'dashboard-month') return;
