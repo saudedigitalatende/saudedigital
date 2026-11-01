@@ -475,10 +475,22 @@
     <div class="panel backlog-card">
       <div class="backlog-card-title">
         <span class="backlog-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="15" x2="4" y2="15"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="15" x2="22" y2="15"/></svg></span>
-        <h3>Soluções Digitais</h3>
+        <h3>Sistemas</h3>
       </div>
       <div class="chart-wrap v-backlog"><canvas id="indChartBacklogSistemas" role="img" aria-label="Grafico combinado mensal de solucoes digitais com abertos, encerrados, backlog do mes e backlog acumulado"></canvas></div>
       <div class="backlog-summary" id="indBacklogResumoSistemas"></div>
+    </div>
+  </div>
+  <div class="panels-row panels-row-2 embed-extra-groups">
+    <div class="panel backlog-card">
+      <div class="backlog-card-title"><span class="backlog-card-icon">◆</span><h3>Governança</h3></div>
+      <div class="chart-wrap v-backlog"><canvas id="indChartBacklogGovernanca" role="img" aria-label="Gráfico mensal de Governança com abertos, encerrados e backlog acumulado"></canvas></div>
+      <div class="backlog-summary" id="indBacklogResumoGovernanca"></div>
+    </div>
+    <div class="panel backlog-card">
+      <div class="backlog-card-title"><span class="backlog-card-icon">▣</span><h3>Dispositivos Móveis</h3></div>
+      <div class="chart-wrap v-backlog"><canvas id="indChartBacklogMoveis" role="img" aria-label="Gráfico mensal de Dispositivos Móveis com abertos, encerrados e backlog acumulado"></canvas></div>
+      <div class="backlog-summary" id="indBacklogResumoMoveis"></div>
     </div>
   </div>
   <div class="panels-row panels-row-noc">
@@ -921,6 +933,7 @@ const MESES_LONG = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho
 const hoje = new Date();
 // Status considerados "ainda ativos" para o Backlog do mes / Backlog acumulado (exclui Fechado e Solucionado).
 const ACTIVE_STATUSES = ['Novo', 'Pendente', 'Em atendimento (atribuído)', 'Em atendimento (planejado)'];
+const isActiveStatus = status => !['fechado','solucionado'].includes(String(status || '').trim().toLowerCase());
 
 const chamados = RAW_DATA_IND.map(r => ({
   id: r.i, titulo: r.t,
@@ -1131,7 +1144,7 @@ function renderBacklogChart(canvasId, list, grupo) {
     abertos[m]++; perMonthLists.abertos[m].push(c);
     // Backlog do mes = chamados abertos naquele mes cujo status ATUAL ainda esta ativo
     // (Novo, Pendente, Em atendimento (atribuído) ou Em atendimento (planejado)) -- exclui Fechado e Solucionado.
-    if (ACTIVE_STATUSES.includes(c.status)) { backlog[m]++; perMonthLists.backlog[m].push(c); }
+    if (isActiveStatus(c.status)) { backlog[m]++; perMonthLists.backlog[m].push(c); }
   });
 
   const anoRef = fAno.value || '';
@@ -1158,7 +1171,7 @@ function renderBacklogChart(canvasId, list, grupo) {
   // Backlog acumulado = somatório sequencial cronológico usando TODO o histórico do grupo (não só o ano
   // filtrado), para que Janeiro de um ano comece somando o saldo que sobrou de Dezembro do ano anterior,
   // em vez de reiniciar em zero. Backlog do mês (ativo hoje) já usa ACTIVE_STATUSES, igual às barras.
-  const baseGrupoHist = chamados.filter(c => c.grupo === grupo && ACTIVE_STATUSES.includes(c.status));
+  const baseGrupoHist = chamados.filter(c => c.grupo === grupo && isActiveStatus(c.status));
   const porChave = {};
   baseGrupoHist.forEach(c => {
     const chave = c.aberturaDate.getFullYear() + '-' + c.aberturaDate.getMonth();
@@ -1227,7 +1240,7 @@ function renderBacklogChart(canvasId, list, grupo) {
 
   // ---- Resumo inferior: backlog acumulado no mês de referência (dinâmico) ----
   const equipeLabel = equipeLabelFor(grupo);
-  const resumoId = grupo === 'INFRAESTRUTURA' ? 'indBacklogResumoInfra' : (grupo === 'SOLUCOES_DIGITAIS' ? 'indBacklogResumoSistemas' : 'indBacklogResumoNoc');
+  const resumoId = {INFRAESTRUTURA:'indBacklogResumoInfra',SOLUCOES_DIGITAIS:'indBacklogResumoSistemas',SISTEMAS:'indBacklogResumoSistemas',GOVERNANCA:'indBacklogResumoGovernanca',MOVEIS:'indBacklogResumoMoveis',NOC:'indBacklogResumoNoc'}[grupo];
   const resumoEl = document.getElementById(resumoId);
   function atualizarResumo(monthIdx) {
     if (!resumoEl) return;
@@ -1358,7 +1371,12 @@ function render() {
   }
   renderBacklogChart('indChartBacklogInfra', filtered, 'INFRAESTRUTURA');
   renderBacklogChart('indChartBacklogSistemas', filtered, EMBED_MODE ? 'SISTEMAS' : 'SOLUCOES_DIGITAIS');
-  if (!EMBED_MODE) renderBacklogChart('indChartBacklogNoc', filtered, 'NOC');
+  if (EMBED_MODE) {
+    renderBacklogChart('indChartBacklogGovernanca', filtered, 'GOVERNANCA');
+    renderBacklogChart('indChartBacklogMoveis', filtered, 'MOVEIS');
+  } else {
+    renderBacklogChart('indChartBacklogNoc', filtered, 'NOC');
+  }
 }
 
 [fAno, fMes, fGrupo, fStatus].forEach(el => el.addEventListener('change', render));
