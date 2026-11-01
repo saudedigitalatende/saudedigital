@@ -238,6 +238,7 @@ const MONTH_NAMES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out'
 const MONTH_NUMBER = {jan:1,fev:2,mar:3,abr:4,mai:5,jun:6,jul:7,ago:8,set:9,out:10};
 let SLA_TICKETS = [];
 let activeSlaPeriod = 'todos';
+let EXECUTIVE_SLA_SUMMARY = {};
 const WEEKDAY_NAMES = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
 const fmt = value => Number(value || 0).toLocaleString('pt-BR');
 const pct = value => Number(value || 0).toFixed(1).replace('.', ',') + '%';
@@ -248,6 +249,12 @@ const slaState = value => value >= 85 ? 'ok' : value >= 60 ? 'attention' : 'crit
 const slaStateLabel = value => value >= 85 ? 'ok' : value >= 60 ? 'atenção' : 'crítico';
 const slaColor = value => value >= 85 ? '#2f7f36' : value >= 60 ? '#f07800' : '#c92c38';
 const compactCategory = name => { const parts=name.split('>').map(item=>item.trim()); return parts.length > 2 ? parts.slice(-2).join(' > ') : name; };
+function updateExecutiveSummary(period) {
+  const values=EXECUTIVE_SLA_SUMMARY[period];
+  if(!values){['summary-total','summary-closed','summary-open','summary-csat'].forEach(id=>document.getElementById(id).textContent='—');return;}
+  const total=Number(values.total)||0,items=[['summary-total','summary-total-label','openOk','Em aberto dentro do SLA'],['summary-closed','summary-closed-label','openLate','Em aberto com SLA vencido'],['summary-open','summary-open-label','closedOk','Encerrados dentro do SLA'],['summary-csat','summary-csat-label','closedLate','Encerrados com SLA vencido']];
+  items.forEach(([valueId,labelId,key,label])=>{const value=Number(values[key])||0;document.getElementById(valueId).textContent=fmt(value);document.getElementById(labelId).textContent=label+' · '+pct(total?value*100/total:0);});
+}
 function slaBar(item, label=item.name) {
   return `<div class="sla-bar-row" title="${item.name}"><div class="sla-bar-label"><strong>${label}</strong><span>${fmt(item.total)} chamados</span></div><div class="sla-track"><span class="sla-fill" style="width:${item.sla}%;background:${slaColor(item.sla)}"></span></div><div class="sla-value" style="color:${slaColor(item.sla)}">${pct(item.sla)}</div><span class="sla-badge ${slaState(item.sla)}">${slaStateLabel(item.sla)}</span></div>`;
 }
@@ -330,7 +337,7 @@ function renderDashboard(period='todos') {
   const label = PERIOD_LABELS[period];
   document.getElementById('month-note').textContent = 'Exibindo: ' + label;
   document.getElementById('summary-title').textContent = 'Resumo executivo — ' + label;
-  ['summary-total','summary-closed','summary-open','summary-csat'].forEach(id=>document.getElementById(id).textContent='—');
+  updateExecutiveSummary(period);
   document.getElementById('global-sla-value').textContent = pct(data.sla);
   document.getElementById('global-progress').style.width = data.sla + '%';
   document.getElementById('nav-total').textContent = fmt(data.total);
@@ -407,17 +414,9 @@ document.querySelectorAll('.month-pill[data-month]').forEach(button => button.ad
 window.addEventListener('message',event=>{
   if(event.origin!==location.origin)return;
   if(event.data?.type==='dashboard-height'){const frame=document.getElementById('sla-dashboard-frame');if(frame)frame.style.height=Math.max(900,Number(event.data.height)||0)+'px';return;}
-  if(event.data?.type==='sla-summary'){
-    const values=event.data.values||{},total=Number(values.total)||0;
-    const items=[['summary-total','openOk'],['summary-closed','openLate'],['summary-open','closedOk'],['summary-csat','closedLate']];
-    items.forEach(([id,key])=>document.getElementById(id).textContent=fmt(values[key]||0));
-    document.getElementById('summary-total-label').textContent='Em aberto dentro do SLA · '+pct(total?(values.openOk||0)*100/total:0);
-    document.getElementById('summary-closed-label').textContent='Em aberto com SLA vencido · '+pct(total?(values.openLate||0)*100/total:0);
-    document.getElementById('summary-open-label').textContent='Encerrados dentro do SLA · '+pct(total?(values.closedOk||0)*100/total:0);
-    document.getElementById('summary-csat-label').textContent='Encerrados com SLA vencido · '+pct(total?(values.closedLate||0)*100/total:0);
-  }
 });
 document.getElementById('sla-dashboard-frame').addEventListener('load',()=>{const active=document.querySelector('.month-pill.active');document.getElementById('sla-dashboard-frame').contentWindow.postMessage({type:'dashboard-month',month:MONTH_NUMBER[active?.dataset.month]||0},location.origin);});
+fetch('documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/sla_summary_2026.json?v=20261031').then(response=>response.json()).then(data=>{EXECUTIVE_SLA_SUMMARY=data;const active=document.querySelector('.month-pill.active');updateExecutiveSummary(active?.dataset.month||'todos');});
 renderDashboard('todos');
 if (location.hash === '#sla') showDashboardView('sla');
 </script>
