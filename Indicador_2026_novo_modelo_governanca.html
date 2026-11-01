@@ -34,7 +34,7 @@ h1 em{font-style:normal;color:#c5a23e}
 .main{max-width:1480px;margin:auto;padding:18px 42px 56px}
 .summary{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:18px;margin-bottom:16px}
 .section-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#315f96;margin-bottom:12px}
-.summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.summary-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 .summary-box{background:#f5f8fc;border:1px solid var(--rule);border-radius:10px;padding:13px;text-align:center}
 .summary-box strong{display:block;font-size:25px;line-height:1.1;color:var(--blue)}
 .summary-box span{font-size:10px;color:var(--ink3)}
@@ -151,6 +151,7 @@ h1 em{font-style:normal;color:#c5a23e}
 <main class="main">
 <div class="dashboard-view" id="overview-view">
   <section class="summary" id="resumo"><div class="section-title" id="summary-title">Resumo executivo</div><div class="summary-grid">
+    <div class="summary-box"><strong id="summary-classified-total">—</strong><span>Total de chamados classificados</span></div>
     <div class="summary-box"><strong id="summary-total">—</strong><span id="summary-total-label">Em aberto dentro do SLA</span></div>
     <div class="summary-box"><strong id="summary-closed">—</strong><span id="summary-closed-label">Em aberto com SLA vencido</span></div>
     <div class="summary-box"><strong id="summary-open">—</strong><span id="summary-open-label">Encerrados dentro do SLA</span></div>
@@ -251,8 +252,9 @@ const slaColor = value => value >= 85 ? '#2f7f36' : value >= 60 ? '#f07800' : '#
 const compactCategory = name => { const parts=name.split('>').map(item=>item.trim()); return parts.length > 2 ? parts.slice(-2).join(' > ') : name; };
 function updateExecutiveSummary(period) {
   const values=EXECUTIVE_SLA_SUMMARY[period];
-  if(!values){['summary-total','summary-closed','summary-open','summary-csat'].forEach(id=>document.getElementById(id).textContent='—');return;}
+  if(!values){['summary-classified-total','summary-total','summary-closed','summary-open','summary-csat'].forEach(id=>document.getElementById(id).textContent='—');return;}
   const total=Number(values.total)||0,items=[['summary-total','summary-total-label','openOk','Em aberto dentro do SLA'],['summary-closed','summary-closed-label','openLate','Em aberto com SLA vencido'],['summary-open','summary-open-label','closedOk','Encerrados dentro do SLA'],['summary-csat','summary-csat-label','closedLate','Encerrados com SLA vencido']];
+  document.getElementById('summary-classified-total').textContent=fmt(total);
   items.forEach(([valueId,labelId,key,label])=>{const value=Number(values[key])||0;document.getElementById(valueId).textContent=fmt(value);document.getElementById(labelId).textContent=label+' · '+pct(total?value*100/total:0);});
 }
 function slaBar(item, label=item.name) {
