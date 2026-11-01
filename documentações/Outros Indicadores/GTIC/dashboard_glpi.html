@@ -1307,6 +1307,9 @@ function render() {
     document.getElementById(pctId).textContent = totalC ? (list.length/totalC*100).toFixed(1) + '% do total classificado' : '';
     document.getElementById(cardId).onclick = () => renderDetailTable(list, label);
   });
+  if (document.body.classList.contains('embed-mode')) {
+    parent.postMessage({type:'sla-summary',values:{total:totalC,openOk:abertoDentro.length,openLate:abertoVencido.length,closedOk:encerradoDentro.length,closedLate:encerradoVencido.length}}, location.origin);
+  }
 
   // Validação automática de consistência (nunca deve disparar, mas fica auditável se algo mudar no futuro).
   const somaCategorias = indeterminados.length + abertoDentro.length + abertoVencido.length + encerradoDentro.length + encerradoVencido.length;

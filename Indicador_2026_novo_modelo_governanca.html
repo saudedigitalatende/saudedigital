@@ -151,11 +151,11 @@ h1 em{font-style:normal;color:#c5a23e}
 <main class="main">
 <div class="dashboard-view" id="overview-view">
   <section class="summary" id="resumo"><div class="section-title" id="summary-title">Resumo executivo</div><div class="summary-grid">
-    <div class="summary-box"><strong id="summary-total">0</strong><span>total de chamados</span></div>
-    <div class="summary-box ok"><strong id="summary-closed">0</strong><span id="summary-closed-label">encerrados</span></div>
-    <div class="summary-box attention"><strong id="summary-open">0</strong><span id="summary-open-label">em atendimento + pendente + novo</span></div>
-    <div class="summary-box ok"><strong id="summary-csat">0%</strong><span>Pesquisa de Satisfação</span></div>
-  </div><div class="summary-note" id="summary-note"><strong>Destaque positivo:</strong> Pesquisa de Satisfação no período selecionado.</div></section>
+    <div class="summary-box"><strong id="summary-total">—</strong><span id="summary-total-label">Em aberto dentro do SLA</span></div>
+    <div class="summary-box attention"><strong id="summary-closed">—</strong><span id="summary-closed-label">Em aberto com SLA vencido</span></div>
+    <div class="summary-box ok"><strong id="summary-open">—</strong><span id="summary-open-label">Encerrados dentro do SLA</span></div>
+    <div class="summary-box critical"><strong id="summary-csat">—</strong><span id="summary-csat-label">Encerrados com SLA vencido</span></div>
+  </div><div class="summary-note" id="summary-note"><strong>Distribuição dos chamados:</strong> valores calculados conforme o prazo de solução definido no SLA.</div></section>
   <section class="global-sla" id="sla-grupos"><div class="global-row"><div class="global-value"><span>SLA GLOBAL</span><strong id="global-sla-value">0%</strong></div><div class="legend"><span class="legend-meta">Meta: <strong>85%</strong></span><span class="legend-separator" aria-hidden="true"></span><span class="legend-item"><i class="legend-dot critical"></i>Crítico &lt;60%</span><span class="legend-item"><i class="legend-dot attention"></i>Atenção 60–84%</span><span class="legend-item"><i class="legend-dot ok"></i>OK ≥85%</span></div></div><div class="progress"><span id="global-progress"></span></div></section>
   <div class="governance-grid" id="governance-grid"></div>
   <section class="quality-section" id="qualidade-distritos">
@@ -330,20 +330,7 @@ function renderDashboard(period='todos') {
   const label = PERIOD_LABELS[period];
   document.getElementById('month-note').textContent = 'Exibindo: ' + label;
   document.getElementById('summary-title').textContent = 'Resumo executivo — ' + label;
-  document.getElementById('summary-total').textContent = fmt(data.total);
-  document.getElementById('summary-closed').textContent = fmt(data.enc);
-  document.getElementById('summary-closed-label').textContent = 'encerrados · ' + pct(data.resolucao);
-  document.getElementById('summary-open').textContent = fmt(data.ab);
-  document.getElementById('summary-open-label').textContent = 'em atendimento + pendente + novo · ' + pct(data.total ? data.ab * 100 / data.total : 0);
-  const csat = CSAT_SUMMARY[period] || CSAT_SUMMARY.todos;
-  if (csat.csat === null) {
-    document.getElementById('summary-csat').textContent = '—';
-    document.getElementById('summary-note').innerHTML = '<strong>Pesquisa de Satisfação:</strong> ainda não há respostas disponíveis para ' + label + '.';
-  } else {
-    document.getElementById('summary-csat').textContent = pct(csat.csat);
-    const scope = period === 'todos' ? 'nas respostas disponíveis de janeiro a agosto de 2026' : 'no período selecionado';
-    document.getElementById('summary-note').innerHTML = '<strong>Destaque positivo:</strong> Pesquisa de Satisfação em ' + pct(csat.csat) + ' ' + scope + ', considerando avaliações Excelente + Bom. <strong>' + pct(csat.excelente) + ' avaliaram como Excelente</strong> em ' + fmt(csat.respostas) + ' respostas.';
-  }
+  ['summary-total','summary-closed','summary-open','summary-csat'].forEach(id=>document.getElementById(id).textContent='—');
   document.getElementById('global-sla-value').textContent = pct(data.sla);
   document.getElementById('global-progress').style.width = data.sla + '%';
   document.getElementById('nav-total').textContent = fmt(data.total);
@@ -417,7 +404,19 @@ document.getElementById('overview-nav-button').addEventListener('click',()=>show
 document.getElementById('sla-nav-button').addEventListener('click',()=>showDashboardView('sla'));
 document.querySelectorAll('.nav-pill[href]').forEach(link=>link.addEventListener('click',()=>showDashboardView('overview')));
 document.querySelectorAll('.month-pill[data-month]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('.month-pill[data-month]').forEach(item => item.classList.remove('active')); button.classList.add('active'); renderDashboard(button.dataset.month); }));
-window.addEventListener('message',event=>{if(event.origin!==location.origin||event.data?.type!=='dashboard-height')return;const frame=document.getElementById('sla-dashboard-frame');if(frame)frame.style.height=Math.max(900,Number(event.data.height)||0)+'px';});
+window.addEventListener('message',event=>{
+  if(event.origin!==location.origin)return;
+  if(event.data?.type==='dashboard-height'){const frame=document.getElementById('sla-dashboard-frame');if(frame)frame.style.height=Math.max(900,Number(event.data.height)||0)+'px';return;}
+  if(event.data?.type==='sla-summary'){
+    const values=event.data.values||{},total=Number(values.total)||0;
+    const items=[['summary-total','openOk'],['summary-closed','openLate'],['summary-open','closedOk'],['summary-csat','closedLate']];
+    items.forEach(([id,key])=>document.getElementById(id).textContent=fmt(values[key]||0));
+    document.getElementById('summary-total-label').textContent='Em aberto dentro do SLA · '+pct(total?(values.openOk||0)*100/total:0);
+    document.getElementById('summary-closed-label').textContent='Em aberto com SLA vencido · '+pct(total?(values.openLate||0)*100/total:0);
+    document.getElementById('summary-open-label').textContent='Encerrados dentro do SLA · '+pct(total?(values.closedOk||0)*100/total:0);
+    document.getElementById('summary-csat-label').textContent='Encerrados com SLA vencido · '+pct(total?(values.closedLate||0)*100/total:0);
+  }
+});
 document.getElementById('sla-dashboard-frame').addEventListener('load',()=>{const active=document.querySelector('.month-pill.active');document.getElementById('sla-dashboard-frame').contentWindow.postMessage({type:'dashboard-month',month:MONTH_NUMBER[active?.dataset.month]||0},location.origin);});
 renderDashboard('todos');
 if (location.hash === '#sla') showDashboardView('sla');
