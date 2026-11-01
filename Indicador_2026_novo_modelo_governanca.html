@@ -120,10 +120,13 @@ h1 em{font-style:normal;color:#c5a23e}
 .sla-analysis-band{grid-column:1/-1;margin:0 2px 1px}.sla-analysis-band .sla-analysis-title{margin:2px 0 8px}.sla-analysis-band .sla-analysis-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 .sla-analysis-card{background:#fff;border:1px solid #d5dde8;border-top:3px solid var(--blue);border-radius:9px;padding:10px;min-width:0}.sla-analysis-card.best{border-top-color:#2f8a3b}.sla-analysis-card.warning{border-top-color:#f07800}
 .sla-analysis-label{font-size:8px;text-transform:uppercase;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sla-analysis-value{font-size:21px;line-height:1.1;color:#1768c4;margin:4px 0}.sla-analysis-card.best .sla-analysis-value{color:#2f8a3b}.sla-analysis-card.warning .sla-analysis-value{color:#f07800}.sla-analysis-detail{font-size:8px;color:#7890aa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sla-analysis-progress{height:3px;background:#e8edf4;border-radius:999px;overflow:hidden;margin-top:8px}.sla-analysis-progress span{display:block;height:100%;background:#1768c4}.sla-analysis-card.best .sla-analysis-progress span{background:#2f8a3b}.sla-analysis-card.warning .sla-analysis-progress span{background:#f07800}
+.sla-team-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;grid-column:1/-1}.sla-team-panel{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:19px;min-width:0}.sla-team-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:13px}.sla-team-heading h3{font-size:16px}.sla-team-heading span{font-size:10px;color:var(--ink3)}
+.sla-state-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sla-state-card{font:inherit;text-align:left;background:#f8fafc;border:1px solid #dce4ee;border-radius:10px;padding:11px;cursor:pointer;transition:.18s}.sla-state-card:hover,.sla-state-card.active{border-color:#73a9df;box-shadow:0 4px 13px rgba(31,101,181,.11)}.sla-state-card strong{display:block;font-size:20px}.sla-state-card span{display:block;font-size:9px;color:var(--ink3);margin-top:2px}.sla-state-card.open-ok strong{color:#1f65b5}.sla-state-card.open-late strong{color:#e76f00}.sla-state-card.closed-ok strong{color:#17824f}.sla-state-card.closed-late strong{color:#c9303e}.sla-stack{height:13px;border-radius:999px;overflow:hidden;background:#edf1f6;display:flex;margin-top:13px}.sla-stack button{border:0;height:100%;cursor:pointer;min-width:0}.sla-stack .open-ok{background:#378add}.sla-stack .open-late{background:#f2994a}.sla-stack .closed-ok{background:#1baf7a}.sla-stack .closed-late{background:#a32d2d}
+.sla-detail-panel{grid-column:1/-1;background:#fff;border:1px solid var(--rule);border-radius:16px;padding:19px;min-width:0}.sla-detail-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:12px}.sla-detail-head h3{font-size:16px}.sla-detail-head p{font-size:10px;color:var(--ink3)}.sla-detail-scroll{overflow:auto;max-height:520px;border:1px solid #e4e9f0;border-radius:10px}.sla-detail-table{width:100%;border-collapse:collapse;min-width:980px;font-size:10px}.sla-detail-table th{position:sticky;top:0;background:#f5f8fc;color:#40556f;text-align:left;padding:10px;border-bottom:1px solid #dce4ee;z-index:1}.sla-detail-table td{padding:9px 10px;border-bottom:1px solid #edf1f5;color:var(--ink2);vertical-align:top}.sla-detail-table tr:hover td{background:#f8fbff}.sla-empty{text-align:center!important;color:var(--ink3)!important;padding:24px!important}
 @media(max-width:1000px){.technical-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quality-section{grid-template-columns:1fr}.district-title{margin-top:4px}}
 @media(max-width:800px){.top,.dashboard-nav,.main{padding-left:18px;padding-right:18px}.top-inner{flex-direction:column}.summary-grid,.governance-grid,.trend-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){.sla-analysis-band .sla-analysis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:620px){.summary-grid,.governance-grid,.technical-grid,.trend-grid,.status-groups-grid,.sla-layout{grid-template-columns:1fr}.global-row{align-items:flex-start;flex-direction:column}.district-grid{grid-template-columns:1fr 1fr}.quality-main{align-items:flex-start}.quality-rate{font-size:31px}.status-group:nth-child(n+2){border-top:1px solid #e7ebf1;padding-top:17px}.status-group-body{grid-template-columns:110px minmax(0,1fr)}.status-donut{width:106px;height:106px}.sla-panel.wide{grid-column:auto}.sla-bar-row{grid-template-columns:minmax(100px,1.2fr) minmax(80px,1fr) 48px}.sla-badge{display:none}.sla-analysis-band .sla-analysis-grid{grid-template-columns:1fr}}
+@media(max-width:620px){.summary-grid,.governance-grid,.technical-grid,.trend-grid,.status-groups-grid,.sla-layout,.sla-team-grid{grid-template-columns:1fr}.global-row{align-items:flex-start;flex-direction:column}.district-grid{grid-template-columns:1fr 1fr}.quality-main{align-items:flex-start}.quality-rate{font-size:31px}.status-group:nth-child(n+2){border-top:1px solid #e7ebf1;padding-top:17px}.status-group-body{grid-template-columns:110px minmax(0,1fr)}.status-donut{width:106px;height:106px}.sla-panel.wide{grid-column:auto}.sla-bar-row{grid-template-columns:minmax(100px,1.2fr) minmax(80px,1fr) 48px}.sla-badge{display:none}.sla-analysis-band .sla-analysis-grid{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="assets/css/auth.css?v=20261001-2">
 </head>
@@ -202,11 +205,11 @@ h1 em{font-style:normal;color:#c5a23e}
   <div class="sla-page-title"><h2>SLA</h2><p id="sla-period-label">Análise de cumprimento dos prazos · Jan–Out 2026</p></div>
   <div class="sla-layout">
     <div class="sla-analysis-band"><div class="sla-analysis-title">Desempenho por Grupo Técnico</div><div class="sla-analysis-grid" id="sla-group-analysis"></div></div>
-    <article class="sla-panel"><div class="sla-panel-title">SLA por Grupo Técnico</div><div class="sla-panel-sub">Visão consolidada por grupo · meta 85%</div><div class="sla-bars" id="sla-group-bars"></div></article>
-    <article class="sla-panel"><div class="sla-panel-title">SLA por Categoria</div><div class="sla-panel-sub">% dentro do SLA por tipo de demanda</div><div id="sla-category-bars"></div></article>
+    <div class="sla-team-grid" id="sla-team-grid"></div>
     <div class="sla-analysis-band"><div class="sla-analysis-title">Desempenho por Distrito Sanitário</div><div class="sla-analysis-grid" id="sla-district-analysis"></div></div>
     <article class="sla-panel"><div class="sla-panel-title">SLA por Distrito Sanitário</div><div class="sla-panel-sub">Percentual dentro do prazo nos oito distritos</div><div class="sla-bars" id="sla-district-bars"></div></article>
     <article class="sla-panel"><div class="sla-panel-title">SLA por Executiva</div><div class="sla-panel-sub">% dentro do SLA · meta 85%</div><div class="sla-bars" id="sla-executive-bars"></div></article>
+    <section class="sla-detail-panel"><div class="sla-detail-head"><div><h3>Chamados detalhados</h3><p id="sla-detail-caption">Clique em um indicador de Infraestrutura ou Sistemas para visualizar os chamados.</p></div></div><div class="sla-detail-scroll"><table class="sla-detail-table"><thead><tr><th>ID</th><th>Título</th><th>Abertura</th><th>Solução</th><th>Status</th><th>Categoria</th><th>Grupo Técnico</th><th>SLA</th></tr></thead><tbody id="sla-detail-body"><tr><td colspan="8" class="sla-empty">Selecione um indicador acima.</td></tr></tbody></table></div></section>
   </div>
   <div class="source-note"><strong>Fonte:</strong> GLPI Janeiro a Outubro de 2026. Os percentuais consideram chamados concluídos dentro do prazo definido.</div>
 </section>
@@ -231,6 +234,9 @@ const STATUS_GROUP_DATA = {"todos":{"INFRAESTRUTURA":[6888,83,1207,869,215],"SIS
 const SERVICE_DATA = {"todos":[["IMPRESSORAS",3421],["COMPUTADORES",2983],["SISTEMAS DE GESTÃO",2345],["CONECTIVIDADE",2083],["MONITORES",710]],"jan":[["IMPRESSORAS",289],["COMPUTADORES",229],["SISTEMAS DE GESTÃO",142],["CONECTIVIDADE",86],["SISTEMAS DA SAÚDE DIGITAL",74]],"fev":[["IMPRESSORAS",281],["COMPUTADORES",222],["CONECTIVIDADE",210],["SISTEMAS DE GESTÃO",152],["MONITORES",55]],"mar":[["IMPRESSORAS",443],["COMPUTADORES",295],["SISTEMAS DE GESTÃO",224],["CONECTIVIDADE",156],["SISTEMAS DA SAÚDE DIGITAL",44]],"abr":[["SISTEMAS DE GESTÃO",405],["IMPRESSORAS",370],["COMPUTADORES",250],["CONECTIVIDADE",145],["SISTEMAS DA SAÚDE DIGITAL",105]],"mai":[["SISTEMAS DE GESTÃO",408],["COMPUTADORES",378],["IMPRESSORAS",359],["CONECTIVIDADE",162],["SISTEMAS DA SAÚDE DIGITAL",108]],"jun":[["SISTEMAS DE GESTÃO",387],["COMPUTADORES",328],["IMPRESSORAS",313],["CONECTIVIDADE",211],["MONITORES",157]],"jul":[["IMPRESSORAS",396],["COMPUTADORES",322],["CONECTIVIDADE",248],["GESTÃO DE ACESSO",183],["SISTEMAS DE GESTÃO",160]],"ago":[["COMPUTADORES",479],["IMPRESSORAS",313],["CONECTIVIDADE",310],["SISTEMAS DE GESTÃO",206],["DISPOSITIVOS",85]],"set":[["IMPRESSORAS",355],["COMPUTADORES",335],["CONECTIVIDADE",251],["SISTEMAS DE GESTÃO",104],["MONITORES",96]],"out":[["CONECTIVIDADE",304],["IMPRESSORAS",302],["SISTEMAS DE GESTÃO",157],["COMPUTADORES",145],["SOFTWARES",58]]};
 const MONTH_KEYS = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out'];
 const MONTH_NAMES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out'];
+const MONTH_NUMBER = {jan:1,fev:2,mar:3,abr:4,mai:5,jun:6,jul:7,ago:8,set:9,out:10};
+let SLA_TICKETS = [];
+let activeSlaPeriod = 'todos';
 const WEEKDAY_NAMES = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
 const fmt = value => Number(value || 0).toLocaleString('pt-BR');
 const pct = value => Number(value || 0).toFixed(1).replace('.', ',') + '%';
@@ -258,6 +264,41 @@ function renderSlaAnalysis(containerId, items, entityLabel, total) {
     {kind:'',label:'Menor volume',value:fmt(smallest.total),detail:smallest.name+' · '+pct(volumePct(smallest))+' do total',progress:volumePct(smallest)}
   ];
   document.getElementById(containerId).innerHTML = cards.map(card=>`<article class="sla-analysis-card ${card.kind}"><div class="sla-analysis-label">${card.label}</div><div class="sla-analysis-value">${card.value}</div><div class="sla-analysis-detail" title="${card.detail}">${card.detail}</div><div class="sla-analysis-progress"><span style="width:${Math.min(100,card.progress)}%"></span></div></article>`).join('');
+}
+const escapeHtml = value => String(value == null ? '' : value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const SLA_STATES = [
+  ['open_ok','open-ok','Em aberto dentro do SLA'],
+  ['open_late','open-late','Em aberto com SLA vencido'],
+  ['closed_ok','closed-ok','Encerrados dentro do SLA'],
+  ['closed_late','closed-late','Encerrados com SLA vencido']
+];
+function ticketsForPeriod(period) {
+  const month = MONTH_NUMBER[period];
+  return SLA_TICKETS.filter(item => !month || item.m === month);
+}
+function renderSlaTeams(period) {
+  activeSlaPeriod = period;
+  const source = ticketsForPeriod(period);
+  const teams = [['INFRAESTRUTURA','Infraestrutura'],['SISTEMAS','Sistemas']];
+  document.getElementById('sla-team-grid').innerHTML = teams.map(([key,label]) => {
+    const list=source.filter(item=>item.g===key), total=list.length;
+    const states=Object.fromEntries(SLA_STATES.map(([state])=>[state,list.filter(item=>item.cl===state).length]));
+    const cards=SLA_STATES.map(([state,css,title])=>`<button type="button" class="sla-state-card ${css}" data-sla-team="${key}" data-sla-state="${state}"><strong>${fmt(states[state])}</strong><span>${title}</span></button>`).join('');
+    const stack=SLA_STATES.map(([state,css,title])=>`<button type="button" class="${css}" data-sla-team="${key}" data-sla-state="${state}" style="width:${total ? states[state]*100/total : 0}%" title="${title}: ${fmt(states[state])}"></button>`).join('');
+    return `<article class="sla-team-panel"><div class="sla-team-heading"><div><h3>${label}</h3><span>Situação dos chamados em relação ao SLA</span></div><strong>${fmt(total)} chamados</strong></div><div class="sla-state-grid">${cards}</div><div class="sla-stack">${stack}</div></article>`;
+  }).join('');
+  document.querySelectorAll('[data-sla-team][data-sla-state]').forEach(button=>button.addEventListener('click',()=>renderSlaDetails(button.dataset.slaTeam,button.dataset.slaState)));
+  if (!SLA_TICKETS.length) document.getElementById('sla-detail-caption').textContent='Carregando os chamados detalhados…';
+}
+function renderSlaDetails(team,state) {
+  document.querySelectorAll('.sla-state-card').forEach(card=>card.classList.toggle('active',card.dataset.slaTeam===team&&card.dataset.slaState===state));
+  const list=ticketsForPeriod(activeSlaPeriod).filter(item=>item.g===team&&item.cl===state);
+  const stateLabel=(SLA_STATES.find(item=>item[0]===state)||[])[2]||'';
+  const teamLabel=team==='SISTEMAS'?'Sistemas':'Infraestrutura';
+  document.getElementById('sla-detail-caption').textContent=`${teamLabel} · ${stateLabel} · ${fmt(list.length)} chamados${list.length>500?' · exibindo os primeiros 500':''}`;
+  const rows=list.slice(0,500).map(item=>`<tr><td>${escapeHtml(item.i)}</td><td>${escapeHtml(item.t)}</td><td>${escapeHtml(item.a)}</td><td>${escapeHtml(item.s||'—')}</td><td>${escapeHtml(item.st)}</td><td>${escapeHtml(item.c)}</td><td>${escapeHtml(item.gt)}</td><td>${escapeHtml(item.p||'—')}</td></tr>`).join('');
+  document.getElementById('sla-detail-body').innerHTML=rows||'<tr><td colspan="8" class="sla-empty">Nenhum chamado nesta situação.</td></tr>';
+  document.querySelector('.sla-detail-panel').scrollIntoView({behavior:'smooth',block:'start'});
 }
 Chart.defaults.devicePixelRatio = Math.min(3, Math.max(2, (window.devicePixelRatio || 1) * 1.5));
 Chart.defaults.font.family = "'DM Sans', sans-serif";
@@ -347,13 +388,12 @@ function renderSlaView(period, data, label) {
   const detail = SLA_DETAIL_DATA[period] || SLA_DETAIL_DATA.todos;
   document.getElementById('sla-period-label').textContent = 'Análise de cumprimento dos prazos · ' + label;
   const groupItems = GROUP_ORDER.map(group => { const item=data.groups[group]||{total:0,sla:0}; return {name:GROUP_NAMES[group],total:item.total,sla:item.sla}; });
-  document.getElementById('sla-group-bars').innerHTML = groupItems.map(item=>slaBar(item,item.name)).join('');
   renderSlaAnalysis('sla-group-analysis',groupItems,'Grupo',data.total);
+  renderSlaTeams(period);
   const districts = ['DS 1','DS 2','DS 3','DS 4','DS 5','DS 6','DS 7','DS 8'].map(name => ({name,...(data.districts[name]||{total:0,sla:0})}));
   document.getElementById('sla-district-bars').innerHTML = districts.map(item => slaBar(item,item.name.replace(' ',''))).join('');
   renderSlaAnalysis('sla-district-analysis',districts.map(item=>({...item,name:item.name.replace(' ', '')})),'Distrito',data.total);
   document.getElementById('sla-executive-bars').innerHTML = detail.executives.map(item => slaBar(item,item.name)).join('');
-  document.getElementById('sla-category-bars').innerHTML = GROUP_ORDER.map(group => { const items=detail.categories[group]||[]; return `<section class="sla-category-group"><div class="sla-category-heading">${GROUP_NAMES[group]}</div><div class="sla-bars">${items.length ? items.map(item=>slaBar(item,compactCategory(item.name))).join('') : '<div class="sla-bar-label">Sem chamados no período</div>'}</div></section>`; }).join('');
 }
 function showDashboardView(view) {
   const isSla = view === 'sla';
@@ -367,7 +407,9 @@ document.getElementById('overview-nav-button').addEventListener('click',()=>show
 document.getElementById('sla-nav-button').addEventListener('click',()=>showDashboardView('sla'));
 document.querySelectorAll('.nav-pill[href]').forEach(link=>link.addEventListener('click',()=>showDashboardView('overview')));
 document.querySelectorAll('.month-pill[data-month]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('.month-pill[data-month]').forEach(item => item.classList.remove('active')); button.classList.add('active'); renderDashboard(button.dataset.month); }));
+fetch('documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/kpi_governanca_2026.json?v=20261031').then(response=>response.json()).then(data=>{SLA_TICKETS=data;renderSlaTeams(activeSlaPeriod);document.getElementById('sla-detail-body').innerHTML='<tr><td colspan="8" class="sla-empty">Selecione um indicador acima.</td></tr>';document.getElementById('sla-detail-caption').textContent='Clique em um indicador de Infraestrutura ou Sistemas para visualizar os chamados.';}).catch(()=>{document.getElementById('sla-detail-caption').textContent='Não foi possível carregar os chamados detalhados.';});
 renderDashboard('todos');
+if (location.hash === '#sla') showDashboardView('sla');
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js?v=20260929-1"></script>
