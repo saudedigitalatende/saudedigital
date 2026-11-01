@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Indicadores GLPI — Infraestrutura, Soluções Digitais e NOC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#F5F6F8;--surface:#FFFFFF;--border:#E3E5E9;--text:#1B1F27;
@@ -131,6 +132,23 @@
   body.embed-mode #pageFibra,body.embed-mode .panels-row-noc{display:none!important;}
   body.embed-mode #pageIndicadores{display:block!important;padding-top:0;}
   body.embed-mode #pageIndicadores>.wrap{max-width:none;padding:0;}
+  body.embed-mode{--font:'DM Sans',sans-serif;--bg:#f7f8fa;--surface:#fff;--border:#d7dee8;--text:#0d1a2e;--text-secondary:#2c3e55;--text-muted:#8297b0;}
+  body.embed-mode h2.section-title{font-size:15px;line-height:1.25;font-weight:700;color:#0d1a2e;margin:18px 0 3px;letter-spacing:0;text-transform:none;}
+  body.embed-mode p.section-sub{font-size:10px;line-height:1.45;color:#8297b0;margin-bottom:12px;}
+  body.embed-mode h2.section-title+p.section-sub+.kpi-grid{display:none;}
+  body.embed-mode .kpi-grid{gap:10px;margin:12px 0 14px;}
+  body.embed-mode .kpi-card{border-radius:10px;padding:12px 14px;}
+  body.embed-mode .kpi-card .label{font-size:9px;margin-bottom:5px;}
+  body.embed-mode .kpi-card .value{font-size:20px;}
+  body.embed-mode .legend{font-size:10px;gap:11px;margin-bottom:10px;}
+  body.embed-mode .panels-row{gap:16px;margin-bottom:16px;}
+  body.embed-mode .panel{border-radius:16px;padding:18px;margin-bottom:16px;}
+  body.embed-mode .panel h2,body.embed-mode .panel h3,body.embed-mode .backlog-card-title h3{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#0d1a2e;letter-spacing:0;}
+  body.embed-mode .panel .panel-sub{font-size:10px;line-height:1.45;margin-bottom:12px;}
+  body.embed-mode .backlog-card-title{margin-bottom:10px;}
+  body.embed-mode .sla-mini-summary{margin-bottom:10px;padding-bottom:10px;}
+  body.embed-mode .chart-wrap.h-sla{height:190px;}
+  body.embed-mode .chart-wrap.v-backlog{height:270px;}
 
   /* Fibra page enhancements */
   .header-support-text{font-size:12.5px;color:var(--text-secondary);line-height:1.5;margin:6px 0 0;max-width:640px;}
