@@ -139,9 +139,8 @@ h1 em{font-style:normal;color:#c5a23e}
   <div class="nav-row">
     <span class="nav-label">Monitoramento</span>
     <button class="nav-pill active" id="overview-nav-button" type="button"><span class="nav-icon">▦</span>Visão geral <span class="nav-count" id="nav-total">0</span></button>
-    <button class="nav-pill" id="sla-nav-button" type="button"><span class="nav-icon">◷</span>SLA <span class="nav-count">4 análises</span></button>
-    <a class="nav-pill" href="#qualidade-distritos"><span class="nav-icon">✓</span>Qualidade &amp; Distritos <span class="nav-count" id="nav-quality">0%</span></a>
-    <a class="nav-pill" href="#sla-grupos"><span class="nav-icon">◔</span>Concentração de Demanda <span class="nav-count">4 grupos</span></a>
+    <button class="nav-pill" id="sla-nav-button" type="button"><span class="nav-icon">◷</span>SLA e Backlog <span class="nav-count">4 grupos</span></button>
+    <button class="nav-pill" id="satisfaction-nav-button" type="button"><span class="nav-icon">☺</span>Pesquisa de Satisfação <span class="nav-count" id="nav-satisfaction">89</span></button>
   </div>
   <div class="month-row">
     <span class="nav-label">Filtrar por mês:</span>
@@ -205,8 +204,16 @@ h1 em{font-style:normal;color:#c5a23e}
   </section>
   <div class="source-note"><strong>Fonte:</strong> GLPI_Janeiro_a_Outubro_2026_4_Grupos.xlsx. A estrutura apresenta quatro Grupos Técnicos e suas Áreas Técnicas, incluindo Tablet, Smartphone e Cartão SIM em Dispositivos Móveis.</div>
 </div>
+<section class="dashboard-view" id="satisfaction-view" hidden>
+  <div class="sla-page-title"><h2>Pesquisa de Satisfação</h2><p id="satisfaction-period-label">Avaliações do atendimento · Jan–Out 2026</p></div>
+  <section class="summary"><div class="section-title">Resultado das avaliações</div><div class="summary-grid" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+    <div class="summary-box"><strong id="satisfaction-rate">94,2%</strong><span>Avaliações Excelente + Bom</span></div>
+    <div class="summary-box"><strong id="satisfaction-responses">89</strong><span>Respostas recebidas</span></div>
+    <div class="summary-box"><strong id="satisfaction-excellent">82,6%</strong><span>Avaliaram como Excelente</span></div>
+  </div><div class="summary-note" id="satisfaction-note"><strong>Pesquisa de Satisfação:</strong> resultados das respostas disponíveis no período selecionado.</div></section>
+</section>
 <section class="dashboard-view" id="sla-view" hidden>
-  <div class="sla-page-title"><h2>SLA</h2><p id="sla-period-label">Análise de cumprimento dos prazos · Jan–Out 2026</p></div>
+  <div class="sla-page-title"><h2>SLA e Backlog</h2><p id="sla-period-label">Análise de cumprimento dos prazos e evolução do backlog · Jan–Out 2026</p></div>
   <div class="sla-layout">
     <div class="sla-analysis-band"><div class="sla-analysis-title">Desempenho por Grupo Técnico</div><div class="sla-analysis-grid" id="sla-group-analysis"></div></div>
     <div class="sla-section-heading"><h2>DISTRIBUIÇÃO DOS CHAMADOS</h2><p>Distribuição dos chamados conforme o prazo de solução definido no SLA, separando os chamados em aberto e encerrados, dentro e fora do prazo.</p></div>
@@ -345,7 +352,6 @@ function renderDashboard(period='todos') {
   document.getElementById('global-sla-value').textContent = pct(data.sla);
   document.getElementById('global-progress').style.width = data.sla + '%';
   document.getElementById('nav-total').textContent = fmt(data.total);
-  document.getElementById('nav-quality').textContent = pct(data.resolucao);
   const grid = document.getElementById('governance-grid');
   grid.innerHTML = GROUP_ORDER.map(groupKey => {
     const group = data.groups[groupKey] || {total:0,np:0,fp:0,sla:0,areas:{}};
@@ -389,6 +395,13 @@ function renderDashboard(period='todos') {
   servicesChart.update();
   document.getElementById('status-chart-sub').textContent = 'Distribuição por situação e Grupo Técnico · ' + label;
   document.getElementById('services-chart-sub').textContent = 'Volume de chamados por serviço · ' + label;
+  const satisfaction=CSAT_SUMMARY[period]||CSAT_SUMMARY.todos;
+  document.getElementById('satisfaction-period-label').textContent='Avaliações do atendimento · '+label;
+  document.getElementById('satisfaction-rate').textContent=satisfaction.csat==null?'—':pct(satisfaction.csat);
+  document.getElementById('satisfaction-responses').textContent=fmt(satisfaction.respostas);
+  document.getElementById('satisfaction-excellent').textContent=satisfaction.excelente==null?'—':pct(satisfaction.excelente);
+  document.getElementById('nav-satisfaction').textContent=fmt(satisfaction.respostas);
+  document.getElementById('satisfaction-note').innerHTML=satisfaction.respostas?'<strong>Pesquisa de Satisfação:</strong> '+pct(satisfaction.csat)+' avaliaram o atendimento como Excelente + Bom; '+pct(satisfaction.excelente)+' avaliaram como Excelente.':'<strong>Pesquisa de Satisfação:</strong> ainda não há respostas disponíveis para '+label+'.';
   renderSlaView(period, data, label);
 }
 function renderSlaView(period, data, label) {
@@ -404,15 +417,17 @@ function renderSlaView(period, data, label) {
   document.getElementById('sla-executive-bars').innerHTML = detail.executives.map(item => slaBar(item,item.name)).join('');
 }
 function showDashboardView(view) {
-  const isSla = view === 'sla';
-  document.getElementById('overview-view').hidden = isSla;
-  document.getElementById('sla-view').hidden = !isSla;
-  document.getElementById('overview-nav-button').classList.toggle('active', !isSla);
-  document.getElementById('sla-nav-button').classList.toggle('active', isSla);
+  document.getElementById('overview-view').hidden = view !== 'overview';
+  document.getElementById('sla-view').hidden = view !== 'sla';
+  document.getElementById('satisfaction-view').hidden = view !== 'satisfaction';
+  document.getElementById('overview-nav-button').classList.toggle('active', view === 'overview');
+  document.getElementById('sla-nav-button').classList.toggle('active', view === 'sla');
+  document.getElementById('satisfaction-nav-button').classList.toggle('active', view === 'satisfaction');
   window.scrollTo({top:document.querySelector('.dashboard-nav').offsetTop,behavior:'smooth'});
 }
 document.getElementById('overview-nav-button').addEventListener('click',()=>showDashboardView('overview'));
 document.getElementById('sla-nav-button').addEventListener('click',()=>showDashboardView('sla'));
+document.getElementById('satisfaction-nav-button').addEventListener('click',()=>showDashboardView('satisfaction'));
 document.querySelectorAll('.nav-pill[href]').forEach(link=>link.addEventListener('click',()=>showDashboardView('overview')));
 document.querySelectorAll('.month-pill[data-month]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('.month-pill[data-month]').forEach(item => item.classList.remove('active')); button.classList.add('active'); renderDashboard(button.dataset.month); }));
 window.addEventListener('message',event=>{
