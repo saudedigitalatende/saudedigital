@@ -238,7 +238,7 @@ const MONTH_NAMES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out'
 const MONTH_NUMBER = {jan:1,fev:2,mar:3,abr:4,mai:5,jun:6,jul:7,ago:8,set:9,out:10};
 let SLA_TICKETS = [];
 let activeSlaPeriod = 'todos';
-let EXECUTIVE_SLA_SUMMARY = {};
+const EXECUTIVE_SLA_SUMMARY = {"todos":{"total":12422,"openOk":0,"openLate":196,"closedOk":8912,"closedLate":3314},"jan":{"total":926,"openOk":0,"openLate":1,"closedOk":741,"closedLate":184},"fev":{"total":1055,"openOk":0,"openLate":1,"closedOk":832,"closedLate":222},"mar":{"total":1264,"openOk":0,"openLate":0,"closedOk":921,"closedLate":343},"abr":{"total":1512,"openOk":0,"openLate":1,"closedOk":1043,"closedLate":468},"mai":{"total":1622,"openOk":0,"openLate":8,"closedOk":1104,"closedLate":510},"jun":{"total":1389,"openOk":0,"openLate":38,"closedOk":829,"closedLate":522},"jul":{"total":1331,"openOk":0,"openLate":78,"closedOk":958,"closedLate":295},"ago":{"total":1526,"openOk":0,"openLate":69,"closedOk":1035,"closedLate":422},"set":{"total":1125,"openOk":0,"openLate":0,"closedOk":906,"closedLate":219},"out":{"total":672,"openOk":0,"openLate":0,"closedOk":543,"closedLate":129}};
 const WEEKDAY_NAMES = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
 const fmt = value => Number(value || 0).toLocaleString('pt-BR');
 const pct = value => Number(value || 0).toFixed(1).replace('.', ',') + '%';
@@ -416,7 +416,6 @@ window.addEventListener('message',event=>{
   if(event.data?.type==='dashboard-height'){const frame=document.getElementById('sla-dashboard-frame');if(frame)frame.style.height=Math.max(900,Number(event.data.height)||0)+'px';return;}
 });
 document.getElementById('sla-dashboard-frame').addEventListener('load',()=>{const active=document.querySelector('.month-pill.active');document.getElementById('sla-dashboard-frame').contentWindow.postMessage({type:'dashboard-month',month:MONTH_NUMBER[active?.dataset.month]||0},location.origin);});
-fetch('documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/sla_summary_2026.json?v=20261031').then(response=>response.json()).then(data=>{EXECUTIVE_SLA_SUMMARY=data;const active=document.querySelector('.month-pill.active');updateExecutiveSummary(active?.dataset.month||'todos');});
 renderDashboard('todos');
 if (location.hash === '#sla') showDashboardView('sla');
 </script>
