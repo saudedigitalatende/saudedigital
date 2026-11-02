@@ -9,7 +9,7 @@
     --bg:#F5F6F8;--surface:#FFFFFF;--border:#E3E5E9;--text:#1B1F27;
     --text-secondary:#5B6270;--text-muted:#8A8F9A;--accent:#185FA5;--accent-light:#E6F1FB;
     --good:#0F6E56;--bad:#993C1D;--radius:10px;
-    --font: "Segoe UI", Arial, "Helvetica Neue", Helvetica, sans-serif;
+    --font:'DM Sans',"Segoe UI",Arial,sans-serif;
   }
   *{box-sizing:border-box;}
   body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);}
@@ -18,10 +18,10 @@
   .breadcrumb a{color:var(--accent);text-decoration:none;}
   .breadcrumb a:hover{text-decoration:underline;}
   header.page{margin-bottom:24px;}
-  h1{font-size:24px;font-weight:600;margin:0 0 4px;letter-spacing:-0.01em;}
-  .subtitle{font-size:14px;color:var(--text-secondary);margin:0;}
-  h2.section-title{font-size:19px;font-weight:600;margin:36px 0 2px;}
-  p.section-sub{font-size:13px;color:var(--text-muted);margin:0 0 16px;}
+  h1{font-size:23px;font-weight:600;margin:0 0 5px;letter-spacing:-.02em;}
+  .subtitle{font-size:13px;font-weight:400;color:#64748b;margin:0;line-height:1.5;}
+  h2.section-title{font-size:18px;font-weight:600;margin:36px 0 4px;letter-spacing:-.01em;}
+  p.section-sub{font-size:12.5px;font-weight:400;color:#8290a3;margin:0 0 17px;line-height:1.5;}
 
   /* Premium header */
   .header-premium{
@@ -76,9 +76,9 @@
 
   .filters{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:8px;}
   .filter-field{display:flex;flex-direction:column;gap:5px;}
-  .filter-field label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted);font-weight:600;}
-  .filter-field select, .filter-field input[type=date]{font-family:var(--font);font-size:13px;padding:7px 9px;border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--text);min-width:130px;max-width:220px;}
-  .btn{font-family:var(--font);font-size:13px;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--text);cursor:pointer;}
+  .filter-field label{font-size:10px;text-transform:uppercase;letter-spacing:.075em;color:#7e8da1;font-weight:500;}
+  .filter-field select, .filter-field input[type=date]{font-family:var(--font);font-size:12.5px;font-weight:400;padding:8px 10px;border:1px solid var(--border);border-radius:7px;background:#fff;color:#27364a;min-width:130px;max-width:220px;}
+  .btn{font-family:var(--font);font-size:12.5px;font-weight:500;padding:8px 14px;border-radius:7px;border:1px solid var(--border);background:#fff;color:#27364a;cursor:pointer;}
   .btn:hover{background:var(--bg);}
   .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
   .btn-primary:hover{background:#134b82;}
@@ -93,7 +93,7 @@
   .card.warn .value{color:#854F0B;}
 
   .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:22px;}
-  .panel h2, .panel h3{font-size:14px;font-weight:600;margin:0 0 4px;}
+  .panel h2, .panel h3{font-size:13.5px;font-weight:600;margin:0 0 5px;letter-spacing:-.005em;}
   .panel .panel-sub{font-size:12px;color:var(--text-muted);margin:0 0 16px;}
   .panels-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px;}
   .panels-row.panels-row-2{grid-template-columns:1fr 1fr;}
@@ -105,7 +105,7 @@
   @media (max-width: 1180px){ .panels-row{grid-template-columns:1fr 1fr;} }
   @media (max-width: 760px){ .panels-row{grid-template-columns:1fr;} .panels-row.panels-row-2{grid-template-columns:1fr;} .panels-row.panels-row-noc{grid-template-columns:1fr;} }
 
-  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:8px;font-size:12px;color:var(--text-secondary);}
+  .legend{display:flex;flex-wrap:wrap;gap:15px;margin-bottom:10px;font-size:10.5px;font-weight:400;color:#617086;line-height:1.4;}
   .legend span{display:flex;align-items:center;gap:4px;}
   .swatch{width:10px;height:10px;border-radius:2px;display:inline-block;}
 
@@ -142,22 +142,22 @@
   body.embed-mode #pageIndicadores{display:block!important;padding-top:0;}
   body.embed-mode #pageIndicadores>.wrap{max-width:none;padding:0;}
   body.embed-mode{--font:'DM Sans',sans-serif;--bg:#f7f8fa;--surface:#fff;--border:#d7dee8;--text:#0d1a2e;--text-secondary:#2c3e55;--text-muted:#8297b0;}
-  body.embed-mode h2.section-title{font-size:15px;line-height:1.25;font-weight:700;color:#0d1a2e;margin:18px 0 3px;letter-spacing:0;text-transform:none;}
-  body.embed-mode h2.section-title.embed-main-title{font-family:'DM Sans',sans-serif;font-size:22px;line-height:1.2;font-weight:700;letter-spacing:0;text-transform:uppercase;margin:18px 0 3px;}
+  body.embed-mode h2.section-title{font-size:15px;line-height:1.3;font-weight:600;color:#17243a;margin:18px 0 4px;letter-spacing:-.01em;text-transform:none;}
+  body.embed-mode h2.section-title.embed-main-title{font-family:'DM Sans',sans-serif;font-size:20px;line-height:1.25;font-weight:600;letter-spacing:-.015em;text-transform:none;margin:18px 0 4px;}
   body.embed-mode h2.section-title.embed-main-title,body.embed-mode h2.section-title.embed-main-title+p.section-sub{display:none;}
-  body.embed-mode h2.section-title.embed-backlog-title{font-family:'DM Sans',sans-serif;font-size:22px;line-height:1.2;font-weight:700;color:#0d1a2e;letter-spacing:0;text-transform:uppercase;margin:24px 2px 4px;}
+  body.embed-mode h2.section-title.embed-backlog-title{font-family:'DM Sans',sans-serif;font-size:20px;line-height:1.25;font-weight:600;color:#17243a;letter-spacing:-.015em;text-transform:none;margin:24px 2px 5px;}
   body.embed-mode p.section-sub{font-size:10px;line-height:1.45;color:#8297b0;margin-bottom:12px;}
   body.embed-mode h2.section-title+p.section-sub+.kpi-grid{display:none;}
   body.embed-mode .kpi-grid{gap:10px;margin:12px 0 14px;}
   body.embed-mode .kpi-card{border-radius:10px;padding:12px 14px;}
   body.embed-mode .kpi-card .label{font-size:9px;margin-bottom:5px;}
   body.embed-mode .kpi-card .value{font-size:20px;}
-  body.embed-mode .legend{font-size:10px;gap:11px;margin-bottom:10px;}
+  body.embed-mode .legend{font-size:10px;font-weight:400;gap:12px;margin-bottom:11px;color:#66758a;}
   body.embed-mode .panels-row{gap:16px;margin-bottom:16px;}
   body.embed-mode .embed-extra-groups{display:grid;}
   body.embed-mode .legend{justify-content:flex-end;}
   body.embed-mode .panel{border-radius:16px;padding:18px;margin-bottom:16px;}
-  body.embed-mode .panel h2,body.embed-mode .panel h3,body.embed-mode .backlog-card-title h3{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#0d1a2e;letter-spacing:0;}
+  body.embed-mode .panel h2,body.embed-mode .panel h3,body.embed-mode .backlog-card-title h3{font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:600;color:#17243a;letter-spacing:-.005em;}
   body.embed-mode .panel .panel-sub{font-size:10px;line-height:1.45;margin-bottom:12px;}
   body.embed-mode .backlog-card-title{margin-bottom:10px;}
   body.embed-mode .sla-mini-summary{margin-bottom:10px;padding-bottom:10px;}
@@ -373,7 +373,7 @@
     <button class="btn" id="indBtnLimpar">Limpar filtros</button>
   </div>
 
-  <h2 class="section-title embed-main-title">DISTRIBUIÇÃO DOS CHAMADOS</h2>
+  <h2 class="section-title embed-main-title">Distribuição dos chamados</h2>
   <p class="section-sub">Distribuição dos chamados conforme o prazo de solução definido no SLA, separando os chamados em aberto e encerrados, dentro e fora do prazo.</p>
 
   <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));">
@@ -460,7 +460,7 @@
     </div>
   </div>
 
-  <h2 class="section-title embed-backlog-title">EVOLUÇÃO MENSAL DOS CHAMADOS E BACKLOG</h2>
+  <h2 class="section-title embed-backlog-title">Evolução mensal dos chamados e backlog</h2>
   <p class="section-sub">Evolução mensal de chamados, backlog e acumulados.</p>
 
   <div class="legend">
@@ -920,11 +920,11 @@ loadDisponibilidade();
 })();
 (async function(){
 const EMBED_MODE = document.body.classList.contains('embed-mode');
-if (EMBED_MODE && window.Chart) {
+if (window.Chart) {
   Chart.defaults.font.family = "'DM Sans', sans-serif";
-  Chart.defaults.font.size = 11;
-  Chart.defaults.font.weight = '500';
-  Chart.defaults.color = '#2c3e55';
+  Chart.defaults.font.size = 10;
+  Chart.defaults.font.weight = '400';
+  Chart.defaults.color = '#617086';
 }
 const RAW_DATA_IND = await fetch('./kpi_governanca_2026.json?v=20261102-1').then(r => r.json());
 
