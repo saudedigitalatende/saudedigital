@@ -61,6 +61,12 @@
   .navcard.active{background:var(--accent);border-color:var(--accent);color:#fff;}
   .navcard.active svg{stroke:#fff;}
   .navcard.active .navcard-indicator{background:#fff;opacity:1;}
+  .header-back{
+    align-self:center;display:inline-flex;align-items:center;justify-content:center;min-height:38px;
+    padding:9px 14px;border:1px solid #b9c8da;border-radius:9px;background:#fff;color:var(--accent);
+    font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .15s ease,border-color .15s ease;
+  }
+  .header-back:hover{background:var(--accent-light);border-color:var(--accent);}
   @media (max-width:900px){
     .header-inner{justify-content:flex-start;}
     .header-divider{display:none;}
@@ -247,6 +253,7 @@
         <span class="navcard-label">Indicadores Sistemas<br>e Infraestrutura</span>
         <span class="navcard-indicator"></span>
       </a>
+      <a class="header-back" href="../../../indicadores.html">← Voltar aos indicadores</a>
     </nav>
   </div>
 </header>
