@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Indicadores GLPI — Infraestrutura, Soluções Digitais e NOC</title>
+<title>Painéis Operacionais de Atendimento — GLPI 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -92,7 +92,8 @@
   .panels-row.panels-row-2{grid-template-columns:1fr 1fr;}
   .panels-row.panels-row-noc{grid-template-columns:1fr 1fr;}
   .panels-row.panels-row-noc .panel{grid-column:1 / span 1;}
-  .embed-extra-groups{display:none;}
+  .embed-extra-groups{display:grid;}
+  .panels-row-noc{display:none!important;}
   .panels-row .panel{margin-bottom:0;}
   @media (max-width: 1180px){ .panels-row{grid-template-columns:1fr 1fr;} }
   @media (max-width: 760px){ .panels-row{grid-template-columns:1fr;} .panels-row.panels-row-2{grid-template-columns:1fr;} .panels-row.panels-row-noc{grid-template-columns:1fr;} }
@@ -351,7 +352,7 @@
 <div id="pageIndicadores" class="page-section">
 <div class="wrap">
   <header class="page">
-    <h1>Infraestrutura, Soluções Digitais e NOC</h1>
+    <h1>Painéis Operacionais de Atendimento</h1>
     <p class="subtitle">Calculados diretamente da base GLPI</p>
   </header>
 
@@ -360,7 +361,7 @@
     <div class="filter-field"><label for="indFMes">Mês</label><select id="indFMes"><option value="">Todos</option></select></div>
     <div class="filter-field"><label for="indFDe">Período de</label><input type="date" id="indFDe"></div>
     <div class="filter-field"><label for="indFAte">Período até</label><input type="date" id="indFAte"></div>
-    <div class="filter-field"><label for="indFGrupo">Grupo</label><select id="indFGrupo"><option value="">Todos</option><option value="I">Infraestrutura</option><option value="S">Soluções Digitais</option><option value="N">NOC</option></select></div>
+    <div class="filter-field"><label for="indFGrupo">Grupo</label><select id="indFGrupo"><option value="">Todos</option><option value="I">Infraestrutura</option><option value="S">Sistemas</option><option value="G">Governança</option><option value="M">Dispositivos Móveis</option></select></div>
     <div class="filter-field"><label for="indFStatus">Status</label><select id="indFStatus"><option value="">Todos</option></select></div>
     <button class="btn" id="indBtnLimpar">Limpar filtros</button>
   </div>
@@ -918,15 +919,7 @@ if (EMBED_MODE && window.Chart) {
   Chart.defaults.font.weight = '500';
   Chart.defaults.color = '#2c3e55';
 }
-const RAW_DATA_IND = EMBED_MODE ? await fetch('./kpi_governanca_2026.json?v=20261031-2').then(r => r.json()) : (await Promise.all([
-  fetch('./kpi_data_2024a.json').then(r => r.json()),
-  fetch('./kpi_data_2024b.json').then(r => r.json()),
-  fetch('./kpi_data_2025a.json').then(r => r.json()),
-  fetch('./kpi_data_2025b.json').then(r => r.json()),
-  fetch('./kpi_data_2026a.json').then(r => r.json()),
-  fetch('./kpi_data_2026b.json').then(r => r.json()),
-  fetch('./kpi_data_2026c.json').then(r => r.json())
-])).flat();
+const RAW_DATA_IND = await fetch('./kpi_governanca_2026.json?v=20261102-1').then(r => r.json());
 
 const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const MESES_LONG = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
@@ -946,14 +939,7 @@ const chamados = RAW_DATA_IND.map(r => ({
   adquirirExcedido: r.aq === 'S' ? 'Sim' : 'Não',
   resolverExcedido: r.re === 'S' ? 'Sim' : 'Não',
   slaClassPre: r.cl || null
-})).filter(c => {
-  const categoria = (c.categoria || '').toUpperCase();
-  const categoriaPrincipal = categoria.split(' > ')[0].trim();
-  const grupoTecnico = (c.grupoTecnico || '').toUpperCase();
-  return EMBED_MODE || (!grupoTecnico.includes('ADMINISTRATIVO') &&
-    categoriaPrincipal !== 'TELEFONES' &&
-    !categoria.includes('TABLET'));
-});
+}));
 
 function classify(c) {
   if (c.slaClassPre) return c.slaClassPre;
@@ -997,7 +983,7 @@ function applyFilters() {
     if (de && c.aberturaDate < new Date(de)) return false;
     if (ate) { const ateEnd = new Date(ate); ateEnd.setHours(23,59,59,999); if (c.aberturaDate > ateEnd) return false; }
     if (grupo) {
-      const grupoMap = { I: 'INFRAESTRUTURA', S: 'SOLUCOES_DIGITAIS', N: 'NOC' };
+      const grupoMap = { I: 'INFRAESTRUTURA', S: 'SISTEMAS', G: 'GOVERNANCA', M: 'MOVEIS' };
       if (c.grupo !== grupoMap[grupo]) return false;
     }
     if (status && c.status !== status) return false;
@@ -1362,21 +1348,13 @@ function render() {
   }
 
   renderSlaChart('indChartSlaInfra', classificaveis, 'INFRAESTRUTURA');
-  renderSlaChart('indChartSlaSistemas', classificaveis, EMBED_MODE ? 'SISTEMAS' : 'SOLUCOES_DIGITAIS');
-  if (EMBED_MODE) {
-    renderSlaChart('indChartSlaGovernanca', classificaveis, 'GOVERNANCA');
-    renderSlaChart('indChartSlaMoveis', classificaveis, 'MOVEIS');
-  } else {
-    renderSlaChart('indChartSlaNoc', classificaveis, 'NOC');
-  }
+  renderSlaChart('indChartSlaSistemas', classificaveis, 'SISTEMAS');
+  renderSlaChart('indChartSlaGovernanca', classificaveis, 'GOVERNANCA');
+  renderSlaChart('indChartSlaMoveis', classificaveis, 'MOVEIS');
   renderBacklogChart('indChartBacklogInfra', filtered, 'INFRAESTRUTURA');
-  renderBacklogChart('indChartBacklogSistemas', filtered, EMBED_MODE ? 'SISTEMAS' : 'SOLUCOES_DIGITAIS');
-  if (EMBED_MODE) {
-    renderBacklogChart('indChartBacklogGovernanca', filtered, 'GOVERNANCA');
-    renderBacklogChart('indChartBacklogMoveis', filtered, 'MOVEIS');
-  } else {
-    renderBacklogChart('indChartBacklogNoc', filtered, 'NOC');
-  }
+  renderBacklogChart('indChartBacklogSistemas', filtered, 'SISTEMAS');
+  renderBacklogChart('indChartBacklogGovernanca', filtered, 'GOVERNANCA');
+  renderBacklogChart('indChartBacklogMoveis', filtered, 'MOVEIS');
 }
 
 [fAno, fMes, fGrupo, fStatus].forEach(el => el.addEventListener('change', render));
