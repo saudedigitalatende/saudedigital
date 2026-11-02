@@ -106,6 +106,7 @@ h1 em{font-style:normal;color:#c5a23e}
 .status-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid #edf0f4;font-size:10px;color:var(--ink2)}.status-row:last-child{border-bottom:0}
 .status-name{display:flex;align-items:center;gap:7px}.status-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.status-value{font-size:11px;font-weight:700}
 .services-chart-wrap{height:250px}
+.satisfaction-chart{height:255px}.satisfaction-note{font-size:10px;color:var(--ink3);margin-top:8px}.satisfaction-empty{display:flex;align-items:center;justify-content:center;height:220px;color:var(--ink3);font-size:12px}
 .dashboard-view[hidden]{display:none!important}
 .sla-page-title{margin-bottom:14px}.sla-page-title h2{font-size:22px;color:var(--ink)}.sla-page-title p{font-size:11px;color:var(--ink3);margin-top:3px}
 .sla-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -206,11 +207,20 @@ h1 em{font-style:normal;color:#c5a23e}
 </div>
 <section class="dashboard-view" id="satisfaction-view" hidden>
   <div class="sla-page-title"><h2>Pesquisa de Satisfação</h2><p id="satisfaction-period-label">Avaliações do atendimento · Jan–Out 2026</p></div>
-  <section class="summary"><div class="section-title">Resultado das avaliações</div><div class="summary-grid" style="grid-template-columns:repeat(3,minmax(0,1fr))">
-    <div class="summary-box"><strong id="satisfaction-rate">94,2%</strong><span>Avaliações Excelente + Bom</span></div>
-    <div class="summary-box"><strong id="satisfaction-responses">89</strong><span>Respostas recebidas</span></div>
-    <div class="summary-box"><strong id="satisfaction-excellent">82,6%</strong><span>Avaliaram como Excelente</span></div>
+  <section class="summary"><div class="section-title">Resumo da pesquisa — 2026</div><div class="summary-grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+    <div class="summary-box"><strong id="satisfaction-total">0</strong><span>Respostas recebidas</span></div>
+    <div class="summary-box"><strong id="satisfaction-rate">—</strong><span>Avaliações Excelente + Bom</span></div>
+    <div class="summary-box"><strong id="satisfaction-resolved">—</strong><span>Solicitações totalmente resolvidas</span></div>
+    <div class="summary-box"><strong id="satisfaction-clarity">—</strong><span>Orientações fáceis de entender</span></div>
   </div><div class="summary-note" id="satisfaction-note"><strong>Pesquisa de Satisfação:</strong> resultados das respostas disponíveis no período selecionado.</div></section>
+  <section class="trend-section"><div class="trend-grid">
+    <article class="chart-card status-card-wide"><div class="chart-title">Evolução mensal da satisfação</div><div class="chart-sub">Volume de respostas e percentual de avaliações Excelente + Bom</div><div class="chart-wrap satisfaction-chart"><canvas id="satisfaction-trend-chart"></canvas></div></article>
+    <article class="chart-card"><div class="chart-title">Avaliação do atendimento</div><div class="chart-sub">Distribuição entre Excelente, Bom, Razoável e Ruim</div><div class="chart-wrap satisfaction-chart"><canvas id="satisfaction-rating-chart"></canvas></div></article>
+    <article class="chart-card"><div class="chart-title">Resolução da solicitação</div><div class="chart-sub">Situação informada pelo usuário</div><div class="chart-wrap satisfaction-chart"><canvas id="satisfaction-resolution-chart"></canvas></div></article>
+    <article class="chart-card"><div class="chart-title">Tipos de suporte avaliados</div><div class="chart-sub">Distribuição das respostas por assunto</div><div class="chart-wrap satisfaction-chart"><canvas id="satisfaction-support-chart"></canvas></div></article>
+    <article class="chart-card"><div class="chart-title">O que mais agradou</div><div class="chart-sub">Principais aspectos destacados pelos usuários</div><div class="chart-wrap satisfaction-chart"><canvas id="satisfaction-liked-chart"></canvas></div></article>
+  </div></section>
+  <div class="source-note"><strong>Fonte:</strong> Pesquisa de Satisfação — Avaliação do Atendimento de Suporte a Sistemas, respostas de janeiro a outubro de 2026. <a href="documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/Pesquisa_de_Satisfacao_2026.xlsx" download>Baixar planilha da pesquisa</a>.</div>
 </section>
 <section class="dashboard-view" id="sla-view" hidden>
   <div class="sla-page-title"><h2>SLA e Backlog</h2><p id="sla-period-label">Análise de cumprimento dos prazos e evolução do backlog · Jan–Out 2026</p></div>
@@ -248,6 +258,8 @@ const MONTH_NAMES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out'
 const MONTH_NUMBER = {jan:1,fev:2,mar:3,abr:4,mai:5,jun:6,jul:7,ago:8,set:9,out:10};
 let SLA_TICKETS = [];
 let activeSlaPeriod = 'todos';
+let SATISFACTION_DATA = {};
+const satisfactionCharts = {};
 const EXECUTIVE_SLA_SUMMARY = {"todos":{"total":14105,"openOk":2247,"openLate":711,"closedOk":8326,"closedLate":2821},"jan":{"total":996,"openOk":121,"openLate":23,"closedOk":666,"closedLate":186},"fev":{"total":1111,"openOk":83,"openLate":14,"closedOk":797,"closedLate":217},"mar":{"total":1326,"openOk":232,"openLate":42,"closedOk":736,"closedLate":316},"abr":{"total":1544,"openOk":336,"openLate":94,"closedOk":797,"closedLate":317},"mai":{"total":1697,"openOk":127,"openLate":107,"closedOk":1076,"closedLate":387},"jun":{"total":1618,"openOk":330,"openLate":131,"closedOk":810,"closedLate":347},"jul":{"total":1625,"openOk":357,"openLate":91,"closedOk":931,"closedLate":246},"ago":{"total":1753,"openOk":200,"openLate":70,"closedOk":1054,"closedLate":429},"set":{"total":1362,"openOk":166,"openLate":40,"closedOk":915,"closedLate":241},"out":{"total":1073,"openOk":295,"openLate":99,"closedOk":544,"closedLate":135}};
 const WEEKDAY_NAMES = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
 const fmt = value => Number(value || 0).toLocaleString('pt-BR');
@@ -343,6 +355,23 @@ const statusCharts = {};
 GROUP_ORDER.forEach((group,index) => { statusCharts[group] = new Chart(document.getElementById(`status-group-${index}`), {type:'doughnut',data:{labels:STATUS_LABELS,datasets:[{data:STATUS_GROUP_DATA.todos[group],backgroundColor:STATUS_COLORS,borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'63%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fmt(ctx.raw)}}}}}); });
 const initialServices = SERVICE_DATA.todos;
 const servicesChart = new Chart(document.getElementById('services-chart'), {type:'bar',data:{labels:initialServices.map(item=>item[0]),datasets:[{label:'Chamados',data:initialServices.map(item=>item[1]),backgroundColor:['#1f65b5','#3f83c9','#66a0d8','#8bb9e4','#b2d1ed'],borderRadius:6,maxBarThickness:28}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fmt(ctx.raw)+' chamados'}}},scales:{x:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:9},callback:value=>fmt(value)}},y:{grid:{display:false},ticks:{color:chartText,font:{size:9},autoSkip:false}}}}});
+function replaceSatisfactionChart(id,config){if(satisfactionCharts[id])satisfactionCharts[id].destroy();satisfactionCharts[id]=new Chart(document.getElementById(id),config);}
+function renderSatisfaction(period='todos'){
+  const data=SATISFACTION_DATA[period];if(!data)return;
+  const label=PERIOD_LABELS[period];document.getElementById('satisfaction-period-label').textContent='Avaliações do atendimento · '+label;
+  document.getElementById('satisfaction-total').textContent=fmt(data.total);document.getElementById('satisfaction-rate').textContent=data.satisfaction==null?'—':pct(data.satisfaction);document.getElementById('satisfaction-resolved').textContent=data.resolvedPct==null?'—':pct(data.resolvedPct);document.getElementById('satisfaction-clarity').textContent=data.clarityPct==null?'—':pct(data.clarityPct);document.getElementById('nav-satisfaction').textContent=fmt(data.total);
+  document.getElementById('satisfaction-note').innerHTML=data.total?`<strong>Pesquisa de Satisfação:</strong> ${fmt(data.rated)} das ${fmt(data.total)} respostas apresentaram avaliação do atendimento; ${pct(data.satisfaction)} classificaram como Excelente + Bom.`:`<strong>Pesquisa de Satisfação:</strong> ainda não há respostas disponíveis para ${label}.`;
+  const monthly=MONTH_KEYS.map(key=>SATISFACTION_DATA[key]||{total:0,satisfaction:null});
+  replaceSatisfactionChart('satisfaction-trend-chart',{type:'bar',data:{labels:MONTH_NAMES,datasets:[{label:'Respostas',data:monthly.map(x=>x.total),backgroundColor:MONTH_KEYS.map(key=>key===period?'#0f5fb8':'#8bb9e4'),borderRadius:5,yAxisID:'y'},{label:'Satisfação',data:monthly.map(x=>x.satisfaction),type:'line',borderColor:'#17824f',backgroundColor:'#17824f',pointRadius:4,tension:.25,yAxisID:'y1'}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,title:{display:true,text:'Respostas'},grid:{color:chartGrid}},y1:{min:0,max:100,position:'right',title:{display:true,text:'Satisfação (%)'},grid:{display:false},ticks:{callback:v=>v+'%'}}}}});
+  const ratingLabels=['Excelente','Bom','Razoável','Ruim'],ratingValues=ratingLabels.map(x=>data.ratings[x]||0);
+  replaceSatisfactionChart('satisfaction-rating-chart',{type:'doughnut',data:{labels:ratingLabels,datasets:[{data:ratingValues,backgroundColor:['#17824f','#4f9bd6','#e6a23c','#c9303e'],borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'right',labels:{usePointStyle:true,boxWidth:8}},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fmt(ctx.raw)}}}}});
+  const resolutionLabels=['Totalmente resolvida','Parcialmente resolvida','Em andamento','Não resolvida'],resolutionValues=resolutionLabels.map(x=>data.resolutions[x]||0);
+  replaceSatisfactionChart('satisfaction-resolution-chart',{type:'bar',data:{labels:resolutionLabels,datasets:[{data:resolutionValues,backgroundColor:['#17824f','#4f9bd6','#e6a23c','#c9303e'],borderRadius:5}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:chartGrid},ticks:{callback:v=>fmt(v)}},y:{grid:{display:false}}}}});
+  const supportEntries=Object.entries(data.supports).filter(([name])=>name!=='Não informado').slice(0,6);
+  replaceSatisfactionChart('satisfaction-support-chart',{type:'bar',data:{labels:supportEntries.map(x=>x[0]),datasets:[{data:supportEntries.map(x=>x[1]),backgroundColor:'#1f65b5',borderRadius:5}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:chartGrid},ticks:{callback:v=>fmt(v)}},y:{grid:{display:false}}}}});
+  const likedEntries=Object.entries(data.liked).filter(([name])=>name!=='Não informado').slice(0,6);
+  replaceSatisfactionChart('satisfaction-liked-chart',{type:'bar',data:{labels:likedEntries.map(x=>x[0]),datasets:[{data:likedEntries.map(x=>x[1]),backgroundColor:'#c5a23e',borderRadius:5}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:chartGrid},ticks:{callback:v=>fmt(v)}},y:{grid:{display:false}}}}});
+}
 function renderDashboard(period='todos') {
   const data = DASHBOARD_DATA[period] || DASHBOARD_DATA.todos;
   const label = PERIOD_LABELS[period];
@@ -395,13 +424,7 @@ function renderDashboard(period='todos') {
   servicesChart.update();
   document.getElementById('status-chart-sub').textContent = 'Distribuição por situação e Grupo Técnico · ' + label;
   document.getElementById('services-chart-sub').textContent = 'Volume de chamados por serviço · ' + label;
-  const satisfaction=CSAT_SUMMARY[period]||CSAT_SUMMARY.todos;
-  document.getElementById('satisfaction-period-label').textContent='Avaliações do atendimento · '+label;
-  document.getElementById('satisfaction-rate').textContent=satisfaction.csat==null?'—':pct(satisfaction.csat);
-  document.getElementById('satisfaction-responses').textContent=fmt(satisfaction.respostas);
-  document.getElementById('satisfaction-excellent').textContent=satisfaction.excelente==null?'—':pct(satisfaction.excelente);
-  document.getElementById('nav-satisfaction').textContent=fmt(satisfaction.respostas);
-  document.getElementById('satisfaction-note').innerHTML=satisfaction.respostas?'<strong>Pesquisa de Satisfação:</strong> '+pct(satisfaction.csat)+' avaliaram o atendimento como Excelente + Bom; '+pct(satisfaction.excelente)+' avaliaram como Excelente.':'<strong>Pesquisa de Satisfação:</strong> ainda não há respostas disponíveis para '+label+'.';
+  renderSatisfaction(period);
   renderSlaView(period, data, label);
 }
 function renderSlaView(period, data, label) {
@@ -423,6 +446,7 @@ function showDashboardView(view) {
   document.getElementById('overview-nav-button').classList.toggle('active', view === 'overview');
   document.getElementById('sla-nav-button').classList.toggle('active', view === 'sla');
   document.getElementById('satisfaction-nav-button').classList.toggle('active', view === 'satisfaction');
+  if(view==='satisfaction'&&Object.keys(SATISFACTION_DATA).length){const active=document.querySelector('.month-pill.active');renderSatisfaction(active?.dataset.month||'todos');}
   window.scrollTo({top:document.querySelector('.dashboard-nav').offsetTop,behavior:'smooth'});
 }
 document.getElementById('overview-nav-button').addEventListener('click',()=>showDashboardView('overview'));
@@ -435,6 +459,7 @@ window.addEventListener('message',event=>{
   if(event.data?.type==='dashboard-height'){const frame=document.getElementById('sla-dashboard-frame');if(frame)frame.style.height=Math.max(900,Number(event.data.height)||0)+'px';return;}
 });
 document.getElementById('sla-dashboard-frame').addEventListener('load',()=>{const active=document.querySelector('.month-pill.active');document.getElementById('sla-dashboard-frame').contentWindow.postMessage({type:'dashboard-month',month:MONTH_NUMBER[active?.dataset.month]||0},location.origin);});
+fetch('documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/satisfaction_2026.json?v=20261102').then(response=>response.json()).then(data=>{SATISFACTION_DATA=data;const active=document.querySelector('.month-pill.active');renderSatisfaction(active?.dataset.month||'todos');}).catch(()=>{document.getElementById('satisfaction-note').innerHTML='<strong>Pesquisa de Satisfação:</strong> não foi possível carregar os dados da planilha.';});
 renderDashboard('todos');
 if (location.hash === '#sla') showDashboardView('sla');
 </script>
