@@ -1154,55 +1154,28 @@ function renderBacklogChart(canvasId, list, grupo) {
     perMonthLists.encerrados[m].push(c);
   });
 
-  // Backlog acumulado = somatório sequencial cronológico usando TODO o histórico do grupo (não só o ano
-  // filtrado), para que Janeiro de um ano comece somando o saldo que sobrou de Dezembro do ano anterior,
-  // em vez de reiniciar em zero. Backlog do mês (ativo hoje) já usa ACTIVE_STATUSES, igual às barras.
-  const baseGrupoHist = chamados.filter(c => c.grupo === grupo && isActiveStatus(c.status));
-  const porChave = {};
-  baseGrupoHist.forEach(c => {
-    const chave = c.aberturaDate.getFullYear() + '-' + c.aberturaDate.getMonth();
-    if (!porChave[chave]) porChave[chave] = [];
-    porChave[chave].push(c);
-  });
-
+  // Backlog mensal é um retrato do saldo existente no fim de cada mês.
+  // Um chamado só entra no saldo se já estava aberto e ainda não tinha data de solução naquele fechamento.
+  // A regra anterior acumulava novamente os chamados ainda ativos mês após mês e inflava a série.
+  const baseGrupoHist = chamados.filter(c => c.grupo === grupo && c.aberturaDate);
   const anosPresentesGrupo = [...new Set(chamados.filter(c => c.grupo === grupo).map(c => c.aberturaDate.getFullYear()))];
   const anoParaAcumulado = anoRef ? Number(anoRef) : (anosPresentesGrupo.length ? Math.max(...anosPresentesGrupo) : new Date().getFullYear());
-
-  // Preenchimento contínuo mês a mês (mesmo meses sem chamado novo nenhum) do primeiro ano com dado
-  // até o ano em vista, para o saldo nunca "zerar" incorretamente num mês sem atividade.
-  const anosComDado = baseGrupoHist.map(c => c.aberturaDate.getFullYear());
-  const anoMin = anosComDado.length ? Math.min(...anosComDado, anoParaAcumulado) : anoParaAcumulado;
-  let acumuladoCorrente = 0;
-  let listaCorrente = [];
-  const acumuladoPorChave = {};
-  const listaPorChave = {};
-  for (let y = anoMin; y <= anoParaAcumulado; y++) {
-    for (let mo = 0; mo < 12; mo++) {
-      const chave = y + '-' + mo;
-      if (porChave[chave]) {
-        acumuladoCorrente += porChave[chave].length;
-        listaCorrente = listaCorrente.concat(porChave[chave]);
-      }
-      acumuladoPorChave[chave] = acumuladoCorrente;
-      listaPorChave[chave] = listaCorrente.slice();
-    }
-  }
-
   const backlogAcumulado = new Array(12).fill(0);
-  const perMonthListsAcumulado = Array.from({length:12}, () => []);
-  for (let m = 0; m < 12; m++) {
-    const chave = anoParaAcumulado + '-' + m;
-    backlogAcumulado[m] = acumuladoPorChave[chave] !== undefined ? acumuladoPorChave[chave] : (m === 0 ? 0 : backlogAcumulado[m-1]);
-    perMonthListsAcumulado[m] = listaPorChave[chave] !== undefined ? listaPorChave[chave] : (m === 0 ? [] : perMonthListsAcumulado[m-1]);
-  }
-
-  // Backlog acumulado DO ANO: mesma regra de soma sequencial, mas reinicia em zero em Janeiro de cada
-  // ano (nao soma o que sobrou do ano anterior) -- usa apenas o "backlog do mes" ja calculado para o ano em vista.
   const backlogAcumuladoAno = new Array(12).fill(0);
+  const perMonthListsAcumulado = Array.from({length:12}, () => []);
   const perMonthListsAcumuladoAno = Array.from({length:12}, () => []);
+  const inicioAno = new Date(anoParaAcumulado, 0, 1);
   for (let m = 0; m < 12; m++) {
-    backlogAcumuladoAno[m] = (m === 0 ? 0 : backlogAcumuladoAno[m-1]) + backlog[m];
-    perMonthListsAcumuladoAno[m] = (m === 0 ? [] : perMonthListsAcumuladoAno[m-1]).concat(perMonthLists.backlog[m]);
+    const fimMes = new Date(anoParaAcumulado, m + 1, 0, 23, 59, 59, 999);
+    const saldoGeral = baseGrupoHist.filter(c => c.aberturaDate <= fimMes && (!c.solucaoDate || c.solucaoDate > fimMes));
+    const saldoAno = saldoGeral.filter(c => c.aberturaDate >= inicioAno);
+    const novosNoBacklog = saldoAno.filter(c => c.aberturaDate.getMonth() === m);
+    backlog[m] = novosNoBacklog.length;
+    perMonthLists.backlog[m] = novosNoBacklog;
+    backlogAcumulado[m] = saldoGeral.length;
+    backlogAcumuladoAno[m] = saldoAno.length;
+    perMonthListsAcumulado[m] = saldoGeral;
+    perMonthListsAcumuladoAno[m] = saldoAno;
   }
 
   // ---- Determinar o mês de referência do resumo (NUNCA fixo em dezembro) ----
