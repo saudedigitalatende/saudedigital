@@ -16,8 +16,10 @@ h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,46px);line-heig
 h1 em{font-style:normal;color:#c5a23e}
 .subtitle{font-size:13px;color:var(--ink3);margin-top:8px}
 .top-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid var(--rule);border-radius:999px;background:#fff;color:var(--ink2);text-decoration:none;font-size:12px;font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid var(--rule);border-radius:999px;background:#fff;color:var(--ink2);text-decoration:none;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:.2s ease}
 .btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn:hover{border-color:#8eb4dd;background:#f8fbff}.btn.primary:hover{background:#18569b}.btn:disabled{opacity:.65;cursor:wait}
+.btn.refreshing .refresh-icon{display:inline-block;animation:refresh-spin .8s linear infinite}@keyframes refresh-spin{to{transform:rotate(360deg)}}
 .dashboard-nav{max-width:1480px;margin:0 auto;padding:15px 42px 0}
 .nav-row,.month-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .nav-row{padding-bottom:18px;border-bottom:1px solid #e3e8ef}
@@ -134,7 +136,7 @@ h1 em{font-style:normal;color:#c5a23e}
 </style>
 </head>
 <body>
-<header class="top"><div class="top-inner"><div><div class="eyebrow">Indicadores de Chamados GLPI – Visão Completa · Janeiro a Outubro 2026</div><h1>Indicador de <em>Desempenho</em></h1><p class="subtitle">GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p></div><div class="top-actions"><a class="btn primary" href="documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/GLPI_Janeiro_a_Outubro_2026_4_Grupos.xlsx" download>↓ Baixar planilha fonte</a><a class="btn" href="indicadores.html">← Voltar aos indicadores</a></div></div></header>
+<header class="top"><div class="top-inner"><div><div class="eyebrow">Indicadores de Chamados GLPI – Visão Completa · Janeiro a Outubro 2026</div><h1>Indicador de <em>Desempenho</em></h1><p class="subtitle">GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p></div><div class="top-actions"><button class="btn" id="refresh-dashboard" type="button" title="Atualizar os dados do dashboard"><span class="refresh-icon" aria-hidden="true">↻</span><span class="refresh-label">Atualizar</span></button><a class="btn primary" href="documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/GLPI_Janeiro_a_Outubro_2026_4_Grupos.xlsx" download>↓ Baixar planilha fonte</a><a class="btn" href="indicadores.html">← Voltar aos indicadores</a></div></div></header>
 <nav class="dashboard-nav" aria-label="Navegação dos indicadores">
   <div class="nav-row">
     <span class="nav-label">Monitoramento</span>
@@ -453,14 +455,32 @@ document.getElementById('sla-nav-button').addEventListener('click',()=>showDashb
 document.getElementById('satisfaction-nav-button').addEventListener('click',()=>showDashboardView('satisfaction'));
 document.querySelectorAll('.nav-pill[href]').forEach(link=>link.addEventListener('click',()=>showDashboardView('overview')));
 document.querySelectorAll('.month-pill[data-month]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('.month-pill[data-month]').forEach(item => item.classList.remove('active')); button.classList.add('active'); renderDashboard(button.dataset.month); }));
+const DASHBOARD_STATE_KEY='gtic-dashboard-refresh-state';
+const pageParams=new URLSearchParams(location.search);
+const refreshToken=pageParams.get('refresh')||'';
+let restoredState=null;
+try{restoredState=JSON.parse(sessionStorage.getItem(DASHBOARD_STATE_KEY)||'null');sessionStorage.removeItem(DASHBOARD_STATE_KEY);}catch(error){restoredState=null;}
+const slaFrame=document.getElementById('sla-dashboard-frame');
+if(refreshToken&&slaFrame){const frameUrl=new URL(slaFrame.getAttribute('src'),location.href);frameUrl.searchParams.set('refresh',refreshToken);slaFrame.src=frameUrl.pathname+frameUrl.search;}
+document.getElementById('refresh-dashboard').addEventListener('click',event=>{
+  const button=event.currentTarget;
+  const activeMonth=document.querySelector('.month-pill.active')?.dataset.month||'todos';
+  const activeView=['overview','sla','satisfaction'].find(view=>!document.getElementById(view+'-view').hidden)||'overview';
+  try{sessionStorage.setItem(DASHBOARD_STATE_KEY,JSON.stringify({month:activeMonth,view:activeView}));}catch(error){}
+  button.disabled=true;button.classList.add('refreshing');button.querySelector('.refresh-label').textContent='Atualizando…';
+  const nextUrl=new URL(location.href);nextUrl.searchParams.set('refresh',Date.now().toString());
+  location.replace(nextUrl.href);
+});
 window.addEventListener('message',event=>{
   if(event.origin!==location.origin)return;
   if(event.data?.type==='dashboard-height'){const frame=document.getElementById('sla-dashboard-frame');if(frame)frame.style.height=Math.max(900,Number(event.data.height)||0)+'px';return;}
 });
 document.getElementById('sla-dashboard-frame').addEventListener('load',()=>{const active=document.querySelector('.month-pill.active');document.getElementById('sla-dashboard-frame').contentWindow.postMessage({type:'dashboard-month',month:MONTH_NUMBER[active?.dataset.month]||0},location.origin);});
-fetch('documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/satisfaction_2026.json?v=20261102').then(response=>response.json()).then(data=>{SATISFACTION_DATA=data;const active=document.querySelector('.month-pill.active');renderSatisfaction(active?.dataset.month||'todos');}).catch(()=>{document.getElementById('satisfaction-note').innerHTML='<strong>Pesquisa de Satisfação:</strong> não foi possível carregar os dados da planilha.';});
-renderDashboard('todos');
-if (location.hash === '#sla') showDashboardView('sla');
+fetch('documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/satisfaction_2026.json?v=20261102'+(refreshToken?'&refresh='+encodeURIComponent(refreshToken):'')).then(response=>response.json()).then(data=>{SATISFACTION_DATA=data;const active=document.querySelector('.month-pill.active');renderSatisfaction(active?.dataset.month||'todos');}).catch(()=>{document.getElementById('satisfaction-note').innerHTML='<strong>Pesquisa de Satisfação:</strong> não foi possível carregar os dados da planilha.';});
+const initialPeriod=restoredState?.month&&PERIOD_LABELS[restoredState.month]?restoredState.month:'todos';
+document.querySelectorAll('.month-pill[data-month]').forEach(item=>item.classList.toggle('active',item.dataset.month===initialPeriod));
+renderDashboard(initialPeriod);
+if(restoredState?.view){showDashboardView(restoredState.view);}else if(location.hash==='#sla'){showDashboardView('sla');}
 </script>
 </body>
 </html>
