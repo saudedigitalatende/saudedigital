@@ -252,7 +252,40 @@ fetch(GLPI_JSON_URL + '?v=' + Date.now())
    
 window.GLPI_ATUAL = dados;
 
-    console.log('GLPI: JSON carregado com sucesso', dados);
+   
+const geral = dados.records.find(item => item.grupo === 'GERAL');
+
+if (geral) {
+  const painel = document.createElement('section');
+  painel.className = 'summary';
+  painel.id = 'glpi-indicadores-atuais';
+
+  painel.innerHTML = `
+    <div class="section-title">Indicadores atualizados do GLPI</div>
+    <div class="summary-grid">
+      <div class="summary-box"><strong id="atual-total"></strong><span>Total de chamados</span></div>
+      <div class="summary-box"><strong id="atual-backlog"></strong><span>Backlog</span></div>
+      <div class="summary-box"><strong id="atual-encerrados"></strong><span>Encerrados</span></div>
+      <div class="summary-box"><strong id="atual-sem-sla"></strong><span>Sem SLA</span></div>
+      <div class="summary-box"><strong id="atual-sla"></strong><span>SLA global</span></div>
+    </div>
+    <div class="summary-note" id="atual-data"></div>
+  `;
+
+  document.getElementById('overview-view').prepend(painel);
+
+  const numero = valor => Number(valor).toLocaleString('pt-BR');
+
+  document.getElementById('atual-total').textContent = numero(geral.totalChamados);
+  document.getElementById('atual-backlog').textContent = numero(geral.backlog);
+  document.getElementById('atual-encerrados').textContent = numero(geral.encerrados);
+  document.getElementById('atual-sem-sla').textContent = numero(geral.semSLA);
+  document.getElementById('atual-sla').textContent = numero(geral.slaGlobal) + '%';
+
+  document.getElementById('atual-data').textContent =
+    'Atualizado em: ' + new Date(dados.updatedAt).toLocaleString('pt-BR');
+}
+
   })
   .catch(erro => {
     console.error('GLPI: erro ao carregar JSON', erro);
