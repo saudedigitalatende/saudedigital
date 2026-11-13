@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   preparar-atualizacao:
-    name: Testar conexao com n8n
+    name: Testar conexao e validar indicadores
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -44,7 +44,6 @@ jobs:
             --fail \
             --silent \
             --show-error \
-            --location \
             --max-time 300 \
             --request POST \
             --header "X-GTIC-Atualizacao: ${N8N_WEBHOOK_TOKEN}" \
@@ -55,54 +54,12 @@ jobs:
 
           echo "Webhook respondeu com sucesso."
 
-      - name: Verificar resposta JSON
+      - name: Validar indicadores com Python
         run: |
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
+          python3 .github/scripts/validar_indicadores_2026.py resposta-n8n.json
 
-          arquivo = Path("resposta-n8n.json")
-
-          if not arquivo.exists():
-              raise SystemExit("ERRO: resposta ausente.")
-
-          if arquivo.stat().st_size > 32768:
-              raise SystemExit("ERRO: resposta excede 32 KB.")
-
-          with arquivo.open(encoding="utf-8") as f:
-              dados = json.load(f)
-
-          if isinstance(dados, list) and len(dados) == 1:
-              dados = dados[0]
-
-          if not isinstance(dados, dict):
-              raise SystemExit("ERRO: resposta nao e um objeto JSON.")
-
-          if dados.get("schemaVersion") != 1:
-              raise SystemExit("ERRO: schemaVersion invalido.")
-
-          if dados.get("source") != "n8n-glpi-aggregated":
-              raise SystemExit("ERRO: origem invalida.")
-
-          registros = dados.get("records")
-
-          if not isinstance(registros, list) or len(registros) != 5:
-              raise SystemExit("ERRO: esperados cinco registros.")
-
-          grupos = {r.get("grupo") for r in registros}
-
-          esperados = {
-              "INFRAESTRUTURA",
-              "SISTEMAS",
-              "GOVERNANÇA",
-              "DISPOSITIVOS MÓVEIS",
-              "GERAL"
-          }
-
-          if grupos != esperados:
-              raise SystemExit("ERRO: grupos incorretos.")
-
-          print("Conexao e estrutura JSON verificadas.")
-          print("Publicacao desabilitada.")
-          PY
+      - name: Confirmar validacao
+        run: |
+          echo "Indicadores do GLPI validados com sucesso."
+          echo "Publicacao no GitHub continua desabilitada."
 
