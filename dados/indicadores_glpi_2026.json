@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-13T13:31:42.638Z",
+  "source": "n8n-glpi-aggregated",
+  "records": [
+    {
+      "grupo": "INFRAESTRUTURA",
+      "totalChamados": 9534,
+      "backlog": 939,
+      "encerrados": 8595,
+      "semSLA": 2154,
+      "abertosDentroSLA": 686,
+      "abertosSlaVencido": 171,
+      "encerradosDentroSLA": 4390,
+      "encerradosSlaVencido": 2133,
+      "chamadosComSLA": 7380,
+      "slaGlobal": 68.8
+    },
+    {
+      "grupo": "SISTEMAS",
+      "totalChamados": 3064,
+      "backlog": 14,
+      "encerrados": 3050,
+      "semSLA": 273,
+      "abertosDentroSLA": 10,
+      "abertosSlaVencido": 4,
+      "encerradosDentroSLA": 1832,
+      "encerradosSlaVencido": 945,
+      "chamadosComSLA": 2791,
+      "slaGlobal": 66
+    },
+    {
+      "grupo": "GOVERNANÇA",
+      "totalChamados": 1940,
+      "backlog": 137,
+      "encerrados": 1803,
+      "semSLA": 3,
+      "abertosDentroSLA": 124,
+      "abertosSlaVencido": 13,
+      "encerradosDentroSLA": 1092,
+      "encerradosSlaVencido": 708,
+      "chamadosComSLA": 1937,
+      "slaGlobal": 62.8
+    },
+    {
+      "grupo": "DISPOSITIVOS MÓVEIS",
+      "totalChamados": 189,
+      "backlog": 59,
+      "encerrados": 130,
+      "semSLA": 89,
+      "abertosDentroSLA": 1,
+      "abertosSlaVencido": 18,
+      "encerradosDentroSLA": 19,
+      "encerradosSlaVencido": 62,
+      "chamadosComSLA": 100,
+      "slaGlobal": 20
+    },
+    {
+      "grupo": "GERAL",
+      "totalChamados": 14727,
+      "backlog": 1149,
+      "encerrados": 13578,
+      "semSLA": 2519,
+      "abertosDentroSLA": 821,
+      "abertosSlaVencido": 206,
+      "encerradosDentroSLA": 7333,
+      "encerradosSlaVencido": 3848,
+      "chamadosComSLA": 12208,
+      "slaGlobal": 66.8
+    }
+  ]
+}
