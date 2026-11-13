@@ -1,4 +1,5 @@
 
+
 name: Atualizar Indicadores GLPI 2026
 
 on:
@@ -9,16 +10,99 @@ permissions:
 
 jobs:
   preparar-atualizacao:
-    name: Verificar configuracao
+    name: Testar conexao com n8n
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Obter arquivos do repositorio
-       uses: actions/checkout@v5
+        uses: actions/checkout@v5
 
-      - name: Conferir estrutura
+      - name: Verificar secrets obrigatorios
+        env:
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+          N8N_WEBHOOK_TOKEN: ${{ secrets.N8N_WEBHOOK_TOKEN }}
         run: |
-          echo "Projeto: GTIC - Indicadores GLPI 2026"
-          echo "Execucao manual habilitada."
-          echo "Publicacao ainda desabilitada."
-          echo "Aguardando configuracao segura do n8n."
+          test -n "$N8N_WEBHOOK_URL" || {
+            echo "ERRO: N8N_WEBHOOK_URL nao configurado"
+            exit 1
+          }
+
+          test -n "$N8N_WEBHOOK_TOKEN" || {
+            echo "ERRO: N8N_WEBHOOK_TOKEN nao configurado"
+            exit 1
+          }
+
+          echo "Secrets configurados."
+
+      - name: Chamar Webhook do n8n
+        env:
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+          N8N_WEBHOOK_TOKEN: ${{ secrets.N8N_WEBHOOK_TOKEN }}
+        run: |
+          curl \
+            --fail \
+            --silent \
+            --show-error \
+            --location \
+            --max-time 300 \
+            --request POST \
+            --header "X-GTIC-Atualizacao: ${N8N_WEBHOOK_TOKEN}" \
+            --header "Content-Type: application/json" \
+            --data '{"origem":"github-actions","acao":"atualizar-indicadores-2026"}' \
+            --output resposta-n8n.json \
+            "$N8N_WEBHOOK_URL"
+
+          echo "Webhook respondeu com sucesso."
+
+      - name: Verificar resposta JSON
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          arquivo = Path("resposta-n8n.json")
+
+          if not arquivo.exists():
+              raise SystemExit("ERRO: resposta ausente.")
+
+          if arquivo.stat().st_size > 32768:
+              raise SystemExit("ERRO: resposta excede 32 KB.")
+
+          with arquivo.open(encoding="utf-8") as f:
+              dados = json.load(f)
+
+          if isinstance(dados, list) and len(dados) == 1:
+              dados = dados[0]
+
+          if not isinstance(dados, dict):
+              raise SystemExit("ERRO: resposta nao e um objeto JSON.")
+
+          if dados.get("schemaVersion") != 1:
+              raise SystemExit("ERRO: schemaVersion invalido.")
+
+          if dados.get("source") != "n8n-glpi-aggregated":
+              raise SystemExit("ERRO: origem invalida.")
+
+          registros = dados.get("records")
+
+          if not isinstance(registros, list) or len(registros) != 5:
+              raise SystemExit("ERRO: esperados cinco registros.")
+
+          grupos = {r.get("grupo") for r in registros}
+
+          esperados = {
+              "INFRAESTRUTURA",
+              "SISTEMAS",
+              "GOVERNANÇA",
+              "DISPOSITIVOS MÓVEIS",
+              "GERAL"
+          }
+
+          if grupos != esperados:
+              raise SystemExit("ERRO: grupos incorretos.")
+
+          print("Conexao e estrutura JSON verificadas.")
+          print("Publicacao desabilitada.")
+          PY
+
