@@ -1,5 +1,4 @@
 
-
 name: Atualizar Indicadores GLPI 2026
 
 on:
@@ -8,15 +7,21 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: atualizar-indicadores-glpi-2026
+  cancel-in-progress: false
+
 jobs:
   preparar-atualizacao:
-    name: Testar conexao e validar indicadores
+    name: Validar e publicar indicadores
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
       - name: Obter arquivos do repositorio
         uses: actions/checkout@v5
+        with:
+          persist-credentials: true
 
       - name: Verificar secrets obrigatorios
         env:
@@ -58,8 +63,46 @@ jobs:
         run: |
           python3 .github/scripts/validar_indicadores_2026.py resposta-n8n.json
 
-      - name: Confirmar validacao
+      - name: Publicar indicadores validados
         run: |
-          echo "Indicadores do GLPI validados com sucesso."
-          echo "Publicacao no GitHub continua desabilitada."
+          mkdir -p dados
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          origem = Path("resposta-n8n.json")
+          destino = Path("dados/indicadores_glpi_2026.json")
+
+          dados = json.loads(origem.read_text(encoding="utf-8"))
+
+          if isinstance(dados, list) and len(dados) == 1:
+              dados = dados[0]
+
+          destino.write_text(
+              json.dumps(dados, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8"
+          )
+
+          print("JSON validado preparado para publicacao.")
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add dados/indicadores_glpi_2026.json
+
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteracao nos indicadores."
+          else
+            git commit -m "Atualizar indicadores GLPI validados"
+            git push origin HEAD:main
+          fi
+
+      - name: Confirmar publicacao
+        run: |
+          echo "Indicadores GLPI validados e publicados."
+          echo "Arquivo: dados/indicadores_glpi_2026.json"
+          echo "Dados historicos do painel preservados."
+
 
