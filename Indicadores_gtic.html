@@ -249,6 +249,9 @@ fetch(GLPI_JSON_URL + '?v=' + Date.now())
     return response.json();
   })
   .then(dados => {
+   
+window.GLPI_ATUAL = dados;
+
     console.log('GLPI: JSON carregado com sucesso', dados);
   })
   .catch(erro => {
