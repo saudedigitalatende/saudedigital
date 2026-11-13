@@ -1,0 +1,24 @@
+
+name: Atualizar Indicadores GLPI 2026
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preparar-atualizacao:
+    name: Verificar configuracao
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obter arquivos do repositorio
+        uses: actions/checkout@v4
+
+      - name: Conferir estrutura
+        run: |
+          echo "Projeto: GTIC - Indicadores GLPI 2026"
+          echo "Execucao manual habilitada."
+          echo "Publicacao ainda desabilitada."
+          echo "Aguardando configuracao segura do n8n."
