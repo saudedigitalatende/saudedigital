@@ -7,7 +7,7 @@
   async function load(){
     const {data,error}=await db.from('catalogo_areas').select('slug,nome,ordem,ativo,catalogo_categorias(id,nome,ordem,ativo,catalogo_servicos(id,numero,nome,responsavel,grupo_tecnico,icone,ordem,ativo,catalogo_solicitacoes(id,tipo,solicitacao,sla,n1,n2,n3,conceito,ordem,ativo),catalogo_documentos(id,nome,tipo,versao,url,arquivo_path,ordem,ativo)))').eq('ativo',true).order('ordem');
     if(error||!data){console.info('Catálogo: mantendo dados incorporados até a migração do Supabase.',error?.message||'sem resposta');return;}
-    const target={sistemas:{},infra:{},administrativo:{}};window.CATALOGO_DB_DOCUMENTS={};window.CATALOGO_DB_SERVICE_IDS={};
+    const target={sistemas:{},infra:{},datacenter:{},noc:{},administrativo:{}};window.CATALOGO_DB_DOCUMENTS={};window.CATALOGO_DB_SERVICE_IDS={};
     data.forEach(area=>(area.catalogo_categorias||[]).filter(cat=>cat.ativo!==false).sort((a,b)=>a.ordem-b.ordem).forEach(cat=>{
       const rows=[];(cat.catalogo_servicos||[]).filter(service=>service.ativo!==false).sort((a,b)=>a.ordem-b.ordem).forEach(service=>{
         const label=`${service.numero?`${service.numero}. `:''}${service.nome}`;const owner=ownerHtml(service);window.CATALOGO_DB_SERVICE_IDS[label]=service.id;
@@ -15,8 +15,17 @@
         window.CATALOGO_DB_DOCUMENTS[label]=(service.catalogo_documentos||[]).filter(d=>d.ativo!==false).sort((a,b)=>a.ordem-b.ordem).map(d=>[String(d.tipo||'documento').toLowerCase(),d.url,d.nome,d.versao,d.id]);
       });if(target[area.slug])target[area.slug][cat.nome]=rows;
     }));
-    SISTEMAS=target.sistemas;INFRA=target.infra;ADMINISTRATIVO=target.administrativo;
-    ['sistemas','infra','adm'].forEach(area=>{buildSubTabs(area);buildCatalog(area)});
+    const separated={infra:{},datacenter:{...target.datacenter},noc:{...target.noc}};
+    const append=(destination,category,row)=>(destination[category]??=[]).push(row);
+    Object.entries(target.infra).forEach(([category,rows])=>rows.forEach(row=>{
+      const support=[row.dono,row.n1,row.n2,row.n3].join(' ');
+      if(/DATA CENTER/i.test(support))append(separated.datacenter,category,row);
+      else if(/\bNOC\b/i.test(support))append(separated.noc,category,row);
+      else append(separated.infra,category,row);
+    }));
+    SISTEMAS=target.sistemas;INFRA=separated.infra;DATA_CENTER=separated.datacenter;NOC=separated.noc;ADMINISTRATIVO=target.administrativo;
+    renumerarArea(DATA_CENTER,ORDEM_DATA_CENTER);renumerarArea(NOC,ORDEM_NOC);
+    CATALOG_AREAS.forEach(area=>{buildSubTabs(area);buildCatalog(area)});
     document.documentElement.dataset.catalogSource='supabase';
     window.dispatchEvent(new CustomEvent('catalog-data-ready'));
   }
