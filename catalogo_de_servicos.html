@@ -232,7 +232,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
   <div class="main">
     <div class="services-nav-heading">
       <div class="nav-heading-icon" aria-hidden="true">🧩</div>
-      <div class="nav-heading-copy"><h2>Categorias de TI — Sistemas</h2><p>Categorias de solicitações e incidentes atendidos por este grupo.</p></div>
+      <div class="nav-heading-copy"><h2>Categorias de Serviços de TI — Sistemas</h2><p>Categorias de serviços atendidas por este grupo.</p></div>
     </div>
     <div class="sub-tabs" id="subtabs-sistemas"></div>
     <div class="toolbar">
@@ -254,7 +254,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
   <div class="main">
     <div class="services-nav-heading">
       <div class="nav-heading-icon" aria-hidden="true">🧩</div>
-      <div class="nav-heading-copy"><h2>Categorias de TI — Infraestrutura</h2><p>Categorias de solicitações e incidentes atendidos por este grupo.</p></div>
+      <div class="nav-heading-copy"><h2>Categorias de Serviços de TI — Infraestrutura</h2><p>Categorias de serviços atendidas por este grupo.</p></div>
     </div>
     <div class="sub-tabs" id="subtabs-infra"></div>
     <div class="toolbar">
@@ -275,7 +275,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
   <div class="main">
     <div class="services-nav-heading">
       <div class="nav-heading-icon" aria-hidden="true">🧩</div>
-      <div class="nav-heading-copy"><h2>Categorias de TI — Data Center</h2><p>Categorias de solicitações e incidentes atendidos por este grupo.</p></div>
+      <div class="nav-heading-copy"><h2>Categorias de Serviços de TI — Data Center</h2><p>Categorias de serviços atendidas por este grupo.</p></div>
     </div>
     <div class="sub-tabs" id="subtabs-datacenter"></div>
     <div class="toolbar">
@@ -297,7 +297,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
   <div class="main">
     <div class="services-nav-heading">
       <div class="nav-heading-icon" aria-hidden="true">🧩</div>
-      <div class="nav-heading-copy"><h2>Categorias de TI — NOC</h2><p>Categorias de solicitações e incidentes atendidos por este grupo.</p></div>
+      <div class="nav-heading-copy"><h2>Categorias de Serviços de TI — NOC</h2><p>Categorias de serviços atendidas por este grupo.</p></div>
     </div>
     <div class="sub-tabs" id="subtabs-noc"></div>
     <div class="toolbar">
@@ -319,7 +319,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
   <div class="main">
     <div class="services-nav-heading">
       <div class="nav-heading-icon" aria-hidden="true">🧩</div>
-      <div class="nav-heading-copy"><h2>Categorias de TI — Gestão de Ativos</h2><p>Categorias de solicitações e incidentes atendidos por este grupo.</p></div>
+      <div class="nav-heading-copy"><h2>Categorias de Serviços de TI — Gestão de Ativos</h2><p>Categorias de serviços atendidas por este grupo.</p></div>
     </div>
     <div class="sub-tabs" id="subtabs-adm"></div>
     <div class="toolbar">
@@ -340,7 +340,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
   <div class="main">
     <div class="services-nav-heading">
       <div class="nav-heading-icon" aria-hidden="true">🧩</div>
-      <div class="nav-heading-copy"><h2>Categorias de TI — Dispositivos Móveis</h2><p>Categorias de solicitações e incidentes atendidos por este grupo.</p></div>
+      <div class="nav-heading-copy"><h2>Categorias de Serviços de TI — Dispositivos Móveis</h2><p>Categorias de serviços atendidas por este grupo.</p></div>
     </div>
     <div class="sub-tabs" id="subtabs-mobile"></div>
     <div class="toolbar">
@@ -630,7 +630,7 @@ function updateCategoryServicesHeading(area, categoryName) {
   title.textContent = `Serviços da categoria — ${categoryName}`;
   const description = document.createElement('div');
   description.className = 'category-services-description';
-  description.textContent = 'Os itens abaixo são serviços disponíveis dentro desta categoria.';
+  description.textContent = 'Os serviços abaixo reúnem as requisições e os incidentes disponíveis nesta categoria.';
   copy.append(title, description);
   heading.append(icon, copy);
 }
