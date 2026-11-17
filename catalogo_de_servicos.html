@@ -341,9 +341,12 @@ let ADMINISTRATIVO = {"Cartões Sim":[{"servico":"2. CHIP","dono":"DISPOSITIVOS 
 // pertence a Dispositivos Móveis, sem duplicar registros em Gestão de Ativos.
 const DISPOSITIVOS_MOVEIS = {};
 Object.keys(ADMINISTRATIVO).forEach(categoria => {
-  const migrados = ADMINISTRATIVO[categoria].filter(item => /DISPOSITIVOS MÓVEIS/i.test(String(item.n1 || '')));
+  const pertenceDispositivosMoveis = item =>
+    /DISPOSITIVOS MÓVEIS/i.test(String(item.n1 || '')) ||
+    (/TABLET/i.test(String(item.servico || '')) && /CONFIGURAÇÃO/i.test(String(item.solicitacao || '')));
+  const migrados = ADMINISTRATIVO[categoria].filter(pertenceDispositivosMoveis);
   if (migrados.length) DISPOSITIVOS_MOVEIS[categoria] = migrados;
-  ADMINISTRATIVO[categoria] = ADMINISTRATIVO[categoria].filter(item => !/DISPOSITIVOS MÓVEIS/i.test(String(item.n1 || '')));
+  ADMINISTRATIVO[categoria] = ADMINISTRATIVO[categoria].filter(item => !pertenceDispositivosMoveis(item));
   if (!ADMINISTRATIVO[categoria].length) delete ADMINISTRATIVO[categoria];
 });
 
