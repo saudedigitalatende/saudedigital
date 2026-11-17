@@ -28,36 +28,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 .hero h1 em{color:var(--amber-mid);font-style:normal}
 .hero p{font-size:12.5px;color:rgba(255,255,255,.45)}
 
-/* MAIN TABS — white background */
-.main-tabs{background:#fff;border-bottom:1px solid var(--rule);padding:0 60px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.main-tabs-inner{max-width:1280px;margin:0 auto;display:flex;gap:0}
-.main-tab{display:flex;align-items:center;gap:8px;padding:16px 26px;font-size:14px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink3);cursor:pointer;border:none;background:transparent;font-family:'DM Sans',sans-serif;border-bottom:4px solid transparent;transition:all .15s;white-space:nowrap}
-.main-tab:hover{color:var(--ink);background:rgba(0,0,0,.03)}
-.main-tab.active-sistemas{color:var(--blue);border-bottom-color:var(--blue-mid);background:var(--blue-lt)}
-.main-tab.active-infra{color:var(--green);border-bottom-color:var(--green-mid);background:var(--green-lt)}
-.main-tab.active-datacenter{color:var(--amber);border-bottom-color:var(--amber-mid);background:var(--amber-lt)}
-.main-tab.active-noc{color:var(--purple);border-bottom-color:var(--purple-mid);background:var(--purple-lt)}
-.main-tab.active-adm{color:var(--orange);border-bottom-color:var(--orange-mid);background:var(--orange-lt)}
-.main-tab.active-mobile{color:var(--blue);border-bottom-color:var(--blue-mid);background:var(--blue-lt)}
+/* GRUPOS DE ATENDIMENTO */
+.main-tabs{background:var(--page-bg);border-bottom:1px solid var(--rule);padding:24px 60px 28px}
+.group-nav-heading,.services-nav-heading{max-width:1280px;margin:0 auto 16px;display:flex;align-items:center;gap:12px}
+.nav-heading-icon{width:42px;height:42px;border-radius:12px;background:var(--green-lt);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;flex:0 0 auto}
+.nav-heading-copy h2{font-size:17px;line-height:1.25;color:var(--ink);font-weight:700}
+.nav-heading-copy p{font-size:12px;color:var(--ink3);margin-top:2px}
+.main-tabs-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:10px}
+.main-tab{display:flex;align-items:center;justify-content:flex-start;gap:9px;min-height:58px;padding:13px 16px;font-size:12.5px;font-weight:700;letter-spacing:.15px;text-transform:none;color:var(--ink2);cursor:pointer;border:1px solid #e2e6ea;border-radius:12px;background:#fff;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:normal;text-align:left}
+.main-tab:hover{color:var(--green);border-color:#b9d7c8;background:#fbfefc}
+.main-tab.active-sistemas,.main-tab.active-infra,.main-tab.active-datacenter,.main-tab.active-noc,.main-tab.active-adm,.main-tab.active-mobile{color:var(--green);border-color:var(--green-mid);background:var(--green-lt);box-shadow:inset 0 0 0 1px var(--green-mid)}
 
 /* PANELS */
 .panel{display:none}
 .panel.active{display:flex;flex-direction:column;flex:1;width:100%}.panel.global-search-result{display:flex;flex-direction:column;flex:1;width:100%}.global-area-title{display:none;max-width:1180px;width:calc(100% - 36px);margin:22px auto 0;padding:10px 14px;border-radius:9px;font-size:14px;font-weight:700;color:var(--ink)}.panel.global-search-result .global-area-title{display:block}#panel-infra .global-area-title{background:var(--green-lt);color:var(--green)}#panel-sistemas .global-area-title{background:var(--blue-lt);color:var(--blue)}#panel-datacenter .global-area-title{background:var(--amber-lt);color:var(--amber)}#panel-noc .global-area-title{background:var(--purple-lt);color:var(--purple)}#panel-adm .global-area-title{background:var(--orange-lt);color:var(--orange)}#panel-mobile .global-area-title{background:var(--blue-lt);color:var(--blue)}
 .main{max-width:1280px;margin:0 auto;padding:28px 60px 60px;flex:1;width:100%}
 
-/* SUB TABS */
-.sub-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+/* SERVIÇOS DE TI */
+.services-nav-heading{margin-bottom:14px}
+.services-nav-heading .nav-heading-icon{background:var(--blue-lt);color:var(--blue)}
+.sub-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
 .sub-tab{padding:7px 16px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--rule);background:#fff;color:var(--ink3);transition:all .15s;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.2px}
-.sub-tab.st-blue:hover{color:var(--blue-mid);border-color:var(--blue-mid)}
-.sub-tab.st-blue.active{background:var(--blue-lt);color:var(--blue-mid);border-color:var(--blue-mid)}
-.sub-tab.st-green:hover{color:var(--green-mid);border-color:var(--green-mid)}
-.sub-tab.st-green.active{background:var(--green-lt);color:var(--green-mid);border-color:var(--green-mid)}
-.sub-tab.st-orange:hover{color:var(--orange-mid);border-color:var(--orange-mid)}
-.sub-tab.st-orange.active{background:var(--orange-lt);color:var(--orange-mid);border-color:var(--orange-mid)}
-.sub-tab.st-amber:hover{color:var(--amber);border-color:var(--amber-mid)}
-.sub-tab.st-amber.active{background:var(--amber-lt);color:var(--amber);border-color:var(--amber-mid)}
-.sub-tab.st-purple:hover{color:var(--purple-mid);border-color:var(--purple-mid)}
-.sub-tab.st-purple.active{background:var(--purple-lt);color:var(--purple-mid);border-color:var(--purple-mid)}
+.sub-tab.st-blue:hover,.sub-tab.st-green:hover,.sub-tab.st-orange:hover,.sub-tab.st-amber:hover,.sub-tab.st-purple:hover{color:var(--green);border-color:#8fbea5}
+.sub-tab.st-blue.active,.sub-tab.st-green.active,.sub-tab.st-orange.active,.sub-tab.st-amber.active,.sub-tab.st-purple.active{background:var(--green-lt);color:var(--green);border-color:var(--green-mid)}
 
 /* TOOLBAR */
 .toolbar{display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
@@ -172,13 +165,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 .back-portal svg{width:14px;height:14px;flex-shrink:0}
 
 @media(max-width:900px){
-  .hero{padding-left:28px;padding-right:28px}.main-tabs{padding:0 20px}.main{padding:24px 28px 48px}
-  .main-tabs-inner{overflow-x:auto}.main-tab{padding:14px 18px}
+  .hero{padding-left:28px;padding-right:28px}.main-tabs{padding:22px 28px}.main{padding:24px 28px 48px}
+  .main-tabs-inner{grid-template-columns:repeat(3,minmax(150px,1fr))}.main-tab{padding:12px 14px}
   .service-header{flex-wrap:wrap}.service-toggle,.docs-toggle{min-width:148px}
   .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.cat-table{min-width:900px}
 }
 @media(max-width:600px){
-  .hero{padding:24px 18px 22px}.main-tabs{padding:0}.main-tab{padding:12px 14px;font-size:11px}
+  .hero{padding:24px 18px 22px}.main-tabs{padding:20px 14px}.main-tabs-inner{grid-template-columns:1fr 1fr;gap:8px}.main-tab{min-height:54px;padding:10px 12px;font-size:11px}
+  .group-nav-heading,.services-nav-heading{align-items:flex-start}.nav-heading-icon{width:38px;height:38px}.nav-heading-copy h2{font-size:15px}.nav-heading-copy p{font-size:11px}
   .main{padding:20px 14px 40px}.sub-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:5px}.sub-tab{flex:0 0 auto}
   .toolbar{gap:8px}.search-wrap{min-width:100%;order:0}.filter-tipo{flex:1}.results-count{margin-left:auto}
   .service-header{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:10px;padding:12px}
@@ -209,6 +203,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 </header>
 
 <div class="main-tabs">
+  <div class="group-nav-heading">
+    <div class="nav-heading-icon" aria-hidden="true">👥</div>
+    <div class="nav-heading-copy">
+      <h2>Grupos de Atendimento</h2>
+      <p>Equipes responsáveis pelo atendimento das solicitações.</p>
+    </div>
+  </div>
   <div class="main-tabs-inner">
     <button class="main-tab active-infra" id="tab-infra" onclick="switchMain('infra',this)">🖧 Infraestrutura</button>
     <button class="main-tab" id="tab-datacenter" onclick="switchMain('datacenter',this)">🗄️ Data Center</button>
@@ -221,6 +222,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 
 <div class="panel" id="panel-sistemas"><div class="global-area-title">Resultados em Sistemas</div>
   <div class="main">
+    <div class="services-nav-heading">
+      <div class="nav-heading-icon" aria-hidden="true">🧩</div>
+      <div class="nav-heading-copy"><h2>Serviços de TI — Sistemas</h2><p>Tipos de solicitações e incidentes atendidos por este grupo.</p></div>
+    </div>
     <div class="sub-tabs" id="subtabs-sistemas"></div>
     <div class="toolbar">
       <div class="search-wrap"><input type="text" id="search-sistemas" placeholder="Buscar em todos os catálogos..." oninput="filterCatalog('sistemas')"></div>
@@ -238,6 +243,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 
 <div class="panel active" id="panel-infra"><div class="global-area-title">Resultados em Infraestrutura</div>
   <div class="main">
+    <div class="services-nav-heading">
+      <div class="nav-heading-icon" aria-hidden="true">🧩</div>
+      <div class="nav-heading-copy"><h2>Serviços de TI — Infraestrutura</h2><p>Tipos de solicitações e incidentes atendidos por este grupo.</p></div>
+    </div>
     <div class="sub-tabs" id="subtabs-infra"></div>
     <div class="toolbar">
       <div class="search-wrap"><input type="text" id="search-infra" placeholder="Buscar em todos os catálogos..." oninput="filterCatalog('infra')"></div>
@@ -254,6 +263,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 
 <div class="panel" id="panel-datacenter"><div class="global-area-title">Resultados em Data Center</div>
   <div class="main">
+    <div class="services-nav-heading">
+      <div class="nav-heading-icon" aria-hidden="true">🧩</div>
+      <div class="nav-heading-copy"><h2>Serviços de TI — Data Center</h2><p>Tipos de solicitações e incidentes atendidos por este grupo.</p></div>
+    </div>
     <div class="sub-tabs" id="subtabs-datacenter"></div>
     <div class="toolbar">
       <div class="search-wrap"><input type="text" id="search-datacenter" placeholder="Buscar em todos os catálogos..." oninput="filterCatalog('datacenter')"></div>
@@ -271,6 +284,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 
 <div class="panel" id="panel-noc"><div class="global-area-title">Resultados em NOC</div>
   <div class="main">
+    <div class="services-nav-heading">
+      <div class="nav-heading-icon" aria-hidden="true">🧩</div>
+      <div class="nav-heading-copy"><h2>Serviços de TI — NOC</h2><p>Tipos de solicitações e incidentes atendidos por este grupo.</p></div>
+    </div>
     <div class="sub-tabs" id="subtabs-noc"></div>
     <div class="toolbar">
       <div class="search-wrap"><input type="text" id="search-noc" placeholder="Buscar em todos os catálogos..." oninput="filterCatalog('noc')"></div>
@@ -288,6 +305,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 
 <div class="panel" id="panel-adm"><div class="global-area-title">Resultados em Gestão de Ativos</div>
   <div class="main">
+    <div class="services-nav-heading">
+      <div class="nav-heading-icon" aria-hidden="true">🧩</div>
+      <div class="nav-heading-copy"><h2>Serviços de TI — Gestão de Ativos</h2><p>Tipos de solicitações e incidentes atendidos por este grupo.</p></div>
+    </div>
     <div class="sub-tabs" id="subtabs-adm"></div>
     <div class="toolbar">
       <div class="search-wrap"><input type="text" id="search-adm" placeholder="Buscar em todos os catálogos..." oninput="filterCatalog('adm')"></div>
@@ -304,6 +325,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 
 <div class="panel" id="panel-mobile"><div class="global-area-title">Resultados em Dispositivos Móveis</div>
   <div class="main">
+    <div class="services-nav-heading">
+      <div class="nav-heading-icon" aria-hidden="true">🧩</div>
+      <div class="nav-heading-copy"><h2>Serviços de TI — Dispositivos Móveis</h2><p>Tipos de solicitações e incidentes atendidos por este grupo.</p></div>
+    </div>
     <div class="sub-tabs" id="subtabs-mobile"></div>
     <div class="toolbar">
       <div class="search-wrap"><input type="text" id="search-mobile" placeholder="Buscar em todos os catálogos..." oninput="filterCatalog('mobile')"></div>
