@@ -25,6 +25,7 @@
     }));
     Object.entries(target.mobile).forEach(([category,rows])=>(target.administrativo[category]??=[]).push(...rows));
     SISTEMAS=target.sistemas;INFRA=separated.infra;DATA_CENTER=separated.datacenter;NOC=separated.noc;ADMINISTRATIVO=target.administrativo;
+    aplicarNomeGestaoAtivos(ADMINISTRATIVO);
     renumerarArea(DATA_CENTER,ORDEM_DATA_CENTER);renumerarArea(NOC,ORDEM_NOC);
     CATALOG_AREAS.forEach(area=>{buildSubTabs(area);buildCatalog(area)});
     document.documentElement.dataset.catalogSource='supabase';
