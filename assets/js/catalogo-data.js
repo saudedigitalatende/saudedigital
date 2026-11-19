@@ -23,17 +23,9 @@
       else if(/\bNOC\b/i.test(support))append(separated.noc,category,row);
       else append(separated.infra,category,row);
     }));
+    Object.entries(target.mobile).forEach(([category,rows])=>(target.administrativo[category]??=[]).push(...rows));
     SISTEMAS=target.sistemas;INFRA=separated.infra;DATA_CENTER=separated.datacenter;NOC=separated.noc;ADMINISTRATIVO=target.administrativo;
-    Object.keys(DISPOSITIVOS_MOVEIS).forEach(category=>delete DISPOSITIVOS_MOVEIS[category]);
-    Object.entries(target.mobile).forEach(([category,rows])=>DISPOSITIVOS_MOVEIS[category]=[...rows]);
-    Object.keys(ADMINISTRATIVO).forEach(category=>{
-      const belongsToMobile=item=>/DISPOSITIVOS MÓVEIS/i.test(String(item.n1||''))||/(?:^|\.\s*)(?:CHIP|TABLET)$/i.test(String(item.servico||'').trim());
-      const moved=ADMINISTRATIVO[category].filter(belongsToMobile);
-      if(moved.length)(DISPOSITIVOS_MOVEIS[category]??=[]).push(...moved);
-      ADMINISTRATIVO[category]=ADMINISTRATIVO[category].filter(item=>!belongsToMobile(item));
-      if(!ADMINISTRATIVO[category].length)delete ADMINISTRATIVO[category];
-    });
-    renumerarArea(DATA_CENTER,ORDEM_DATA_CENTER);renumerarArea(NOC,ORDEM_NOC);renumerarArea(DISPOSITIVOS_MOVEIS,ORDEM_DISPOSITIVOS_MOVEIS);
+    renumerarArea(DATA_CENTER,ORDEM_DATA_CENTER);renumerarArea(NOC,ORDEM_NOC);
     CATALOG_AREAS.forEach(area=>{buildSubTabs(area);buildCatalog(area)});
     document.documentElement.dataset.catalogSource='supabase';
     window.dispatchEvent(new CustomEvent('catalog-data-ready'));

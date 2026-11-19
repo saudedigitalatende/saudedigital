@@ -34,14 +34,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
 .nav-heading-icon{width:42px;height:42px;border-radius:12px;background:var(--green-lt);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;flex:0 0 auto}
 .nav-heading-copy h2{font-size:17px;line-height:1.25;color:var(--ink);font-weight:700}
 .nav-heading-copy p{font-size:12px;color:var(--ink3);margin-top:2px}
-.main-tabs-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:10px}
+.main-tabs-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(150px,1fr));gap:10px}
 .main-tab{display:flex;align-items:center;justify-content:flex-start;gap:9px;min-height:58px;padding:13px 16px;font-size:12.5px;font-weight:700;letter-spacing:.15px;text-transform:none;color:var(--ink2);cursor:pointer;border:1px solid #e2e6ea;border-radius:12px;background:#fff;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:normal;text-align:left}
 .main-tab:hover{color:var(--green);border-color:#b9d7c8;background:#fbfefc}
-.main-tab.active-sistemas,.main-tab.active-infra,.main-tab.active-datacenter,.main-tab.active-noc,.main-tab.active-adm,.main-tab.active-mobile{color:var(--green);border-color:var(--green-mid);background:var(--green-lt);box-shadow:inset 0 0 0 1px var(--green-mid)}
+.main-tab.active-sistemas,.main-tab.active-infra,.main-tab.active-datacenter,.main-tab.active-noc,.main-tab.active-adm{color:var(--green);border-color:var(--green-mid);background:var(--green-lt);box-shadow:inset 0 0 0 1px var(--green-mid)}
 
 /* PANELS */
 .panel{display:none}
-.panel.active{display:flex;flex-direction:column;flex:1;width:100%}.panel.global-search-result{display:flex;flex-direction:column;flex:1;width:100%}.global-area-title{display:none;max-width:1180px;width:calc(100% - 36px);margin:22px auto 0;padding:10px 14px;border-radius:9px;font-size:14px;font-weight:700;color:var(--ink)}.panel.global-search-result .global-area-title{display:block}#panel-infra .global-area-title{background:var(--green-lt);color:var(--green)}#panel-sistemas .global-area-title{background:var(--blue-lt);color:var(--blue)}#panel-datacenter .global-area-title{background:var(--amber-lt);color:var(--amber)}#panel-noc .global-area-title{background:var(--purple-lt);color:var(--purple)}#panel-adm .global-area-title{background:var(--orange-lt);color:var(--orange)}#panel-mobile .global-area-title{background:var(--blue-lt);color:var(--blue)}
+.panel.active{display:flex;flex-direction:column;flex:1;width:100%}.panel.global-search-result{display:flex;flex-direction:column;flex:1;width:100%}.global-area-title{display:none;max-width:1180px;width:calc(100% - 36px);margin:22px auto 0;padding:10px 14px;border-radius:9px;font-size:14px;font-weight:700;color:var(--ink)}.panel.global-search-result .global-area-title{display:block}#panel-infra .global-area-title{background:var(--green-lt);color:var(--green)}#panel-sistemas .global-area-title{background:var(--blue-lt);color:var(--blue)}#panel-datacenter .global-area-title{background:var(--amber-lt);color:var(--amber)}#panel-noc .global-area-title{background:var(--purple-lt);color:var(--purple)}#panel-adm .global-area-title{background:var(--orange-lt);color:var(--orange)}
 .main{max-width:1280px;margin:0 auto;padding:28px 60px 60px;flex:1;width:100%}
 
 /* SERVIÇOS DE TI */
@@ -225,7 +225,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
     <button class="main-tab" id="tab-noc" onclick="switchMain('noc',this)">📡 NOC</button>
     <button class="main-tab" id="tab-sistemas" onclick="switchMain('sistemas',this)">💻 Sistemas</button>
     <button class="main-tab" id="tab-adm" onclick="switchMain('adm',this)">🗂️ Gestão de Ativos</button>
-    <button class="main-tab" id="tab-mobile" onclick="switchMain('mobile',this)">📱 Dispositivos Móveis</button>
   </div>
 </div>
 
@@ -337,27 +336,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--page-bg);color:var(--ink)
   </div>
 </div>
 
-<div class="panel" id="panel-mobile"><div class="global-area-title">Resultados em Dispositivos Móveis</div>
-  <div class="main">
-    <div class="services-nav-heading">
-      <div class="nav-heading-icon" aria-hidden="true">🧩</div>
-      <div class="nav-heading-copy"><h2>Categorias de Serviços de TI — Dispositivos Móveis</h2><p>Categorias de serviços atendidas por este grupo.</p></div>
-    </div>
-    <div class="sub-tabs" id="subtabs-mobile"></div>
-    <div class="toolbar">
-      <div class="search-wrap"><input type="text" id="search-mobile" placeholder="Buscar em todos os catálogos..." oninput="filterCatalog('mobile')"></div>
-      <select class="filter-tipo" id="tipo-mobile" onchange="filterCatalog('mobile')">
-        <option value="">Todos os tipos</option>
-        <option value="REQUISIÇÃO">Requisição</option>
-        <option value="INCIDENTE">Incidente</option>
-      </select>
-      <span class="results-count" id="count-mobile"></span>
-    </div>
-    <div class="category-services-heading" id="services-heading-mobile" aria-live="polite"></div>
-    <div class="services-list" id="list-mobile"></div>
-  </div>
-</div>
-
 <footer class="page-footer">
   <div class="footer-brand">GTIC · Saúde Digital</div>
   <div class="footer-meta">
@@ -416,23 +394,8 @@ const correcoesSlaPorChave = new Map(CORRECOES_SLA_GLPI.map(([servico, solicitac
   });
 });
 
-// Migra para a área própria todas as solicitações cujo Filtro e Execução Inicial
-// pertence a Dispositivos Móveis, sem duplicar registros em Gestão de Ativos.
-const DISPOSITIVOS_MOVEIS = {};
-Object.keys(ADMINISTRATIVO).forEach(categoria => {
-  const pertenceDispositivosMoveis = item =>
-    /DISPOSITIVOS MÓVEIS/i.test(String(item.n1 || '')) ||
-    /(?:^|\.\s*)CHIP$/i.test(String(item.servico || '').trim()) ||
-    /(?:^|\.\s*)TABLET$/i.test(String(item.servico || '').trim());
-  const migrados = ADMINISTRATIVO[categoria].filter(pertenceDispositivosMoveis);
-  if (migrados.length) DISPOSITIVOS_MOVEIS[categoria] = migrados;
-  ADMINISTRATIVO[categoria] = ADMINISTRATIVO[categoria].filter(item => !pertenceDispositivosMoveis(item));
-  if (!ADMINISTRATIVO[categoria].length) delete ADMINISTRATIVO[categoria];
-});
-
 const ORDEM_DATA_CENTER = ['VPN', 'LINHA EXTERNA (TELEFONE FIXO)', 'ACESSO A SITE', 'E-MAIL'];
 const ORDEM_NOC = ['INTERNET (FIBRA)', 'ZABBIX'];
-const ORDEM_DISPOSITIVOS_MOVEIS = ['CHIP', 'TABLET'];
 function renumerarArea(data, ordem) {
   Object.values(data).flat().forEach(item => {
     const nome = String(item.servico || '').replace(/^\s*\d+\.\s*/, '');
@@ -442,7 +405,6 @@ function renumerarArea(data, ordem) {
 }
 renumerarArea(DATA_CENTER, ORDEM_DATA_CENTER);
 renumerarArea(NOC, ORDEM_NOC);
-renumerarArea(DISPOSITIVOS_MOVEIS, ORDEM_DISPOSITIVOS_MOVEIS);
 
 // Numeração própria e sequencial do catálogo Administrativo.
 const ORDEM_ADMINISTRATIVO = [
@@ -472,7 +434,7 @@ Object.values(INFRA).flat().filter(item => item.servico === '8. VPN').forEach(it
   if (encaminhamento) [item.n1, item.n2, item.n3] = encaminhamento;
 });
 
-const CATALOG_AREAS = ['infra', 'datacenter', 'noc', 'sistemas', 'adm', 'mobile'];
+const CATALOG_AREAS = ['infra', 'datacenter', 'noc', 'sistemas', 'adm'];
 
 // Categoria atual por área: null = nenhuma seleção; '' é reservado à busca global temporária.
 const state = {
@@ -481,7 +443,6 @@ const state = {
   datacenter: {sheet: null, search:'', tipo:''},
   noc:      {sheet: null, search:'', tipo:''},
   adm:      {sheet: null, search:'', tipo:''},
-  mobile:   {sheet: null, search:'', tipo:''},
 };
 let activeMainArea = 'infra';
 let globalSearchRunning = false;
@@ -503,8 +464,7 @@ function getData(area) {
     infra: INFRA,
     datacenter: DATA_CENTER,
     noc: NOC,
-    adm: ADMINISTRATIVO,
-    mobile: DISPOSITIVOS_MOVEIS
+    adm: ADMINISTRATIVO
   }[area];
 }
 const AREA_PRESENTATION = {
@@ -512,8 +472,7 @@ const AREA_PRESENTATION = {
   infra: {color: 'green', icon: '🖧', subTab: 'st-green'},
   datacenter: {color: 'amber', icon: '🗄️', subTab: 'st-amber'},
   noc: {color: 'purple', icon: '📡', subTab: 'st-purple'},
-  adm: {color: 'orange', icon: '🗂️', subTab: 'st-orange'},
-  mobile: {color: 'blue', icon: '📱', subTab: 'st-blue'}
+  adm: {color: 'orange', icon: '🗂️', subTab: 'st-orange'}
 };
 
 function tipoTag(tipo) {
@@ -663,7 +622,7 @@ function buildCatalog(area) {
 
   // Ordenar por número do serviço. Em Gestão de Ativos e Dispositivos Móveis,
   // aplicar também dentro de cada categoria.
-  if (sheet === '' || area === 'adm' || area === 'mobile') {
+  if (sheet === '' || area === 'adm') {
     const EXCECOES_FINAL = ['42. ACESSO A SITE'];
     services.sort((a, b) => {
       const aExc = EXCECOES_FINAL.includes(a);
@@ -773,7 +732,7 @@ function serviceIcon(serviceName, categoryName) {
 function buildSubTabs(area) {
   const DATA  = getData(area);
   const color = AREA_PRESENTATION[area].subTab;
-  const keys  = Object.keys(DATA).sort((a, b) => (area === 'adm' || area === 'mobile') ? categoryFirstNumber(DATA[a]) - categoryFirstNumber(DATA[b]) || a.localeCompare(b, 'pt-BR') : 0);
+  const keys  = Object.keys(DATA).sort((a, b) => area === 'adm' ? categoryFirstNumber(DATA[a]) - categoryFirstNumber(DATA[b]) || a.localeCompare(b, 'pt-BR') : 0);
 
   let html = '';
   keys.forEach(k => {
@@ -925,7 +884,7 @@ window.addEventListener('message', e => {
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js?v=20260929-1"></script>
-<script src="assets/js/catalogo-data.js?v=20261119-1"></script>
+<script src="assets/js/catalogo-data.js?v=20261119-2"></script>
 <script src="assets/js/auth.js?v=20261001-1"></script>
 <script src="assets/js/catalogo-admin.js?v=20261001-1"></script>
 </body>
