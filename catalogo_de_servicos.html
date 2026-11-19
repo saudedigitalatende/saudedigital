@@ -422,6 +422,7 @@ const DISPOSITIVOS_MOVEIS = {};
 Object.keys(ADMINISTRATIVO).forEach(categoria => {
   const pertenceDispositivosMoveis = item =>
     /DISPOSITIVOS MÓVEIS/i.test(String(item.n1 || '')) ||
+    /(?:^|\.\s*)CHIP$/i.test(String(item.servico || '').trim()) ||
     (/TABLET/i.test(String(item.servico || '')) && /CONFIGURAÇÃO/i.test(String(item.solicitacao || '')));
   const migrados = ADMINISTRATIVO[categoria].filter(pertenceDispositivosMoveis);
   if (migrados.length) DISPOSITIVOS_MOVEIS[categoria] = migrados;
