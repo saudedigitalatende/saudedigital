@@ -363,6 +363,11 @@ function aplicarNomeGestaoAtivos(data) {
         item[campo] = item[campo].replace(/DISPOSITIVOS MÓVEIS/gi, 'GESTÃO DE ATIVOS');
       }
     });
+    if (/(?:^|\.\s*)TABLET$/i.test(String(item.servico || '').trim())) {
+      item.n1 = 'GESTÃO DE ATIVOS';
+      item.n2 = 'GESTÃO DE ATIVOS';
+      item.n3 = 'GESTÃO DE ATIVOS';
+    }
   });
 }
 aplicarNomeGestaoAtivos(ADMINISTRATIVO);
@@ -896,7 +901,7 @@ window.addEventListener('message', e => {
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js?v=20260929-1"></script>
-<script src="assets/js/catalogo-data.js?v=20261119-3"></script>
+<script src="assets/js/catalogo-data.js?v=20261119-4"></script>
 <script src="assets/js/auth.js?v=20261001-1"></script>
 <script src="assets/js/catalogo-admin.js?v=20261001-1"></script>
 </body>
