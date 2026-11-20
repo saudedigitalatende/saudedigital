@@ -1035,6 +1035,32 @@ const valueLabelsPlugin = {
   }
 };
 
+const backlogValueLabelsPlugin = {
+  id: 'backlogValueLabels',
+  afterDatasetsDraw(chart) {
+    const { ctx, chartArea } = chart;
+    chart.data.datasets.forEach((dataset, datasetIndex) => {
+      const meta = chart.getDatasetMeta(datasetIndex);
+      if (meta.hidden || meta.type !== 'bar') return;
+      meta.data.forEach((bar, index) => {
+        const value = Number(dataset.data[index]);
+        if (!Number.isFinite(value) || value <= 0) return;
+        const label = value.toLocaleString('pt-BR');
+        ctx.save();
+        ctx.font = EMBED_MODE ? '600 9px "DM Sans", sans-serif' : '600 10px "Segoe UI", Arial, sans-serif';
+        ctx.textBaseline = 'middle';
+        const labelWidth = ctx.measureText(label).width;
+        const hasOutsideRoom = bar.x + labelWidth + 9 <= chartArea.right;
+        ctx.textAlign = hasOutsideRoom ? 'left' : 'right';
+        ctx.fillStyle = hasOutsideRoom ? '#263f5f' : '#ffffff';
+        if (!hasOutsideRoom) { ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 2; }
+        ctx.fillText(label, hasOutsideRoom ? bar.x + 5 : bar.x - 5, bar.y);
+        ctx.restore();
+      });
+    });
+  }
+};
+
 function renderDetailTable(list, label) {
   document.getElementById('indTituloDetalhe').textContent = label ? '— ' + label + ' (' + list.length + ' chamados)' : '';
   const tbody = document.querySelector('#indTableDetalhe tbody');
@@ -1282,11 +1308,12 @@ function renderBacklogChart(canvasId, list, grupo) {
         }
       },
       scales: {
-        x: { beginAtZero: true, position: 'bottom', title: { display: true, text: 'Chamados' }, grid: { color: '#EEF0F3' }, ticks: { color: '#8A8F9A' } },
-        x1: { beginAtZero: true, position: 'top', title: { display: true, text: 'Backlog acumulado' }, grid: { display: false }, ticks: { color: '#8A8F9A' } },
+        x: { beginAtZero: true, grace: '10%', position: 'bottom', title: { display: true, text: 'Chamados' }, grid: { color: '#EEF0F3' }, ticks: { color: '#8A8F9A' } },
+        x1: { beginAtZero: true, grace: '10%', position: 'top', title: { display: true, text: 'Backlog acumulado' }, grid: { display: false }, ticks: { color: '#8A8F9A' } },
         y: { grid: { display: false }, ticks: { color: '#8A8F9A', autoSkip: false } }
       }
-    }
+    },
+    plugins: [backlogValueLabelsPlugin]
   });
 }
 
