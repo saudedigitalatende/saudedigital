@@ -536,8 +536,8 @@
 Chart.register({
   id:'persistentBarValues',
   afterDatasetsDraw(chart){
-    const localPlugins=chart.config.plugins||[];
-    if(localPlugins.some(plugin=>plugin&&['valueLabels','dispDataLabels'].includes(plugin.id)))return;
+    const chartsWithOwnLabels=['indChartSlaInfra','indChartSlaSistemas','indChartSlaGovernanca','indChartSlaMoveis','fibraChartFibra'];
+    if(chartsWithOwnLabels.includes(chart.canvas.id))return;
     const {ctx,chartArea}=chart;
     chart.data.datasets.forEach((dataset,datasetIndex)=>{
       const meta=chart.getDatasetMeta(datasetIndex);
