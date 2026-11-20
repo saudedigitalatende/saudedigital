@@ -147,7 +147,7 @@ h1 em{font-style:normal;color:#c5a23e}
 </style>
 </head>
 <body>
-<header class="top"><div class="top-inner"><div><div class="eyebrow">Indicadores de Chamados GLPI – Visão Completa · Janeiro a Outubro 2026</div><h1>Indicador de <em>Desempenho</em></h1><p class="subtitle">GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p></div><div class="top-actions"><button class="btn" id="refresh-dashboard" type="button" title="Atualizar os dados do dashboard"><span class="refresh-icon" aria-hidden="true">↻</span><span class="refresh-label">Atualizar</span></button><a class="btn primary" href="documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/GLPI_Janeiro_a_Outubro_2026_4_Grupos.xlsx" download>↓ Baixar planilha fonte</a><a class="btn" href="indicadores.html">← Voltar aos indicadores</a></div></div></header>
+<header class="top"><div class="top-inner"><div><div class="eyebrow">Indicadores de Chamados GLPI – Visão com Automação · Janeiro a Dezembro de 2026</div><h1>Indicador de <em>Desempenho</em></h1><p class="subtitle">GTIC — Gerência de Tecnologia da Informação e Comunicação · Secretaria de Saúde do Recife</p></div><div class="top-actions"><button class="btn" id="refresh-dashboard" type="button" title="Atualizar os dados do dashboard"><span class="refresh-icon" aria-hidden="true">↻</span><span class="refresh-label">Atualizar</span></button><a class="btn primary" href="documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/GLPI_Janeiro_a_Outubro_2026_4_Grupos.xlsx" download>↓ Baixar planilha fonte</a><a class="btn" href="indicadores.html">← Voltar aos indicadores</a></div></div></header>
 <nav class="dashboard-nav" aria-label="Navegação dos indicadores">
   <div class="nav-row">
     <span class="nav-label">Monitoramento</span>
@@ -157,8 +157,8 @@ h1 em{font-style:normal;color:#c5a23e}
   </div>
   <div class="month-row">
     <span class="nav-label">Filtrar por mês:</span>
-    <button class="month-pill active" data-month="todos">Jan–Out 2026</button><button class="month-pill" data-month="jan">Janeiro</button><button class="month-pill" data-month="fev">Fevereiro</button><button class="month-pill" data-month="mar">Março</button><button class="month-pill" data-month="abr">Abril</button><button class="month-pill" data-month="mai">Maio</button><button class="month-pill" data-month="jun">Junho</button><button class="month-pill" data-month="jul">Julho</button><button class="month-pill" data-month="ago">Agosto</button><button class="month-pill" data-month="set">Setembro</button><button class="month-pill" data-month="out">Outubro</button>
-    <span class="month-note" id="month-note">Exibindo: Jan–Out 2026</span>
+    <button class="month-pill active" data-month="todos">Jan–Dez 2026</button><button class="month-pill" data-month="jan">Janeiro</button><button class="month-pill" data-month="fev">Fevereiro</button><button class="month-pill" data-month="mar">Março</button><button class="month-pill" data-month="abr">Abril</button><button class="month-pill" data-month="mai">Maio</button><button class="month-pill" data-month="jun">Junho</button><button class="month-pill" data-month="jul">Julho</button><button class="month-pill" data-month="ago">Agosto</button><button class="month-pill" data-month="set">Setembro</button><button class="month-pill" data-month="out">Outubro</button><button class="month-pill" data-month="nov">Novembro</button><button class="month-pill" data-month="dez">Dezembro</button>
+    <span class="month-note" id="month-note">Exibindo: Jan–Dez 2026</span>
   </div>
 </nav>
 <main class="main">
@@ -200,13 +200,13 @@ h1 em{font-style:normal;color:#c5a23e}
     <div class="trend-grid">
       <article class="chart-card">
         <div class="chart-title">Pico de chamados por dia da semana</div>
-        <div class="chart-sub" id="weekly-peak-sub">Volume de chamados por dia da semana · Jan–Out 2026</div>
+        <div class="chart-sub" id="weekly-peak-sub">Volume de chamados por dia da semana · Jan–Dez 2026</div>
         <div class="chart-wrap"><canvas id="weekday-chart"></canvas></div>
         <div class="chart-metrics"><div class="chart-metric"><span>Maior pico</span><strong id="weekly-peak-value">0</strong></div><div class="chart-metric"><span>Dia do pico</span><strong id="weekly-peak-label">—</strong></div></div>
       </article>
       <article class="chart-card">
         <div class="chart-title">Evolutivo de chamados por Grupo Técnico</div>
-        <div class="chart-sub">Infraestrutura, Sistemas, Governança e Dispositivos Móveis · jan–out 2026</div>
+        <div class="chart-sub">Infraestrutura, Sistemas, Governança e Dispositivos Móveis · jan–dez 2026</div>
         <div class="chart-wrap"><canvas id="group-trend-chart"></canvas></div>
       </article>
     </div>
@@ -215,12 +215,12 @@ h1 em{font-style:normal;color:#c5a23e}
     <div class="trend-grid">
       <article class="chart-card status-card-wide">
         <div class="chart-title">Status dos chamados</div>
-        <div class="chart-sub" id="status-chart-sub">Distribuição por situação e Grupo Técnico · Jan–Out 2026</div>
+        <div class="chart-sub" id="status-chart-sub">Distribuição por situação e Grupo Técnico · Jan–Dez 2026</div>
         <div class="status-groups-grid" id="status-groups-grid"></div>
       </article>
       <article class="chart-card services-card-wide">
         <div class="chart-title">Top 5 serviços demandados</div>
-        <div class="chart-sub" id="services-chart-sub">Volume de chamados por serviço · Jan–Out 2026</div>
+        <div class="chart-sub" id="services-chart-sub">Volume de chamados por serviço · Jan–Dez 2026</div>
         <div class="chart-wrap services-chart-wrap"><canvas id="services-chart"></canvas></div>
       </article>
     </div>
@@ -228,7 +228,7 @@ h1 em{font-style:normal;color:#c5a23e}
   <div class="source-note"><strong>Fonte:</strong> GLPI_Janeiro_a_Outubro_2026_4_Grupos.xlsx. A estrutura apresenta quatro Grupos Técnicos e suas Áreas Técnicas, incluindo Tablet, Smartphone e Cartão SIM em Dispositivos Móveis.</div>
 </div>
 <section class="dashboard-view" id="satisfaction-view" hidden>
-  <div class="sla-page-title"><h2>Pesquisa de Satisfação</h2><p id="satisfaction-period-label">Avaliações do atendimento · Jan–Out 2026</p></div>
+  <div class="sla-page-title"><h2>Pesquisa de Satisfação</h2><p id="satisfaction-period-label">Avaliações do atendimento · Jan–Dez 2026</p></div>
   <section class="summary"><div class="section-title">Resumo da pesquisa — 2026</div><div class="summary-grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">
     <div class="summary-box"><strong id="satisfaction-total">0</strong><span>Respostas recebidas</span></div>
     <div class="summary-box"><strong id="satisfaction-rate">—</strong><span>Avaliações Excelente + Bom</span></div>
@@ -245,7 +245,7 @@ h1 em{font-style:normal;color:#c5a23e}
   <div class="source-note"><strong>Fonte:</strong> Pesquisa de Satisfação — Avaliação do Atendimento de Suporte a Sistemas, respostas de janeiro a outubro de 2026. <a href="documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/Pesquisa_de_Satisfacao_2026.xlsx" download>Baixar planilha da pesquisa</a>.</div>
 </section>
 <section class="dashboard-view" id="sla-view" hidden>
-  <div class="sla-page-title"><h2>SLA e Backlog</h2><p id="sla-period-label">Análise de cumprimento dos prazos e evolução do backlog · Jan–Out 2026</p></div>
+  <div class="sla-page-title"><h2>SLA e Backlog</h2><p id="sla-period-label">Análise de cumprimento dos prazos e evolução do backlog · Jan–Dez 2026</p></div>
   <div class="sla-layout">
     <div class="sla-analysis-band"><div class="sla-analysis-title">Desempenho por Grupo Técnico</div><div class="sla-analysis-grid" id="sla-group-analysis"></div></div>
     <div class="sla-section-heading"><h2>DISTRIBUIÇÃO DOS CHAMADOS</h2><p>Distribuição dos chamados conforme o prazo de solução definido no SLA, separando os chamados em aberto e encerrados, dentro e fora do prazo.</p></div>
@@ -260,51 +260,137 @@ h1 em{font-style:normal;color:#c5a23e}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 const DASHBOARD_DATA = {"todos":{"total":14105,"np":10573,"fp":3532,"sla":75.0,"enc":11147,"ab":2958,"resolucao":79.0,"groups":{"GOVERNANÇA":{"total":1708,"np":1162,"fp":546,"sla":68.0,"enc":1446,"ab":262,"areas":{"NOC":{"total":1526,"np":985,"fp":541,"sla":64.5},"DATA CENTER":{"total":182,"np":177,"fp":5,"sla":97.3}}},"SISTEMAS":{"total":2951,"np":2107,"fp":844,"sla":71.4,"enc":2692,"ab":259,"areas":{"ASSISTÊNCIA REMOTA":{"total":2467,"np":1638,"fp":829,"sla":66.4},"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":119,"np":104,"fp":15,"sla":87.4},"ASSISTÊNCIA OPERAÇÃO ASSISTIDA":{"total":81,"np":81,"fp":0,"sla":100.0},"ASSISTÊNCIA IMPLANTAÇÃO":{"total":284,"np":284,"fp":0,"sla":100.0}}},"INFRAESTRUTURA":{"total":9262,"np":7175,"fp":2087,"sla":77.5,"enc":6971,"ab":2291,"areas":{"IMPRESSÃO":{"total":3421,"np":2893,"fp":528,"sla":84.6},"EQUIPAMENTOS E DISPOSITIVOS":{"total":4026,"np":3081,"fp":945,"sla":76.5},"REDE E CONECTIVIDADE":{"total":964,"np":730,"fp":234,"sla":75.7},"TELEFONIA":{"total":326,"np":254,"fp":72,"sla":77.9},"SOFTWARES":{"total":525,"np":217,"fp":308,"sla":41.3}}},"DISPOSITIVOS MÓVEIS":{"total":184,"np":129,"fp":55,"sla":70.1,"enc":38,"ab":146,"areas":{"TABLET":{"total":173,"np":119,"fp":54,"sla":68.8},"SMARTPHONE":{"total":3,"np":2,"fp":1,"sla":66.7},"CARTÃO SIM":{"total":8,"np":8,"fp":0,"sla":100.0}}}},"districts":{"DS 6":{"total":1198,"np":891,"fp":307,"sla":74.4},"DS 7":{"total":1410,"np":1018,"fp":392,"sla":72.2},"DS 5":{"total":2034,"np":1592,"fp":442,"sla":78.3},"DS 3":{"total":1869,"np":1440,"fp":429,"sla":77.0},"DS 2":{"total":1541,"np":1135,"fp":406,"sla":73.7},"DS 1":{"total":3618,"np":2752,"fp":866,"sla":76.1},"DS 8":{"total":988,"np":715,"fp":273,"sla":72.4},"DS 4":{"total":1376,"np":983,"fp":393,"sla":71.4}}},"jan":{"total":996,"np":787,"fp":209,"sla":79.0,"enc":852,"ab":144,"resolucao":85.5,"groups":{"GOVERNANÇA":{"total":64,"np":24,"fp":40,"sla":37.5,"enc":64,"ab":0,"areas":{"NOC":{"total":64,"np":24,"fp":40,"sla":37.5}}},"SISTEMAS":{"total":216,"np":160,"fp":56,"sla":74.1,"enc":215,"ab":1,"areas":{"ASSISTÊNCIA REMOTA":{"total":213,"np":159,"fp":54,"sla":74.6},"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":3,"np":1,"fp":2,"sla":33.3}}},"INFRAESTRUTURA":{"total":698,"np":602,"fp":96,"sla":86.2,"enc":571,"ab":127,"areas":{"IMPRESSÃO":{"total":289,"np":265,"fp":24,"sla":91.7},"EQUIPAMENTOS E DISPOSITIVOS":{"total":287,"np":242,"fp":45,"sla":84.3},"REDE E CONECTIVIDADE":{"total":73,"np":52,"fp":21,"sla":71.2},"TELEFONIA":{"total":40,"np":38,"fp":2,"sla":95.0},"SOFTWARES":{"total":9,"np":5,"fp":4,"sla":55.6}}},"DISPOSITIVOS MÓVEIS":{"total":18,"np":1,"fp":17,"sla":5.6,"enc":2,"ab":16,"areas":{"TABLET":{"total":17,"np":1,"fp":16,"sla":5.9},"SMARTPHONE":{"total":1,"np":0,"fp":1,"sla":0.0}}}},"districts":{"DS 6":{"total":75,"np":54,"fp":21,"sla":72.0},"DS 7":{"total":91,"np":65,"fp":26,"sla":71.4},"DS 5":{"total":121,"np":93,"fp":28,"sla":76.9},"DS 3":{"total":158,"np":137,"fp":21,"sla":86.7},"DS 2":{"total":141,"np":113,"fp":28,"sla":80.1},"DS 1":{"total":275,"np":219,"fp":56,"sla":79.6},"DS 8":{"total":44,"np":34,"fp":10,"sla":77.3},"DS 4":{"total":91,"np":72,"fp":19,"sla":79.1}}},"fev":{"total":1111,"np":880,"fp":231,"sla":79.2,"enc":1014,"ab":97,"resolucao":91.3,"groups":{"GOVERNANÇA":{"total":146,"np":73,"fp":73,"sla":50.0,"enc":146,"ab":0,"areas":{"NOC":{"total":146,"np":73,"fp":73,"sla":50.0}}},"INFRAESTRUTURA":{"total":776,"np":675,"fp":101,"sla":87.0,"enc":688,"ab":88,"areas":{"REDE E CONECTIVIDADE":{"total":91,"np":77,"fp":14,"sla":84.6},"IMPRESSÃO":{"total":281,"np":260,"fp":21,"sla":92.5},"EQUIPAMENTOS E DISPOSITIVOS":{"total":338,"np":290,"fp":48,"sla":85.8},"SOFTWARES":{"total":25,"np":11,"fp":14,"sla":44.0},"TELEFONIA":{"total":41,"np":37,"fp":4,"sla":90.2}}},"SISTEMAS":{"total":180,"np":129,"fp":51,"sla":71.7,"enc":178,"ab":2,"areas":{"ASSISTÊNCIA REMOTA":{"total":172,"np":123,"fp":49,"sla":71.5},"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":8,"np":6,"fp":2,"sla":75.0}}},"DISPOSITIVOS MÓVEIS":{"total":9,"np":3,"fp":6,"sla":33.3,"enc":2,"ab":7,"areas":{"CARTÃO SIM":{"total":2,"np":2,"fp":0,"sla":100.0},"TABLET":{"total":7,"np":1,"fp":6,"sla":14.3}}}},"districts":{"DS 7":{"total":105,"np":78,"fp":27,"sla":74.3},"DS 1":{"total":307,"np":258,"fp":49,"sla":84.0},"DS 3":{"total":181,"np":153,"fp":28,"sla":84.5},"DS 6":{"total":72,"np":51,"fp":21,"sla":70.8},"DS 2":{"total":109,"np":81,"fp":28,"sla":74.3},"DS 5":{"total":177,"np":145,"fp":32,"sla":81.9},"DS 4":{"total":83,"np":59,"fp":24,"sla":71.1},"DS 8":{"total":77,"np":55,"fp":22,"sla":71.4}}},"mar":{"total":1326,"np":968,"fp":358,"sla":73.0,"enc":1052,"ab":274,"resolucao":79.3,"groups":{"GOVERNANÇA":{"total":118,"np":44,"fp":74,"sla":37.3,"enc":118,"ab":0,"areas":{"NOC":{"total":118,"np":44,"fp":74,"sla":37.3}}},"INFRAESTRUTURA":{"total":926,"np":743,"fp":183,"sla":80.2,"enc":666,"ab":260,"areas":{"EQUIPAMENTOS E DISPOSITIVOS":{"total":347,"np":246,"fp":101,"sla":70.9},"IMPRESSÃO":{"total":443,"np":406,"fp":37,"sla":91.6},"TELEFONIA":{"total":31,"np":28,"fp":3,"sla":90.3},"REDE E CONECTIVIDADE":{"total":71,"np":52,"fp":19,"sla":73.2},"SOFTWARES":{"total":34,"np":11,"fp":23,"sla":32.4}}},"SISTEMAS":{"total":268,"np":179,"fp":89,"sla":66.8,"enc":267,"ab":1,"areas":{"ASSISTÊNCIA REMOTA":{"total":264,"np":175,"fp":89,"sla":66.3},"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":4,"np":4,"fp":0,"sla":100.0}}},"DISPOSITIVOS MÓVEIS":{"total":14,"np":2,"fp":12,"sla":14.3,"enc":1,"ab":13,"areas":{"CARTÃO SIM":{"total":1,"np":1,"fp":0,"sla":100.0},"TABLET":{"total":13,"np":1,"fp":12,"sla":7.7}}}},"districts":{"DS 4":{"total":111,"np":71,"fp":40,"sla":64.0},"DS 6":{"total":100,"np":81,"fp":19,"sla":81.0},"DS 3":{"total":168,"np":120,"fp":48,"sla":71.4},"DS 2":{"total":175,"np":133,"fp":42,"sla":76.0},"DS 5":{"total":182,"np":137,"fp":45,"sla":75.3},"DS 8":{"total":120,"np":88,"fp":32,"sla":73.3},"DS 1":{"total":362,"np":268,"fp":94,"sla":74.0},"DS 7":{"total":108,"np":70,"fp":38,"sla":64.8}}},"abr":{"total":1544,"np":1133,"fp":411,"sla":73.4,"enc":1114,"ab":430,"resolucao":72.2,"groups":{"INFRAESTRUTURA":{"total":888,"np":673,"fp":215,"sla":75.8,"enc":577,"ab":311,"areas":{"EQUIPAMENTOS E DISPOSITIVOS":{"total":307,"np":244,"fp":63,"sla":79.5},"IMPRESSÃO":{"total":370,"np":333,"fp":37,"sla":90.0},"REDE E CONECTIVIDADE":{"total":76,"np":50,"fp":26,"sla":65.8},"SOFTWARES":{"total":95,"np":9,"fp":86,"sla":9.5},"TELEFONIA":{"total":40,"np":37,"fp":3,"sla":92.5}}},"GOVERNANÇA":{"total":125,"np":19,"fp":106,"sla":15.2,"enc":109,"ab":16,"areas":{"NOC":{"total":125,"np":19,"fp":106,"sla":15.2}}},"DISPOSITIVOS MÓVEIS":{"total":21,"np":17,"fp":4,"sla":81.0,"enc":0,"ab":21,"areas":{"TABLET":{"total":18,"np":14,"fp":4,"sla":77.8},"SMARTPHONE":{"total":2,"np":2,"fp":0,"sla":100.0},"CARTÃO SIM":{"total":1,"np":1,"fp":0,"sla":100.0}}},"SISTEMAS":{"total":510,"np":424,"fp":86,"sla":83.1,"enc":428,"ab":82,"areas":{"ASSISTÊNCIA REMOTA":{"total":267,"np":181,"fp":86,"sla":67.8},"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":27,"np":27,"fp":0,"sla":100.0},"ASSISTÊNCIA OPERAÇÃO ASSISTIDA":{"total":26,"np":26,"fp":0,"sla":100.0},"ASSISTÊNCIA IMPLANTAÇÃO":{"total":190,"np":190,"fp":0,"sla":100.0}}}},"districts":{"DS 3":{"total":167,"np":136,"fp":31,"sla":81.4},"DS 7":{"total":160,"np":91,"fp":69,"sla":56.9},"DS 2":{"total":175,"np":125,"fp":50,"sla":71.4},"DS 6":{"total":112,"np":66,"fp":46,"sla":58.9},"DS 5":{"total":319,"np":264,"fp":55,"sla":82.8},"DS 1":{"total":415,"np":327,"fp":88,"sla":78.8},"DS 4":{"total":127,"np":82,"fp":45,"sla":64.6},"DS 8":{"total":69,"np":42,"fp":27,"sla":60.9}}},"mai":{"total":1697,"np":1203,"fp":494,"sla":70.9,"enc":1463,"ab":234,"resolucao":86.2,"groups":{"INFRAESTRUTURA":{"total":1062,"np":764,"fp":298,"sla":71.9,"enc":893,"ab":169,"areas":{"EQUIPAMENTOS E DISPOSITIVOS":{"total":506,"np":339,"fp":167,"sla":67.0},"REDE E CONECTIVIDADE":{"total":87,"np":45,"fp":42,"sla":51.7},"IMPRESSÃO":{"total":359,"np":320,"fp":39,"sla":89.1},"TELEFONIA":{"total":29,"np":23,"fp":6,"sla":79.3},"SOFTWARES":{"total":81,"np":37,"fp":44,"sla":45.7}}},"GOVERNANÇA":{"total":102,"np":22,"fp":80,"sla":21.6,"enc":94,"ab":8,"areas":{"NOC":{"total":102,"np":22,"fp":80,"sla":21.6}}},"SISTEMAS":{"total":516,"np":403,"fp":113,"sla":78.1,"enc":470,"ab":46,"areas":{"ASSISTÊNCIA REMOTA":{"total":396,"np":284,"fp":112,"sla":71.7},"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":28,"np":27,"fp":1,"sla":96.4},"ASSISTÊNCIA OPERAÇÃO ASSISTIDA":{"total":39,"np":39,"fp":0,"sla":100.0},"ASSISTÊNCIA IMPLANTAÇÃO":{"total":53,"np":53,"fp":0,"sla":100.0}}},"DISPOSITIVOS MÓVEIS":{"total":17,"np":14,"fp":3,"sla":82.4,"enc":6,"ab":11,"areas":{"TABLET":{"total":16,"np":13,"fp":3,"sla":81.2},"CARTÃO SIM":{"total":1,"np":1,"fp":0,"sla":100.0}}}},"districts":{"DS 5":{"total":194,"np":142,"fp":52,"sla":73.2},"DS 4":{"total":228,"np":131,"fp":97,"sla":57.5},"DS 1":{"total":441,"np":326,"fp":115,"sla":73.9},"DS 7":{"total":144,"np":102,"fp":42,"sla":70.8},"DS 2":{"total":259,"np":196,"fp":63,"sla":75.7},"DS 6":{"total":126,"np":97,"fp":29,"sla":77.0},"DS 8":{"total":93,"np":44,"fp":49,"sla":47.3},"DS 3":{"total":204,"np":158,"fp":46,"sla":77.5}}},"jun":{"total":1618,"np":1140,"fp":478,"sla":70.5,"enc":1157,"ab":461,"resolucao":71.5,"groups":{"SISTEMAS":{"total":433,"np":223,"fp":210,"sla":51.5,"enc":361,"ab":72,"areas":{"ASSISTÊNCIA REMOTA":{"total":358,"np":150,"fp":208,"sla":41.9},"ASSISTÊNCIA IMPLANTAÇÃO":{"total":30,"np":30,"fp":0,"sla":100.0},"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":29,"np":27,"fp":2,"sla":93.1},"ASSISTÊNCIA OPERAÇÃO ASSISTIDA":{"total":16,"np":16,"fp":0,"sla":100.0}}},"INFRAESTRUTURA":{"total":1036,"np":834,"fp":202,"sla":80.5,"enc":730,"ab":306,"areas":{"EQUIPAMENTOS E DISPOSITIVOS":{"total":504,"np":415,"fp":89,"sla":82.3},"REDE E CONECTIVIDADE":{"total":112,"np":88,"fp":24,"sla":78.6},"IMPRESSÃO":{"total":313,"np":283,"fp":30,"sla":90.4},"SOFTWARES":{"total":61,"np":6,"fp":55,"sla":9.8},"TELEFONIA":{"total":46,"np":42,"fp":4,"sla":91.3}}},"GOVERNANÇA":{"total":123,"np":69,"fp":54,"sla":56.1,"enc":59,"ab":64,"areas":{"NOC":{"total":120,"np":66,"fp":54,"sla":55.0},"DATA CENTER":{"total":3,"np":3,"fp":0,"sla":100.0}}},"DISPOSITIVOS MÓVEIS":{"total":26,"np":14,"fp":12,"sla":53.8,"enc":7,"ab":19,"areas":{"TABLET":{"total":24,"np":12,"fp":12,"sla":50.0},"CARTÃO SIM":{"total":2,"np":2,"fp":0,"sla":100.0}}}},"districts":{"DS 5":{"total":311,"np":235,"fp":76,"sla":75.6},"DS 1":{"total":396,"np":250,"fp":146,"sla":63.1},"DS 7":{"total":118,"np":97,"fp":21,"sla":82.2},"DS 3":{"total":205,"np":152,"fp":53,"sla":74.1},"DS 4":{"total":193,"np":149,"fp":44,"sla":77.2},"DS 2":{"total":126,"np":60,"fp":66,"sla":47.6},"DS 6":{"total":220,"np":160,"fp":60,"sla":72.7},"DS 8":{"total":46,"np":34,"fp":12,"sla":73.9}}},"jul":{"total":1625,"np":1288,"fp":337,"sla":79.3,"enc":1177,"ab":448,"resolucao":72.4,"groups":{"INFRAESTRUTURA":{"total":975,"np":784,"fp":191,"sla":80.4,"enc":639,"ab":336,"areas":{"EQUIPAMENTOS E DISPOSITIVOS":{"total":437,"np":350,"fp":87,"sla":80.1},"TELEFONIA":{"total":29,"np":19,"fp":10,"sla":65.5},"IMPRESSÃO":{"total":396,"np":334,"fp":62,"sla":84.3},"REDE E CONECTIVIDADE":{"total":67,"np":46,"fp":21,"sla":68.7},"SOFTWARES":{"total":46,"np":35,"fp":11,"sla":76.1}}},"SISTEMAS":{"total":220,"np":122,"fp":98,"sla":55.5,"enc":201,"ab":19,"areas":{"ASSISTÊNCIA REMOTA":{"total":214,"np":119,"fp":95,"sla":55.6},"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":6,"np":3,"fp":3,"sla":50.0}}},"GOVERNANÇA":{"total":401,"np":354,"fp":47,"sla":88.3,"enc":329,"ab":72,"areas":{"NOC":{"total":236,"np":190,"fp":46,"sla":80.5},"DATA CENTER":{"total":165,"np":164,"fp":1,"sla":99.4}}},"DISPOSITIVOS MÓVEIS":{"total":29,"np":28,"fp":1,"sla":96.6,"enc":8,"ab":21,"areas":{"TABLET":{"total":29,"np":28,"fp":1,"sla":96.6}}}},"districts":{"DS 2":{"total":178,"np":129,"fp":49,"sla":72.5},"DS 5":{"total":194,"np":157,"fp":37,"sla":80.9},"DS 6":{"total":151,"np":122,"fp":29,"sla":80.8},"DS 7":{"total":135,"np":94,"fp":41,"sla":69.6},"DS 3":{"total":195,"np":157,"fp":38,"sla":80.5},"DS 4":{"total":156,"np":128,"fp":28,"sla":82.1},"DS 8":{"total":160,"np":137,"fp":23,"sla":85.6},"DS 1":{"total":456,"np":364,"fp":92,"sla":79.8}}},"ago":{"total":1753,"np":1254,"fp":499,"sla":71.5,"enc":1483,"ab":270,"resolucao":84.6,"groups":{"GOVERNANÇA":{"total":265,"np":231,"fp":34,"sla":87.2,"enc":257,"ab":8,"areas":{"NOC":{"total":265,"np":231,"fp":34,"sla":87.2}}},"INFRAESTRUTURA":{"total":1188,"np":768,"fp":420,"sla":64.6,"enc":952,"ab":236,"areas":{"EQUIPAMENTOS E DISPOSITIVOS":{"total":634,"np":434,"fp":200,"sla":68.5},"TELEFONIA":{"total":22,"np":13,"fp":9,"sla":59.1},"IMPRESSÃO":{"total":313,"np":169,"fp":144,"sla":54.0},"REDE E CONECTIVIDADE":{"total":138,"np":99,"fp":39,"sla":71.7},"SOFTWARES":{"total":81,"np":53,"fp":28,"sla":65.4}}},"SISTEMAS":{"total":271,"np":226,"fp":45,"sla":83.4,"enc":265,"ab":6,"areas":{"ASSISTÊNCIA REMOTA":{"total":257,"np":213,"fp":44,"sla":82.9},"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":8,"np":7,"fp":1,"sla":87.5},"ASSISTÊNCIA IMPLANTAÇÃO":{"total":6,"np":6,"fp":0,"sla":100.0}}},"DISPOSITIVOS MÓVEIS":{"total":29,"np":29,"fp":0,"sla":100.0,"enc":9,"ab":20,"areas":{"TABLET":{"total":29,"np":29,"fp":0,"sla":100.0}}}},"districts":{"DS 2":{"total":162,"np":114,"fp":48,"sla":70.4},"DS 1":{"total":448,"np":347,"fp":101,"sla":77.5},"DS 4":{"total":135,"np":79,"fp":56,"sla":58.5},"DS 8":{"total":199,"np":134,"fp":65,"sla":67.3},"DS 3":{"total":224,"np":144,"fp":80,"sla":64.3},"DS 5":{"total":197,"np":149,"fp":48,"sla":75.6},"DS 7":{"total":262,"np":208,"fp":54,"sla":79.4},"DS 6":{"total":126,"np":79,"fp":47,"sla":62.7}}},"set":{"total":1362,"np":1081,"fp":281,"sla":79.4,"enc":1156,"ab":206,"resolucao":84.9,"groups":{"INFRAESTRUTURA":{"total":1030,"np":823,"fp":207,"sla":79.9,"enc":851,"ab":179,"areas":{"IMPRESSÃO":{"total":355,"np":274,"fp":81,"sla":77.2},"TELEFONIA":{"total":31,"np":9,"fp":22,"sla":29.0},"EQUIPAMENTOS E DISPOSITIVOS":{"total":484,"np":398,"fp":86,"sla":82.2},"REDE E CONECTIVIDADE":{"total":125,"np":113,"fp":12,"sla":90.4},"SOFTWARES":{"total":35,"np":29,"fp":6,"sla":82.9}}},"GOVERNANÇA":{"total":160,"np":147,"fp":13,"sla":91.9,"enc":151,"ab":9,"areas":{"NOC":{"total":154,"np":143,"fp":11,"sla":92.9},"DATA CENTER":{"total":6,"np":4,"fp":2,"sla":66.7}}},"SISTEMAS":{"total":158,"np":97,"fp":61,"sla":61.4,"enc":152,"ab":6,"areas":{"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":5,"np":1,"fp":4,"sla":20.0},"ASSISTÊNCIA REMOTA":{"total":153,"np":96,"fp":57,"sla":62.7}}},"DISPOSITIVOS MÓVEIS":{"total":14,"np":14,"fp":0,"sla":100.0,"enc":2,"ab":12,"areas":{"TABLET":{"total":14,"np":14,"fp":0,"sla":100.0}}}},"districts":{"DS 3":{"total":205,"np":159,"fp":46,"sla":77.6},"DS 5":{"total":194,"np":149,"fp":45,"sla":76.8},"DS 6":{"total":130,"np":110,"fp":20,"sla":84.6},"DS 4":{"total":131,"np":113,"fp":18,"sla":86.3},"DS 7":{"total":110,"np":86,"fp":24,"sla":78.2},"DS 1":{"total":364,"np":275,"fp":89,"sla":75.5},"DS 2":{"total":90,"np":77,"fp":13,"sla":85.6},"DS 8":{"total":108,"np":95,"fp":13,"sla":88.0}}},"out":{"total":1073,"np":839,"fp":234,"sla":78.2,"enc":679,"ab":394,"resolucao":63.3,"groups":{"GOVERNANÇA":{"total":204,"np":179,"fp":25,"sla":87.7,"enc":119,"ab":85,"areas":{"NOC":{"total":196,"np":173,"fp":23,"sla":88.3},"DATA CENTER":{"total":8,"np":6,"fp":2,"sla":75.0}}},"INFRAESTRUTURA":{"total":683,"np":509,"fp":174,"sla":74.5,"enc":404,"ab":279,"areas":{"EQUIPAMENTOS E DISPOSITIVOS":{"total":182,"np":123,"fp":59,"sla":67.6},"IMPRESSÃO":{"total":302,"np":249,"fp":53,"sla":82.5},"REDE E CONECTIVIDADE":{"total":124,"np":108,"fp":16,"sla":87.1},"SOFTWARES":{"total":58,"np":21,"fp":37,"sla":36.2},"TELEFONIA":{"total":17,"np":8,"fp":9,"sla":47.1}}},"SISTEMAS":{"total":179,"np":144,"fp":35,"sla":80.4,"enc":155,"ab":24,"areas":{"ASSISTÊNCIA REMOTA":{"total":173,"np":138,"fp":35,"sla":79.8},"ASSISTÊNCIA IMPLANTAÇÃO":{"total":5,"np":5,"fp":0,"sla":100.0},"ASSISTÊNCIA CAMPO - TREINAMENTO":{"total":1,"np":1,"fp":0,"sla":100.0}}},"DISPOSITIVOS MÓVEIS":{"total":7,"np":7,"fp":0,"sla":100.0,"enc":1,"ab":6,"areas":{"TABLET":{"total":6,"np":6,"fp":0,"sla":100.0},"CARTÃO SIM":{"total":1,"np":1,"fp":0,"sla":100.0}}}},"districts":{"DS 5":{"total":145,"np":121,"fp":24,"sla":83.4},"DS 1":{"total":154,"np":118,"fp":36,"sla":76.6},"DS 6":{"total":86,"np":71,"fp":15,"sla":82.6},"DS 2":{"total":126,"np":107,"fp":19,"sla":84.9},"DS 7":{"total":177,"np":127,"fp":50,"sla":71.8},"DS 4":{"total":121,"np":99,"fp":22,"sla":81.8},"DS 3":{"total":162,"np":124,"fp":38,"sla":76.5},"DS 8":{"total":72,"np":52,"fp":20,"sla":72.2}}}};
-const GLPI_JSON_URL = 'dados/indicadores_glpi_2026.json';
+const GLPI_API_URL = 'https://webhook-n8n.app.emprel.gov.br/webhook/gtic-consultar-indicadores-2026';
+const GLPI_CACHE_KEY = 'gtic-indicadores-2026-api-v1';
+const GLPI_EXPECTED_GROUPS = ['INFRAESTRUTURA','SISTEMAS','GOVERNANÇA','DISPOSITIVOS MÓVEIS','GERAL'];
+const GLPI_COUNTER_FIELDS = ['totalChamados','backlog','encerrados','semSLA','abertosDentroSLA','abertosSlaVencido','encerradosDentroSLA','encerradosSlaVencido','chamadosComSLA'];
+const GLPI_MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER;
+let GLPI_API_DATA = null;
 
-function renderExecutiveGtic(dados) {
-  const geral = dados?.records?.find(item => item.grupo === 'GERAL');
-  if (!geral) throw new Error('Registro consolidado GERAL não encontrado');
-
-  const total = Number(geral.totalChamados);
-  const encerrados = Number(geral.encerrados);
-  const backlog = Number(geral.backlog);
-  const abertosDentroSLA = Number(geral.abertosDentroSLA);
-  const abertosSlaVencido = Number(geral.abertosSlaVencido);
-  if (![total, encerrados, backlog, abertosDentroSLA, abertosSlaVencido].every(Number.isFinite)) {
-    throw new Error('Indicadores consolidados inválidos');
+function validateApiCounter(value, field, group) {
+  if (!Number.isSafeInteger(value) || value < 0 || value > GLPI_MAX_SAFE_INTEGER) {
+    throw new Error(`Campo ${field} inválido no grupo ${group}`);
   }
-  if (total !== encerrados + backlog) {
-    throw new Error('Total de chamados diverge da soma de encerrados e backlog');
-  }
-
-  document.getElementById('executive-total').textContent = fmt(total);
-  document.getElementById('executive-closed').textContent = fmt(encerrados);
-  document.getElementById('executive-backlog').textContent = fmt(backlog);
-  document.getElementById('executive-open-ok').textContent = fmt(abertosDentroSLA);
-  document.getElementById('executive-open-late').textContent = fmt(abertosSlaVencido);
-  document.getElementById('executive-updated-at').textContent =
-    'Última atualização: ' + new Date(dados.updatedAt).toLocaleString('pt-BR');
 }
 
-fetch(GLPI_JSON_URL + '?v=' + Date.now())
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Erro HTTP: ' + response.status);
-    }
-    return response.json();
-  })
-  .then(dados => {
-    window.GLPI_ATUAL = dados;
-    renderExecutiveGtic(dados);
-  })
-  .catch(erro => {
-    console.error('GLPI: erro ao carregar JSON', erro);
-    document.getElementById('executive-updated-at').textContent =
-      'Última atualização: não foi possível carregar os dados.';
-  });
+function calculateSlaHalfUp(withinSla, totalWithSla) {
+  if (!totalWithSla) return 0;
+  const numerator = BigInt(withinSla) * 1000n;
+  const denominator = BigInt(totalWithSla);
+  return Number((numerator * 2n + denominator) / (denominator * 2n)) / 10;
+}
 
-  const PERIOD_LABELS = {"todos":"Jan–Out 2026","jan":"Janeiro 2026","fev":"Fevereiro 2026","mar":"Março 2026","abr":"Abril 2026","mai":"Maio 2026","jun":"Junho 2026","jul":"Julho 2026","ago":"Agosto 2026","set":"Setembro 2026","out":"Outubro 2026"};
+function validateUpdatedAt(value) {
+  if (typeof value !== 'string' || !value.trim()) throw new Error('updatedAt inválido');
+  const usDate = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})[ T](\d{2}):(\d{2}):(\d{2})$/);
+  if (usDate) {
+    const [,month,day,year,hour,minute,second] = usDate.map(Number);
+    const date = new Date(year,month-1,day,hour,minute,second);
+    if (date.getFullYear()!==year || date.getMonth()!==month-1 || date.getDate()!==day || date.getHours()!==hour || date.getMinutes()!==minute || date.getSeconds()!==second) {
+      throw new Error('updatedAt inválido');
+    }
+    return `${String(day).padStart(2,'0')}/${String(month).padStart(2,'0')}/${year}, ${String(hour).padStart(2,'0')}:${String(minute).padStart(2,'0')}:${String(second).padStart(2,'0')}`;
+  }
+  const isoDate = new Date(value);
+  if (!/^\d{4}-\d{2}-\d{2}T/.test(value) || Number.isNaN(isoDate.getTime())) throw new Error('updatedAt inválido');
+  return isoDate.toLocaleString('pt-BR');
+}
+
+function validateApiPayload(payload) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) throw new Error('Resposta da API inválida');
+  if (!Number.isInteger(payload.schemaVersion) || payload.schemaVersion < 1) throw new Error('schemaVersion inválido');
+  if (typeof payload.source !== 'string' || !payload.source.trim()) throw new Error('source inválido');
+  const updatedAtLabel = validateUpdatedAt(payload.updatedAt);
+  if (!Array.isArray(payload.records) || payload.records.length !== GLPI_EXPECTED_GROUPS.length) throw new Error('Quantidade de registros inválida');
+
+  const records = new Map();
+  payload.records.forEach(record => {
+    if (!record || typeof record !== 'object' || !GLPI_EXPECTED_GROUPS.includes(record.grupo) || records.has(record.grupo)) {
+      throw new Error('Grupo ausente, duplicado ou inválido');
+    }
+    GLPI_COUNTER_FIELDS.forEach(field => validateApiCounter(record[field],field,record.grupo));
+    if (typeof record.slaGlobal !== 'number' || !Number.isFinite(record.slaGlobal) || record.slaGlobal < 0 || record.slaGlobal > 100) {
+      throw new Error(`slaGlobal inválido no grupo ${record.grupo}`);
+    }
+    const openWithSla = record.abertosDentroSLA + record.abertosSlaVencido;
+    const closedWithSla = record.encerradosDentroSLA + record.encerradosSlaVencido;
+    if (record.totalChamados !== record.backlog + record.encerrados || record.totalChamados !== record.semSLA + record.chamadosComSLA || record.chamadosComSLA !== openWithSla + closedWithSla || openWithSla > record.backlog || closedWithSla > record.encerrados) {
+      throw new Error(`Totais incoerentes no grupo ${record.grupo}`);
+    }
+    const expectedSla = calculateSlaHalfUp(record.abertosDentroSLA + record.encerradosDentroSLA,record.chamadosComSLA);
+    if (record.slaGlobal !== expectedSla) throw new Error(`slaGlobal incoerente no grupo ${record.grupo}`);
+    records.set(record.grupo,record);
+  });
+  GLPI_EXPECTED_GROUPS.forEach(group => { if (!records.has(group)) throw new Error(`Grupo ${group} ausente`); });
+
+  const geral = records.get('GERAL');
+  GLPI_COUNTER_FIELDS.forEach(field => {
+    const sum = GLPI_EXPECTED_GROUPS.slice(0,-1).reduce((total,group) => total + records.get(group)[field],0);
+    if (geral[field] !== sum) throw new Error(`Consolidado GERAL incoerente em ${field}`);
+  });
+  return {payload,records,updatedAtLabel};
+}
+
+function applyApiIndicators(validated) {
+  const {payload,records,updatedAtLabel} = validated;
+  const geral = records.get('GERAL');
+  GLPI_API_DATA = {payload,records,updatedAtLabel};
+  window.GLPI_ATUAL = payload;
+
+  const insideSla = geral.abertosDentroSLA + geral.encerradosDentroSLA;
+  const outsideSla = geral.abertosSlaVencido + geral.encerradosSlaVencido;
+  Object.assign(DASHBOARD_DATA.todos,{
+    total:geral.totalChamados,
+    enc:geral.encerrados,
+    ab:geral.backlog,
+    np:insideSla,
+    fp:outsideSla,
+    sla:geral.slaGlobal,
+    resolucao:geral.totalChamados ? geral.encerrados * 100 / geral.totalChamados : 0
+  });
+  GLPI_EXPECTED_GROUPS.slice(0,-1).forEach(group => {
+    const record = records.get(group);
+    const target = DASHBOARD_DATA.todos.groups[group];
+    if (!target) return;
+    Object.assign(target,{
+      total:record.totalChamados,
+      enc:record.encerrados,
+      ab:record.backlog,
+      np:record.abertosDentroSLA + record.encerradosDentroSLA,
+      fp:record.abertosSlaVencido + record.encerradosSlaVencido,
+      sla:record.slaGlobal
+    });
+  });
+  Object.assign(EXECUTIVE_SLA_SUMMARY.todos,{
+    total:geral.totalChamados,
+    openOk:geral.abertosDentroSLA,
+    openLate:geral.abertosSlaVencido,
+    closedOk:geral.encerradosDentroSLA,
+    closedLate:geral.encerradosSlaVencido
+  });
+}
+
+async function loadAutomatedIndicators() {
+  try {
+    const response = await fetch(GLPI_API_URL,{method:'GET',headers:{Accept:'application/json'},cache:'no-store'});
+    if (!response.ok) throw new Error(`Erro HTTP ${response.status}`);
+    const validated = validateApiPayload(await response.json());
+    try { localStorage.setItem(GLPI_CACHE_KEY,JSON.stringify(validated.payload)); } catch (error) {}
+    applyApiIndicators(validated);
+  } catch (apiError) {
+    console.error('GLPI: não foi possível consultar a API',apiError);
+    try {
+      const cached = localStorage.getItem(GLPI_CACHE_KEY);
+      if (cached) applyApiIndicators(validateApiPayload(JSON.parse(cached)));
+    } catch (cacheError) {
+      console.error('GLPI: último cache válido indisponível',cacheError);
+    }
+  }
+  const activePeriod = document.querySelector('.month-pill.active')?.dataset.month || 'todos';
+  renderDashboard(activePeriod);
+}
+
+  const PERIOD_LABELS = {"todos":"Jan–Dez 2026","jan":"Janeiro 2026","fev":"Fevereiro 2026","mar":"Março 2026","abr":"Abril 2026","mai":"Maio 2026","jun":"Junho 2026","jul":"Julho 2026","ago":"Agosto 2026","set":"Setembro 2026","out":"Outubro 2026","nov":"Novembro 2026","dez":"Dezembro 2026"};
 const GROUP_ORDER = ["INFRAESTRUTURA", "SISTEMAS", "GOVERNANÇA", "DISPOSITIVOS MÓVEIS"];
 const GROUP_NAMES = {INFRAESTRUTURA:'Infraestrutura',SISTEMAS:'Sistemas','GOVERNANÇA':'Governança','DISPOSITIVOS MÓVEIS':'Dispositivos Móveis'};
 const AREA_ORDER = {
@@ -319,9 +405,9 @@ const SLA_DETAIL_DATA = {"todos":{"executives":[{"name":"SEAB","total":7496,"np"
 const STATUS_DATA = {"todos":[10327,820,1570,1111,277],"jan":[835,17,131,13,0],"fev":[929,85,78,18,1],"mar":[976,76,243,31,0],"abr":[1008,106,272,50,108],"mai":[1270,193,179,26,29],"jun":[1006,151,247,181,33],"jul":[1108,69,144,223,81],"ago":[1360,123,86,177,7],"set":[1156,0,42,160,4],"out":[679,0,148,232,14]};
 const STATUS_GROUP_DATA = {"todos":{"INFRAESTRUTURA":[6888,83,1207,869,215],"SISTEMAS":[2196,496,171,52,36],"GOVERNANÇA":[1224,222,62,180,20],"DISPOSITIVOS MÓVEIS":[19,19,130,10,6]},"jan":{"INFRAESTRUTURA":[566,5,114,13,0],"SISTEMAS":[214,1,1,0,0],"GOVERNANÇA":[53,11,0,0,0],"DISPOSITIVOS MÓVEIS":[2,0,16,0,0]},"fev":{"INFRAESTRUTURA":[675,13,70,18,0],"SISTEMAS":[177,1,1,0,1],"GOVERNANÇA":[76,70,0,0,0],"DISPOSITIVOS MÓVEIS":[1,1,7,0,0]},"mar":{"INFRAESTRUTURA":[658,8,229,31,0],"SISTEMAS":[266,1,1,0,0],"GOVERNANÇA":[51,67,0,0,0],"DISPOSITIVOS MÓVEIS":[1,0,13,0,0]},"abr":{"INFRAESTRUTURA":[552,25,211,15,85],"SISTEMAS":[417,11,36,34,12],"GOVERNANÇA":[39,70,4,1,11],"DISPOSITIVOS MÓVEIS":[0,0,21,0,0]},"mai":{"INFRAESTRUTURA":[880,13,128,16,25],"SISTEMAS":[291,179,36,6,4],"GOVERNANÇA":[94,0,4,4,0],"DISPOSITIVOS MÓVEIS":[5,1,11,0,0]},"jun":{"INFRAESTRUTURA":[722,8,154,127,25],"SISTEMAS":[225,136,63,1,8],"GOVERNANÇA":[58,1,11,53,0],"DISPOSITIVOS MÓVEIS":[1,6,19,0,0]},"jul":{"INFRAESTRUTURA":[633,6,85,177,74],"SISTEMAS":[148,53,17,1,1],"GOVERNANÇA":[326,3,21,45,6],"DISPOSITIVOS MÓVEIS":[1,7,21,0,0]},"ago":{"INFRAESTRUTURA":[947,5,65,170,1],"SISTEMAS":[151,114,2,2,2],"GOVERNANÇA":[257,0,1,5,2],"DISPOSITIVOS MÓVEIS":[5,4,18,0,2]},"set":{"INFRAESTRUTURA":[851,0,35,144,0],"SISTEMAS":[152,0,5,1,0],"GOVERNANÇA":[151,0,0,9,0],"DISPOSITIVOS MÓVEIS":[2,0,2,6,4]},"out":{"INFRAESTRUTURA":[404,0,116,158,5],"SISTEMAS":[155,0,9,7,8],"GOVERNANÇA":[119,0,21,63,1],"DISPOSITIVOS MÓVEIS":[1,0,2,4,0]}};
 const SERVICE_DATA = {"todos":[["IMPRESSORAS",3421],["COMPUTADORES",2983],["SISTEMAS DE GESTÃO",2345],["CONECTIVIDADE",2083],["MONITORES",710]],"jan":[["IMPRESSORAS",289],["COMPUTADORES",229],["SISTEMAS DE GESTÃO",142],["CONECTIVIDADE",86],["SISTEMAS DA SAÚDE DIGITAL",74]],"fev":[["IMPRESSORAS",281],["COMPUTADORES",222],["CONECTIVIDADE",210],["SISTEMAS DE GESTÃO",152],["MONITORES",55]],"mar":[["IMPRESSORAS",443],["COMPUTADORES",295],["SISTEMAS DE GESTÃO",224],["CONECTIVIDADE",156],["SISTEMAS DA SAÚDE DIGITAL",44]],"abr":[["SISTEMAS DE GESTÃO",405],["IMPRESSORAS",370],["COMPUTADORES",250],["CONECTIVIDADE",145],["SISTEMAS DA SAÚDE DIGITAL",105]],"mai":[["SISTEMAS DE GESTÃO",408],["COMPUTADORES",378],["IMPRESSORAS",359],["CONECTIVIDADE",162],["SISTEMAS DA SAÚDE DIGITAL",108]],"jun":[["SISTEMAS DE GESTÃO",387],["COMPUTADORES",328],["IMPRESSORAS",313],["CONECTIVIDADE",211],["MONITORES",157]],"jul":[["IMPRESSORAS",396],["COMPUTADORES",322],["CONECTIVIDADE",248],["GESTÃO DE ACESSO",183],["SISTEMAS DE GESTÃO",160]],"ago":[["COMPUTADORES",479],["IMPRESSORAS",313],["CONECTIVIDADE",310],["SISTEMAS DE GESTÃO",206],["DISPOSITIVOS",85]],"set":[["IMPRESSORAS",355],["COMPUTADORES",335],["CONECTIVIDADE",251],["SISTEMAS DE GESTÃO",104],["MONITORES",96]],"out":[["CONECTIVIDADE",304],["IMPRESSORAS",302],["SISTEMAS DE GESTÃO",157],["COMPUTADORES",145],["SOFTWARES",58]]};
-const MONTH_KEYS = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out'];
-const MONTH_NAMES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out'];
-const MONTH_NUMBER = {jan:1,fev:2,mar:3,abr:4,mai:5,jun:6,jul:7,ago:8,set:9,out:10};
+const MONTH_KEYS = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const MONTH_NAMES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const MONTH_NUMBER = {jan:1,fev:2,mar:3,abr:4,mai:5,jun:6,jul:7,ago:8,set:9,out:10,nov:11,dez:12};
 let SLA_TICKETS = [];
 let activeSlaPeriod = 'todos';
 let SATISFACTION_DATA = {};
@@ -405,7 +491,7 @@ const chartText = '#66758a';
 const chartGrid = 'rgba(102,117,138,.14)';
 const weekdayChart = new Chart(document.getElementById('weekday-chart'), {type:'bar',data:{labels:WEEKDAY_NAMES,datasets:[{label:'Chamados',data:WEEKDAY_DATA.todos,backgroundColor:'#2f83dd',borderRadius:6,maxBarThickness:42}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{titleFont:{size:12},bodyFont:{size:12},callbacks:{label:ctx=>fmt(ctx.raw)+' chamados'}}},scales:{x:{grid:{display:false},ticks:{color:chartText,font:{size:11,weight:'600'}}},y:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:10,weight:'500'},callback:value=>fmt(value)}}}}});
 const groupColors = {'INFRAESTRUTURA':'#1f65b5','SISTEMAS':'#17824f','GOVERNANÇA':'#c87b08','DISPOSITIVOS MÓVEIS':'#8b5db7'};
-const groupTrendChart = new Chart(document.getElementById('group-trend-chart'), {type:'line',data:{labels:MONTH_NAMES,datasets:GROUP_ORDER.map(group=>({label:GROUP_NAMES[group],data:MONTH_KEYS.map(month=>DASHBOARD_DATA[month].groups[group]?.total||0),borderColor:groupColors[group],backgroundColor:groupColors[group],borderWidth:3,pointRadius:4,pointHoverRadius:6,pointBorderWidth:0,tension:.24}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:9,padding:15,color:chartText,font:{size:10,weight:'600'}}},tooltip:{titleFont:{size:12},bodyFont:{size:12},callbacks:{label:ctx=>ctx.dataset.label+': '+fmt(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{color:chartText,font:{size:11,weight:'600'}}},y:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:10,weight:'500'},callback:value=>fmt(value)}}}}});
+const groupTrendChart = new Chart(document.getElementById('group-trend-chart'), {type:'line',data:{labels:MONTH_NAMES,datasets:GROUP_ORDER.map(group=>({label:GROUP_NAMES[group],data:MONTH_KEYS.map(month=>DASHBOARD_DATA[month]?.groups?.[group]?.total??null),borderColor:groupColors[group],backgroundColor:groupColors[group],borderWidth:3,pointRadius:4,pointHoverRadius:6,pointBorderWidth:0,tension:.24,spanGaps:false}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:9,padding:15,color:chartText,font:{size:10,weight:'600'}}},tooltip:{titleFont:{size:12},bodyFont:{size:12},callbacks:{label:ctx=>ctx.raw==null?ctx.dataset.label+': sem dados':ctx.dataset.label+': '+fmt(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{color:chartText,font:{size:11,weight:'600'}}},y:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:10,weight:'500'},callback:value=>fmt(value)}}}}});
 const STATUS_LABELS = ['Fechado','Solucionado','Em atendimento','Pendente','Novo'];
 const STATUS_COLORS = ['#43c985','#50c58b','#ff7138','#ff7138','#d62e56'];
 const statusGroupsGrid = document.getElementById('status-groups-grid');
@@ -416,7 +502,16 @@ const initialServices = SERVICE_DATA.todos;
 const servicesChart = new Chart(document.getElementById('services-chart'), {type:'bar',data:{labels:initialServices.map(item=>item[0]),datasets:[{label:'Chamados',data:initialServices.map(item=>item[1]),backgroundColor:['#1f65b5','#3f83c9','#66a0d8','#8bb9e4','#b2d1ed'],borderRadius:6,maxBarThickness:28}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fmt(ctx.raw)+' chamados'}}},scales:{x:{beginAtZero:true,grid:{color:chartGrid},ticks:{color:chartText,font:{size:9},callback:value=>fmt(value)}},y:{grid:{display:false},ticks:{color:chartText,font:{size:9},autoSkip:false}}}}});
 function replaceSatisfactionChart(id,config){if(satisfactionCharts[id])satisfactionCharts[id].destroy();satisfactionCharts[id]=new Chart(document.getElementById(id),config);}
 function renderSatisfaction(period='todos'){
-  const data=SATISFACTION_DATA[period];if(!data)return;
+  const data=SATISFACTION_DATA[period];
+  if(!data){
+    const label=PERIOD_LABELS[period];
+    document.getElementById('satisfaction-period-label').textContent='Avaliações do atendimento · '+label;
+    ['satisfaction-total','satisfaction-rate','satisfaction-resolved','satisfaction-clarity'].forEach(id=>document.getElementById(id).textContent='—');
+    document.getElementById('nav-satisfaction').textContent='—';
+    document.getElementById('satisfaction-note').innerHTML='<strong>Sem dados disponíveis para o período selecionado.</strong>'+(GLPI_API_DATA?' Última coleta: '+GLPI_API_DATA.updatedAtLabel+'.':'');
+    Object.keys(satisfactionCharts).forEach(id=>{satisfactionCharts[id].destroy();delete satisfactionCharts[id];const canvas=document.getElementById(id);canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);});
+    return;
+  }
   const label=PERIOD_LABELS[period];document.getElementById('satisfaction-period-label').textContent='Avaliações do atendimento · '+label;
   document.getElementById('satisfaction-total').textContent=fmt(data.total);document.getElementById('satisfaction-rate').textContent=data.satisfaction==null?'—':pct(data.satisfaction);document.getElementById('satisfaction-resolved').textContent=data.resolvedPct==null?'—':pct(data.resolvedPct);document.getElementById('satisfaction-clarity').textContent=data.clarityPct==null?'—':pct(data.clarityPct);document.getElementById('nav-satisfaction').textContent=fmt(data.total);
   document.getElementById('satisfaction-note').innerHTML=data.total?`<strong>Pesquisa de Satisfação:</strong> ${fmt(data.rated)} das ${fmt(data.total)} respostas apresentaram avaliação do atendimento; ${pct(data.satisfaction)} classificaram como Excelente + Bom.`:`<strong>Pesquisa de Satisfação:</strong> ainda não há respostas disponíveis para ${label}.`;
@@ -431,9 +526,75 @@ function renderSatisfaction(period='todos'){
   const likedEntries=Object.entries(data.liked).filter(([name])=>name!=='Não informado').slice(0,6);
   replaceSatisfactionChart('satisfaction-liked-chart',{type:'bar',data:{labels:likedEntries.map(x=>x[0]),datasets:[{data:likedEntries.map(x=>x[1]),backgroundColor:'#c5a23e',borderRadius:5}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:chartGrid},ticks:{callback:v=>fmt(v)}},y:{grid:{display:false}}}}});
 }
+function renderExecutiveSummary(period) {
+  if (period === 'todos' && GLPI_API_DATA) {
+    const geral = GLPI_API_DATA.records.get('GERAL');
+    document.getElementById('executive-total').textContent = fmt(geral.totalChamados);
+    document.getElementById('executive-closed').textContent = fmt(geral.encerrados);
+    document.getElementById('executive-backlog').textContent = fmt(geral.backlog);
+    document.getElementById('executive-open-ok').textContent = fmt(geral.abertosDentroSLA);
+    document.getElementById('executive-open-late').textContent = fmt(geral.abertosSlaVencido);
+    document.getElementById('executive-updated-at').textContent = 'Última atualização: ' + GLPI_API_DATA.updatedAtLabel;
+    return;
+  }
+  const executive = EXECUTIVE_SLA_SUMMARY[period];
+  if (!executive) {
+    ['executive-total','executive-closed','executive-backlog','executive-open-ok','executive-open-late'].forEach(id=>document.getElementById(id).textContent='—');
+    document.getElementById('executive-updated-at').textContent='Sem dados disponíveis para o período selecionado.'+(GLPI_API_DATA?' Última coleta: '+GLPI_API_DATA.updatedAtLabel+'.':'');
+    return;
+  }
+  document.getElementById('executive-total').textContent = fmt(executive.total);
+  document.getElementById('executive-closed').textContent = fmt(executive.closedOk + executive.closedLate);
+  document.getElementById('executive-backlog').textContent = fmt(executive.openOk + executive.openLate);
+  document.getElementById('executive-open-ok').textContent = fmt(executive.openOk);
+  document.getElementById('executive-open-late').textContent = fmt(executive.openLate);
+  document.getElementById('executive-updated-at').textContent = 'Dados históricos da planilha · Período: ' + PERIOD_LABELS[period] + '.';
+}
+function renderNoDataPeriod(period) {
+  const message='Sem dados disponíveis para o período selecionado';
+  renderExecutiveSummary(period);
+  document.getElementById('month-note').textContent=message;
+  document.getElementById('global-sla-value').textContent='—';
+  document.getElementById('global-progress').style.width='0%';
+  document.getElementById('nav-total').textContent='—';
+  document.getElementById('governance-grid').innerHTML='';
+  document.getElementById('quality-rate').textContent='—';
+  document.getElementById('quality-caption').textContent=message;
+  document.getElementById('quality-progress').style.width='0%';
+  document.getElementById('quality-closed').textContent='—';
+  document.getElementById('quality-open').textContent='—';
+  document.getElementById('district-grid').innerHTML='';
+  document.getElementById('district-note').textContent=message+'.';
+  weekdayChart.data.datasets[0].data=Array(WEEKDAY_NAMES.length).fill(null);
+  weekdayChart.update();
+  document.getElementById('weekly-peak-sub').textContent=message+'.';
+  document.getElementById('weekly-peak-value').textContent='—';
+  document.getElementById('weekly-peak-label').textContent='—';
+  GROUP_ORDER.forEach(group=>{
+    statusCharts[group].data.datasets[0].data=[];
+    statusCharts[group].update();
+    const section=statusGroupsGrid.querySelector(`[data-status-group="${group}"]`);
+    section.querySelectorAll('[data-status-index]').forEach(node=>node.textContent='—');
+  });
+  servicesChart.data.labels=[];
+  servicesChart.data.datasets[0].data=[];
+  servicesChart.update();
+  document.getElementById('status-chart-sub').textContent=message+'.';
+  document.getElementById('services-chart-sub').textContent=message+'.';
+  document.getElementById('sla-period-label').textContent=message+'.';
+  ['sla-group-analysis','sla-district-analysis','sla-district-bars','sla-executive-bars'].forEach(id=>document.getElementById(id).innerHTML='');
+  const frame=document.getElementById('sla-dashboard-frame');
+  if(frame&&frame.contentWindow)frame.contentWindow.postMessage({type:'dashboard-month',month:MONTH_NUMBER[period]},location.origin);
+  renderSatisfaction(period);
+}
 function renderDashboard(period='todos') {
-  const data = DASHBOARD_DATA[period] || DASHBOARD_DATA.todos;
   const label = PERIOD_LABELS[period];
+  const data = DASHBOARD_DATA[period];
+  if (!data) {
+    renderNoDataPeriod(period);
+    return;
+  }
+  renderExecutiveSummary(period);
   document.getElementById('month-note').textContent = 'Exibindo: ' + label;
   document.getElementById('global-sla-value').textContent = pct(data.sla);
   document.getElementById('global-progress').style.width = data.sla + '%';
@@ -536,6 +697,7 @@ fetch('documenta%C3%A7%C3%B5es/Outros%20Indicadores/GTIC/satisfaction_2026.json?
 const initialPeriod=restoredState?.month&&PERIOD_LABELS[restoredState.month]?restoredState.month:'todos';
 document.querySelectorAll('.month-pill[data-month]').forEach(item=>item.classList.toggle('active',item.dataset.month===initialPeriod));
 renderDashboard(initialPeriod);
+loadAutomatedIndicators();
 if(restoredState?.view){showDashboardView(restoredState.view);}else if(location.hash==='#sla'){showDashboardView('sla');}
 </script>
 </body>
