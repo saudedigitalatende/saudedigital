@@ -1061,6 +1061,34 @@ const backlogValueLabelsPlugin = {
   }
 };
 
+const monthRowBandsPlugin = {
+  id: 'monthRowBands',
+  beforeDatasetsDraw(chart) {
+    const scale = chart.scales.y;
+    const { ctx, chartArea } = chart;
+    if (!scale || !chart.data.labels?.length) return;
+    const centers = chart.data.labels.map((_, index) => scale.getPixelForTick(index));
+    ctx.save();
+    centers.forEach((center, index) => {
+      const top = index === 0 ? chartArea.top : (centers[index - 1] + center) / 2;
+      const bottom = index === centers.length - 1 ? chartArea.bottom : (center + centers[index + 1]) / 2;
+      if (index % 2 === 0) {
+        ctx.fillStyle = 'rgba(31, 101, 181, 0.045)';
+        ctx.fillRect(chartArea.left, top, chartArea.right - chartArea.left, bottom - top);
+      }
+      if (index < centers.length - 1) {
+        ctx.strokeStyle = 'rgba(113, 135, 160, 0.22)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(chartArea.left, bottom);
+        ctx.lineTo(chartArea.right, bottom);
+        ctx.stroke();
+      }
+    });
+    ctx.restore();
+  }
+};
+
 function renderDetailTable(list, label) {
   document.getElementById('indTituloDetalhe').textContent = label ? '— ' + label + ' (' + list.length + ' chamados)' : '';
   const tbody = document.querySelector('#indTableDetalhe tbody');
@@ -1313,7 +1341,7 @@ function renderBacklogChart(canvasId, list, grupo) {
         y: { grid: { display: false }, ticks: { color: '#8A8F9A', autoSkip: false } }
       }
     },
-    plugins: [backlogValueLabelsPlugin]
+    plugins: [monthRowBandsPlugin, backlogValueLabelsPlugin]
   });
 }
 
