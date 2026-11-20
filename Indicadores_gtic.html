@@ -303,15 +303,23 @@ Chart.register({
       if(!value)return;
       const share=value/total;
       const angle=(arc.startAngle+arc.endAngle)/2;
-      const radius=share<.06?arc.outerRadius+10:(arc.innerRadius+arc.outerRadius)/2;
-      const x=arc.x+Math.cos(angle)*radius;
-      const y=arc.y+Math.sin(angle)*radius;
+      const outside=share<.06;
+      const radius=outside?arc.outerRadius+18:(arc.innerRadius+arc.outerRadius)/2;
+      const x=Math.min(chart.chartArea.right-10,Math.max(chart.chartArea.left+10,arc.x+Math.cos(angle)*radius));
+      const y=Math.min(chart.chartArea.bottom-10,Math.max(chart.chartArea.top+10,arc.y+Math.sin(angle)*radius));
       chart.ctx.save();
       chart.ctx.font='700 11px Arial, sans-serif';
       chart.ctx.textAlign='center';
       chart.ctx.textBaseline='middle';
-      chart.ctx.fillStyle=share<.06?'#263f5f':'#ffffff';
-      if(share>=.06){chart.ctx.shadowColor='rgba(0,0,0,.45)';chart.ctx.shadowBlur=2;}
+      chart.ctx.fillStyle=outside?'#263f5f':'#ffffff';
+      if(outside){
+        chart.ctx.strokeStyle='#7c8da3';
+        chart.ctx.lineWidth=1;
+        chart.ctx.beginPath();
+        chart.ctx.moveTo(arc.x+Math.cos(angle)*(arc.outerRadius+2),arc.y+Math.sin(angle)*(arc.outerRadius+2));
+        chart.ctx.lineTo(x,y);
+        chart.ctx.stroke();
+      }else{chart.ctx.shadowColor='rgba(0,0,0,.45)';chart.ctx.shadowBlur=2;}
       chart.ctx.fillText(value.toLocaleString('pt-BR'),x,y);
       chart.ctx.restore();
     });
@@ -439,7 +447,7 @@ function renderSatisfaction(period='todos'){
   const monthly=MONTH_KEYS.map(key=>SATISFACTION_DATA[key]||{total:0,satisfaction:null});
   replaceSatisfactionChart('satisfaction-trend-chart',{type:'bar',data:{labels:MONTH_NAMES,datasets:[{label:'Respostas',data:monthly.map(x=>x.total),backgroundColor:MONTH_KEYS.map(key=>key===period?'#0f5fb8':'#8bb9e4'),borderRadius:5,yAxisID:'y'},{label:'Satisfação',data:monthly.map(x=>x.satisfaction),type:'line',borderColor:'#17824f',backgroundColor:'#17824f',pointRadius:4,tension:.25,yAxisID:'y1'}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,title:{display:true,text:'Respostas'},grid:{color:chartGrid}},y1:{min:0,max:100,position:'right',title:{display:true,text:'Satisfação (%)'},grid:{display:false},ticks:{callback:v=>v+'%'}}}}});
   const ratingLabels=['Excelente','Bom','Razoável','Ruim'],ratingValues=ratingLabels.map(x=>data.ratings[x]||0);
-  replaceSatisfactionChart('satisfaction-rating-chart',{type:'doughnut',data:{labels:ratingLabels,datasets:[{data:ratingValues,backgroundColor:['#17824f','#4f9bd6','#e6a23c','#c9303e'],borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'right',labels:{usePointStyle:true,boxWidth:8}},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fmt(ctx.raw)}}}}});
+  replaceSatisfactionChart('satisfaction-rating-chart',{type:'doughnut',data:{labels:ratingLabels,datasets:[{data:ratingValues,backgroundColor:['#17824f','#4f9bd6','#e6a23c','#c9303e'],borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'58%',layout:{padding:{top:26,bottom:20,left:22,right:22}},plugins:{legend:{position:'right',labels:{usePointStyle:true,boxWidth:8}},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fmt(ctx.raw)}}}}});
   const resolutionLabels=['Totalmente resolvida','Parcialmente resolvida','Em andamento','Não resolvida'],resolutionValues=resolutionLabels.map(x=>data.resolutions[x]||0);
   replaceSatisfactionChart('satisfaction-resolution-chart',{type:'bar',data:{labels:resolutionLabels,datasets:[{data:resolutionValues,backgroundColor:['#17824f','#4f9bd6','#e6a23c','#c9303e'],borderRadius:5}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:chartGrid},ticks:{callback:v=>fmt(v)}},y:{grid:{display:false}}}}});
   const supportEntries=Object.entries(data.supports).filter(([name])=>name!=='Não informado').slice(0,6);
