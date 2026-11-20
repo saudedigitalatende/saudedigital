@@ -120,7 +120,7 @@
   .empty-state{padding:24px;text-align:center;color:var(--text-muted);font-size:13px;}
   .chart-wrap{position:relative;width:100%;}
   .chart-wrap.h-sla{height:220px;}
-  .chart-wrap.v-backlog{height:320px;}
+  .chart-wrap.v-backlog{height:520px;}
   .backlog-card-title{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
   .backlog-card-icon{width:34px;height:34px;min-width:34px;border-radius:8px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;}
   .backlog-card-icon svg{width:18px;height:18px;stroke:var(--accent);}
@@ -162,7 +162,7 @@
   body.embed-mode .backlog-card-title{margin-bottom:10px;}
   body.embed-mode .sla-mini-summary{margin-bottom:10px;padding-bottom:10px;}
   body.embed-mode .chart-wrap.h-sla{height:190px;}
-  body.embed-mode .chart-wrap.v-backlog{height:270px;}
+  body.embed-mode .chart-wrap.v-backlog{height:480px;}
 
   /* Fibra page enhancements */
   .header-support-text{font-size:12.5px;color:var(--text-secondary);line-height:1.5;margin:6px 0 0;max-width:640px;}
@@ -1220,15 +1220,16 @@ function renderBacklogChart(canvasId, list, grupo) {
 
   if (charts[canvasId]) charts[canvasId].destroy();
   const datasets = [
-    { type: 'bar', label: 'Abertos no mês', data: abertosExt, backgroundColor: '#378ADD', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
-    { type: 'bar', label: 'Encerrados no mês', data: encerradosExt, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
-    { type: 'bar', label: 'Backlog do mês', data: backlogExt, backgroundColor: '#eb6834', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y' },
-    { type: 'bar', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, backgroundColor: '#c026d3', borderRadius: 4, maxBarThickness: 22, yAxisID: 'y1' },
-    { type: 'line', label: 'Backlog acumulado geral', data: backlogAcumuladoExt, borderColor: '#5b21b6', backgroundColor: '#5b21b6', pointBackgroundColor: '#5b21b6', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 3, tension: 0, spanGaps: false, yAxisID: 'y1' }
+    { type: 'bar', label: 'Abertos no mês', data: abertosExt, backgroundColor: '#378ADD', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
+    { type: 'bar', label: 'Encerrados no mês', data: encerradosExt, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
+    { type: 'bar', label: 'Backlog do mês', data: backlogExt, backgroundColor: '#eb6834', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
+    { type: 'bar', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, backgroundColor: '#c026d3', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x1' },
+    { type: 'line', label: 'Backlog acumulado geral', data: backlogAcumuladoExt, borderColor: '#5b21b6', backgroundColor: '#5b21b6', pointBackgroundColor: '#5b21b6', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 8, pointHoverBorderWidth: 2, pointHitRadius: 10, pointStyle: 'circle', borderWidth: 3, tension: 0, spanGaps: false, xAxisID: 'x1' }
   ];
   charts[canvasId] = new Chart(document.getElementById(canvasId), {
     data: { labels: chartLabels, datasets },
     options: {
+      indexAxis: 'y',
       responsive: true, maintainAspectRatio: false,
       onClick: (evt, elements) => {
         if (!elements.length) return;
@@ -1277,9 +1278,9 @@ function renderBacklogChart(canvasId, list, grupo) {
         }
       },
       scales: {
-        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Chamados' }, grid: { color: '#EEF0F3' }, ticks: { color: '#8A8F9A' } },
-        y1: { beginAtZero: true, position: 'right', title: { display: true, text: 'Backlog acumulado' }, grid: { display: false }, ticks: { color: '#8A8F9A' } },
-        x: { grid: { display: false }, ticks: { color: '#8A8F9A', autoSkip: false, maxRotation: 0 } }
+        x: { beginAtZero: true, position: 'bottom', title: { display: true, text: 'Chamados' }, grid: { color: '#EEF0F3' }, ticks: { color: '#8A8F9A' } },
+        x1: { beginAtZero: true, position: 'top', title: { display: true, text: 'Backlog acumulado' }, grid: { display: false }, ticks: { color: '#8A8F9A' } },
+        y: { grid: { display: false }, ticks: { color: '#8A8F9A', autoSkip: false } }
       }
     }
   });
