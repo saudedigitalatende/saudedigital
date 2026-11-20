@@ -122,6 +122,9 @@
   .chart-wrap.h-sla{height:220px;}
   .chart-wrap.v-backlog{height:520px;}
   .backlog-card-title{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .card-series-legend{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:5px 11px;max-width:78%;font-size:9px;line-height:1.2;color:var(--text-muted);}
+  .card-series-legend span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
+  .card-series-legend .swatch{width:8px;height:8px;min-width:8px;border-radius:2px;display:inline-block;}
   .backlog-card-icon{width:34px;height:34px;min-width:34px;border-radius:8px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;}
   .backlog-card-icon svg{width:18px;height:18px;stroke:var(--accent);}
   .backlog-card-title h3{margin:0;font-size:15px;}
@@ -463,14 +466,6 @@
   <h2 class="section-title embed-backlog-title">Evolução mensal dos chamados e backlog</h2>
   <p class="section-sub">Evolução mensal de chamados, backlog e acumulados.</p>
 
-  <div class="legend">
-    <span><span class="swatch" style="background:#378ADD"></span>Abertos no mês</span>
-    <span><span class="swatch" style="background:#1baf7a"></span>Encerrados no mês</span>
-    <span><span class="swatch" style="background:#eb6834"></span>Backlog do mês</span>
-    <span><span class="swatch" style="background:#c026d3"></span>Backlog acumulado do ano</span>
-    <span><span class="swatch" style="background:#5b21b6"></span>Backlog acumulado geral</span>
-  </div>
-
   <div class="panels-row panels-row-2">
     <div class="panel backlog-card">
       <div class="backlog-card-title">
@@ -540,6 +535,14 @@ function showPage(name) {
   document.getElementById('navIndicadores').classList.toggle('active', name === 'indicadores');
   window.scrollTo(0,0);
 }
+const backlogLegendMarkup = '<div class="card-series-legend">' +
+  '<span><i class="swatch" style="background:#378ADD"></i>Abertos</span>' +
+  '<span><i class="swatch" style="background:#1baf7a"></i>Encerrados</span>' +
+  '<span><i class="swatch" style="background:#eb6834"></i>Backlog do mês</span>' +
+  '<span><i class="swatch" style="background:#c026d3"></i>Acumulado do ano</span>' +
+  '<span><i class="swatch" style="background:#5b21b6"></i>Acumulado geral</span>' +
+  '</div>';
+document.querySelectorAll('.backlog-card .backlog-card-title').forEach(title => title.insertAdjacentHTML('beforeend', backlogLegendMarkup));
 </script>
 <script>
 (async function(){
