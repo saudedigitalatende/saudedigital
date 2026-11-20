@@ -1073,11 +1073,11 @@ const monthRowBandsPlugin = {
       const top = index === 0 ? chartArea.top : (centers[index - 1] + center) / 2;
       const bottom = index === centers.length - 1 ? chartArea.bottom : (center + centers[index + 1]) / 2;
       if (index % 2 === 0) {
-        ctx.fillStyle = 'rgba(31, 101, 181, 0.045)';
+        ctx.fillStyle = 'rgba(31, 101, 181, 0.09)';
         ctx.fillRect(chartArea.left, top, chartArea.right - chartArea.left, bottom - top);
       }
       if (index < centers.length - 1) {
-        ctx.strokeStyle = 'rgba(113, 135, 160, 0.22)';
+        ctx.strokeStyle = 'rgba(80, 103, 132, 0.42)';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(chartArea.left, bottom);
