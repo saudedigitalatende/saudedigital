@@ -536,8 +536,8 @@ function showPage(name) {
   window.scrollTo(0,0);
 }
 const backlogLegendMarkup = '<div class="card-series-legend">' +
-  '<span><i class="swatch" style="background:#378ADD"></i>Abertos</span>' +
   '<span><i class="swatch" style="background:#1baf7a"></i>Encerrados</span>' +
+  '<span><i class="swatch" style="background:#378ADD"></i>Abertos</span>' +
   '<span><i class="swatch" style="background:#eb6834"></i>Backlog do mês</span>' +
   '<span><i class="swatch" style="background:#c026d3"></i>Acumulado do ano</span>' +
   '<span><i class="swatch" style="background:#5b21b6"></i>Acumulado geral</span>' +
@@ -1278,8 +1278,8 @@ function renderBacklogChart(canvasId, list, grupo) {
 
   if (charts[canvasId]) charts[canvasId].destroy();
   const datasets = [
-    { type: 'bar', label: 'Abertos no mês', data: abertosExt, backgroundColor: '#378ADD', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
     { type: 'bar', label: 'Encerrados no mês', data: encerradosExt, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
+    { type: 'bar', label: 'Abertos no mês', data: abertosExt, backgroundColor: '#378ADD', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
     { type: 'bar', label: 'Backlog do mês', data: backlogExt, backgroundColor: '#eb6834', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
     { type: 'bar', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, backgroundColor: '#c026d3', borderRadius: 4, maxBarThickness: 14, xAxisID: 'x1' },
     { type: 'bar', label: 'Backlog acumulado geral', data: backlogAcumuladoGeralExibido, backgroundColor: '#5b21b6', borderRadius: 4, maxBarThickness: 14, xAxisID: 'x1' }
@@ -1294,9 +1294,9 @@ function renderBacklogChart(canvasId, list, grupo) {
         const el = elements[0];
         const m = el.index;
         atualizarResumo(m);
-        const keys = ['abertos','encerrados','backlog','backlogAcumuladoAno','backlogAcumulado'];
-        const labels = ['Abertos no mês','Encerrados no mês','Backlog do mês','Backlog acumulado do ano','Backlog acumulado geral'];
-        const lists = [perMonthLists.abertos, perMonthLists.encerrados, perMonthLists.backlog, perMonthListsAcumuladoAno, perMonthListsAcumulado];
+        const keys = ['encerrados','abertos','backlog','backlogAcumuladoAno','backlogAcumulado'];
+        const labels = ['Encerrados no mês','Abertos no mês','Backlog do mês','Backlog acumulado do ano','Backlog acumulado geral'];
+        const lists = [perMonthLists.encerrados, perMonthLists.abertos, perMonthLists.backlog, perMonthListsAcumuladoAno, perMonthListsAcumulado];
         let detailList = lists[el.datasetIndex][m];
         // No detalhamento, mesmo os indicadores acumulados devem respeitar o mês/ano clicado.
         // O gráfico preserva a curva histórica; a tabela mostra somente os chamados daquele ponto mensal.
@@ -1324,8 +1324,8 @@ function renderBacklogChart(canvasId, list, grupo) {
             },
             label: (ctx) => {
               const m = ctx.dataIndex;
-              if (ctx.datasetIndex === 0) return abertosExt[m] !== null ? 'Abertos no mês: ' + abertosExt[m].toLocaleString('pt-BR') : null;
-              if (ctx.datasetIndex === 1) return encerradosExt[m] !== null ? 'Encerrados no mês: ' + encerradosExt[m].toLocaleString('pt-BR') : null;
+              if (ctx.datasetIndex === 0) return encerradosExt[m] !== null ? 'Encerrados no mês: ' + encerradosExt[m].toLocaleString('pt-BR') : null;
+              if (ctx.datasetIndex === 1) return abertosExt[m] !== null ? 'Abertos no mês: ' + abertosExt[m].toLocaleString('pt-BR') : null;
               if (ctx.datasetIndex === 2) return backlogExt[m] !== null ? 'Backlog do mês: ' + backlogExt[m].toLocaleString('pt-BR') : null;
               if (ctx.datasetIndex === 3) return backlogAcumuladoAnoExt[m] !== null ? 'Backlog acumulado do ano: ' + backlogAcumuladoAnoExt[m].toLocaleString('pt-BR') : null;
               if (ctx.datasetIndex === 4) return backlogAcumuladoExt[m] !== null ? 'Backlog acumulado geral: ' + backlogAcumuladoExt[m].toLocaleString('pt-BR') : null;
