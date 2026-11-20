@@ -1217,6 +1217,7 @@ function renderBacklogChart(canvasId, list, grupo) {
       '<div class="bs-value">' + (valor !== null && valor !== undefined ? valor.toLocaleString('pt-BR') : '—') + '</div>';
   }
   atualizarResumo(referenceMonth);
+  const backlogAcumuladoGeralExibido = backlogAcumuladoExt.map((valor,indice) => indice === referenceMonth ? valor : null);
 
   if (charts[canvasId]) charts[canvasId].destroy();
   const datasets = [
@@ -1224,7 +1225,7 @@ function renderBacklogChart(canvasId, list, grupo) {
     { type: 'bar', label: 'Encerrados no mês', data: encerradosExt, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
     { type: 'bar', label: 'Backlog do mês', data: backlogExt, backgroundColor: '#eb6834', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
     { type: 'bar', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, backgroundColor: '#c026d3', borderRadius: 4, maxBarThickness: 14, xAxisID: 'x1' },
-    { type: 'bar', label: 'Backlog acumulado geral', data: backlogAcumuladoExt, backgroundColor: '#5b21b6', borderRadius: 4, maxBarThickness: 14, xAxisID: 'x1' }
+    { type: 'bar', label: 'Backlog acumulado geral', data: backlogAcumuladoGeralExibido, backgroundColor: '#5b21b6', borderRadius: 4, maxBarThickness: 14, xAxisID: 'x1' }
   ];
   charts[canvasId] = new Chart(document.getElementById(canvasId), {
     data: { labels: chartLabels, datasets },
