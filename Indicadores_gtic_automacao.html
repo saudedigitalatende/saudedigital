@@ -206,7 +206,7 @@ h1 em{font-style:normal;color:#c5a23e}
       </article>
       <article class="chart-card">
         <div class="chart-title">Evolutivo de chamados por Grupo Técnico</div>
-        <div class="chart-sub">Infraestrutura, Sistemas, Governança e Dispositivos Móveis · jan–dez 2026</div>
+        <div class="chart-sub">Infraestrutura, Sistemas, Governança e Gestão de Ativos · jan–dez 2026</div>
         <div class="chart-wrap"><canvas id="group-trend-chart"></canvas></div>
       </article>
     </div>
@@ -225,7 +225,7 @@ h1 em{font-style:normal;color:#c5a23e}
       </article>
     </div>
   </section>
-  <div class="source-note"><strong>Fonte:</strong> GLPI_Janeiro_a_Outubro_2026_4_Grupos.xlsx. A estrutura apresenta quatro Grupos Técnicos e suas Áreas Técnicas, incluindo Tablet, Smartphone e Cartão SIM em Dispositivos Móveis.</div>
+  <div class="source-note"><strong>Fonte:</strong> GLPI_Janeiro_a_Outubro_2026_4_Grupos.xlsx. A estrutura apresenta quatro Grupos Técnicos e suas Áreas Técnicas. No painel, o grupo técnico retornado pela integração como Dispositivos Móveis é apresentado como Gestão de Ativos.</div>
 </div>
 <section class="dashboard-view" id="satisfaction-view" hidden>
   <div class="sla-page-title"><h2>Pesquisa de Satisfação</h2><p id="satisfaction-period-label">Avaliações do atendimento · Jan–Dez 2026</p></div>
@@ -392,12 +392,12 @@ async function loadAutomatedIndicators() {
 
   const PERIOD_LABELS = {"todos":"Jan–Dez 2026","jan":"Janeiro 2026","fev":"Fevereiro 2026","mar":"Março 2026","abr":"Abril 2026","mai":"Maio 2026","jun":"Junho 2026","jul":"Julho 2026","ago":"Agosto 2026","set":"Setembro 2026","out":"Outubro 2026","nov":"Novembro 2026","dez":"Dezembro 2026"};
 const GROUP_ORDER = ["INFRAESTRUTURA", "SISTEMAS", "GOVERNANÇA", "DISPOSITIVOS MÓVEIS"];
-const GROUP_NAMES = {INFRAESTRUTURA:'Infraestrutura',SISTEMAS:'Sistemas','GOVERNANÇA':'Governança','DISPOSITIVOS MÓVEIS':'Dispositivos Móveis'};
+const GROUP_NAMES = {INFRAESTRUTURA:'Infraestrutura',SISTEMAS:'Sistemas','GOVERNANÇA':'Governança','DISPOSITIVOS MÓVEIS':'Gestão de Ativos'};
 const AREA_ORDER = {
   INFRAESTRUTURA:['EQUIPAMENTOS E DISPOSITIVOS','IMPRESSÃO','REDE E CONECTIVIDADE','TELEFONIA','SOFTWARES'],
   SISTEMAS:['ASSISTÊNCIA REMOTA','ASSISTÊNCIA CAMPO - TREINAMENTO','ASSISTÊNCIA OPERAÇÃO ASSISTIDA','ASSISTÊNCIA IMPLANTAÇÃO'],
   'GOVERNANÇA':['NOC','DATA CENTER'],
-  'DISPOSITIVOS MÓVEIS':['TABLET','SMARTPHONE','CARTÃO SIM']
+  'DISPOSITIVOS MÓVEIS':['CARTÃO SIM','COMPUTADORES','DISPOSITIVOS','IMPRESSORAS','MONITORES','TELEFONES']
 };
 const CSAT_SUMMARY = {todos:{csat:94.2,respostas:89,excelente:82.6},jan:{csat:90,respostas:10,excelente:70},fev:{csat:100,respostas:7,excelente:100},mar:{csat:75,respostas:4,excelente:75},abr:{csat:100,respostas:6,excelente:83.3},mai:{csat:96.7,respostas:32,excelente:86.7},jun:{csat:87.5,respostas:9,excelente:75},jul:{csat:100,respostas:17,excelente:82.4},ago:{csat:75,respostas:4,excelente:75},set:{csat:null,respostas:0,excelente:null},out:{csat:null,respostas:0,excelente:null}};
 const WEEKDAY_DATA = {"todos":[3164,3209,2915,2593,2042,121,61],"jan":[210,278,164,171,173,0,0],"fev":[209,215,208,219,210,30,20],"mar":[343,351,289,216,127,0,0],"abr":[355,302,414,285,188,0,0],"mai":[430,387,342,305,233,0,0],"jun":[445,413,259,324,177,0,0],"jul":[376,408,336,275,225,5,0],"ago":[436,316,308,310,297,77,9],"set":[223,268,294,283,269,3,22],"out":[137,271,301,205,143,6,10]};
@@ -417,7 +417,7 @@ const WEEKDAY_NAMES = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','D
 const fmt = value => Number(value || 0).toLocaleString('pt-BR');
 const pct = value => Number(value || 0).toFixed(1).replace('.', ',') + '%';
 const statusClass = value => value >= 85 ? 'ok' : value >= 60 ? 'attention' : 'critical';
-const AREA_NAMES = {'EQUIPAMENTOS E DISPOSITIVOS':'Equipamentos e Dispositivos','IMPRESSÃO':'Impressão','REDE E CONECTIVIDADE':'Rede e Conectividade','TELEFONIA':'Telefonia','SOFTWARES':'Softwares','ASSISTÊNCIA REMOTA':'Assistência Remota','ASSISTÊNCIA OPERAÇÃO ASSISTIDA':'Assistência Operação Assistida','ASSISTÊNCIA IMPLANTAÇÃO':'Assistência Implantação','ASSISTÊNCIA CAMPO - TREINAMENTO':'Assistência Treinamento','NOC':'NOC','DATA CENTER':'Data Center','TABLET':'Tablet','SMARTPHONE':'Smartphone','CARTÃO SIM':'Cartão SIM'};
+const AREA_NAMES = {'EQUIPAMENTOS E DISPOSITIVOS':'Equipamentos e Dispositivos','IMPRESSÃO':'Impressão','REDE E CONECTIVIDADE':'Rede e Conectividade','TELEFONIA':'Telefonia','SOFTWARES':'Softwares','ASSISTÊNCIA REMOTA':'Assistência Remota','ASSISTÊNCIA OPERAÇÃO ASSISTIDA':'Assistência Operação Assistida','ASSISTÊNCIA IMPLANTAÇÃO':'Assistência Implantação','ASSISTÊNCIA CAMPO - TREINAMENTO':'Assistência Treinamento','NOC':'NOC','DATA CENTER':'Data Center','TABLET':'Tablet','SMARTPHONE':'Smartphone','CARTÃO SIM':'Cartões SIM','COMPUTADORES':'Computadores','DISPOSITIVOS':'Dispositivos','IMPRESSORAS':'Impressoras','MONITORES':'Monitores','TELEFONES':'Telefones'};
 const areaName = name => AREA_NAMES[name] || name;
 const slaState = value => value >= 85 ? 'ok' : value >= 60 ? 'attention' : 'critical';
 const slaStateLabel = value => value >= 85 ? 'ok' : value >= 60 ? 'atenção' : 'crítico';
