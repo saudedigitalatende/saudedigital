@@ -391,7 +391,7 @@ async function loadAutomatedIndicators() {
 }
 
   const PERIOD_LABELS = {"todos":"Jan–Dez 2026","jan":"Janeiro 2026","fev":"Fevereiro 2026","mar":"Março 2026","abr":"Abril 2026","mai":"Maio 2026","jun":"Junho 2026","jul":"Julho 2026","ago":"Agosto 2026","set":"Setembro 2026","out":"Outubro 2026","nov":"Novembro 2026","dez":"Dezembro 2026"};
-const GROUP_ORDER = ["INFRAESTRUTURA", "SISTEMAS", "GOVERNANÇA", "DISPOSITIVOS MÓVEIS"];
+const GROUP_ORDER = ["SISTEMAS", "GOVERNANÇA", "INFRAESTRUTURA", "DISPOSITIVOS MÓVEIS"];
 const GROUP_NAMES = {INFRAESTRUTURA:'Infraestrutura',SISTEMAS:'Sistemas','GOVERNANÇA':'Governança','DISPOSITIVOS MÓVEIS':'Gestão de Ativos'};
 const AREA_ORDER = {
   INFRAESTRUTURA:['EQUIPAMENTOS E DISPOSITIVOS','IMPRESSÃO','REDE E CONECTIVIDADE','TELEFONIA','SOFTWARES'],
@@ -608,7 +608,8 @@ function renderDashboard(period='todos') {
       const cardStatus = item.total ? statusClass(item.sla) : 'empty';
       return `<article class="technical-card ${cardStatus}"><div class="technical-sla">${item.total ? pct(item.sla) : '—'}</div><div class="technical-name">${areaName(name)}</div><div class="technical-total">${fmt(item.total)} chamados</div><div class="technical-detail">${fmt(item.np)} dentro · ${fmt(item.fp)} fora</div></article>`;
     }).join('');
-    return `<section class="governance-card ${statusClass(group.sla)}"><div class="group-heading"><div><span class="group-kicker">Grupo Técnico</span><h2>${GROUP_NAMES[groupKey]}</h2></div><div class="group-sla"><strong>${pct(group.sla)}</strong><span>SLA</span></div></div><div class="group-volume"><strong>${fmt(group.total)}</strong> chamados<span>${fmt(group.np)} dentro do prazo · ${fmt(group.fp)} fora do prazo</span></div><div class="progress"><span style="width:${group.sla}%"></span></div><div class="technical-label">Área Técnica</div><div class="technical-grid">${areas || '<article class="technical-card"><div class="technical-name">Sem chamados no período</div></article>'}</div></section>`;
+    const categoryLabel = groupKey === 'INFRAESTRUTURA' || groupKey === 'DISPOSITIVOS MÓVEIS' ? 'Categorias' : 'Área Técnica';
+    return `<section class="governance-card ${statusClass(group.sla)}"><div class="group-heading"><div><span class="group-kicker">Grupo Técnico</span><h2>${GROUP_NAMES[groupKey]}</h2></div><div class="group-sla"><strong>${pct(group.sla)}</strong><span>SLA</span></div></div><div class="group-volume"><strong>${fmt(group.total)}</strong> chamados<span>${fmt(group.np)} dentro do prazo · ${fmt(group.fp)} fora do prazo</span></div><div class="progress"><span style="width:${group.sla}%"></span></div><div class="technical-label">${categoryLabel}</div><div class="technical-grid">${areas || '<article class="technical-card"><div class="technical-name">Sem chamados no período</div></article>'}</div></section>`;
   }).join('');
   document.getElementById('quality-rate').textContent = pct(data.resolucao);
   document.getElementById('quality-caption').textContent = fmt(data.enc) + ' encerrados de ' + fmt(data.total);
