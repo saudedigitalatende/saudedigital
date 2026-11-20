@@ -130,7 +130,7 @@
   .backlog-card-title h3{margin:0;font-size:15px;}
   .backlog-summary{margin-top:16px;padding-top:14px;border-top:1px solid var(--border);}
   .backlog-summary .bs-label{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--text-muted);font-weight:600;margin-bottom:4px;}
-  .backlog-summary .bs-value{font-size:26px;font-weight:700;color:#5b21b6;letter-spacing:-0.01em;}
+  .backlog-summary .bs-value{font-size:26px;font-weight:700;color:#6B46C1;letter-spacing:-0.01em;}
 
   input.pct-input{width:118px;font-family:var(--font);font-size:13px;padding:5px 9px;border:1px solid var(--border);border-radius:6px;text-align:right;}
   input.pct-input.missing{border-color:#EDB56A;background:#FFF8EE;}
@@ -536,11 +536,11 @@ function showPage(name) {
   window.scrollTo(0,0);
 }
 const backlogLegendMarkup = '<div class="card-series-legend">' +
-  '<span><i class="swatch" style="background:#1baf7a"></i>Encerrados</span>' +
-  '<span><i class="swatch" style="background:#378ADD"></i>Abertos</span>' +
-  '<span><i class="swatch" style="background:#eb6834"></i>Backlog do mês</span>' +
-  '<span><i class="swatch" style="background:#c026d3"></i>Acumulado do ano</span>' +
-  '<span><i class="swatch" style="background:#5b21b6"></i>Acumulado geral</span>' +
+  '<span><i class="swatch" style="background:#2B6CB0"></i>Encerrados</span>' +
+  '<span><i class="swatch" style="background:#2F855A"></i>Abertos</span>' +
+  '<span><i class="swatch" style="background:#D97706"></i>Backlog do mês</span>' +
+  '<span><i class="swatch" style="background:#DB4B93"></i>Acumulado do ano</span>' +
+  '<span><i class="swatch" style="background:#6B46C1"></i>Acumulado geral</span>' +
   '</div>';
 document.querySelectorAll('.backlog-card .backlog-card-title').forEach(title => title.insertAdjacentHTML('beforeend', backlogLegendMarkup));
 </script>
@@ -1278,11 +1278,11 @@ function renderBacklogChart(canvasId, list, grupo) {
 
   if (charts[canvasId]) charts[canvasId].destroy();
   const datasets = [
-    { type: 'bar', label: 'Encerrados no mês', data: encerradosExt, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
-    { type: 'bar', label: 'Abertos no mês', data: abertosExt, backgroundColor: '#378ADD', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
-    { type: 'bar', label: 'Backlog do mês', data: backlogExt, backgroundColor: '#eb6834', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
-    { type: 'bar', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, backgroundColor: '#c026d3', borderRadius: 4, maxBarThickness: 14, xAxisID: 'x1' },
-    { type: 'bar', label: 'Backlog acumulado geral', data: backlogAcumuladoGeralExibido, backgroundColor: '#5b21b6', borderRadius: 4, maxBarThickness: 14, xAxisID: 'x1' }
+    { type: 'bar', label: 'Encerrados no mês', data: encerradosExt, backgroundColor: '#2B6CB0', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
+    { type: 'bar', label: 'Abertos no mês', data: abertosExt, backgroundColor: '#2F855A', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
+    { type: 'bar', label: 'Backlog do mês', data: backlogExt, backgroundColor: '#D97706', borderRadius: 4, maxBarThickness: 16, xAxisID: 'x' },
+    { type: 'bar', label: 'Backlog acumulado do ano', data: backlogAcumuladoAnoExt, backgroundColor: '#DB4B93', borderRadius: 4, maxBarThickness: 14, xAxisID: 'x1' },
+    { type: 'bar', label: 'Backlog acumulado geral', data: backlogAcumuladoGeralExibido, backgroundColor: '#6B46C1', borderRadius: 4, maxBarThickness: 14, xAxisID: 'x1' }
   ];
   charts[canvasId] = new Chart(document.getElementById(canvasId), {
     data: { labels: chartLabels, datasets },
