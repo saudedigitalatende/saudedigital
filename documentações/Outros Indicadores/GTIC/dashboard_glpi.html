@@ -533,6 +533,39 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
+Chart.register({
+  id:'persistentBarValues',
+  afterDatasetsDraw(chart){
+    const {ctx,chartArea}=chart;
+    chart.data.datasets.forEach((dataset,datasetIndex)=>{
+      const meta=chart.getDatasetMeta(datasetIndex);
+      if(meta.hidden||meta.type!=='bar')return;
+      meta.data.forEach((bar,index)=>{
+        const raw=dataset.data[index];
+        const value=typeof raw==='object'&&raw!==null?(raw.y??raw.x):raw;
+        if(value===null||value===undefined||value===''||!Number.isFinite(Number(value))||Number(value)===0)return;
+        const horizontal=chart.options.indexAxis==='y';
+        const point=bar.getProps(['x','y'],true);
+        const label=Number(value).toLocaleString('pt-BR');
+        ctx.save();
+        ctx.fillStyle='#263f5f';
+        ctx.font='600 10px Arial, sans-serif';
+        ctx.textBaseline='middle';
+        if(horizontal){
+          const room=chartArea.right-point.x;
+          ctx.textAlign=room>ctx.measureText(label).width+10?'left':'right';
+          ctx.fillText(label,room>ctx.measureText(label).width+10?point.x+6:chartArea.right-3,point.y);
+        }else{
+          ctx.textAlign='center';
+          ctx.fillText(label,point.x,Math.max(chartArea.top+7,point.y-8));
+        }
+        ctx.restore();
+      });
+    });
+  }
+});
+</script>
+<script>
 function showPage(name) {
   document.getElementById('pageFibra').style.display = (name === 'fibra') ? '' : 'none';
   document.getElementById('pageIndicadores').style.display = (name === 'indicadores') ? '' : 'none';
