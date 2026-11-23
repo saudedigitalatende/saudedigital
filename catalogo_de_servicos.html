@@ -372,7 +372,7 @@ function aplicarNomeGestaoAtivos(data) {
 }
 aplicarNomeGestaoAtivos(ADMINISTRATIVO);
 
-// Completa Estabilizador e Nobreak com o mesmo conjunto de solicitações do
+// Completa Estabilizador, Nobreak e Teclado com o mesmo conjunto de solicitações do
 // Leitor de Código de Barras: empréstimo/devolução, transferência/liberação
 // e furto/roubo/perda.
 function adicionarSolicitacaoGestaoAtivos(servico, solicitacao, tipo, sla, descricao) {
@@ -393,7 +393,7 @@ function adicionarSolicitacaoGestaoAtivos(servico, solicitacao, tipo, sla, descr
     descricao
   });
 }
-['ESTABILIZADOR', 'NOBREAK'].forEach(servico => {
+['ESTABILIZADOR', 'NOBREAK', 'TECLADO'].forEach(servico => {
   const equipamento = servico.toLowerCase();
   adicionarSolicitacaoGestaoAtivos(
     servico,
@@ -411,14 +411,34 @@ function adicionarSolicitacaoGestaoAtivos(servico, solicitacao, tipo, sla, descr
   );
 });
 
-// Teclado segue o mesmo atendimento patrimonial aplicado ao mouse.
+// Completa o terceiro atendimento patrimonial do teclado.
 adicionarSolicitacaoGestaoAtivos(
   'TECLADO',
-  'TRANSFERÊNCIA/LIBERAÇÃO',
-  'REQUISIÇÃO',
+  'FURTO/ROUBO/PERDA',
+  'INCIDENTE',
   'MUITO BAIXO (3 DIAS)',
-  'Solicitação para transferência ou liberação de teclado, conforme disponibilidade, necessidade da unidade e registro no GLPI.'
+  'Registro de ocorrência de furto, roubo ou perda de teclado, com abertura de chamado para formalização, rastreabilidade e adoção das medidas administrativas cabíveis.'
 );
+
+// Disponibiliza a instalação de teclado também na categoria Dispositivos da Infraestrutura.
+const dispositivosInfra = INFRA.Dispositivos || (INFRA.Dispositivos = []);
+const instalacaoTecladoEmDispositivos = dispositivosInfra.some(item =>
+  /(?:^|\.\s*)TECLADO$/i.test(String(item.servico || '').trim()) &&
+  String(item.solicitacao || '').toUpperCase().trim() === 'INSTALAÇÃO'
+);
+if (!instalacaoTecladoEmDispositivos) {
+  dispositivosInfra.push({
+    servico: '19. TECLADO',
+    dono: "INFRAESTRUTURA<br><span class='resp-group'>Grupo T&eacute;cnico: Infraestrutura</span>",
+    tipo: 'REQUISIÇÃO',
+    solicitacao: 'INSTALAÇÃO',
+    n1: 'CENTRAL DE SERVIÇOS',
+    n2: "INFRAESTRUTURA<br><span class='resp-group'>Grupo T&eacute;cnico: Infraestrutura</span>",
+    n3: "INFRAESTRUTURA<br><span class='resp-group'>Grupo T&eacute;cnico: Infraestrutura</span>",
+    sla: 'MUITO BAIXO (3 DIAS)',
+    descricao: 'Instalação e conexão de teclado no equipamento do usuário, com verificação do funcionamento e dos ajustes necessários para uso.'
+  });
+}
 
 // Serviço descontinuado: permanece apenas no Portfólio de Serviços.
 Object.keys(SISTEMAS).forEach(categoria => {
