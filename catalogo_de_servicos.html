@@ -491,6 +491,7 @@ Object.values(INFRA).flat().filter(item => item.servico === '8. VPN').forEach(it
 });
 
 const CATALOG_AREAS = ['infra', 'datacenter', 'noc', 'sistemas', 'adm'];
+const ACTIVE_AREA_STORAGE_KEY = 'catalogo-gtic-grupo-ativo';
 
 // Categoria atual por área: null = nenhuma seleção; '' é reservado à busca global temporária.
 const state = {
@@ -501,6 +502,12 @@ const state = {
   adm:      {sheet: null, search:'', tipo:''},
 };
 let activeMainArea = 'infra';
+try {
+  const savedMainArea = localStorage.getItem(ACTIVE_AREA_STORAGE_KEY);
+  if (CATALOG_AREAS.includes(savedMainArea)) activeMainArea = savedMainArea;
+} catch (error) {
+  // O catálogo continua funcionando normalmente quando o armazenamento está indisponível.
+}
 let globalSearchRunning = false;
 let globalSearchActive = false;
 let stateBeforeGlobalSearch = null;
@@ -915,6 +922,11 @@ function toggleDocuments(button) {
 }
 function switchMain(area, el) {
   activeMainArea = area;
+  try {
+    localStorage.setItem(ACTIVE_AREA_STORAGE_KEY, area);
+  } catch (error) {
+    // A seleção visual continua funcionando mesmo sem acesso ao armazenamento.
+  }
   clearGlobalResults();
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+area).classList.add('active');
@@ -927,6 +939,8 @@ CATALOG_AREAS.forEach(area => {
   buildSubTabs(area);
   buildCatalog(area);
 });
+const savedMainTab = document.getElementById('tab-'+activeMainArea);
+if (savedMainTab) switchMain(activeMainArea, savedMainTab);
 
 window.addEventListener('message', e => {
   if (e.data && e.data.switchArea) {
