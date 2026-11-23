@@ -372,13 +372,43 @@ function aplicarNomeGestaoAtivos(data) {
 }
 aplicarNomeGestaoAtivos(ADMINISTRATIVO);
 
-// Estabilizador e nobreak não fazem parte do catálogo de Gestão de Ativos.
-Object.keys(ADMINISTRATIVO).forEach(categoria => {
-  ADMINISTRATIVO[categoria] = ADMINISTRATIVO[categoria].filter(item => {
+// Completa Estabilizador e Nobreak com o mesmo conjunto de solicitações do
+// Leitor de Código de Barras: empréstimo/devolução, transferência/liberação
+// e furto/roubo/perda.
+function adicionarSolicitacaoGestaoAtivos(servico, solicitacao, tipo, sla, descricao) {
+  const itens = ADMINISTRATIVO.Dispositivos || (ADMINISTRATIVO.Dispositivos = []);
+  const existe = itens.some(item => {
     const nome = String(item.servico || '').replace(/^\s*\d+\.\s*/, '').toUpperCase().trim();
-    return nome !== 'ESTABILIZADOR' && nome !== 'NOBREAK';
+    return nome === servico && String(item.solicitacao || '').toUpperCase().trim() === solicitacao;
   });
-  if (!ADMINISTRATIVO[categoria].length) delete ADMINISTRATIVO[categoria];
+  if (!existe) itens.push({
+    servico,
+    dono: "GESTÃO DE ATIVOS<br><span class='resp-group'>Grupo T&eacute;cnico: Gestão de Ativos</span>",
+    tipo,
+    solicitacao,
+    n1: 'GESTÃO DE ATIVOS',
+    n2: 'GESTÃO DE ATIVOS',
+    n3: 'GESTÃO DE ATIVOS',
+    sla,
+    descricao
+  });
+}
+['ESTABILIZADOR', 'NOBREAK'].forEach(servico => {
+  const equipamento = servico.toLowerCase();
+  adicionarSolicitacaoGestaoAtivos(
+    servico,
+    'EMPRÉSTIMO/DEVOLUÇÃO',
+    'REQUISIÇÃO',
+    'PLANEJADO (15 DIAS)',
+    `Procedimento para registrar empréstimo temporário ou devolução de ${equipamento}, conforme disponibilidade, autorização administrativa e controle de responsabilidade do usuário ou unidade.`
+  );
+  adicionarSolicitacaoGestaoAtivos(
+    servico,
+    'TRANSFERÊNCIA/LIBERAÇÃO',
+    'REQUISIÇÃO',
+    'MUITO BAIXO (3 DIAS)',
+    `Procedimento para solicitar transferência ou liberação de ${equipamento}, conforme critérios administrativos, disponibilidade em estoque e necessidade informada pela unidade solicitante.`
+  );
 });
 
 // Serviço descontinuado: permanece apenas no Portfólio de Serviços.
@@ -435,8 +465,8 @@ renumerarArea(NOC, ORDEM_NOC);
 // Numeração própria e sequencial do catálogo Administrativo.
 const ORDEM_ADMINISTRATIVO = [
   'CHIP', 'DESKTOP', 'NOTEBOOK', 'TABLET', 'LEITOR DE CÓDIGO DE BARRAS',
-  'ALARME DE SEGURANÇA', 'CÂMERA DE VIGILÂNCIA', 'PROJETOR MULTIMÍDIA',
-  'CAIXA DE SOM', 'FONTE EXTERNA', 'MOUSE', 'WEBCAM',
+  'ALARME DE SEGURANÇA', 'CÂMERA DE VIGILÂNCIA', 'ESTABILIZADOR', 'NOBREAK',
+  'PROJETOR MULTIMÍDIA', 'CAIXA DE SOM', 'FONTE EXTERNA', 'MOUSE', 'WEBCAM',
   'TÉRMICA CUPOM FISCAL', 'TÉRMICA DE ETIQUETAS', 'JATO DE TINTA',
   'LASER MULTIFUNCIONAL', 'LASER SIMPLES', 'MONITOR DE COMPUTADOR',
   'MONITOR DE TELEVISÃO', 'SMARTPHONE'
