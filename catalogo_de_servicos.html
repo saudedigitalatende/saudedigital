@@ -372,6 +372,15 @@ function aplicarNomeGestaoAtivos(data) {
 }
 aplicarNomeGestaoAtivos(ADMINISTRATIVO);
 
+// Estabilizador e nobreak não fazem parte do catálogo de Gestão de Ativos.
+Object.keys(ADMINISTRATIVO).forEach(categoria => {
+  ADMINISTRATIVO[categoria] = ADMINISTRATIVO[categoria].filter(item => {
+    const nome = String(item.servico || '').replace(/^\s*\d+\.\s*/, '').toUpperCase().trim();
+    return nome !== 'ESTABILIZADOR' && nome !== 'NOBREAK';
+  });
+  if (!ADMINISTRATIVO[categoria].length) delete ADMINISTRATIVO[categoria];
+});
+
 // Serviço descontinuado: permanece apenas no Portfólio de Serviços.
 Object.keys(SISTEMAS).forEach(categoria => {
   SISTEMAS[categoria] = SISTEMAS[categoria].filter(item => {
@@ -426,8 +435,8 @@ renumerarArea(NOC, ORDEM_NOC);
 // Numeração própria e sequencial do catálogo Administrativo.
 const ORDEM_ADMINISTRATIVO = [
   'CHIP', 'DESKTOP', 'NOTEBOOK', 'TABLET', 'LEITOR DE CÓDIGO DE BARRAS',
-  'ALARME DE SEGURANÇA', 'CÂMERA DE VIGILÂNCIA', 'ESTABILIZADOR', 'NOBREAK',
-  'PROJETOR MULTIMÍDIA', 'CAIXA DE SOM', 'FONTE EXTERNA', 'MOUSE', 'WEBCAM',
+  'ALARME DE SEGURANÇA', 'CÂMERA DE VIGILÂNCIA', 'PROJETOR MULTIMÍDIA',
+  'CAIXA DE SOM', 'FONTE EXTERNA', 'MOUSE', 'WEBCAM',
   'TÉRMICA CUPOM FISCAL', 'TÉRMICA DE ETIQUETAS', 'JATO DE TINTA',
   'LASER MULTIFUNCIONAL', 'LASER SIMPLES', 'MONITOR DE COMPUTADOR',
   'MONITOR DE TELEVISÃO', 'SMARTPHONE'
