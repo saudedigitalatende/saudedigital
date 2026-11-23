@@ -427,14 +427,14 @@ adicionarSolicitacaoGestaoAtivos(
   'Registro de ocorrência de furto, roubo ou perda de equipamento de videoconferência, com abertura de chamado para formalização, rastreabilidade e adoção das medidas administrativas cabíveis.'
 );
 
-// Disponibiliza a instalação de teclado também na categoria Dispositivos da Infraestrutura.
-const dispositivosInfra = INFRA.Dispositivos || (INFRA.Dispositivos = []);
-const instalacaoTecladoEmDispositivos = dispositivosInfra.some(item =>
+// Mouse, teclado, videoconferência e webcam pertencem à categoria Dispositivos Passivos.
+const dispositivosPassivosInfra = INFRA['Dispositivos Passivos'] || (INFRA['Dispositivos Passivos'] = []);
+const instalacaoTecladoEmDispositivos = dispositivosPassivosInfra.some(item =>
   /(?:^|\.\s*)TECLADO$/i.test(String(item.servico || '').trim()) &&
   String(item.solicitacao || '').toUpperCase().trim() === 'INSTALAÇÃO'
 );
 if (!instalacaoTecladoEmDispositivos) {
-  dispositivosInfra.push({
+  dispositivosPassivosInfra.push({
     servico: '19. TECLADO',
     dono: "INFRAESTRUTURA<br><span class='resp-group'>Grupo T&eacute;cnico: Infraestrutura</span>",
     tipo: 'REQUISIÇÃO',
@@ -447,12 +447,12 @@ if (!instalacaoTecladoEmDispositivos) {
   });
 }
 
-const instalacaoVideoconferenciaEmDispositivos = dispositivosInfra.some(item =>
+const instalacaoVideoconferenciaEmDispositivos = dispositivosPassivosInfra.some(item =>
   /(?:^|\.\s*)VIDEOCONFERÊNCIA$/i.test(String(item.servico || '').trim()) &&
   String(item.solicitacao || '').toUpperCase().trim() === 'INSTALAÇÃO'
 );
 if (!instalacaoVideoconferenciaEmDispositivos) {
-  dispositivosInfra.push({
+  dispositivosPassivosInfra.push({
     servico: 'VIDEOCONFERÊNCIA',
     dono: "INFRAESTRUTURA<br><span class='resp-group'>Grupo T&eacute;cnico: Infraestrutura</span>",
     tipo: 'REQUISIÇÃO',
@@ -464,6 +464,29 @@ if (!instalacaoVideoconferenciaEmDispositivos) {
     descricao: 'Instalação, conexão e configuração inicial do equipamento de videoconferência no local solicitado, com verificação de áudio, vídeo e funcionamento.'
   });
 }
+
+const nomesDispositivosPassivos = new Set(['MOUSE', 'TECLADO', 'VIDEOCONFERÊNCIA', 'WEBCAM']);
+function moverParaDispositivosPassivos(data) {
+  const categoriaDestino = 'Dispositivos Passivos';
+  const destino = data[categoriaDestino] || (data[categoriaDestino] = []);
+  Object.keys(data).forEach(categoria => {
+    if (categoria === categoriaDestino) return;
+    data[categoria] = data[categoria].filter(item => {
+      const nome = String(item.servico || '').replace(/^\s*\d+\.\s*/, '').toUpperCase().trim();
+      if (!nomesDispositivosPassivos.has(nome)) return true;
+      const solicitacao = String(item.solicitacao || '').toUpperCase().trim();
+      const duplicado = destino.some(itemDestino => {
+        const nomeDestino = String(itemDestino.servico || '').replace(/^\s*\d+\.\s*/, '').toUpperCase().trim();
+        return nomeDestino === nome && String(itemDestino.solicitacao || '').toUpperCase().trim() === solicitacao;
+      });
+      if (!duplicado) destino.push(item);
+      return false;
+    });
+    if (!data[categoria].length) delete data[categoria];
+  });
+}
+moverParaDispositivosPassivos(INFRA);
+moverParaDispositivosPassivos(ADMINISTRATIVO);
 
 // Serviço descontinuado: permanece apenas no Portfólio de Serviços.
 Object.keys(SISTEMAS).forEach(categoria => {
