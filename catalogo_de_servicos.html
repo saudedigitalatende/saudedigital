@@ -411,6 +411,15 @@ function adicionarSolicitacaoGestaoAtivos(servico, solicitacao, tipo, sla, descr
   );
 });
 
+// Teclado segue o mesmo atendimento patrimonial aplicado ao mouse.
+adicionarSolicitacaoGestaoAtivos(
+  'TECLADO',
+  'TRANSFERÊNCIA/LIBERAÇÃO',
+  'REQUISIÇÃO',
+  'MUITO BAIXO (3 DIAS)',
+  'Solicitação para transferência ou liberação de teclado, conforme disponibilidade, necessidade da unidade e registro no GLPI.'
+);
+
 // Serviço descontinuado: permanece apenas no Portfólio de Serviços.
 Object.keys(SISTEMAS).forEach(categoria => {
   SISTEMAS[categoria] = SISTEMAS[categoria].filter(item => {
@@ -466,7 +475,7 @@ renumerarArea(NOC, ORDEM_NOC);
 const ORDEM_ADMINISTRATIVO = [
   'CHIP', 'DESKTOP', 'NOTEBOOK', 'TABLET', 'LEITOR DE CÓDIGO DE BARRAS',
   'ALARME DE SEGURANÇA', 'CÂMERA DE VIGILÂNCIA', 'ESTABILIZADOR', 'NOBREAK',
-  'PROJETOR MULTIMÍDIA', 'CAIXA DE SOM', 'FONTE EXTERNA', 'MOUSE', 'WEBCAM',
+  'PROJETOR MULTIMÍDIA', 'CAIXA DE SOM', 'FONTE EXTERNA', 'MOUSE', 'TECLADO', 'WEBCAM',
   'TÉRMICA CUPOM FISCAL', 'TÉRMICA DE ETIQUETAS', 'JATO DE TINTA',
   'LASER MULTIFUNCIONAL', 'LASER SIMPLES', 'MONITOR DE COMPUTADOR',
   'MONITOR DE TELEVISÃO', 'SMARTPHONE'
