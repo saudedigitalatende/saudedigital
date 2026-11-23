@@ -427,7 +427,7 @@ adicionarSolicitacaoGestaoAtivos(
   'Registro de ocorrência de furto, roubo ou perda de equipamento de videoconferência, com abertura de chamado para formalização, rastreabilidade e adoção das medidas administrativas cabíveis.'
 );
 
-// Mouse, teclado, videoconferência e webcam pertencem à categoria Dispositivos Passivos.
+// Mouse, teclado, videoconferência, webcam e caixa de som pertencem à categoria Dispositivos Passivos.
 const dispositivosPassivosInfra = INFRA['Dispositivos Passivos'] || (INFRA['Dispositivos Passivos'] = []);
 const instalacaoTecladoEmDispositivos = dispositivosPassivosInfra.some(item =>
   /(?:^|\.\s*)TECLADO$/i.test(String(item.servico || '').trim()) &&
@@ -465,7 +465,7 @@ if (!instalacaoVideoconferenciaEmDispositivos) {
   });
 }
 
-const nomesDispositivosPassivos = new Set(['MOUSE', 'TECLADO', 'VIDEOCONFERÊNCIA', 'WEBCAM']);
+const nomesDispositivosPassivos = new Set(['CAIXA DE SOM', 'MOUSE', 'TECLADO', 'VIDEOCONFERÊNCIA', 'WEBCAM']);
 function moverParaDispositivosPassivos(data) {
   const categoriaDestino = 'Dispositivos Passivos';
   const destino = data[categoriaDestino] || (data[categoriaDestino] = []);
