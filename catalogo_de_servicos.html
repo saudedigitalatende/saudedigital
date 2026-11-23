@@ -488,6 +488,24 @@ function moverParaDispositivosPassivos(data) {
 moverParaDispositivosPassivos(INFRA);
 moverParaDispositivosPassivos(ADMINISTRATIVO);
 
+// Videoconferência (FALCO) ocupa a posição 21; os itens seguintes avançam uma posição.
+Object.values(INFRA).flat().forEach(item => {
+  const nomeAtual = String(item.servico || '').trim();
+  const nomeSemNumero = nomeAtual.replace(/^\s*\d+\.\s*/, '');
+  const numeroAtual = Number.parseInt((nomeAtual.match(/^\s*(\d+)\./) || [])[1], 10);
+  if (nomeSemNumero === 'VIDEOCONFERÊNCIA') {
+    item.servico = '21. VIDEOCONFERÊNCIA (FALCO)';
+  } else if (nomeSemNumero === 'OUTROS DISPOSITIVOS PASSIVOS (AUSENTE DA LISTA DE SERVIÇOS)') {
+    item.servico = '22. OUTROS DISPOSITIVOS PASSIVOS (AUSENTE DA LISTA DE SERVIÇOS)';
+  } else if (Number.isInteger(numeroAtual) && numeroAtual >= 22) {
+    item.servico = `${numeroAtual + 1}. ${nomeSemNumero}`;
+  }
+});
+Object.values(ADMINISTRATIVO).flat().forEach(item => {
+  const nomeSemNumero = String(item.servico || '').replace(/^\s*\d+\.\s*/, '');
+  if (nomeSemNumero === 'VIDEOCONFERÊNCIA') item.servico = 'VIDEOCONFERÊNCIA (FALCO)';
+});
+
 // Serviço descontinuado: permanece apenas no Portfólio de Serviços.
 Object.keys(SISTEMAS).forEach(categoria => {
   SISTEMAS[categoria] = SISTEMAS[categoria].filter(item => {
@@ -544,7 +562,7 @@ const ORDEM_ADMINISTRATIVO = [
   'CHIP', 'DESKTOP', 'NOTEBOOK', 'TABLET', 'LEITOR DE CÓDIGO DE BARRAS',
   'ALARME DE SEGURANÇA', 'CÂMERA DE VIGILÂNCIA', 'ESTABILIZADOR', 'NOBREAK',
   'PROJETOR MULTIMÍDIA', 'CAIXA DE SOM', 'FONTE EXTERNA', 'MOUSE', 'TECLADO',
-  'VIDEOCONFERÊNCIA', 'WEBCAM',
+  'VIDEOCONFERÊNCIA (FALCO)', 'WEBCAM',
   'TÉRMICA CUPOM FISCAL', 'TÉRMICA DE ETIQUETAS', 'JATO DE TINTA',
   'LASER MULTIFUNCIONAL', 'LASER SIMPLES', 'MONITOR DE COMPUTADOR',
   'MONITOR DE TELEVISÃO', 'SMARTPHONE'
