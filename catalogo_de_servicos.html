@@ -781,7 +781,7 @@ function buildCatalog(area) {
 
   // Ordenar por número do serviço. Em Gestão de Ativos e Dispositivos Móveis,
   // aplicar também dentro de cada categoria.
-  if (sheet === '' || area === 'adm') {
+  if (sheet === '' || area === 'adm' || area === 'infra') {
     const EXCECOES_FINAL = ['42. ACESSO A SITE'];
     services.sort((a, b) => {
       const aExc = EXCECOES_FINAL.includes(a);
