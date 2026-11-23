@@ -372,7 +372,7 @@ function aplicarNomeGestaoAtivos(data) {
 }
 aplicarNomeGestaoAtivos(ADMINISTRATIVO);
 
-// Completa Estabilizador, Nobreak, Teclado e Videoconferência com o mesmo conjunto de solicitações do
+// Completa Estabilizador, Nobreak e Videoconferência com o mesmo conjunto de solicitações do
 // Leitor de Código de Barras: empréstimo/devolução, transferência/liberação
 // e furto/roubo/perda.
 function adicionarSolicitacaoGestaoAtivos(servico, solicitacao, tipo, sla, descricao) {
@@ -393,7 +393,7 @@ function adicionarSolicitacaoGestaoAtivos(servico, solicitacao, tipo, sla, descr
     descricao
   });
 }
-['ESTABILIZADOR', 'NOBREAK', 'TECLADO', 'VIDEOCONFERÊNCIA'].forEach(servico => {
+['ESTABILIZADOR', 'NOBREAK', 'VIDEOCONFERÊNCIA'].forEach(servico => {
   const equipamento = servico.toLowerCase();
   adicionarSolicitacaoGestaoAtivos(
     servico,
@@ -411,13 +411,13 @@ function adicionarSolicitacaoGestaoAtivos(servico, solicitacao, tipo, sla, descr
   );
 });
 
-// Completa o terceiro atendimento patrimonial do teclado.
+// Teclado possui somente o atendimento de transferência/liberação em Gestão de Ativos.
 adicionarSolicitacaoGestaoAtivos(
   'TECLADO',
-  'FURTO/ROUBO/PERDA',
-  'INCIDENTE',
+  'TRANSFERÊNCIA/LIBERAÇÃO',
+  'REQUISIÇÃO',
   'MUITO BAIXO (3 DIAS)',
-  'Registro de ocorrência de furto, roubo ou perda de teclado, com abertura de chamado para formalização, rastreabilidade e adoção das medidas administrativas cabíveis.'
+  'Solicitação para transferência ou liberação de teclado, conforme disponibilidade, necessidade da unidade e registro no GLPI.'
 );
 adicionarSolicitacaoGestaoAtivos(
   'VIDEOCONFERÊNCIA',
