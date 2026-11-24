@@ -509,6 +509,24 @@ Object.values(ADMINISTRATIVO).flat().forEach(item => {
 // Conceito institucional único para transferência/liberação, sem citar equipe,
 // sistema de registro ou equipamento específico.
 const conceitoTransferenciaLiberacao = 'Solicitação para transferência ou liberação de equipamento, conforme disponibilidade, necessidade da unidade e procedimentos administrativos aplicáveis.';
+const impressorasGestaoAtivos = ADMINISTRATIVO.Impressoras || (ADMINISTRATIVO.Impressoras = []);
+const transferenciaCupomFiscalExiste = impressorasGestaoAtivos.some(item =>
+  String(item.servico || '').replace(/^\s*\d+\.\s*/, '').toUpperCase().trim() === 'TÉRMICA CUPOM FISCAL' &&
+  String(item.solicitacao || '').toUpperCase().trim() === 'TRANSFERÊNCIA/LIBERAÇÃO'
+);
+if (!transferenciaCupomFiscalExiste) {
+  impressorasGestaoAtivos.push({
+    servico: 'TÉRMICA CUPOM FISCAL',
+    dono: "GESTÃO DE ATIVOS<br><span class='resp-group'>Grupo T&eacute;cnico: Gestão de Ativos</span>",
+    tipo: 'REQUISIÇÃO',
+    solicitacao: 'TRANSFERÊNCIA/LIBERAÇÃO',
+    n1: 'GESTÃO DE ATIVOS',
+    n2: 'GESTÃO DE ATIVOS',
+    n3: 'GESTÃO DE ATIVOS',
+    sla: 'MUITO BAIXO (3 DIAS)',
+    descricao: conceitoTransferenciaLiberacao
+  });
+}
 [INFRA, ADMINISTRATIVO].forEach(area => {
   Object.values(area).flat().forEach(item => {
     if (String(item.solicitacao || '').toUpperCase().trim() === 'TRANSFERÊNCIA/LIBERAÇÃO') {
