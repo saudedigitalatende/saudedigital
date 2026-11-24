@@ -506,6 +506,17 @@ Object.values(ADMINISTRATIVO).flat().forEach(item => {
   if (nomeSemNumero === 'VIDEOCONFERÊNCIA') item.servico = 'VIDEOCONFERÊNCIA (FALCO)';
 });
 
+// Conceito institucional único para transferência/liberação, sem citar equipe,
+// sistema de registro ou equipamento específico.
+const conceitoTransferenciaLiberacao = 'Solicitação para transferência ou liberação de equipamento, conforme disponibilidade, necessidade da unidade e procedimentos administrativos aplicáveis.';
+[INFRA, ADMINISTRATIVO].forEach(area => {
+  Object.values(area).flat().forEach(item => {
+    if (String(item.solicitacao || '').toUpperCase().trim() === 'TRANSFERÊNCIA/LIBERAÇÃO') {
+      item.descricao = conceitoTransferenciaLiberacao;
+    }
+  });
+});
+
 // Serviço descontinuado: permanece apenas no Portfólio de Serviços.
 Object.keys(SISTEMAS).forEach(categoria => {
   SISTEMAS[categoria] = SISTEMAS[categoria].filter(item => {
