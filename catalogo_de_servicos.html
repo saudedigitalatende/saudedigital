@@ -510,6 +510,23 @@ Object.values(ADMINISTRATIVO).flat().forEach(item => {
 // sistema de registro ou equipamento específico.
 const conceitoTransferenciaLiberacao = 'Solicitação para transferência ou liberação de equipamento, conforme disponibilidade, necessidade da unidade e procedimentos administrativos aplicáveis.';
 const impressorasGestaoAtivos = ADMINISTRATIVO.Impressoras || (ADMINISTRATIVO.Impressoras = []);
+const emprestimoCupomFiscalExiste = impressorasGestaoAtivos.some(item =>
+  String(item.servico || '').replace(/^\s*\d+\.\s*/, '').toUpperCase().trim() === 'TÉRMICA CUPOM FISCAL' &&
+  String(item.solicitacao || '').toUpperCase().trim() === 'EMPRÉSTIMO/DEVOLUÇÃO'
+);
+if (!emprestimoCupomFiscalExiste) {
+  impressorasGestaoAtivos.push({
+    servico: 'TÉRMICA CUPOM FISCAL',
+    dono: "GESTÃO DE ATIVOS<br><span class='resp-group'>Grupo T&eacute;cnico: Gestão de Ativos</span>",
+    tipo: 'REQUISIÇÃO',
+    solicitacao: 'EMPRÉSTIMO/DEVOLUÇÃO',
+    n1: 'GESTÃO DE ATIVOS',
+    n2: 'GESTÃO DE ATIVOS',
+    n3: 'GESTÃO DE ATIVOS',
+    sla: 'PLANEJADO (15 DIAS)',
+    descricao: 'Procedimento para registrar empréstimo temporário ou devolução de equipamento, conforme disponibilidade, autorização administrativa e controle de responsabilidade do usuário ou unidade.'
+  });
+}
 const transferenciaCupomFiscalExiste = impressorasGestaoAtivos.some(item =>
   String(item.servico || '').replace(/^\s*\d+\.\s*/, '').toUpperCase().trim() === 'TÉRMICA CUPOM FISCAL' &&
   String(item.solicitacao || '').toUpperCase().trim() === 'TRANSFERÊNCIA/LIBERAÇÃO'
